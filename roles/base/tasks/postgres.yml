@@ -14,7 +14,7 @@
     warn: no
 
 - name: Install pg_hba.conf file
-  copy: service postgresql initdb
+  copy:
     src: postgres/pg_hba.conf
     dest: /var/lib/pgsql/data/pg_hba.conf
    
