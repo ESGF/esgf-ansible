@@ -3,6 +3,7 @@
 
 # Import base Components
 # -import_playbook: base.yml
-- roles:
-  - base
+- hosts: data
+  roles:
+    - base
   # - data
