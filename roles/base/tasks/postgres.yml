@@ -8,7 +8,13 @@
       - "{{ pkgs.postgres_server }}"
 
 - name: Initialize postgres
-  command: "service postgresql initdb"
+  command: service postgresql initdb
   args:
-    creates: "/var/lib/pgsql/data/*"
+    creates: /var/lib/pgsql/data/*
     warn: no
+
+- name: Install pg_hba.conf file
+  copy: service postgresql initdb
+    src: postgres/pg_hba.conf
+    dest: /var/lib/pgsql/data/pg_hba.conf
+   
