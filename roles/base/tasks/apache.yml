@@ -4,4 +4,3 @@
 - name: Ensure the apache webserver installed
   package:
     name: "{{ pkgs.apache }}"
-    state: present
