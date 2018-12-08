@@ -10,4 +10,4 @@
 - name: Initialize postgres
   command: "service postgresql initdb"
   args:
-    creates: "/var/lib/pgsql/data"
+    creates: "/var/lib/pgsql/data/*"
