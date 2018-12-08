@@ -11,3 +11,4 @@
   command: "service postgresql initdb"
   args:
     creates: "/var/lib/pgsql/data/*"
+    warn: no
