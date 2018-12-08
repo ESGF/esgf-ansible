@@ -17,4 +17,9 @@
   copy:
     src: postgres/pg_hba.conf
     dest: /var/lib/pgsql/data/pg_hba.conf
-   
+
+- name: Create db super user
+  postgresql_user:
+    name: "{{ db.users.super.name }}"
+    password: "{{ db.users.super.pass }}"
+    role_attr_flags: SUPERUSER

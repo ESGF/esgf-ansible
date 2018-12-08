@@ -1,4 +1,13 @@
 pkgs:
-  apache: "httpd"
-  postgres_server: "postgresql-server-8.4.20"
-  postgres_devel: "postgresql-devel-8.4.20"
+  apache: httpd
+  postgres_server: postgresql-server-8.4.20
+  postgres_devel: postgresql-devel-8.4.20
+
+db:
+  users:
+    super: 
+      name: dbsuper
+      pass: foobar
+    pub:
+      name: esgcet
+      pass: foobar
