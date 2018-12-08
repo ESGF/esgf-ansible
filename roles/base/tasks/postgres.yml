@@ -1,0 +1,9 @@
+
+# Install the postgres server and devel files
+
+- name: Ensure the postgres dataserver installed
+  package:
+    name: 
+      - "{{ pkgs.postgres_devel }}"
+      - "{{ pkgs.postgres_server }}"
+    state: present

@@ -1,1 +1,4 @@
-apache_pkg: "httpd"
+pkgs:
+  apache: "httpd"
+  postgres_server: "postgresql-server-8.4.20"
+  postgres_devel: "postgresql-devel-8.4.20"
