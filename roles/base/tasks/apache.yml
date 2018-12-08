@@ -3,5 +3,5 @@
 
 - name: Ensure the apache webserver installed
   package:
-    name: {{ apache_pkg }}
+    name: "{{ apache_pkg }}"
     state: present
