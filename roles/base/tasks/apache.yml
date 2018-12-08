@@ -1,0 +1,7 @@
+
+# Ensure the apache webserver is installed and configured
+
+- name: Ensure the apache webserver installed
+  package:
+    name: {{ apache_pkg }}
+    state: present
