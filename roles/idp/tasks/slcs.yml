@@ -1,5 +1,5 @@
 
 - name: Create SLCS conda env
-  command: "/root/miniconda2/bin/conda create -n slcs 'python<3' pip"
+  command: "/root/miniconda2/bin/conda create -y -n slcs 'python<3' pip"
   args:
     creates: /root/miniconda2/bin/conda/envs/slcs
