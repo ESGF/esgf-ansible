@@ -1,0 +1,6 @@
+
+db:
+  users:
+    pub:
+      name: esgcet
+      pass: foobar

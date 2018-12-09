@@ -6,3 +6,9 @@ slcs:
 idp_webapp:
   url: "{{ mirror.base }}/2.6/8/esgf-idp/esgf-idp.war"
   name: esgf-idp
+
+db:
+  dbs:
+    - esgcet
+  schemas:
+    - esgf-security

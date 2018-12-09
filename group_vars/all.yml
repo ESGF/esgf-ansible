@@ -23,6 +23,3 @@ db:
     super: 
       name: dbsuper
       pass: foobar
-    pub:
-      name: esgcet
-      pass: foobar
