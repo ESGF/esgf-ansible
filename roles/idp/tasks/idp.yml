@@ -10,3 +10,10 @@
     dest: "{{ tomcat.webapps }}/{{ idp_webapp.name }}"
     remote_src: yes
     creates: "{{ tomcat.webapps }}/{{ idp_webapp.name }}/*"
+
+- name: Set IDP Webapp Ownership
+  file:
+    path: "{{ tomcat.webapps }}/{{ idp_webapp.name }}"
+    owner: tomcat
+    group: tomcat
+    recurse: yes
