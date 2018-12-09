@@ -22,7 +22,7 @@
 - name: Start postgres
   service:
     name: postgresql
-    state: restarted
+    state: started
     enabled: yes
 
 - name: Create db super user

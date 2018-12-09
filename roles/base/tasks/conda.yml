@@ -1,0 +1,11 @@
+
+
+- name: Download miniconda2 installer
+  get_url:
+    url: https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
+    dest: /tmp/Miniconda2-latest-Linux-x86_64.sh
+
+- name: Run miniconda2 installer
+  command: bash /tmp/Miniconda2-latest-Linux-x86_64.sh -b
+  args:
+    creates: "{{ ansible_env.HOME }}/miniconda2"

@@ -1,7 +1,6 @@
 
 # Data ESGF Node Componenets
 
-# Import base Components
 - hosts: data
   roles:
     - base
