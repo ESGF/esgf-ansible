@@ -6,8 +6,8 @@ pkgs:
 
 conda:
   prefix: /usr/local/conda
-  exe: "{{ conda_prefix }}/bin/conda"
-  actv: "source {{ conda_prefix }}/bin/activate"
+  exe: "{{ conda.prefix }}/bin/conda"
+  actv: "source {{ conda.prefix }}/bin/activate"
 
 db:
   users:
