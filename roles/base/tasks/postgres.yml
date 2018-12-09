@@ -6,6 +6,7 @@
     name: 
       - "{{ pkgs.postgres_devel }}"
       - "{{ pkgs.postgres_server }}"
+      - "{{ pkgs.psgycopg2 }}"
 
 - name: Initialize postgres
   command: service postgresql initdb
@@ -17,6 +18,12 @@
   copy:
     src: postgres/pg_hba.conf
     dest: /var/lib/pgsql/data/pg_hba.conf
+
+- name: Start postgres
+  service:
+    name: postgresql
+    state: restarted
+    enabled: yes
 
 - name: Create db super user
   postgresql_user:

@@ -2,6 +2,7 @@ pkgs:
   apache: httpd
   postgres_server: postgresql-server-8.4.20
   postgres_devel: postgresql-devel-8.4.20
+  psgycopg2: python-psycopg2
 
 db:
   users:
