@@ -1,3 +1,6 @@
 
 - name: Import slcs tasks
   import_tasks: slcs.yml
+
+- name: Import idp webapp task
+  import_tasks: idp.yml

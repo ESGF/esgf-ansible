@@ -1,0 +1,7 @@
+
+- name: IDP Webapp Download
+  unarchive:
+    src: "{{ idp_webapp.url }}"
+    dest: "{{ tomcat.webapps }}"
+    remote_src: yes
+    creates: "{{ tomcat.webapps }}/{{ idp_webapp.name }}"

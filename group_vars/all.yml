@@ -15,6 +15,9 @@ tomcat:
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
 
+mirror:
+  base: http://aims1.llnl.gov/esgf/dist/
+
 db:
   users:
     super: 

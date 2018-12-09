@@ -13,7 +13,7 @@
     src: "{{ tomcat.src }}"
     dest: /tmp
     remote_src: yes
-    creates: /tmp/{{ tomcat.root_dir }}
+    creates: "/tmp/{{ tomcat.root_dir }}"
 
 - name: Install tomcat
   command: "cp -R /tmp/{{ tomcat.root_dir }} {{ tomcat.path }}"

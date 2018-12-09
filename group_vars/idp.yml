@@ -2,3 +2,7 @@ slcs:
   repo: https://github.com/ESGF/esgf-slcs-server.git
   version: master
   src: /usr/local/esgf-slcs-server/src/esgf-slcs-server
+
+idp_webapp:
+  url: "{{ mirror.base }}/2.6/8/esgf-idp/esgf-idp.war"
+  name: esgf-idp
