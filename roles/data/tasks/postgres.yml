@@ -1,6 +1,7 @@
 
 
 - name: Create db publisher user
+  become_user: postgres
   postgresql_user:
     name: "{{ db.users.pub.name }}"
     password: "{{ db.users.pub.pass }}"

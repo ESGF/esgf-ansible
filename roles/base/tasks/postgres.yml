@@ -26,6 +26,7 @@
     enabled: yes
 
 - name: Create db super user
+  become_user: postgres
   postgresql_user:
     name: "{{ db.users.super.name }}"
     password: "{{ db.users.super.pass }}"
