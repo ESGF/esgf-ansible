@@ -1,0 +1,4 @@
+slcs:
+  repo: https://github.com/ESGF/esgf-slcs-server.git
+  version: master
+  src: /usr/local/esgf-slcs-server/src/esgf-slcs-server

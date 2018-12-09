@@ -1,4 +1,10 @@
 
+- name: Install SLCS Repo
+  git:
+    repo: "{{ slcs.repo }}"
+    version: "{{ slcs.version }}"
+    dest: "{{ slcs.src }}"
+
 - name: Create SLCS conda env
   command: "{{ conda.exe }} create -y -n slcs 'python<3' pip"
   args:
