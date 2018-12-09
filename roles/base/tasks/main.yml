@@ -12,3 +12,8 @@
 
 - name: Import tomcat tasks
   import_tasks: tomcat.yml
+
+- name: Install basic utilities
+  package:
+    name:
+      - unzip
