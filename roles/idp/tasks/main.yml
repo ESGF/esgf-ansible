@@ -2,12 +2,12 @@
 - name: Ensure required dbs exist
   postgresql_db:
     name: "{{ item }}"
-  with_items: db.dbs
+  with_items: idp_db.dbs
 
 - name: Ensure required dbs exist
   postgresql_schema:
     name: "{{ item }}"
-  with_items: db.schemas
+  with_items: idp_db.schemas
 
 - name: Import slcs tasks
   import_tasks: slcs.yml
