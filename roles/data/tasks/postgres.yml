@@ -4,5 +4,5 @@
   become: yes
   become_user: postgres
   postgresql_user:
-    name: "{{ db.users.pub.name }}"
-    password: "{{ db.users.pub.pass }}"
+    name: "{{ data_db.users.pub.name }}"
+    password: "{{ data_db.users.pub.pass }}"
