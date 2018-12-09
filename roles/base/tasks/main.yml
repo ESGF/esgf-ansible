@@ -6,3 +6,6 @@
 
 - name: Import postgres tasks
   import_tasks: postgres.yml
+
+- name: Import conda tasks
+  import_tasks: conda.yml
