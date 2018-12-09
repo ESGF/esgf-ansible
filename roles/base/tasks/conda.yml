@@ -6,6 +6,6 @@
     dest: /tmp/Miniconda2-latest-Linux-x86_64.sh
 
 - name: Run miniconda2 installer
-  command: bash /tmp/Miniconda2-latest-Linux-x86_64.sh -b
+  command: "bash /tmp/Miniconda2-latest-Linux-x86_64.sh -b -p {{ conda_prefix }}"
   args:
-    creates: "{{ ansible_env.HOME }}/miniconda2"
+    creates: "{{ conda_prefix }}"
