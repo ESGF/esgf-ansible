@@ -10,6 +10,18 @@
 
 - name: Tomcat Download
   unarchive:
-    src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
+    src: "{{ tomcat.src }}"
     dest: /tmp
     remote_src: yes
+
+- name: Install tomcat
+  command: "cp /tmp/apache-tomcat-8.5.20 {{ tomcat.path }}"
+  args:
+    creates: "{{ tomcat.path }}" 
+
+- name: Set Ownership
+  file:
+    path: "{{ tomcat.path }}"
+    owner: tomcat
+    group: tomcat
+    recurse: yes
