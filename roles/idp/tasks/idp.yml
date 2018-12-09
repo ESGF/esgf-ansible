@@ -9,4 +9,4 @@
     src: "{{ idp_webapp.url }}"
     dest: "{{ tomcat.webapps }}/{{ idp_webapp.name }}"
     remote_src: yes
-    creates: "{{ tomcat.webapps }}/{{ idp_webapp.name }}"
+    creates: "{{ tomcat.webapps }}/{{ idp_webapp.name }}/*"
