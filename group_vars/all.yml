@@ -4,9 +4,10 @@ pkgs:
   postgres_devel: postgresql-devel-8.4.20
   psgycopg2: python-psycopg2
 
-conda_prefix: /usr/local/conda
-conda: "{{ conda_prefix }}/bin/conda"
-activate: "{{ conda_prefix }}/bin/activate"
+conda:
+  prefix: /usr/local/conda
+  exe: "{{ conda_prefix }}/bin/conda"
+  actv: "source {{ conda_prefix }}/bin/activate"
 
 db:
   users:

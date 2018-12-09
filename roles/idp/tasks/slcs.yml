@@ -1,5 +1,5 @@
 
 - name: Create SLCS conda env
-  command: "{{ conda }} create -y -n slcs 'python<3' pip"
+  command: "{{ conda.exe }} create -y -n slcs 'python<3' pip"
   args:
-    creates: "{{ conda_prefix }}/envs/slcs"
+    creates: "{{ conda.prefix }}/envs/slcs"
