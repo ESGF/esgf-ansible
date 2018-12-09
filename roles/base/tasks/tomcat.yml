@@ -15,9 +15,20 @@
     remote_src: yes
 
 - name: Install tomcat
-  command: "cp -R /tmp/apache-tomcat-8.5.20 {{ tomcat.path }}"
+  command: "cp -R /tmp/{{ tomcat.root_dir }} {{ tomcat.path }}"
   args:
     creates: "{{ tomcat.path }}" 
+
+- name: Cleanup default webapps
+  file:
+    path: "{{ tomcat.webapps }}/{{ item }}"
+    state: absent
+  with_items:
+    - ROOT
+    - manager
+    - host-manager
+    - examples
+    - docs
 
 - name: Set Ownership
   file:
