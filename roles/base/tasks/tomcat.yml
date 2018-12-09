@@ -15,7 +15,7 @@
     remote_src: yes
 
 - name: Install tomcat
-  command: "cp /tmp/apache-tomcat-8.5.20 {{ tomcat.path }}"
+  command: "cp -R /tmp/apache-tomcat-8.5.20 {{ tomcat.path }}"
   args:
     creates: "{{ tomcat.path }}" 
 
