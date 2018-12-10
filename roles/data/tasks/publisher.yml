@@ -7,4 +7,4 @@
 - name: Install publisher
   shell: >
     {{ conda.actv }} idp && \
-    pip install {{ publisher.pip.name }}
+    pip install '{{ publisher.pip.name }}'
