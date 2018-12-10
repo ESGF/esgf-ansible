@@ -1,4 +1,16 @@
 
+# Ensure httpd Webserver is installed
+- name: Ensure the apache webserver installed
+  package:
+    name:
+      - "{{ pkgs.apache }}"
+      - "mod_ssl"
+
+# Ensure Tomcat Webserver is installed
+- name: Import Tomcat Install
+  import_tasks: tomcat.yml
+
+# Add the specified webapp as a remote .war file
 - name: "Create {{ webapp.name }} Webapp Directory"
   file:
     path: "{{ tomcat.webapps }}/{{ webapp.name }}"
@@ -17,3 +29,5 @@
     owner: tomcat
     group: tomcat
     recurse: yes
+
+# Add configuration files

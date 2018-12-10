@@ -1,8 +1,0 @@
-
-# Ensure the apache webserver is installed and configured
-
-- name: Ensure the apache webserver installed
-  package:
-    name: 
-      - "{{ pkgs.apache }}"
-      - "mod_ssl"

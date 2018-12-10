@@ -5,4 +5,7 @@
 - hosts: index
   roles:
     - base
-    - index
+    # - index
+    - role: tomcat_webapp
+      vars:
+        webapp: "{{ search_webapp }}"

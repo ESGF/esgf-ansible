@@ -7,3 +7,6 @@
   roles:
     - base
     - idp
+    - role: tomcat_webapp
+      vars:
+        webapp: "{{ idp_webapp }}"
