@@ -3,4 +3,6 @@
 
 - name: Ensure the apache webserver installed
   package:
-    name: "{{ pkgs.apache }}"
+    name: 
+      - "{{ pkgs.apache }}"
+      - "mod_ssl"
