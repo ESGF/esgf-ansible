@@ -1,0 +1,44 @@
+
+# - name: Make cog Directory
+#   file:
+#     path: /usr/local/cog
+#     state: directory
+
+- name: Clone cog Repo
+  git: 
+    repo: "{{ cog.repo }}"
+    dest: "{{ cog.dest }}"
+    version: "{{ cog.version }}"
+
+- name: Clone Transfer API Client Repo
+  git: 
+    repo: "https://github.com/globusonline/transfer-api-client-python.git"
+    dest: "{{ cog.base }}/transfer-api-client-python"
+
+- name: Create CoG conda env
+  command: "{{ conda.exe }} create -y -n cog 'python<3' pip"
+  args:
+    creates: "{{ conda.prefix }}/envs/cog"
+
+- name: Install CoG Requirments
+  shell: >
+    {{ conda.actv }} cog && \
+    pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
+  args:
+    chdir: "{{ cog.dest }}"
+  #   creates:
+
+- name: Install CoG into conda env
+  shell: >
+    {{ conda.actv }} cog && \
+    python setup.py --quiet install
+  args:
+    chdir: "{{ cog.dest }}"
+  #   creates:
+
+- name: Set Ownership
+  file:
+    path: "{{ cog.base }}"
+    owner: apache
+    group: apache
+    recurse: yes

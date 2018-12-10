@@ -4,6 +4,12 @@ search_webapp:
   name: esg-search
 
 solr:
-  src: "http://archive.apache.org/dist/lucene/solr/5.5.5/solr-5.5.5.tgz"
+  src: http://archive.apache.org/dist/lucene/solr/5.5.5/solr-5.5.5.tgz
   root_dir: solr-5.5.5
-  path: "/usr/local/solr"
+  path: /usr/local/solr
+
+cog:
+  repo: https://github.com/William-Hill/COG.git
+  version: ESGF_3.0
+  dest: /usr/local/cog/cog_install
+  base: /usr/local/cog
