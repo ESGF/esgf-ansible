@@ -1,0 +1,8 @@
+[data]
+localhost ansible_connection=local
+
+[index]
+localhost ansible_connection=local
+
+[idp]
+localhost ansible_connection=local

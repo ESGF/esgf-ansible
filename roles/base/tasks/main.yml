@@ -1,0 +1,19 @@
+
+# Entry point for installing base components
+
+- name: Import apache webserver tasks
+  import_tasks: apache.yml
+
+- name: Import postgres tasks
+  import_tasks: postgres.yml
+
+- name: Import conda tasks
+  import_tasks: conda.yml
+
+- name: Import tomcat tasks
+  import_tasks: tomcat.yml
+
+- name: Install basic utilities
+  package:
+    name:
+      - unzip

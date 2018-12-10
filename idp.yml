@@ -1,0 +1,9 @@
+
+# Index ESGF Node Componenets
+
+# Import base Components
+# -import_playbook: base.yml
+- hosts: idp
+  roles:
+    - base
+    - idp

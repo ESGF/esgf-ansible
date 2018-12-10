@@ -1,0 +1,7 @@
+
+- include_role:
+    name: tomcat_webapp
+  vars:
+    webapp: "{{ item }}"
+  with_items:
+    - "{{ search_webapp }}"

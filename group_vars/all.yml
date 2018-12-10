@@ -1,0 +1,25 @@
+pkgs:
+  apache: httpd
+  postgres_server: postgresql-server-8.4.20
+  postgres_devel: postgresql-devel-8.4.20
+  psgycopg2: python-psycopg2
+
+conda:
+  prefix: /usr/local/conda
+  exe: "/usr/local/conda/bin/conda"
+  actv: "source /usr/local/conda/bin/activate"
+
+tomcat:
+  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
+  root_dir: apache-tomcat-8.5.20
+  path: /usr/local/tomcat
+  webapps: /usr/local/tomcat/webapps
+
+mirror:
+  base: http://aims1.llnl.gov/esgf/dist/
+
+all_db:
+  users:
+    super: 
+      name: dbsuper
+      pass: foobar

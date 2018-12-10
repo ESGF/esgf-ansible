@@ -1,0 +1,7 @@
+
+# Data ESGF Node Componenets
+
+- hosts: data
+  roles:
+    - base
+    - data

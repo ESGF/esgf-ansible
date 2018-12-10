@@ -1,0 +1,21 @@
+slcs:
+  repo: https://github.com/ESGF/esgf-slcs-server.git
+  version: master
+  src: /usr/local/esgf-slcs-server/src/esgf-slcs-server
+
+idp_webapp:
+  url: "{{ mirror.base }}/2.6/8/esgf-idp/esgf-idp.war"
+  name: esgf-idp
+
+# security_webapp:
+#   url: "{{ mirror.base }}/esgf-security/esgf-security.war"
+#   name: esgf-security
+
+idp_db:
+  dbs:
+    - esgcet
+
+security:
+  egg:
+    name: "esgf_security-0.1.5-py2.7.egg"
+    url: "{{ mirror.base }}/devel/3.0/a/esgf-security/esgf_security-0.1.5-py2.7.egg"

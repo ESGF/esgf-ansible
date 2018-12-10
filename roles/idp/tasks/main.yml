@@ -1,0 +1,21 @@
+
+- name: Ensure required dbs exist
+  become: yes  
+  become_user: postgres
+  postgresql_db:
+    name: "{{ item }}"
+  with_items: "{{ idp_db.dbs }}"
+
+- name: Import slcs tasks
+  import_tasks: slcs.yml
+
+- name: Import security tasks
+  import_tasks: security.yml
+
+- include_role:
+    name: tomcat_webapp
+  vars:
+    webapp: "{{ item }}"
+  with_items:
+    - "{{ idp_webapp }}"
+    # - "{{ security_webapp }}"

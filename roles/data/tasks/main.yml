@@ -1,0 +1,11 @@
+
+- name: Import postgres tasks
+  import_tasks: postgres.yml
+
+- include_role:
+    name: tomcat_webapp
+  vars:
+    webapp: "{{ item }}"
+  with_items:
+    - "{{ thredds_webapp }}"
+    - "{{ orp_webapp }}"

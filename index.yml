@@ -1,0 +1,8 @@
+
+# Index ESGF Node Componenets
+
+# Import base Components
+- hosts: index
+  roles:
+    - base
+    - index
