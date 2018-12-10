@@ -8,6 +8,8 @@ conda:
   prefix: /usr/local/conda
   exe: "/usr/local/conda/bin/conda"
   actv: "source /usr/local/conda/bin/activate"
+  envs: /usr/local/conda/envs
+  mods: lib/python2.7/site-packages
 
 tomcat:
   src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
@@ -26,3 +28,10 @@ all_db:
     super: 
       name: dbsuper
       pass: foobar
+  db: esgcet
+  host: localhost
+  port: 5432
+
+properties:
+  dest: /esg/config/esgf.properties
+  fragments: /tmp/properties_fragments/

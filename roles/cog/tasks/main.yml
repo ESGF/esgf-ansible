@@ -18,7 +18,7 @@
 - name: Create CoG conda env
   command: "{{ conda.exe }} create -y -n cog 'python<3' pip"
   args:
-    creates: "{{ conda.prefix }}/envs/cog"
+    creates: "{{ conda.envs }}/cog"
 
 - name: Install CoG Requirments
   shell: >
@@ -26,7 +26,7 @@
     pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
   args:
     chdir: "{{ cog.dest }}"
-  #   creates:
+    creates: "{{ conda.envs }}/cog/{{ conda.mods }}/mod_wsgi*"
 
 - name: Install CoG into conda env
   shell: >
@@ -34,7 +34,7 @@
     python setup.py --quiet install
   args:
     chdir: "{{ cog.dest }}"
-  #   creates:
+    creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
 - name: Set Ownership
   file:

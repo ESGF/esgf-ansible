@@ -7,9 +7,9 @@
 - name: Create idp conda env
   command: "{{ conda.exe }} create -y -n idp 'python<3' pip"
   args:
-    creates: "{{ conda.prefix }}/envs/idp"
+    creates: "{{ conda.envs }}/idp"
 
 - name: Easy Install schema migration scripts
   shell: "{{ conda.actv }} idp && easy_install /tmp/{{ security.egg.name }}"
   args:
-    creates: "{{ conda.prefix }}/envs/idp/lib/python2.7/site-packages/{{ security.egg.name }}"
+    creates: "{{ conda.envs }}/idp/{{ conda.mods }}/{{ security.egg.name }}"
