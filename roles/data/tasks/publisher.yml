@@ -15,5 +15,5 @@
 
 - name: Install publisher
   shell: >
-    {{ conda.actv }} idp && \
+    {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}'
