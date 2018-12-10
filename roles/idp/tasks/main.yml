@@ -18,10 +18,7 @@
 - include_role:
     name: tomcat_webapp
   vars:
-    webapp:
-      name: "{{ item.name }}"
-      url: "{{ item.url }}"
+    webapp: "{{ item }}"
   with_items:
-    - name: "{{ idp_webapp.name }}"
-      url: "{{ idp_webapp.url }}"
-  
+    - "{{ idp_webapp }}"
+    - "{{ security_webapp }}"
