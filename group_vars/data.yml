@@ -1,4 +1,8 @@
 
+thredds_webapp:
+  url: "{{ mirror.base }}/2.6/8/thredds/5.0/5.0.2/thredds.war"
+  name: thredds
+
 data_db:
   users:
     pub:

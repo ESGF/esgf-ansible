@@ -11,5 +11,5 @@
 
 - name: Easy Install schema migration scripts
   shell: "{{ conda.actv }} idp && easy_install /tmp/{{ security.egg.name }}"
-  # args:
-  #   creates: "{{ conda.prefix }}/envs/idp"
+  args:
+    creates: "{{ conda.prefix }}/envs/idp/lib/python2.7/site-packages/{{ security.egg.name }}"

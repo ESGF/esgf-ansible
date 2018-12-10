@@ -18,4 +18,4 @@
     webapp: "{{ item }}"
   with_items:
     - "{{ idp_webapp }}"
-    - "{{ security_webapp }}"
+    # - "{{ security_webapp }}"
