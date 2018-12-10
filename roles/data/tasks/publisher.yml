@@ -6,6 +6,7 @@
       - "libxml2-devel"
       - "libxslt"
       - "libxslt-devel"
+      - "gcc"
 
 - name: Create esgf-pub conda env
   command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip"
