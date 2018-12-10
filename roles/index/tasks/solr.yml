@@ -1,0 +1,21 @@
+
+- name: solr Group
+  group:
+    name: solr
+
+- name: solr User
+  user:
+    name: solr
+    groups: solr
+
+- name: solr Download
+  unarchive:
+    src: "{{ solr.src }}"
+    dest: /tmp
+    remote_src: yes
+    creates: "/tmp/{{ solr.root_dir }}"
+
+- name: Install solr
+  command: "cp -R /tmp/{{ solr.root_dir }} {{ solr.path }}"
+  args:
+    creates: "{{ solr.path }}"

@@ -1,9 +1,9 @@
 
-- name: Tomcat Group
+- name: tomcat Group
   group:
     name: tomcat
 
-- name: Tomcat User
+- name: tomcat User
   user:
     name: tomcat
     groups: tomcat

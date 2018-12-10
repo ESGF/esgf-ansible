@@ -2,3 +2,8 @@
 search_webapp:
   url: "{{ mirror.base }}/2.6/8/esg-search/esg-search.war"
   name: esg-search
+
+solr:
+  src: "http://archive.apache.org/dist/lucene/solr/5.5.5/solr-5.5.5.tgz"
+  root_dir: solr-5.5.5
+  path: "/usr/local/solr"
