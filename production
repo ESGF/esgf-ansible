@@ -1,3 +1,4 @@
+
 [data]
 localhost ansible_connection=local
 

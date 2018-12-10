@@ -4,3 +4,7 @@
 
 - name: Import globus tasks
   import_tasks: globus.yml
+
+- name: Import publisher tasks
+  import_tasks: publisher.yml
+

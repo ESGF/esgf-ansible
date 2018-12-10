@@ -1,0 +1,19 @@
+
+- name: Install publisher required libraries
+  package:
+    name:
+      - "libxml2"
+      - "libxml2-devel"
+      - "libxslt"
+      - "libxslt-devel"
+      - "gcc"
+
+- name: Create esgf-pub conda env
+  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip"
+  args:
+    creates: "{{ conda.prefix }}/envs/esgf-pub"
+
+- name: Install publisher
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    pip install '{{ publisher.pip.name }}'
