@@ -12,3 +12,8 @@
 - name: Install globus-connect-server .rpm file
   package:
     name: /tmp/globus-connect-server-repo-latest.noarch.rpm
+
+- name: Add ESGF RPM Repo
+  template:
+    src: esgf.repo.j2
+    dest: /etc/yum.repos.d/esgf.repo

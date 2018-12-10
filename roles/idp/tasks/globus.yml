@@ -2,6 +2,10 @@
 - import_role: 
     name: globus
 
-- name: Install globus-connect-server-id
-  package:
-    name: globus-connect-server-id
+- name: Install Globus IDP services
+  yum:
+    disable_gpg_check: yes
+    name: 
+      - globus-connect-server-id
+      - mhash
+      - pam-pgsql
