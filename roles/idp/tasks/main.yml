@@ -15,9 +15,12 @@
 - name: Import security tasks
   import_tasks: security.yml
 
-- import_role:
+- include_role:
     name: tomcat_webapp
-  webapp: "{{ item }}"
+  vars:
+    webapp:
+      name: "{{ item.name }}"
+      url: "{{ item.url }}"
   with_items:
     - name: "{{ idp_webapp.name }}"
       url: "{{ idp_webapp.url }}"
