@@ -8,3 +8,4 @@
     webapp: "{{ item }}"
   with_items:
     - "{{ thredds_webapp }}"
+    - "{{ orp_webapp }}"
