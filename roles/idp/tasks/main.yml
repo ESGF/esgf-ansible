@@ -9,5 +9,16 @@
 - name: Import slcs tasks
   import_tasks: slcs.yml
 
-- name: Import idp webapp task
-  import_tasks: idp.yml
+# - name: Import idp webapp task
+#   import_tasks: idp.yml
+
+- name: Import security tasks
+  import_tasks: security.yml
+
+- import_role:
+    name: tomcat_webapp
+  webapp: "{{ item }}"
+  with_items:
+    - name: "{{ idp_webapp.name }}"
+      url: "{{ idp_webapp.url }}"
+  

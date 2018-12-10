@@ -1,0 +1,19 @@
+
+- name: Create {{ webapp.name }} Webapp Directory
+  file:
+    path: "{{ tomcat.webapps }}/{{ webapp.name }}"
+    state: directory
+
+- name: IDP Webapp Download
+  unarchive:
+    src: "{{ webapp.url }}"
+    dest: "{{ tomcat.webapps }}/{{ webapp.name }}"
+    remote_src: yes
+    creates: "{{ tomcat.webapps }}/{{ webapp.name }}/WEB-INF"
+
+- name: Set IDP Webapp Ownership
+  file:
+    path: "{{ tomcat.webapps }}/{{ webapp.name }}"
+    owner: tomcat
+    group: tomcat
+    recurse: yes
