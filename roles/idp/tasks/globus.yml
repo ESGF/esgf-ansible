@@ -1,0 +1,7 @@
+
+- import_role: 
+    name: globus
+
+- name: Install globus-connect-server-id
+  package:
+    name: globus-connect-server-id

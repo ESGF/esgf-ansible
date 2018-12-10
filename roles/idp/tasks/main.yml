@@ -11,3 +11,6 @@
 
 - name: Import security tasks
   import_tasks: security.yml
+
+- name: Import globus tasks
+  import_tasks: globus.yml
