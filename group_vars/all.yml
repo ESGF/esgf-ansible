@@ -32,6 +32,9 @@ all_db:
   host: localhost
   port: 5432
 
+schema_migrate:
+  env: schema-migrate 
+
 properties:
   dest: /esg/config/esgf.properties
   fragments: /tmp/properties_fragments/

@@ -1,0 +1,15 @@
+
+- name: Download schema migration scripts
+  get_url:
+    url: "{{ egg.url }}"
+    dest: "/tmp/{{ egg.name }}"
+
+- name: Create {{ schema_migrate.env }} conda env
+  command: "{{ conda.exe }} create -y -n {{ schema_migrate.env }} 'python<3' pip"
+  args:
+    creates: "{{ conda.envs }}/{{ schema_migrate.env }}"
+
+- name: Easy Install schema migration scripts
+  shell: "{{ conda.actv }} {{ schema_migrate.env }}  && easy_install /tmp/{{ egg.name }}"
+  args:
+    creates: "{{ conda.envs }}/{{ schema_migrate.env }} /{{ conda.mods }}/{{ egg.name }}"

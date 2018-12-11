@@ -12,3 +12,8 @@
 
 - name: Import conda tasks
   import_tasks: conda.yml
+
+- name: Install base properties fragment
+  template:
+    src: base.properties.j2
+    dest: "{{ properties.fragments }}/base.properties"

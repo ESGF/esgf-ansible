@@ -1,0 +1,9 @@
+
+- name: Install Dashboard and Node Manager Schema Migration Script
+  include_role:
+    name: schema_migrate
+  vars: 
+    egg: "{{ item }}"
+  with_items:
+    - "{{ dashboard.egg }}"
+    - "{{ node_manager.egg }}"

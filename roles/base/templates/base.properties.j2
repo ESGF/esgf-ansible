@@ -1,6 +1,9 @@
 esgf.host={{ ansible_nodename }}
+esgf.idp.peer={{ groups['idp'] | join('') }}
+esgf.index.peer={{ groups['index'] | join('') }}
 
 db.database={{ all_db.db }}
 db.host={{ all_db.host }}
 db.port={{ all_db.port }}
 db.user={{ all_db.users.super.name }}
+

@@ -11,3 +11,6 @@
     - role: tomcat_webapp
       vars:
         webapp: "{{ orp_webapp }}"
+    - role: tomcat_webapp
+      vars:
+        webapp: "{{ stats_webapp }}"

@@ -1,15 +1,6 @@
 
-- name: Download schema migration scripts
-  get_url:
-    url: "{{ security.egg.url }}"
-    dest: "/tmp/{{ security.egg.name }}"
-
-- name: Create idp conda env
-  command: "{{ conda.exe }} create -y -n idp 'python<3' pip"
-  args:
-    creates: "{{ conda.envs }}/idp"
-
-- name: Easy Install schema migration scripts
-  shell: "{{ conda.actv }} idp && easy_install /tmp/{{ security.egg.name }}"
-  args:
-    creates: "{{ conda.envs }}/idp/{{ conda.mods }}/{{ security.egg.name }}"
+- name: Install Security Schema Migration Script
+  import_role:
+    name: schema_migrate
+  vars: 
+    egg: "{{ security.egg }}"
