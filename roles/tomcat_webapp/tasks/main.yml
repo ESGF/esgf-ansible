@@ -1,10 +1,8 @@
 
-# Ensure httpd Webserver is installed
-- name: Ensure the apache webserver installed
-  package:
-    name:
-      - "{{ pkgs.apache }}"
-      - "mod_ssl"
+# Ensure httpd is installed an configured
+- name: Import Httpd Install
+  import_role:
+    name: httpd
 
 # Ensure Tomcat Webserver is installed
 - name: Import Tomcat Install

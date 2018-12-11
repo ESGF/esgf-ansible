@@ -40,3 +40,20 @@ schema_migrate:
 properties:
   dest: /esg/config/esgf.properties
   fragments: /tmp/properties_fragments/
+
+httpd:
+  trusted_ca:
+    url: "{{ mirror.base }}/certs/esgf-ca-bundle.crt"
+    name: esgf-ca-bundle.crt
+
+tempca:
+  dir: /etc/tempcerts
+  ca:
+    key: /etc/tempcerts/ca.pem
+    cert: /etc/tempcerts/ca.crt
+  host:
+    key: /etc/tempcerts/host.pem
+    cert: /etc/tempcerts/host.crt
+
+hostkey_dest: /etc/certs/hostkey.pem
+hostcert_dest: /etc/certs/hostcert.pem
