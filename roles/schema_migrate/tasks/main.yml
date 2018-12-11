@@ -10,6 +10,9 @@
     creates: "{{ conda.envs }}/{{ schema_migrate.env }}"
 
 - name: Easy Install schema migration scripts
-  shell: "{{ conda.actv }} {{ schema_migrate.env }}  && easy_install /tmp/{{ egg.name }}"
+  shell: "{{ conda.actv }} {{ schema_migrate.env }} && easy_install /tmp/{{ egg.name }}"
   args:
-    creates: "{{ conda.envs }}/{{ schema_migrate.env }} /{{ conda.mods }}/{{ egg.name }}"
+    creates: "{{ conda.envs }}/{{ schema_migrate.env }}/{{ conda.mods }}/{{ egg.name }}"
+
+- name: Run schema migration script {{ egg.script }}
+  shell: "{{ conda.actv }} {{ schema_migrate.env }} && {{ egg.script }} --dburl {{ db_url }} -c"

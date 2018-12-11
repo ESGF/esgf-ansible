@@ -32,6 +32,8 @@ all_db:
   host: localhost
   port: 5432
 
+db_url: '{{ all_db.users.super.name }}:{{ all_db.users.super.pass }}@{{ all_db.host }}:{{ all_db.port }}/{{ all_db.db }}'
+
 schema_migrate:
   env: schema-migrate 
 

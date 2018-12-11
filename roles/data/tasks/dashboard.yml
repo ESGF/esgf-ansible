@@ -5,5 +5,5 @@
   vars: 
     egg: "{{ item }}"
   with_items:
-    - "{{ dashboard.egg }}"
     - "{{ node_manager.egg }}"
+    - "{{ dashboard.egg }}"
