@@ -5,8 +5,4 @@
 # -import_playbook: base.yml
 - hosts: idp
   roles:
-    - base
     - idp
-    - role: tomcat_webapp
-      vars:
-        webapp: "{{ idp_webapp }}"

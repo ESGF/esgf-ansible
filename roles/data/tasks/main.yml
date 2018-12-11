@@ -7,6 +7,3 @@
 
 - name: Import publisher tasks
   import_tasks: publisher.yml
-
-- name: Import dashboard tasks
-  import_tasks: dashboard.yml

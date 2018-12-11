@@ -1,6 +1,0 @@
-
-- name: Install Security Schema Migration Script
-  import_role:
-    name: schema_migrate
-  vars: 
-    egg: "{{ security.egg }}"

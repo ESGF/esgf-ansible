@@ -4,9 +4,4 @@
 # Import base Components
 - hosts: index
   roles:
-    - base
     - index
-    - cog
-    - role: tomcat_webapp
-      vars:
-        webapp: "{{ search_webapp }}"

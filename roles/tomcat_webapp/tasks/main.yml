@@ -1,12 +1,12 @@
 
 # Ensure httpd is installed an configured
-- name: Import Httpd Install
-  import_role:
-    name: httpd
+# - name: Import Httpd Install
+#   import_role:
+#     name: httpd
 
 # Ensure Tomcat Webserver is installed
-- name: Import Tomcat Install
-  import_tasks: tomcat.yml
+# - name: Import Tomcat Install
+#   import_tasks: tomcat.yml
 
 # Add the specified webapp as a remote .war file
 - name: "Create {{ webapp.name }} Webapp Directory"

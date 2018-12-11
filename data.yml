@@ -3,14 +3,4 @@
 
 - hosts: data
   roles:
-    - base
     - data
-    - role: tomcat_webapp
-      vars:
-        webapp: "{{ thredds_webapp }}"
-    - role: tomcat_webapp
-      vars:
-        webapp: "{{ orp_webapp }}"
-    - role: tomcat_webapp
-      vars:
-        webapp: "{{ stats_webapp }}"

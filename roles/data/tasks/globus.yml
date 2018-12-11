@@ -1,7 +1,4 @@
 
-- import_role: 
-    name: globus
-
 - name: Install Globus Data Services
   yum:
     disable_gpg_check: yes

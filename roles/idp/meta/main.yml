@@ -1,0 +1,6 @@
+
+dependencies:
+  - { role: base }
+  - { role: globus }
+  - { role: tomcat_webapp, webapp: "{{ idp_webapp }}" }
+  - { role: schema_migrate, egg: "{{ security.egg }}" }

@@ -1,0 +1,5 @@
+
+dependencies:
+  - { role: base }
+  - { role: cog }
+  - { role: tomcat_webapp, webapp: "{{ search_webapp }}" }
