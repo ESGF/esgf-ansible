@@ -2,4 +2,5 @@
 dependencies:
   - { role: base }
   - { role: cog }
+  - { role: tomcat_webapp, webapp: "{{ orp_webapp }}" }
   - { role: tomcat_webapp, webapp: "{{ search_webapp }}" }

@@ -6,8 +6,8 @@ pkgs:
 
 conda:
   prefix: /usr/local/conda
-  exe: "/usr/local/conda/bin/conda"
-  actv: "source /usr/local/conda/bin/activate"
+  exe: /usr/local/conda/bin/conda
+  actv: source /usr/local/conda/bin/activate
   envs: /usr/local/conda/envs
   mods: lib/python2.7/site-packages
 
@@ -61,3 +61,7 @@ tempca:
 
 hostkey_dest: /etc/certs/hostkey.pem
 hostcert_dest: /etc/certs/hostcert.pem
+
+orp_webapp:
+  url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"
+  name: esg-orp
