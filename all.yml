@@ -1,7 +1,12 @@
 
 # All ESGF Node Componenets
 
-- hosts: all
+- hosts: 
+    - data
+    - idp
+    - index
   roles:
-    - all
+    - data
+    - idp
+    - index
   
