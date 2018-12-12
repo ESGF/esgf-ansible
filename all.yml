@@ -1,12 +1,6 @@
 
 # All ESGF Node Componenets
 
-- hosts: 
-    - data
-    - idp
-    - index
-  roles:
-    - data
-    - idp
-    - index
-  
+- import_playbook: data.yml
+- import_playbook: idp.yml
+- import_playbook: index.yml
