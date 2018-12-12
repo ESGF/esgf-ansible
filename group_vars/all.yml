@@ -20,6 +20,10 @@ tomcat:
 esgf_rpm:
   baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
 
+esg:
+  config: /esg/config
+  content: /esg/content
+
 mirror:
   base: http://aims1.llnl.gov/esgf/dist/
 

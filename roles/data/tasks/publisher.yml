@@ -9,7 +9,7 @@
       - "gcc"
 
 - name: Create esgf-pub conda env
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip"
+  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
 
@@ -19,3 +19,49 @@
     pip install '{{ publisher.pip.name }}'
   args:
     creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet*"
+
+- name: Run esgsetup 1
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --config --minimal-setup --rootid llnl.gov
+  args:
+    creates: /esg/config/esgcet/*
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Insert publisher password into esg.ini
+  replace:
+    path: /esg/config/esgcet/esg.ini
+    regexp: 'esgcetpass'
+    replace: 'foobar'
+
+- name: Insert publisher host into esg.ini
+  replace:
+    path: /esg/config/esgcet/esg.ini
+    regexp: 'host.sample.gov'
+    replace: '{{ ansible_nodename }}'
+
+- name: Run esgsetup 2
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --db --minimal-setup \
+    --db-name {{ all_db.db }} \
+    --db-admin {{ all_db.users.super.name }} \
+    --db-admin-password {{ all_db.users.super.pass }} \
+    --db-user {{ data_db.users.pub.name }} \
+    --db-user-password {{ data_db.users.pub.pass }} \
+    --db-host {{ all_db.host }} \
+    --db-port {{ all_db.port }}
+#   args:
+#     creates: /esg/config/esgcet/*
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Run esginitialize
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esginitialize -c
+#   args:
+#     creates: /esg/config/esgcet/*
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
