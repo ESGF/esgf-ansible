@@ -7,3 +7,6 @@
 
 - name: Import publisher tasks
   import_tasks: publisher.yml
+
+- name: Import thredds tasks
+  import_tasks: thredds.yml

@@ -1,0 +1,24 @@
+
+
+- name: Enter keystore info for use by ORP webapp
+  replace:
+    path: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg-orp.properties"
+    regexp: "{{ item.pattern }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { 'pattern': "@@keystoreFile@@", 'replace': "{{ tomcat.ks.path }}" }
+    - { 'pattern': "@@keystorePassword@@", 'replace': "{{ tomcat.ks.pass }}" }
+    - { 'pattern': "@@keystoreAlias@@", 'replace': "my_esgf_node" }
+ 
+ # May need these jars for LAS?
+  # with_items:
+    # - spring-core-4.2.3.RELEASE
+    # - spring-web-4.2.3.RELEASE
+    # - spring-webvmc-4.2.3.RELEASE
+
+- name: "Set Tomcat Ownership"
+  file:
+    path: "{{ tomcat.webapps }}/{{ orp_webapp.name }}"
+    owner: tomcat
+    group: tomcat
+    recurse: yes
