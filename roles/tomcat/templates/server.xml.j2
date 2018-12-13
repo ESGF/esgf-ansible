@@ -97,7 +97,7 @@
                ciphers="TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
                truststoreFile="{{ tomcat.ts.path }}" truststorePass="{{ tomcat.ts.pass }}"
                keyAlias="my_esgf_node"
-               keystoreFile="{{ tomcat.ts.path }}" keystorePass="{{ tomcat.ts.pass }}"/>
+               keystoreFile="{{ tomcat.ks.path }}" keystorePass="{{ tomcat.ks.pass }}"/>
 
     <!-- The tomcat webapps are proxied from port 8223 -->
     <Connector port="8223" protocol="AJP/1.3" redirectPort="8443"
