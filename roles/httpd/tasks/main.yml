@@ -5,28 +5,44 @@
       - "{{ pkgs.apache }}"
       - "mod_ssl"
 
+# Begin setting up certificates for httpd
 - name: Create cert dir
   file:
-    path: /etc/certs
+    path: "{{ httpd.cert_dir }}"
     state: directory
 
 - name: Get Trusted Certificates
   get_url:
     url: "{{ httpd.trusted_ca.url }}"
-    dest: /etc/certs/{{ httpd.trusted_ca.name }}
+    dest: "{{ httpd.cabundle }}"
 
+# Create a CA if credentials are not provided
 - name: Create my own CA
   when: hostkey_src is not defined
   import_tasks: tempca.yml
 
+# Copy credentials into place if provided
 - name: Copy {{ hostkey }} into place
   when: hostkey_src is defined
   copy:
     src: "{{ hostkey_src }}"
-    dest: "{{ hostkey_dest }}"
+    dest: "{{ httpd.hostkey }}"
 
 - name: Copy {{ hostcert }} into place
   when: hostcert_src is defined
   copy:
     src: "{{ hostcert_src }}"
-    dest: "{{ hostcert_dest }}"
+    dest: "{{ httpd.hostcert }}"
+
+- name: Copy {{ cachain }} into place
+  when: cachain_src is defined
+  copy:
+    src: "{{ cachain_src }}"
+    dest: "{{ httpd.cachain }}"
+
+- name: Install httpd config
+  template:
+    src: "esgf-httpd.conf.j2"
+    dest: "/etc/httpd/conf/httpd.conf"
+  notify:
+    - restart httpd

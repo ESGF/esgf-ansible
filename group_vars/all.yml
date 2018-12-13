@@ -1,3 +1,7 @@
+
+mirror:
+  base: http://aims1.llnl.gov/esgf/dist
+
 pkgs:
   apache: httpd
   postgres_server: postgresql-server-8.4.20
@@ -11,11 +15,17 @@ conda:
   envs: /usr/local/conda/envs
   mods: lib/python2.7/site-packages
 
+java:
+  src: "{{ mirror.base }}/java/1.8.0_192/jdk1.8.0_192-64.tar.gz"
+  root_dir: jdk1.8.0_192
+  path: /usr/local/java
+
 tomcat:
   src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
   root_dir: apache-tomcat-8.5.20
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
+  ctrl_script: /usr/local/tomcat/bin/catalina.sh
 
 esgf_rpm:
   baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
@@ -23,9 +33,6 @@ esgf_rpm:
 esg:
   config: /esg/config
   content: /esg/content
-
-mirror:
-  base: http://aims1.llnl.gov/esgf/dist/
 
 all_db:
   users:
@@ -49,6 +56,11 @@ httpd:
   trusted_ca:
     url: "{{ mirror.base }}/certs/esgf-ca-bundle.crt"
     name: esgf-ca-bundle.crt
+  cert_dir: /etc/certs
+  cabundle: /etc/certs/esgf-ca-bundle.crt
+  hostkey: /etc/certs/hostkey.pem
+  hostcert: /etc/certs/hostcert.pem
+  cachain: /etc/certs/cachain.pem
 
 tempca:
   dir: /etc/tempcerts
@@ -59,8 +71,7 @@ tempca:
     key: /etc/tempcerts/host.pem
     cert: /etc/tempcerts/host.crt
 
-hostkey_dest: /etc/certs/hostkey.pem
-hostcert_dest: /etc/certs/hostcert.pem
+
 
 orp_webapp:
   url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"

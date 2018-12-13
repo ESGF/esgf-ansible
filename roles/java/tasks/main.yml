@@ -1,0 +1,11 @@
+- name: Java Download
+  unarchive:
+    src: "{{ java.src }}"
+    dest: /tmp
+    remote_src: yes
+    creates: "/tmp/{{ java.root_dir }}"
+
+- name: Install java
+  command: "cp -R /tmp/{{ java.root_dir }} {{ java.path }}"
+  args:
+    creates: "{{ java.path }}" 

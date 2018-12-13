@@ -51,7 +51,25 @@
 
 
 # Copy files into place
-- name: Copy cert and key files into place
+- name: Copy cert and key files to {{ ansible_nodename }}
   copy:
     src: /tmp/tempcerts
-    dest: "{{ tempca.dir }}"
+    dest: /etc/ #"{{ tempca.dir }}"
+
+- name: Copy key into place
+  copy:
+    remote_src: yes
+    src: "{{ tempca.host.key }}"
+    dest: "{{ httpd.hostkey }}"
+
+- name: Copy cert into place
+  copy:
+    remote_src: yes
+    src: "{{ tempca.host.cert }}"
+    dest: "{{ httpd.hostcert }}"
+
+- name: Copy temp CA cert into place
+  copy:
+    remote_src: yes
+    src: "{{ tempca.ca.cert }}"
+    dest: "{{ httpd.cachain }}"
