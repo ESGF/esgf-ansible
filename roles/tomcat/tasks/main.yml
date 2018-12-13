@@ -31,6 +31,9 @@
     - examples
     - docs
 
+- name: Install Config Files
+  import_tasks: config.yml
+
 - name: Set Ownership
   file:
     path: "{{ tomcat.path }}"

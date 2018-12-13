@@ -1,0 +1,56 @@
+
+- name: Create esg tomcat config directory
+  file:
+    path: "{{ esg.config }}/tomcat"
+    state: directory
+
+- name: Get trusted certificates
+  get_url:
+    url: "{{ tomcat.ts.url }}"
+    dest: "{{ tomcat.ts.path }}"
+
+- name: Import CA to Truststore
+  java_cert:
+    cert_path: "{{ httpd.cachain }}"
+    keystore_path: "{{ tomcat.ts.path }}"
+    keystore_pass: "{{ tomcat.ts.pass }}"
+    cert_alias: my_esgf_node 
+    executable: "{{ java.path }}/bin/keytool"
+
+- name: Slurp hostkey
+  slurp:
+    src: "{{ httpd.hostkey }}"
+  register: hostkey_slurp
+
+- name: Slurp hostcert
+  slurp:
+    src: "{{ httpd.hostcert }}"
+  register: hostcert_slurp
+
+- name: Create Keystore
+  java_keystore:
+    private_key: "{{ hostkey_slurp['content'] | b64encode }}"
+    certificate: "{{ hostcert_slurp['content'] | b64encode }}"
+    name: my_esgf_node 
+    dest: "{{ tomcat.ks.path }}"
+    password: "{{ tomcat.ks.pass }}"
+
+- name: Install server.xml
+  template:
+    src: server.xml.j2
+    dest: "{{ tomcat.path }}/conf/server.xml"
+
+- name: Install setenv.sh
+  template:
+    src: setenv.sh.j2
+    dest: "{{ tomcat.path }}/conf/setenv.sh"
+
+- name: Install tomcat-users.xml
+  template:
+    src: tomcat-users.xml.j2
+    dest: "{{ tomcat.path }}/conf/tomcat-users.xml"
+
+- name: Install context.xml
+  copy:
+    src: context.xml
+    dest: "{{ tomcat.path }}/conf/context.xml"

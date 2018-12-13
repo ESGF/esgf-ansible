@@ -2,6 +2,10 @@
 mirror:
   base: http://aims1.llnl.gov/esgf/dist
 
+esg:
+  config: /esg/config
+  content: /esg/content
+
 pkgs:
   apache: httpd
   postgres_server: postgresql-server-8.4.20
@@ -26,13 +30,16 @@ tomcat:
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ctrl_script: /usr/local/tomcat/bin/catalina.sh
+  ts:
+    url: "{{ mirror.base }}/certs/esg-truststore.ts"
+    path: "{{ esg.config }}/tomcat/esg-truststore.ts"
+    pass: changeit
+  ks:
+    path: "{{ esg.config }}/tomcat/keystore-tomcat"
+    pass: foobar
 
 esgf_rpm:
   baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
-
-esg:
-  config: /esg/config
-  content: /esg/content
 
 all_db:
   users:

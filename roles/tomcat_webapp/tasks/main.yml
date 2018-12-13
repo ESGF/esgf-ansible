@@ -27,5 +27,3 @@
     owner: tomcat
     group: tomcat
     recurse: yes
-
-# Add configuration files

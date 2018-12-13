@@ -1,4 +1,4 @@
 
-# - name: restart tomcat
-#   command:
+- name: restart tomcat
+  shell: "{{ tomcat.ctrl_script }} stop || {{ tomcat.ctrl_script }} start"
   
