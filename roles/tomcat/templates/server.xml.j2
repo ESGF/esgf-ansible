@@ -122,7 +122,7 @@
       -->
 
       <Realm className="org.apache.catalina.realm.MemoryRealm" pathname="/esg/config/tomcat/tomcat-users.xml">
-          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA" />
+          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="MD5" />
       </Realm>
 
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords

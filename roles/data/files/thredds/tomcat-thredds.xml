@@ -3,6 +3,6 @@
 <!--
 This app uses digest authentication.
 -->
-<Realm className="org.apache.catalina.realm.MemoryRealm" digest="SHA" />
+<Realm className="org.apache.catalina.realm.MemoryRealm" digest="MD5" />
 
 </Context>
