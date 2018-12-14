@@ -8,6 +8,7 @@ esg:
     version: master
     dir: /esg/config
   content: /esg/content
+  home: /esg
 
 pkgs:
   apache: httpd

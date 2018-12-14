@@ -48,6 +48,7 @@
     group: tomcat
 
 # Install additional jar files needed by thredds filters
+# ORP Jars
 - name: Install .jar files for use by thredds filters
   get_url:
     url: "{{ mirror.base }}/2.6/8/filters/{{ item }}.jar"
@@ -89,6 +90,25 @@
   get_url:
     url: "{{ mirror.base }}/2.6/8/esgf-security/esgf-security-2.7.17.jar"
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-2.7.17.jar"
+
+# Node Manager Jars
+- name: Copy remote node-manager libraries into thredds webapp
+  get_url:
+    url: "{{ mirror.base }}/2.6/8/esgf-node-manager/{{ item }}-1.0.1.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}-1.0.1.jar"
+  loop:
+    - esgf-node-manager-common
+    - esgf-node-manager-filters
+
+- name: Copy remote access logging filter libraries into thredds webapp
+  get_url:
+    url: "{{ mirror.base }}/filters/{{ item }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
+  loop:
+    - commons-dbcp-1.4
+    - commons-dbutils-1.3
+    - commons-pool-1.5.4
+    - postgresql-8.4-703.jdbc3
 
 
 # Set ownership
