@@ -2,8 +2,8 @@
 dependencies:
   - { role: base }
   - { role: globus }
+  - { role: orp}
   - { role: schema_migrate, egg: "{{ node_manager.egg }}" }
   - { role: schema_migrate, egg: "{{ dashboard.egg }}" }
   - { role: tomcat_webapp, webapp: "{{ thredds_webapp }}" }
-  - { role: tomcat_webapp, webapp: "{{ orp_webapp }}" }
   - { role: tomcat_webapp, webapp: "{{ stats_webapp }}" }
