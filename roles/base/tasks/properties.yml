@@ -10,10 +10,10 @@
 
 - name: Create config directory
   file:
-    path: "{{ esg.config }}"
+    path: "{{ esg.config.dir }}"
     state: directory
 
 - name: Install properties
   template:
     src: base.properties.j2
-    dest: "{{ esg.config }}/esgf.properties"
+    dest: "{{ esg.config.dir }}/esgf.properties"

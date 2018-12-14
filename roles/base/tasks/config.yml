@@ -1,0 +1,31 @@
+
+- name: Clone ESGF config repository
+  git:
+    repo: "{{ esg.config.repo }}"
+    version: "{{ esg.config.version }}"
+    dest: /tmp/esgf-config
+
+- name: Copy ESGF config files into place
+  copy:
+    remote_src: yes
+    src: /tmp/esgf-config/esgf-prod/{{ item }}.xml
+    dest: "{{ esg.config.dir }}/{{ item }}.xml"
+  loop:
+    - esgf_ats_static
+    - esgf_cogs
+    - esgf_endpoints
+    - esgf_idp_static
+    - esgf_known_providers
+    - esgf_search_aliases
+    - esgf_shards_static
+    - las_servers_static
+
+- name: Write password files
+  copy:
+    content: foobar
+    dest: "{{ esg.config.dir }}/{{ item }}"
+  loop:
+    - ".esgf_pass"
+    - ".esg_keystore_pass"
+    - ".esg_pg_pass"
+    - ".esg_pg_publisher_pass"

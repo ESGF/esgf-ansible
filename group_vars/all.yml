@@ -3,7 +3,10 @@ mirror:
   base: http://aims1.llnl.gov/esgf/dist
 
 esg:
-  config: /esg/config
+  config:
+    repo: https://github.com/ESGF/config.git
+    version: master
+    dir: /esg/config
   content: /esg/content
 
 pkgs:
@@ -32,10 +35,10 @@ tomcat:
   ctrl_script: /usr/local/tomcat/bin/catalina.sh
   ts:
     url: "{{ mirror.base }}/certs/esg-truststore.ts"
-    path: "{{ esg.config }}/tomcat/esg-truststore.ts"
+    path: "{{ esg.config.dir }}/tomcat/esg-truststore.ts"
     pass: changeit
   ks:
-    path: "{{ esg.config }}/tomcat/keystore-tomcat"
+    path: "{{ esg.config.dir }}/tomcat/keystore-tomcat"
     pass: foobar
 
 esgf_rpm:

@@ -5,7 +5,7 @@
     path: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg-orp.properties"
     regexp: "{{ item.pattern }}"
     replace: "{{ item.replace }}"
-  with_items:
+  loop:
     - { 'pattern': "@@keystoreFile@@", 'replace': "{{ tomcat.ks.path }}" }
     - { 'pattern': "@@keystorePassword@@", 'replace': "{{ tomcat.ks.pass }}" }
     - { 'pattern': "@@keystoreAlias@@", 'replace': "my_esgf_node" }
@@ -15,6 +15,15 @@
     # - spring-core-4.2.3.RELEASE
     # - spring-web-4.2.3.RELEASE
     # - spring-webvmc-4.2.3.RELEASE
+
+- name: Copy policy files into place
+  copy:
+    remote_src: yes
+    src: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg/orp/orp/config/esgf_policies_{{ item }}.xml"
+    dest: "{{ esg.config.dir }}/esgf_policies_{{ item }}.xml"
+  loop:
+    - common
+    - local
 
 - name: "Set Tomcat Ownership"
   file:

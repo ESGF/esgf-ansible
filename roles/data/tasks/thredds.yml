@@ -5,13 +5,13 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ esg.config }}/tomcat/Catalina/localhost"
+    - "{{ esg.config.dir }}/tomcat/Catalina/localhost"
     - "{{ thredds.content }}"
 
 - name: Install tomcat-thredds.xml config
   copy:
     src: thredds/tomcat-thredds.xml
-    dest: "{{ esg.config }}/tomcat/Catalina/localhost/tomcat-thredds.xml"
+    dest: "{{ esg.config.dir }}/tomcat/Catalina/localhost/tomcat-thredds.xml"
     owner: tomcat
     group: tomcat
 
@@ -26,8 +26,8 @@
     dest: "{{ thredds.content }}/catalog.xml-esgcet"
 
 - name: Install thredds web.xml
-  copy:
-    src: thredds/web.xml
+  template:
+    src: thredds/web.xml.j2
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/web.xml"
 
 - name: Install thredds applicationContext.xml
@@ -43,7 +43,7 @@
 - name: Install {{ thredds.tomcat_user.name }} into tomcat-users.xml
   template:
     src: thredds/tomcat-users.xml.j2
-    dest: "{{ esg.config }}/tomcat/tomcat-users.xml"
+    dest: "{{ esg.config.dir }}/tomcat/tomcat-users.xml"
     owner: tomcat
     group: tomcat
 
