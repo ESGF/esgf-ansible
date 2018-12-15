@@ -1,0 +1,31 @@
+
+- name: Install required libraries for the dashboardip service
+  package:
+    name:
+      - geoip-devel
+
+- name: Clone the dashboard repository
+  git: 
+    repo: "{{ dashboard.git.repository }}"
+    version: "{{ dashboard.git.version }}"
+    dest: "{{ dashboard.git.dest }}"
+
+- name: Run automake for dashboard-ip
+  command: automake
+  args:
+    chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
+
+- name: Configure dashboard-ip
+  command: ./configure --prefix={{ dashboard.ip.home }} --with-geoip-prefix-path=/usr --with-allow-federation=no
+  args:
+    chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
+
+- name: make dashboard-ip
+  command: make
+  args:
+    chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
+
+- name: make install dashboard-ip
+  command: make install
+  args:
+    chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
