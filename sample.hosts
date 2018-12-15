@@ -1,0 +1,9 @@
+
+[data]
+host-data.my.org
+
+[index]
+host-index-idp.my.org
+
+[idp]
+host-index-idp.my.org

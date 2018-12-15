@@ -20,6 +20,8 @@
 - name: Create my own CA
   when: hostkey_src is not defined
   import_tasks: tempca.yml
+  vars:
+    ansible_python_interpreter: "{{ lookup('env', 'CONDA_PREFIX') }}/bin/python"
 
 # Copy credentials into place if provided
 - name: Copy {{ hostkey }} into place

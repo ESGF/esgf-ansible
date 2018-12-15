@@ -31,10 +31,6 @@ test-indexidp.my.org
 
 [idp]
 test-indexidp.my.org
-
-# Note this last host group line is required, do not edit this
-[self]
-localhost ansible_connection=local ansible_python_interpreter="{{ lookup('env', 'CONDA_PREFIX') }}/bin/python"
 ```
 
 A test deployment to all managed test hosts, assuming proper configuration
