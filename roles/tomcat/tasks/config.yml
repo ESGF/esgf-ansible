@@ -25,6 +25,8 @@
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.home }}/bin"
 
 - name: Create Keystore
   when: hostkey_src is not defined
@@ -34,6 +36,8 @@
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.home }}/bin"
 
 - name: Install server.xml
   template:
