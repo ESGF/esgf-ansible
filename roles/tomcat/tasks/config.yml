@@ -26,7 +26,7 @@
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
   environment:
-    PATH: "{{ lookup('env', 'PATH') }}:{{ java.home }}/bin"
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
 - name: Create Keystore
   when: hostkey_src is not defined
@@ -37,7 +37,7 @@
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
   environment:
-    PATH: "{{ lookup('env', 'PATH') }}:{{ java.home }}/bin"
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
 - name: Install server.xml
   template:
