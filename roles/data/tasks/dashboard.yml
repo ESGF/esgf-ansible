@@ -32,3 +32,8 @@
   command: make install
   args:
     chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
+
+- name: Create {{ esg.config.dir }}/dashboard
+  file:
+    path: "{{ esg.config.dir }}/dashboard"
+    state: directory
