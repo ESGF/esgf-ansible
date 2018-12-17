@@ -10,9 +10,3 @@ idp_webapp:
 # security_webapp:
 #   url: "{{ mirror.base }}/esgf-security/esgf-security.war"
 #   name: esgf-security
-
-security:
-  egg:
-    name: "esgf_security-0.1.5-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a/esgf-security/esgf_security-0.1.5-py2.7.egg"
-    script: "esgf_security_initialize"
