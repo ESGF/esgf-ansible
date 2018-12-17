@@ -3,6 +3,9 @@
   package:
     name:
       - geoip-devel
+      - automake
+      - make
+      - gcc
 
 - name: Clone the dashboard repository
   git: 
