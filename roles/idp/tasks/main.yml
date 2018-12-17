@@ -6,6 +6,9 @@
 - name: Import globus tasks
   import_tasks: globus.yml
 
+- name: Import myproxy tasks
+  import_tasks: myproxy.yml
+
 - name: Install esgf_idp.xml
   template:
     src: esgf_idp.xml.j2

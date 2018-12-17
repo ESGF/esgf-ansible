@@ -3,48 +3,48 @@
 - name: Create local directory for generating certs and keys
   local_action:
     module: file
-    path: /tmp/tempcerts
+    path: "{{ tempca.local.dir }}"
     state: directory
 
 # Setup self-signed CA
 - name: Create Self-Signed CA Private Key
   local_action:
     module: openssl_privatekey
-    path: /tmp/tempcerts/ca.pem
+    path: "{{ tempca.local.ca.key }}"
 
 - name: Create Self-Signed CA CSR
   local_action:
     module: openssl_csr
-    path: /tmp/tempcerts/ca.csr
-    privatekey_path: /tmp/tempcerts/ca.pem
-    common_name: CA-{{ ansible_nodename }}
+    path: "{{ tempca.local.ca.csr }}"
+    privatekey_path: "{{ tempca.local.ca.key }}"
+    common_name: "{{ ansible_nodename }}-CA"
 
 - name: Generate a Self Signed OpenSSL certificate
   local_action:
     module: openssl_certificate
-    path: /tmp/tempcerts/ca.crt
-    privatekey_path: /tmp/tempcerts/ca.pem
-    csr_path: /tmp/tempcerts/ca.csr
+    path: "{{ tempca.local.ca.cert }}"
+    privatekey_path: "{{ tempca.local.ca.key }}"
+    csr_path: "{{ tempca.local.ca.csr }}"
     provider: selfsigned
 
 # Setup hostkey signed by self-signed CA
 - name: Create Self-Signed CA Private Key
   local_action:
     module: openssl_privatekey
-    path: /tmp/tempcerts/host.pem
+    path: "{{ tempca.local.host.key }}"
 
 - name: Create Self-Signed CA CSR
   local_action:
     module: openssl_csr
-    path: /tmp/tempcerts/host.csr
-    privatekey_path: /tmp/tempcerts/host.pem
+    path: "{{ tempca.local.host.csr }}"
+    privatekey_path: "{{ tempca.local.host.key }}"
     common_name: "{{ ansible_nodename }}"
 
 - name: Generate a Self Signed OpenSSL certificate
   local_action:
     module: openssl_certificate
-    path: /tmp/tempcerts/host.crt
-    csr_path: /tmp/tempcerts/host.csr
-    ownca_path: /tmp/tempcerts/ca.crt
-    ownca_privatekey_path: /tmp/tempcerts/ca.pem
+    path: "{{ tempca.local.host.cert }}"
+    csr_path: "{{ tempca.local.host.csr }}"
+    ownca_path: "{{ tempca.local.ca.cert }}"
+    ownca_privatekey_path: "{{ tempca.local.ca.key }}"
     provider: ownca

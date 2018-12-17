@@ -74,13 +74,24 @@ httpd:
   cachain: /etc/certs/cachain.pem
 
 tempca:
-  dir: /etc/tempcerts
-  ca:
-    key: /etc/tempcerts/ca.pem
-    cert: /etc/tempcerts/ca.crt
-  host:
-    key: /etc/tempcerts/host.pem
-    cert: /etc/tempcerts/host.crt
+  remote:
+    dir: /etc/tempcerts
+    ca:
+      key: /etc/tempcerts/ca.pem
+      cert: /etc/tempcerts/ca.crt
+    host:
+      key: /etc/tempcerts/host.pem
+      cert: /etc/tempcerts/host.crt
+  local:
+    dir: /tmp/tempcerts/{{ ansible_nodename }}
+    ca:
+      key: /tmp/tempcerts/{{ ansible_nodename }}/ca.pem
+      cert: /tmp/tempcerts/{{ ansible_nodename }}/ca.crt
+      csr: /tmp/tempcerts/{{ ansible_nodename }}/ca.csr
+    host:
+      key: /tmp/tempcerts/{{ ansible_nodename }}/host.pem
+      cert: /tmp/tempcerts/{{ ansible_nodename }}/host.crt
+      csr: /tmp/tempcerts/{{ ansible_nodename }}/host.csr
 
 orp_webapp:
   url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"

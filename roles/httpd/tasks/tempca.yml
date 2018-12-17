@@ -4,29 +4,28 @@
   when: hostkey_src is not defined
   import_tasks: tempca.local.yml
   vars:
-    # ansible_python_interpreter: "{{ lookup('env', 'CONDA_PREFIX') }}/bin/python"
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
 # Copy files into place
 - name: Copy cert and key files to {{ ansible_nodename }}
   copy:
-    src: /tmp/tempcerts
+    src: "{{ tempca.local.dir }}"
     dest: /etc/ #"{{ tempca.dir }}"
 
 - name: Copy key into place
   copy:
     remote_src: yes
-    src: "{{ tempca.host.key }}"
+    src: "{{ tempca.remote.host.key }}"
     dest: "{{ httpd.hostkey }}"
 
 - name: Copy cert into place
   copy:
     remote_src: yes
-    src: "{{ tempca.host.cert }}"
+    src: "{{ tempca.remote.host.cert }}"
     dest: "{{ httpd.hostcert }}"
 
 - name: Copy temp CA cert into place
   copy:
     remote_src: yes
-    src: "{{ tempca.ca.cert }}"
+    src: "{{ tempca.remote.ca.cert }}"
     dest: "{{ httpd.cachain }}"
