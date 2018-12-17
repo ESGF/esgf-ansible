@@ -2,8 +2,17 @@ esgf.host={{ ansible_nodename }}
 esgf.idp.peer={{ groups['idp'][0] }}
 esgf.index.peer={{ groups['index'][0] }}
 
+# Base db info
 db.database={{ all_db.db }}
 db.host={{ all_db.host }}
 db.port={{ all_db.port }}
 db.user={{ all_db.users.super.name }}
 
+# Node manager db info
+db.protocol=jdbc:postgresql:
+db.driver=org.postgresql.Driver
+
+# Dashboard info
+dashboard.ip.app.home={{ dashboard.ip.home }}
+esgf.registration.xml.path={{ esg.config.dir }}/dashboard
+esgf.registration.xml.download.url=http://{{ ansible_nodename }}/esgf-nm/registration.xml

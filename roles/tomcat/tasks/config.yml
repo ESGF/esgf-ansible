@@ -1,7 +1,7 @@
 
 - name: Create esg tomcat config directory
   file:
-    path: "{{ esg.config }}/tomcat"
+    path: "{{ esg.config.dir }}/tomcat"
     state: directory
 
 - name: Get trusted certificates
@@ -25,6 +25,8 @@
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
 - name: Create Keystore
   when: hostkey_src is not defined
@@ -34,6 +36,8 @@
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
 - name: Install server.xml
   template:
@@ -48,7 +52,7 @@
 - name: Install tomcat-users.xml
   template:
     src: tomcat-users.xml.j2
-    dest: "{{ esg.config }}/tomcat/tomcat-users.xml"
+    dest: "{{ esg.config.dir }}/tomcat/tomcat-users.xml"
 
 - name: Install context.xml
   copy:

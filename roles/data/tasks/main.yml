@@ -1,4 +1,7 @@
 
+- name: Import dashboard tasks
+  import_tasks: dashboard.yml
+
 - name: Import globus tasks
   import_tasks: globus.yml
 

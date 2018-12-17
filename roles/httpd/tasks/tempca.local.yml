@@ -1,0 +1,50 @@
+# All of these steps are done locally as the pyopenssl version is not
+#   sufficient ( needs >=.15 ) on CentOS 6
+- name: Create local directory for generating certs and keys
+  local_action:
+    module: file
+    path: "{{ tempca.local.dir }}"
+    state: directory
+
+# Setup self-signed CA
+- name: Create Self-Signed CA Private Key
+  local_action:
+    module: openssl_privatekey
+    path: "{{ tempca.local.ca.key }}"
+
+- name: Create Self-Signed CA CSR
+  local_action:
+    module: openssl_csr
+    path: "{{ tempca.local.ca.csr }}"
+    privatekey_path: "{{ tempca.local.ca.key }}"
+    common_name: "{{ ansible_nodename }}-CA"
+
+- name: Generate a Self Signed OpenSSL certificate
+  local_action:
+    module: openssl_certificate
+    path: "{{ tempca.local.ca.cert }}"
+    privatekey_path: "{{ tempca.local.ca.key }}"
+    csr_path: "{{ tempca.local.ca.csr }}"
+    provider: selfsigned
+
+# Setup hostkey signed by self-signed CA
+- name: Create Self-Signed CA Private Key
+  local_action:
+    module: openssl_privatekey
+    path: "{{ tempca.local.host.key }}"
+
+- name: Create Self-Signed CA CSR
+  local_action:
+    module: openssl_csr
+    path: "{{ tempca.local.host.csr }}"
+    privatekey_path: "{{ tempca.local.host.key }}"
+    common_name: "{{ ansible_nodename }}"
+
+- name: Generate a Self Signed OpenSSL certificate
+  local_action:
+    module: openssl_certificate
+    path: "{{ tempca.local.host.cert }}"
+    csr_path: "{{ tempca.local.host.csr }}"
+    ownca_path: "{{ tempca.local.ca.cert }}"
+    ownca_privatekey_path: "{{ tempca.local.ca.key }}"
+    provider: ownca

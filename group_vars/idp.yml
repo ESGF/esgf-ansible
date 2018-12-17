@@ -7,12 +7,15 @@ idp_webapp:
   url: "{{ mirror.base }}/2.6/8/esgf-idp/esgf-idp.war"
   name: esgf-idp
 
-# security_webapp:
-#   url: "{{ mirror.base }}/esgf-security/esgf-security.war"
-#   name: esgf-security
+myproxy:
+  ca:
+    dir: /var/lib/globus-connect-server/myproxy-ca
+    cert: /var/lib/globus-connect-server/myproxy-ca/cacert.pem
+    signing_policy: /var/lib/globus-connect-server/myproxy-ca/signing-policy
+    key: /var/lib/globus-connect-server/myproxy-ca/private/cakey.pem
 
-security:
-  egg:
-    name: "esgf_security-0.1.5-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a/esgf-security/esgf_security-0.1.5-py2.7.egg"
-    script: "esgf_security_initialize"
+grid_security:
+  dir: /etc/grid-security
+  host:
+    key: /etc/grid-security/hostkey.pem
+    cert: /etc/grid-security/hostcert.pem
