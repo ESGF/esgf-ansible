@@ -41,3 +41,9 @@ data_db:
     pub:
       name: esgcet
       pass: foobar
+
+gridftp:
+  register: false
+  port: 2811
+  chroot: "{{ esg.home }}/gridftp_root"
+  

@@ -1,5 +1,5 @@
 
-
+# Get globus tools and libraries
 - name: Import Globus GPG key
   rpm_key:
     key: http://www.globus.org/ftppub/globus-connect-server/RPM-GPG-KEY-Globus
@@ -17,3 +17,31 @@
   template:
     src: esgf.repo.j2
     dest: /etc/yum.repos.d/esgf.repo
+
+# Temp gridftp cert and key
+- name: Copy temp gftp hostkey into place
+  when: gftphostkey is not defined
+  copy:
+    src: "{{ tempca.local.host.key }}"
+    dest: "{{ grid_security.host.key }}"
+    mode: 600
+
+- name: Copy temp gftp hostcert into place
+  when: gftphostcert is not defined
+  copy:
+    src: "{{ tempca.local.host.cert }}"
+    dest: "{{ grid_security.host.cert }}"
+
+# Trusted, signed, gridftp cert and key
+- name: Copy gftp hostkey into place
+  when: gftphostkey is defined
+  copy:
+    src: "{{ gftphostkey }}"
+    dest: "{{ grid_security.host.key }}"
+    mode: 600
+
+- name: Copy gftp hostcert into place
+  when: gftphostcert is defined
+  copy:
+    src: "{{ gftphostcert }}"
+    dest: "{{ grid_security.host.cert }}"

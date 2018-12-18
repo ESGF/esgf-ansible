@@ -31,8 +31,8 @@
 - name: Create Keystore
   when: hostkey_src is not defined
   java_keystore:
-    private_key: "{{ lookup('file', '/tmp/tempcerts/host.pem') }}"
-    certificate: "{{ lookup('file', '/tmp/tempcerts/host.crt') }}"
+    private_key: "{{ lookup('file', tempca.local.host.key) }}"
+    certificate: "{{ lookup('file', tempca.local.host.cert) }}"
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"

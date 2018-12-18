@@ -27,18 +27,6 @@
     src: signing-policy.j2
     dest: "{{ myproxy.ca.signing_policy }}"
 
-- name: Copy temp gftp hostkey into place
-  when: gftphostkey is not defined
-  copy:
-    src: "{{ tempca.local.host.key }}"
-    dest: "{{ grid_security.host.key }}"
-
-- name: Copy temp gftp hostcert into place
-  when: gftphostcert is not defined
-  copy:
-    src: "{{ tempca.local.host.cert }}"
-    dest: "{{ grid_security.host.cert }}"
-
 # Trusted, Signed, CA tasks
 - name: Copy CA cert
   when: myproxycacert is defined
@@ -57,15 +45,3 @@
   copy:
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
-
-- name: Copy gftp hostkey into place
-  when: gftphostkey is not defined
-  copy:
-    src: "{{ gftphostkey }}"
-    dest: "{{ grid_security.host.key }}"
-
-- name: Copy gftp hostcert into place
-  when: gftphostcert is not defined
-  copy:
-    src: "{{ gftphostcert }}"
-    dest: "{{ grid_security.host.cert }}"

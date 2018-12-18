@@ -9,6 +9,7 @@ esg:
     dir: /esg/config
   content: /esg/content
   home: /esg
+  log: /esg/log
 
 pkgs:
   apache: httpd
@@ -107,3 +108,10 @@ type_bits:
   data: 4
   index: 8
   idp: 16
+
+grid_security:
+  dir: /etc/grid-security
+  cert_dir: /etc/grid-security/certificates
+  host:
+    key: /etc/grid-security/hostkey.pem
+    cert: /etc/grid-security/hostcert.pem

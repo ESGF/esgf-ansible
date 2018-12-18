@@ -17,7 +17,7 @@
     dest: "{{ httpd.cabundle }}"
 
 # Create a CA if credentials are not provided
-- name: Create my own CA
+- name: Install my own CA
   when: hostkey_src is not defined
   import_tasks: tempca.yml
 
