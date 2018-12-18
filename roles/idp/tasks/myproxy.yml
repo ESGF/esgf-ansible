@@ -27,6 +27,20 @@
     src: signing-policy.j2
     dest: "{{ myproxy.ca.signing_policy }}"
 
+- name: Create new myproxy CA hostkey
+  when: myproxycakey is not defined
+  local_action:
+    module: openssl_privatekey
+    path: "{{ lookup('env', 'HOME') }}/esgf_globus/myproxykey.pem"
+
+- name: Create myproxy CA CSR
+  when: myproxycakey is not defined
+  local_action:
+    module: openssl_csr
+    path: "{{ lookup('env', 'HOME') }}/esgf_globus/myproxy.csr"
+    privatekey_path: "{{ lookup('env', 'HOME') }}/esgf_globus/myproxykey.pem"
+    common_name: "{{ ansible_nodename }}"
+
 # Trusted, Signed, CA tasks
 - name: Copy CA cert
   when: myproxycacert is defined
