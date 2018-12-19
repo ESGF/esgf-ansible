@@ -33,9 +33,14 @@
 
 - name: Install the node-exporter initd script
   template:
-    src: prometheus/initd.node_exporter.j2
+    src: exporters/initd.node_exporter.j2
     dest: /etc/init.d/node_exporter
     mode: 0755
+
+- name : Install the node-exporter proxy config
+  template:
+    src: exporters/node_exporter.httpd.conf.j2
+    dest: /etc/httpd/conf.d/node_exporter.ssl.conf
 
 - name: Set prometheus ownership
   file:

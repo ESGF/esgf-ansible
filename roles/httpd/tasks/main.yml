@@ -12,8 +12,15 @@
     state: directory
 
 - name: Get Trusted Certificates
+  when: trusted_certs is not defined
   get_url:
     url: "{{ httpd.trusted_ca.url }}"
+    dest: "{{ httpd.cabundle }}"
+
+- name: Copy {{ trusted_certs }} into place
+  when: trusted_certs is defined
+  get_url:
+    url: "{{ trusted_certs }}"
     dest: "{{ httpd.cabundle }}"
 
 # Create a CA if credentials are not provided

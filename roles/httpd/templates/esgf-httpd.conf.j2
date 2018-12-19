@@ -259,6 +259,8 @@ NameVirtualHost *:443
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
 
+	Include conf.d/*.ssl.conf
+
 	#WSGIDaemonProcess demo user=apache group=apache threads=5
 	#WSGIScriptAlias /api/demo /opt/esgf/flaskdemo/demo/demo.wsgi
 	#<Directory /opt/esgf/flaskdemo/demo>

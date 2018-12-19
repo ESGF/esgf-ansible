@@ -10,7 +10,6 @@
 - name: Import base tasks
   include_tasks: "{{ base_task }}.yml"
   loop:
-    - prometheus
     - postgres
     - conda
     - properties
