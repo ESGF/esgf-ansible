@@ -115,3 +115,8 @@ grid_security:
   host:
     key: /etc/grid-security/hostkey.pem
     cert: /etc/grid-security/hostcert.pem
+
+prometheus:
+  node_exporter: 
+    dir: /usr/local/node-exporter
+    sh: /usr/local/node-exporter/node_exporter.sh
