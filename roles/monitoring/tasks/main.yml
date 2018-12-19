@@ -22,6 +22,7 @@
 - name: Download the node-exporter for prometheus
   unarchive:
     remote_src: yes
+    validate_certs: no
     src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
     dest: /tmp
     creates: /tmp/node_exporter-0.17.0.linux-amd64

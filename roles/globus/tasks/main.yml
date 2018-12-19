@@ -18,13 +18,20 @@
     src: esgf.repo.j2
     dest: /etc/yum.repos.d/esgf.repo
 
+- name: Create needed Globus directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ grid_security.dir }}"
+
 # Temp gridftp cert and key
 - name: Copy temp gftp hostkey into place
   when: gftphostkey is not defined
   copy:
     src: "{{ tempca.local.host.key }}"
     dest: "{{ grid_security.host.key }}"
-    mode: 600
+    mode: 0600
 
 - name: Copy temp gftp hostcert into place
   when: gftphostcert is not defined
@@ -59,7 +66,7 @@
   copy:
     src: "{{ gftphostkey }}"
     dest: "{{ grid_security.host.key }}"
-    mode: 600
+    mode: 0600
 
 - name: Copy gftp hostcert into place
   when: gftphostcert is defined

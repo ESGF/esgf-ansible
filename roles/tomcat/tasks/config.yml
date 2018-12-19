@@ -53,6 +53,7 @@
   template:
     src: tomcat-users.xml.j2
     dest: "{{ esg.config.dir }}/tomcat/tomcat-users.xml"
+    force: no
 
 - name: Install context.xml
   copy:

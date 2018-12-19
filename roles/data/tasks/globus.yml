@@ -83,9 +83,8 @@
     creates: /tmp/esg_trusted_certificates
 
 - name: Install trusted certificates for GridFTP
-  command: "cp -R /tmp/esg_trusted_certificates {{ grid_security.cert_dir }}"
-  args:
-    creates: "{{ grid_security.cert_dir }}"
+  shell: >
+    cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}
 
 - name: Create chroot jail for GridFTP
   command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}

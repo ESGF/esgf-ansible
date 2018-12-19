@@ -78,11 +78,11 @@ tempca:
   remote:
     dir: /etc/tempcerts
     ca:
-      key: /etc/tempcerts/ca.pem
-      cert: /etc/tempcerts/ca.crt
+      key: /etc/tempcerts/{{ ansible_nodename }}/ca.pem
+      cert: /etc/tempcerts/{{ ansible_nodename }}/ca.crt
     host:
-      key: /etc/tempcerts/host.pem
-      cert: /etc/tempcerts/host.crt
+      key: /etc/tempcerts/{{ ansible_nodename }}/host.pem
+      cert: /etc/tempcerts/{{ ansible_nodename }}/host.crt
   local:
     dir: /tmp/tempcerts/{{ ansible_nodename }}
     ca:

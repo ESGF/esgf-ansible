@@ -9,4 +9,4 @@
 - name: Install esgf_idp.xml
   template:
     src: esgf_idp.xml.j2
-    dest: "{{ esg.config }}/esgf_idp.xml"
+    dest: "{{ esg.config.dir }}/esgf_idp.xml"

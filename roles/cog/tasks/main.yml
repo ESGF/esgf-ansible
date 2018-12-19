@@ -36,6 +36,22 @@
     chdir: "{{ cog.dest }}"
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
+- name: Setup CoG
+  shell: >
+    {{ conda.actv }} cog && \
+    python setup.py setup_cog --esgf=true
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name: CoG collectstatic
+  shell: >
+    {{ conda.actv }} cog && \
+    python manage.py collectstatic --no-input
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name: Setup CoG mod_wsgi-express server
+
 - name: Set Ownership
   file:
     path: "{{ cog.base }}"

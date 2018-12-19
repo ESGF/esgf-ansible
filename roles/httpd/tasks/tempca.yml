@@ -4,7 +4,7 @@
 - name: Copy cert and key files to {{ ansible_nodename }}
   copy:
     src: "{{ tempca.local.dir }}"
-    dest: /etc/ #"{{ tempca.dir }}"
+    dest: "{{ tempca.remote.dir }}"
 
 - name: Copy key into place
   copy:
