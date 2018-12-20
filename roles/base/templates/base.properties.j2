@@ -13,6 +13,14 @@ db.user={{ all_db.users.super.name }}
 db.protocol=jdbc:postgresql:
 db.driver=org.postgresql.Driver
 
+# IDP info
+idp.service.endpoint=https://{{ groups['idp'][0] }}/esgf-idp/idp/openidServer.htm
+idp.security.attribute.service.endpoint=https://{{ groups['idp'][0] }}/esgf-idp/saml/soap/secure/attributeService.htm
+idp.security.registration.service.endpoint=https://{{ groups['idp'][0] }}/esgf-idp/secure/registrationService.htm
+short.lived.certificate.server={{ groups['idp'][0] }}
+myproxy.endpoint={{ groups['idp'][0] }}
+myproxy.port=7512
+
 # Dashboard info
 dashboard.ip.app.home={{ dashboard.ip.home }}
 esgf.registration.xml.path={{ esg.config.dir }}/dashboard
