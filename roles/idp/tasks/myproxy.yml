@@ -33,3 +33,42 @@
   copy:
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
+
+# Install myproxy scripts for validating credentials and the conda env in which they will run
+- name: Create myproxy conda env
+  command: "{{ conda.exe }} create -y -n {{ myproxy.env }} 'python<3' 'pyopenssl' 'psycopg2<2.8'"
+  args:
+    creates: "{{ conda.envs }}/{{ myproxy.env }}"
+
+- name: Create scripts dir
+  file:
+    path: "{{ myproxy.scripts.dir }}"
+    state: directory
+
+- name: Install extapp
+  template:
+    src: myproxy/scripts/esg_attribute_callout_app.j2
+    dest: "{{ myproxy.scripts.extapp }}"
+    mode: 0751
+
+- name: Install mapapp
+  template:
+    src: myproxy/scripts/myproxy-certificate-mapapp.j2
+    dest: "{{ myproxy.scripts.mapapp }}"
+    mode: 0751
+
+- name: Install retriever
+  template:
+    src: myproxy/scripts/retriever.py.j2
+    dest: "{{ myproxy.scripts.retriever }}"
+
+- name: Install pam_pgsql.conf
+  template:
+    src: myproxy/etc_pam_pgsql.conf.j2
+    dest: /etc/pam_pgsql.conf
+    mode: 0600
+
+- name: Install pam.d/myproxy
+  copy:
+    src: etc_pam.d_myproxy
+    dest: /etc/pam.d/myproxy
