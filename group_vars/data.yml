@@ -19,6 +19,12 @@ dashboard:
     name: "esgf_dashboard-0.0.2-py2.7.egg"
     url: "{{ mirror.base }}/2.6/8/esgf-dashboard/esgf_dashboard-0.0.2-py2.7.egg"
     script: esgf_dashboard_initialize
+  git:
+    repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
+    version: "v1.5.21"
+    dest: /usr/local/esgf-dashboard
+  ip:
+    home: /usr/local/esgf-dashboard-ip
 
 node_manager:
   egg:
@@ -35,3 +41,9 @@ data_db:
     pub:
       name: esgcet
       pass: foobar
+
+gridftp:
+  register: false
+  port: 2811
+  chroot: "{{ esg.home }}/gridftp_root"
+  

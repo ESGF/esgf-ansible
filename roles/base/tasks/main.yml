@@ -7,11 +7,11 @@
       - epel-release
       - unzip
 
-- name: Import postgres tasks
-  import_tasks: postgres.yml
-
-- name: Import conda tasks
-  import_tasks: conda.yml
-
-- name: Import properties tasks
-  import_tasks: properties.yml
+- name: Import base tasks
+  include_tasks: "{{ base_task }}.yml"
+  loop:
+    - postgres
+    - properties
+    - config
+  loop_control:
+    loop_var: base_task

@@ -1,0 +1,8 @@
+
+- name: Install GCS GridFTP config file
+  template:
+    src: gridftp/globus-connect-server-esgf.conf.j2
+    dest: /etc/globus-connect-server-esgf.conf
+
+- name: Run globus-connect-server-io-setup
+  command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf -v

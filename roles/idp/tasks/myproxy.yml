@@ -1,0 +1,35 @@
+
+- name: Create myproxy-ca dirs
+  file:
+    path: "{{ myproxy.ca.dir}}/{{ item }}"
+    state: directory
+    mode: 700
+  loop:
+    - newcerts
+    - private
+
+# Temp CA tasks
+- name: Copy temp myproxy CA signing-policy
+  when: myproxy_signing_policy is not defined
+  template:
+    src: signing-policy.j2
+    dest: "{{ myproxy.ca.signing_policy }}"
+
+# Trusted, Signed, CA tasks
+- name: Copy CA cert
+  when: myproxycacert is defined
+  copy:
+    src: "{{ myproxycacert }}"
+    dest: "{{ myproxy.ca.cert }}"
+
+- name: Copy CA key
+  when: myproxycakey is defined
+  copy:
+    src: "{{ myproxycakey }}"
+    dest: "{{ myproxy.ca.key }}"
+
+- name: Copy myproxy CA signing-policy
+  when: myproxy_signing_policy is defined
+  copy:
+    src: "{{ myproxy_signing_policy }}"
+    dest: "{{ myproxy.ca.signing_policy }}"

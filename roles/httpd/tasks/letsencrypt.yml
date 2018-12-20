@@ -1,0 +1,48 @@
+
+
+# Create an ACME Challenge
+- name: Create ACME Challenge
+  acme_certificate:
+    acme_directory: https://acme-v01.api.letsencrypt.org/directory
+    account_key_src: /tmp/account_key.pem
+    csr: /tmp/httpdhost.csr
+    dest: "{{ httpd.hostcert }}"
+    fullchain_dest: "{{ httpd.cachain }}"
+  register: acme_challenge
+
+# Put the Challenge Data in Place
+- name: Ensure challenge data dir exists
+  file:
+    path: /var/www/html/.well-known/acme-challenge
+    state: directory
+
+- name: Copy challenge data
+  when: acme_challenge is changed
+  copy:
+    dest: /var/www/html/{{ acme_challenge['challenge_data']['cwt-node.llnl.gov']['http-01']['resource'] }}
+    content: "{{ acme_challenge['challenge_data']['cwt-node.llnl.gov']['http-01']['resource_value'] }}"
+
+
+# Start the httpd webserver to serve challenge data
+- name: restart httpd
+  when: acme_challenge is changed
+  service:
+    name: httpd
+    state: restarted
+
+# Start ACME Challenge
+- name: Run ACME Challenge
+  when: acme_challenge is changed
+  acme_certificate:
+    acme_directory: https://acme-v01.api.letsencrypt.org/directory
+    account_key_src: /tmp/account_key.pem
+    csr: /tmp/httpdhost.csr
+    dest: "{{ httpd.hostcert }}"
+    fullchain_dest: "{{ httpd.cachain }}"
+    data: "{{ acme_challenge }}"
+
+- name: stop httpd
+  when: acme_challenge is changed
+  service:
+    name: httpd
+    state: stopped

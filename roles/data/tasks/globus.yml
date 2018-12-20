@@ -8,3 +8,83 @@
       - globus-gaa
       - globus-adq
       - customgsiauthzinterface
+      - perl-DBD-Pg
+
+# Create Globus user and group
+- name: globus Group
+  group:
+    name: globus
+
+- name: globus User
+  user:
+    name: globus
+    groups: globus
+    password: foobar # Needs to be hashed sha512
+
+- name: Register GridFTP
+  when: gridftp.register
+  include_tasks: gridftp.yml
+
+- name: Create needed gridftp directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/gridftp.d
+    - /usr/local/esg-usage-parser
+    - /usr/local/esg-usage-parser/src
+    - /usr/local/esg-usage-parser/log
+    - "{{ esg.log }}"
+    - "{{ gridftp.chroot }}"
+
+- name: Install globus-connect-esgf_gridftp config
+  template:
+    src: gridftp/globus-connect-esgf_gridftp.j2
+    dest: /etc/gridftp.d/globus-connect-esgf
+
+# Setup esg_usage_parser
+- name: Install the esg_usage_parser for GridFTP Metrics
+  unarchive:
+    remote_src: yes
+    src: "{{ mirror.base }}/globus/gridftp/esg_usage_parser-0.1.1.tar.bz2"
+    dest: /usr/local/esg-usage-parser/src
+
+- name: Install the esg_usage_parser config
+  template:
+    src: gridftp/esg_usage_parser.conf.j2
+    dest: /usr/local/esg-usage-parser/esg_usage_parser.conf
+
+- name: Setup cron job for esg_usage_parser
+  cron:
+    name: Run esg_usage_parser
+    minute: 5
+    hour: "0,12"
+    job: "ESG_USAGE_PARSER_CONF=/usr/local/esg-usage-parser/esg_usage_parser.conf /usr/local/esg-usage-parser/src/esg_usage_parser"
+
+# ESG SAML Auth
+- name: Install esgsaml_auth.conf
+  template:
+    src: gridftp/esgsaml_auth.conf.j2
+    dest: /etc/grid-security/esgsaml_auth.conf
+
+- name: Install globus-esgf config file
+  copy:
+    src: gridftp/globus-esgf
+    dest: /etc/gridftp.d/globus-esgf
+
+- name: Add a mapfile entry
+  command: grid-mapfile-add-entry -dn '^.*$' -ln globus
+
+- name: Download trusted certifcates for GridFTP
+  unarchive:
+    remote_src: yes
+    src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"
+    dest: /tmp
+    creates: /tmp/esg_trusted_certificates
+
+- name: Install trusted certificates for GridFTP
+  shell: >
+    cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}
+
+- name: Create chroot jail for GridFTP
+  command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}
