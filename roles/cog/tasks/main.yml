@@ -51,6 +51,20 @@
     chdir: "{{ cog.dest }}"
 
 - name: Setup CoG mod_wsgi-express server
+  shell: >
+    {{ conda.actv }} cog && \
+    mod_wsgi-express setup-server apache/wsgi.py \
+    --server-root /etc/cog-wsgi-8889 \
+    --user apache --group apache \
+    --host localhost --port 8889 \
+    --url-alias /static {{ cog.dest }}/static/
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name : Install the cog proxy config
+  template:
+    src: cog.httpd.conf.j2
+    dest: /etc/httpd/conf.d/cog.ssl.conf
 
 - name: Set Ownership
   file:

@@ -23,10 +23,15 @@
     url: "{{ trusted_certs }}"
     dest: "{{ httpd.cabundle }}"
 
-# Create a CA if credentials are not provided
-- name: Install my own CA
+# Get a cert from LetsEncrypt if credentials are not provided
+- name: Install HTTP Config
+  template:
+    src: esgf-httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+
+- name: Install LetsEncrypt Certs
   when: hostkey_src is not defined
-  import_tasks: tempca.yml
+  import_tasks: letsencrypt.yml
 
 # Copy credentials into place if provided
 - name: Copy {{ hostkey }} into place
@@ -47,9 +52,9 @@
     src: "{{ cachain_src }}"
     dest: "{{ httpd.cachain }}"
 
-- name: Install httpd config
+- name: Install HTTPS config
   template:
-    src: "esgf-httpd.conf.j2"
-    dest: "/etc/httpd/conf/httpd.conf"
-  notify:
-    - restart httpd
+    src: "esgf-httpd.ssl.conf.j2"
+    dest: "/etc/httpd/conf/httpd.ssl.conf"
+#   notify:
+#     - restart httpd

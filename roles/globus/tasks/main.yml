@@ -25,41 +25,6 @@
   loop:
     - "{{ grid_security.dir }}"
 
-# Temp gridftp cert and key
-- name: Copy temp gftp hostkey into place
-  when: gftphostkey is not defined
-  copy:
-    src: "{{ tempca.local.host.key }}"
-    dest: "{{ grid_security.host.key }}"
-    mode: 0600
-
-- name: Copy temp gftp hostcert into place
-  when: gftphostcert is not defined
-  copy:
-    src: "{{ tempca.local.host.cert }}"
-    dest: "{{ grid_security.host.cert }}"
-
-- name: Create directory to hold GridFTP, and MyProxy CA if applicable, key and CSR
-  local_action:
-    module: file
-    path: "{{ lookup('env', 'HOME') }}/esgf_globus"
-    state: directory
-  when: gftphostkey is not defined
-
-- name: Create new gtfp hostkey
-  when: gftphostkey is not defined
-  local_action:
-    module: openssl_privatekey
-    path: "{{ lookup('env', 'HOME') }}/esgf_globus/gftphostkey.pem"
-
-- name: Create gftp CA CSR
-  when: gftphostkey is not defined
-  local_action:
-    module: openssl_csr
-    path: "{{ lookup('env', 'HOME') }}/esgf_globus/gftphost.csr"
-    privatekey_path: "{{ lookup('env', 'HOME') }}/esgf_globus/gftphostkey.pem"
-    common_name: "{{ ansible_nodename }}"
-
 # Trusted, signed, gridftp cert and key
 - name: Copy gftp hostkey into place
   when: gftphostkey is defined

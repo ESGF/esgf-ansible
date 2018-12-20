@@ -1,5 +1,0 @@
-
-
-- name: Create my own CA
-  when: hostkey_src is not defined
-  import_tasks: local.yml
