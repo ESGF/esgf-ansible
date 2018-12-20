@@ -11,7 +11,6 @@
   include_tasks: "{{ base_task }}.yml"
   loop:
     - postgres
-    - conda
     - properties
     - config
   loop_control:

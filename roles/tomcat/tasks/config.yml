@@ -4,6 +4,7 @@
     path: "{{ esg.config.dir }}/tomcat"
     state: directory
 
+# Load certificates Tomcat will trust
 - name: Get trusted certificates
   get_url:
     url: "{{ tomcat.ts.url }}"
@@ -17,28 +18,31 @@
     cert_alias: my_esgf_node 
     executable: "{{ java.path }}/bin/keytool"
 
+# Load the hostkey and hostcert into the tomcat keystore
+- name: Slurp host key
+  no_log: true
+  slurp:
+    src: "{{ httpd.hostkey }}"
+  register: keycontents
+
+- name: Slurp host cert
+  no_log: true
+  slurp:
+    src: "{{ httpd.hostcert }}"
+  register: certcontents
+
 - name: Create Keystore
-  when: hostkey_src is defined
+  no_log: true
   java_keystore:
-    private_key: "{{ lookup('file', hostkey_src) }}"
-    certificate: "{{ lookup('file', hostcert_src) }}"
+    private_key: "{{ keycontents['content'] | b64decode }}"
+    certificate: "{{ certcontents['content'] | b64decode }}"
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
   environment:
     PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
-- name: Create Keystore
-  when: hostkey_src is not defined
-  java_keystore:
-    private_key: "{{ lookup('file', '/tmp/tempcerts/host.pem') }}"
-    certificate: "{{ lookup('file', '/tmp/tempcerts/host.crt') }}"
-    name: my_esgf_node 
-    dest: "{{ tomcat.ks.path }}"
-    password: "{{ tomcat.ks.pass }}"
-  environment:
-    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
-
+# Install Tomcat configuration files
 - name: Install server.xml
   template:
     src: server.xml.j2
@@ -53,6 +57,7 @@
   template:
     src: tomcat-users.xml.j2
     dest: "{{ esg.config.dir }}/tomcat/tomcat-users.xml"
+    force: no
 
 - name: Install context.xml
   copy:

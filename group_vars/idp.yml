@@ -12,10 +12,4 @@ myproxy:
     dir: /var/lib/globus-connect-server/myproxy-ca
     cert: /var/lib/globus-connect-server/myproxy-ca/cacert.pem
     signing_policy: /var/lib/globus-connect-server/myproxy-ca/signing-policy
-    key: /var/lib/globus-connect-server/myproxy-ca/private/cakey.pem
-
-grid_security:
-  dir: /etc/grid-security
-  host:
-    key: /etc/grid-security/hostkey.pem
-    cert: /etc/grid-security/hostcert.pem
+    key: /var/lib/globus-connect-server/myproxy-ca/cakey.pem

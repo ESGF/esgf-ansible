@@ -6,3 +6,6 @@
       - globus-connect-server-id
       - mhash
       - pam-pgsql
+
+- name: Import myproxy tasks
+  import_tasks: myproxy.yml

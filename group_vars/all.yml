@@ -9,6 +9,7 @@ esg:
     dir: /esg/config
   content: /esg/content
   home: /esg
+  log: /esg/log
 
 pkgs:
   apache: httpd
@@ -73,26 +74,6 @@ httpd:
   hostcert: /etc/certs/hostcert.pem
   cachain: /etc/certs/cachain.pem
 
-tempca:
-  remote:
-    dir: /etc/tempcerts
-    ca:
-      key: /etc/tempcerts/ca.pem
-      cert: /etc/tempcerts/ca.crt
-    host:
-      key: /etc/tempcerts/host.pem
-      cert: /etc/tempcerts/host.crt
-  local:
-    dir: /tmp/tempcerts/{{ ansible_nodename }}
-    ca:
-      key: /tmp/tempcerts/{{ ansible_nodename }}/ca.pem
-      cert: /tmp/tempcerts/{{ ansible_nodename }}/ca.crt
-      csr: /tmp/tempcerts/{{ ansible_nodename }}/ca.csr
-    host:
-      key: /tmp/tempcerts/{{ ansible_nodename }}/host.pem
-      cert: /tmp/tempcerts/{{ ansible_nodename }}/host.crt
-      csr: /tmp/tempcerts/{{ ansible_nodename }}/host.csr
-
 orp_webapp:
   url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"
   name: esg-orp
@@ -107,3 +88,15 @@ type_bits:
   data: 4
   index: 8
   idp: 16
+
+grid_security:
+  dir: /etc/grid-security
+  cert_dir: /etc/grid-security/certificates
+  host:
+    key: /etc/grid-security/hostkey.pem
+    cert: /etc/grid-security/hostcert.pem
+
+prometheus:
+  node_exporter: 
+    dir: /usr/local/node-exporter
+    sh: /usr/local/node-exporter/node_exporter.sh

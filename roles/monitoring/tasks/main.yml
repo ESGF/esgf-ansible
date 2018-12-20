@@ -1,0 +1,51 @@
+
+- name: prometheus Group
+  group:
+    name: prometheus
+
+- name: prometheus User
+  user:
+    name: prometheus
+    groups: prometheus
+
+# - name: Download the prometheus monitoring service
+#   unarchive:
+#     remote_src: yes
+#     src: https://github.com/prometheus/prometheus/releases/download/v2.6.0/prometheus-2.6.0.linux-amd64.tar.gz
+#     dest: /tmp
+#     creates: /tmp/prometheus-2.6.0.linux-amd64
+
+# - name: Install prometheus
+#   command: "cp -R /tmp/prometheus-2.6.0.linux-amd64 /usr/local/prometheus"
+#   creates: /usr/local/prometheus
+
+- name: Download the node-exporter for prometheus
+  unarchive:
+    remote_src: yes
+    validate_certs: no
+    src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
+    dest: /tmp
+    creates: /tmp/node_exporter-0.17.0.linux-amd64
+
+- name: Install the node-exporter for prometheus
+  command: "cp -R /tmp/node_exporter-0.17.0.linux-amd64 {{ prometheus.node_exporter.dir }}"
+  args:
+    creates: "{{ prometheus.node_exporter.dir }}"
+
+- name: Install the node-exporter initd script
+  template:
+    src: exporters/initd.node_exporter.j2
+    dest: /etc/init.d/node_exporter
+    mode: 0755
+
+- name : Install the node-exporter proxy config
+  template:
+    src: exporters/node_exporter.httpd.conf.j2
+    dest: /etc/httpd/conf.d/node_exporter.ssl.conf
+
+- name: Set prometheus ownership
+  file:
+    path: "{{ prometheus.node_exporter.dir }}"
+    owner: prometheus
+    group: prometheus
+    recurse: yes

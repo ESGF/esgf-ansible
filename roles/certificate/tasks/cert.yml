@@ -1,0 +1,26 @@
+
+
+- name: Make key/csr/cert dir for {{ common_name }}
+  file:
+    path: "{{ dest_dir }}"
+    state: directory
+
+- name: Create {{ common_name }} Key
+  openssl_privatekey:
+    path: "{{ key_dest }}"
+
+- name: Create {{ common_name }} CSR
+  openssl_csr:
+    path: "{{ csr_dest }}"
+    privatekey_path: "{{ key_dest }}"
+    common_name: "{{ common_name }}"
+
+- name: Create {{ common_name }} Cert
+  when:
+    - self_signed is defined
+    - self_signed
+  openssl_certificate:
+    path: "{{ cert_dest }}"
+    privatekey_path: "{{ key_dest }}"
+    csr_path: "{{ csr_dest }}"
+    provider: selfsigned

@@ -1,6 +1,7 @@
 
 dependencies:
   - { role: base }
-  - { role: cog }
+  - { role: schema_migrate, egg: "{{ security.egg }}" }
   - { role: orp }
+  - { role: cog }
   - { role: tomcat_webapp, webapp: "{{ search_webapp }}" }

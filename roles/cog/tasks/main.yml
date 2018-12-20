@@ -36,6 +36,36 @@
     chdir: "{{ cog.dest }}"
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
+- name: Setup CoG
+  shell: >
+    {{ conda.actv }} cog && \
+    python setup.py setup_cog --esgf=true
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name: CoG collectstatic
+  shell: >
+    {{ conda.actv }} cog && \
+    python manage.py collectstatic --no-input
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name: Setup CoG mod_wsgi-express server
+  shell: >
+    {{ conda.actv }} cog && \
+    mod_wsgi-express setup-server apache/wsgi.py \
+    --server-root /etc/cog-wsgi-8889 \
+    --user apache --group apache \
+    --host localhost --port 8889 \
+    --url-alias /static {{ cog.dest }}/static/
+  args:
+    chdir: "{{ cog.dest }}"
+
+- name : Install the cog proxy config
+  template:
+    src: cog.httpd.conf.j2
+    dest: /etc/httpd/conf.d/cog.ssl.conf
+
 - name: Set Ownership
   file:
     path: "{{ cog.base }}"
