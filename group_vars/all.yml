@@ -41,7 +41,7 @@ tomcat:
     pass: changeit
   ks:
     path: "{{ esg.config.dir }}/tomcat/keystore-tomcat"
-    pass: foobar
+    pass: "{{ admin_pass }}"
 
 esgf_rpm:
   baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
@@ -50,7 +50,7 @@ all_db:
   users:
     super: 
       name: dbsuper
-      pass: foobar
+      pass: "{{ admin_pass }}"
   db: esgcet
   host: localhost
   port: 5432

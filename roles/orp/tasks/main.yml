@@ -1,6 +1,7 @@
 
 
 - name: Enter keystore info for use by ORP webapp
+  no_log: true
   replace:
     path: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg-orp.properties"
     regexp: "{{ item.pattern }}"
