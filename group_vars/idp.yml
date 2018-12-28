@@ -16,6 +16,6 @@ myproxy:
     key: /var/lib/globus-connect-server/myproxy-ca/cakey.pem
   scripts:
     dir: /esg/config/myproxy
-    retriever: /esg/config/myproxy.py
+    retriever: /esg/config/myproxy/retriever.py
     mapapp: /esg/config/myproxy/myproxy-certificate-mapapp
     extapp: /esg/config/myproxy/esg_attribute_callout_app
