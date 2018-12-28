@@ -19,7 +19,7 @@
   user:
     name: globus
     groups: globus
-    password: foobar # Needs to be hashed sha512
+    password: "{{ admin_pass|hash('sha512') }}" # Needs to be hashed sha512
 
 - name: Register GridFTP
   when: gridftp.register

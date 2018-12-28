@@ -1,6 +1,28 @@
 
 # All ESGF Node Componenets
 
-- import_playbook: data.yml
-- import_playbook: idp.yml
-- import_playbook: index.yml
+- hosts: all
+  vars_prompt:
+    - name: admin_pass
+      prompt: "Enter the admin password for all services"
+      private: yes
+      when: admin_pass is not defined
+  tasks:
+    - name: Include the data role
+      block:
+        - include_role:
+            name: data
+      when: "'data' in group_names"
+      tags: data
+    - name: Include the idp role
+      block:
+        - include_role:
+            name: idp
+      when: "'idp' in group_names"
+      tags: idp
+    - name: Include the index role
+      block:
+        - include_role:
+            name: index
+      when: "'index' in group_names"
+      tags: index

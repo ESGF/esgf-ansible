@@ -8,8 +8,14 @@ idp_webapp:
   name: esgf-idp
 
 myproxy:
+  env: myproxy
   ca:
     dir: /var/lib/globus-connect-server/myproxy-ca
     cert: /var/lib/globus-connect-server/myproxy-ca/cacert.pem
     signing_policy: /var/lib/globus-connect-server/myproxy-ca/signing-policy
     key: /var/lib/globus-connect-server/myproxy-ca/cakey.pem
+  scripts:
+    dir: /esg/config/myproxy
+    retriever: /esg/config/myproxy.py
+    mapapp: /esg/config/myproxy/myproxy-certificate-mapapp
+    extapp: /esg/config/myproxy/esg_attribute_callout_app

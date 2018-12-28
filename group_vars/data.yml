@@ -3,7 +3,7 @@ thredds:
   content: "{{ esg.content }}/thredds"
   tomcat_user:
     name: "dnode_user"
-    pass: "{{ 'foobar' |hash('md5') }}"
+    pass: "{{ admin_pass |hash('md5') }}"
     roles: "tdrAdmin,tdsConfig"
 
 thredds_webapp:
@@ -40,7 +40,7 @@ data_db:
   users:
     pub:
       name: esgcet
-      pass: foobar
+      pass: "{{ admin_pass }}"
 
 gridftp:
   register: false

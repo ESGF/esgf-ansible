@@ -30,10 +30,11 @@
     UVCDAT_ANONYMOUS_LOG: no
 
 - name: Insert publisher password into esg.ini
+  no_log: true
   replace:
     path: /esg/config/esgcet/esg.ini
     regexp: 'esgcetpass'
-    replace: 'foobar'
+    replace: "{{ admin_pass }}"
 
 - name: Insert publisher host into esg.ini
   replace:
@@ -42,6 +43,7 @@
     replace: '{{ ansible_nodename }}'
 
 - name: Run esgsetup 2
+  no_log: true
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --db --minimal-setup \

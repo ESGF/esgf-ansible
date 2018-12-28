@@ -1,6 +1,0 @@
-
-# Data ESGF Node Componenets
-
-- hosts: data
-  roles:
-    - data
