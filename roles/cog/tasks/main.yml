@@ -3,6 +3,11 @@
 #   file:
 #     path: /usr/local/cog
 #     state: directory
+- name: Install required libraries for CoG
+  package:
+    name:
+      - httpd-devel
+      - sqlite-devel
 
 - name: Clone cog Repo
   git: 
