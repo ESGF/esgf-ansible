@@ -6,10 +6,10 @@
       - automake
       - make
       - gcc
-      - "libxml2"
-      - "libxml2-devel"
-      - "libxslt"
-      - "libxslt-devel"
+      - libxml2
+      - libxml2-devel
+      - libxslt
+      - libxslt-devel
 
 - name: Clone the dashboard repository
   git: 
