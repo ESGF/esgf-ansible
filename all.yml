@@ -12,17 +12,20 @@
       block:
         - include_role:
             name: data
+      become: yes
       when: "'data' in group_names"
       tags: data
     - name: Include the idp role
       block:
         - include_role:
             name: idp
+      become: yes
       when: "'idp' in group_names"
       tags: idp
     - name: Include the index role
       block:
         - include_role:
             name: index
+      become: yes
       when: "'index' in group_names"
       tags: index
