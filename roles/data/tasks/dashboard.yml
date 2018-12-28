@@ -10,6 +10,9 @@
       - libxml2-devel
       - libxslt
       - libxslt-devel
+      - curl
+      - libcurl
+      - libcurl-devel
 
 - name: Clone the dashboard repository
   git: 
