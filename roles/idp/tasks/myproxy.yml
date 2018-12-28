@@ -70,5 +70,5 @@
 
 - name: Install pam.d/myproxy
   copy:
-    src: etc_pam.d_myproxy
+    src: myproxy/etc_pam.d_myproxy
     dest: /etc/pam.d/myproxy
