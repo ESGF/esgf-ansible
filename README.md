@@ -33,7 +33,7 @@ test-indexidp.my.org
 test-indexidp.my.org
 ```
 
-Ansible assumes the use of keys for ssh authorization. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used.
+Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used.
 
 A test deployment to all managed test hosts, with ssh via the root user and password authentication.
 ```
@@ -45,7 +45,7 @@ A test deployment to all managed test hosts, with ssh via a non-root user, *joe*
 ansible-playbook -i hosts.test all.yml --ask-pass -u joe --ask-become-pass
 ```
 
-The authenication method of choice will also be required below.
+The authentication method of choice will also be required below.
 
 A production deployment to all managed production hosts. Optionally just check to see what will happen.
 ```
