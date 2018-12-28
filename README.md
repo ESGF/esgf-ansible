@@ -33,7 +33,7 @@ test-indexidp.my.org
 test-indexidp.my.org
 ```
 
-Ansible assumes the use of keys for ssh authorization. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` must be used.
+Ansible assumes the use of keys for ssh authorization. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used.
 
 A test deployment to all managed test hosts, with ssh via the root user and password authentication.
 ```
@@ -54,5 +54,5 @@ ansible-playbook -i hosts.prod all.yml [ --check --diff ]
 
 A test deployment to managed test hosts that are to be \[ data | idp | index \] nodes
 ```
-ansible-playbook -i hosts.test all.yml --tags \[ data | idp | index \]
+ansible-playbook -i hosts.test all.yml --tags [ data | idp | index ]
 ```
