@@ -2,21 +2,22 @@
 - name: Install publisher required libraries
   package:
     name:
-      - "libxml2"
-      - "libxml2-devel"
-      - "libxslt"
-      - "libxslt-devel"
-      - "gcc"
+      - libxml2
+      - libxml2-devel
+      - libxslt
+      - libxslt-devel
+      - gcc
 
 - name: Create esgf-pub conda env
   command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
 
+# The requests install in the below statement is to match the requests in esgprep
 - name: Install publisher
   shell: >
     {{ conda.actv }} esgf-pub && \
-    pip install '{{ publisher.pip.name }}'
+    pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
   args:
     creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet*"
 
@@ -67,3 +68,8 @@
 #     creates: /esg/config/esgcet/*
   environment:
     UVCDAT_ANONYMOUS_LOG: no
+
+- name: Create test publication data directory
+  file:
+    path: /esg/data/test
+    state: directory

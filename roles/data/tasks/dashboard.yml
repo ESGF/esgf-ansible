@@ -6,6 +6,15 @@
       - automake
       - make
       - gcc
+      - libxml2
+      - libxml2-devel
+      - libxslt
+      - libxslt-devel
+      - curl
+      - libcurl
+      - libcurl-devel
+      - openssl
+      - openssl-devel
 
 - name: Clone the dashboard repository
   git: 
