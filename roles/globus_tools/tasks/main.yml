@@ -24,17 +24,3 @@
     state: directory
   loop:
     - "{{ grid_security.dir }}"
-
-# Trusted, signed, gridftp cert and key
-- name: Copy gftp hostkey into place
-  when: gftphostkey is defined
-  copy:
-    src: "{{ gftphostkey }}"
-    dest: "{{ grid_security.host.key }}"
-    mode: 0600
-
-- name: Copy gftp hostcert into place
-  when: gftphostcert is defined
-  copy:
-    src: "{{ gftphostcert }}"
-    dest: "{{ grid_security.host.cert }}"

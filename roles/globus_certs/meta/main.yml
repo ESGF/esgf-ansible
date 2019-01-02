@@ -1,6 +1,6 @@
 
 dependencies:
-  # This is the temporary, self-signed, certificate
+  # This is the temporary, ownca-signed, certificate
   - {
       role: 'certificate',
       when: gftphostcert is not defined,
@@ -9,7 +9,7 @@ dependencies:
       csr_dest: "/tmp/gftp.csr",
       cert_dest: "{{ grid_security.host.cert }}",
       common_name: "{{ ansible_nodename }}",
-      self_signed: true
+      ownca: true
     }
   # This is the to be signed CSR and Key generation
   - {
@@ -19,5 +19,5 @@ dependencies:
       key_dest: "{{ ansible_env.HOME }}/gridftp.pem",
       csr_dest: "{{ ansible_env.HOME }}/gridftp.csr",
       common_name: "{{ ansible_nodename }}",
-      self_signed: false
+      csr: true
     }

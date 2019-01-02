@@ -43,7 +43,6 @@ data_db:
       pass: "{{ admin_pass }}"
 
 gridftp:
-  register: false
   port: 2811
   chroot: "{{ esg.home }}/gridftp_root"
   

@@ -5,22 +5,41 @@
     path: "{{ dest_dir }}"
     state: directory
 
-- name: Create {{ common_name }} Key
-  openssl_privatekey:
-    path: "{{ key_dest }}"
+- name: Generate own CA
+  when: (use_ownca is defined and use_ownca) or (ownca is defined and ownca)
+  import_tasks: ownca.yml
 
-- name: Create {{ common_name }} CSR
-  openssl_csr:
-    path: "{{ csr_dest }}"
-    privatekey_path: "{{ key_dest }}"
-    common_name: "{{ common_name }}"
+- name: Generate Key and CSR
+  when: (ownca is defined and ownca) or (csr is defined and csr) or (self_signed is defined and self_signed)
+  import_tasks: genkeycsr.yml
 
-- name: Create {{ common_name }} Cert
-  when:
-    - self_signed is defined
-    - self_signed
+- name: Create {{ common_name }} Cert Self Signed
+  when: self_signed is defined and self_signed
   openssl_certificate:
     path: "{{ cert_dest }}"
-    privatekey_path: "{{ key_dest }}"
     csr_path: "{{ csr_dest }}"
+    privatekey_path: "{{ key_dest }}"
     provider: selfsigned
+
+- name: Create {{ common_name }} Cert Own CA
+  when: ownca is defined and ownca
+  openssl_certificate:
+    path: "{{ cert_dest }}"
+    csr_path: "{{ csr_dest }}"
+    ownca_path: /tmp/ownca.crt
+    ownca_privatekey_path: /tmp/ownca.pem
+    provider: ownca
+
+- name: Use Own CA certificate and key
+  when: use_ownca is defined and use_ownca
+  copy:
+    remote_src: yes
+    src: /tmp/ownca.crt
+    dest: "{{ cert_dest }}"
+
+- name: Use Own CA certificate and key
+  when: use_ownca is defined and use_ownca
+  copy:
+    remote_src: yes
+    src: /tmp/ownca.pem
+    dest: "{{ key_dest }}"

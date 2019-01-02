@@ -1,19 +1,17 @@
 
 dependencies:
   - { role: base }
-  - { role: globus }
-  # This is the temporary, self-signed, certificate
+  - { role: globus_tools }
+  # This is the temporary, self-signed, certificate for myproxy
   - {
       role: 'certificate',
       when: myproxycacert is not defined,
       dest_dir: "{{ myproxy.ca.dir }}",
       key_dest: "{{ myproxy.ca.key }}",
-      csr_dest: "/tmp/myproxy.csr",
       cert_dest: "{{ myproxy.ca.cert }}",
-      common_name: "{{ ansible_nodename }}-CA",
-      self_signed: true
+      use_ownca: true
     }
-  # This is the to be signed CSR and Key generation
+  # This is the to be signed CSR and Key generation for myproxy
   - {
       role: 'certificate',
       when: myproxycacert is not defined,
@@ -21,7 +19,7 @@ dependencies:
       key_dest: "{{ ansible_env.HOME }}/myproxy-ca.pem",
       csr_dest: "{{ ansible_env.HOME }}/myproxy-ca.csr",
       common_name: "{{ ansible_nodename }}-CA",
-      self_signed: false
+      csr: true
     }
   - { role: tomcat_webapp, webapp: "{{ idp_webapp }}" }
   - { role: schema_migrate, egg: "{{ security.egg }}" }

@@ -22,8 +22,11 @@
     password: "{{ admin_pass|hash('sha512') }}" # Needs to be hashed sha512
 
 - name: Register GridFTP
-  when: gridftp.register
-  include_tasks: gridftp.yml
+  when:
+    - globus_user is defined
+    - globus_pass is defined
+    - register_gridftp
+  include_tasks: register_gridftp.yml
 
 - name: Create needed gridftp directories
   file:
@@ -75,16 +78,9 @@
 - name: Add a mapfile entry
   command: grid-mapfile-add-entry -dn '^.*$' -ln globus
 
-- name: Download trusted certifcates for GridFTP
-  unarchive:
-    remote_src: yes
-    src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"
-    dest: /tmp
-    creates: /tmp/esg_trusted_certificates
-
-- name: Install trusted certificates for GridFTP
-  shell: >
-    cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}
+- name: Import the globus_certs role
+  import_role:
+    name: globus_certs
 
 - name: Create chroot jail for GridFTP
   command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}

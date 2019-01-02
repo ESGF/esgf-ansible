@@ -1,0 +1,13 @@
+
+
+- name: Create {{ common_name }} Key
+  openssl_privatekey:
+    path: "{{ key_dest }}"
+
+- name: Create {{ common_name }} CSR
+  openssl_csr:
+    path: "{{ csr_dest }}"
+    privatekey_path: "{{ key_dest }}"
+    CN: "{{ common_name }}"
+    O: ESGF
+    OU: ESGF.ORG

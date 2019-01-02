@@ -6,5 +6,5 @@ if [ X"$username" = X ]; then
 fi
 
 # activate virtual env
-source {{ conda.actv }} {{ myproxy.env }} && \
+{{ conda.actv }} {{ myproxy.env }} && \
     python {{ myproxy.scripts.retriever }} $username --cert_file {{ myproxy.ca.cert }} --mapapp
