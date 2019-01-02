@@ -69,7 +69,7 @@
 - name : Install the cog proxy config
   template:
     src: cog.httpd.conf.j2
-    dest: /etc/httpd/conf.d/cog.ssl.conf
+    dest: /etc/httpd/conf.d/99cog.ssl.conf
 
 - name: Set Ownership
   file:

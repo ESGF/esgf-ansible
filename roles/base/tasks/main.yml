@@ -13,6 +13,5 @@
     - postgres
     - properties
     - config
-    - ntp
   loop_control:
     loop_var: base_task

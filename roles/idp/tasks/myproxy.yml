@@ -7,6 +7,11 @@
   loop:
     - newcerts
 
+- name: Create scripts dir
+  file:
+    path: "{{ myproxy.scripts.dir }}"
+    state: directory
+
 # Temp CA tasks
 - name: Copy temp myproxy CA signing-policy
   when: myproxy_signing_policy is not defined
@@ -59,11 +64,6 @@
   command: "{{ conda.exe }} create -y -n {{ myproxy.env }} 'python<3' 'pyopenssl' 'psycopg2<2.8'"
   args:
     creates: "{{ conda.envs }}/{{ myproxy.env }}"
-
-- name: Create scripts dir
-  file:
-    path: "{{ myproxy.scripts.dir }}"
-    state: directory
 
 - name: Install extapp
   template:
