@@ -1,3 +1,4 @@
 dependencies:
+  - { role: ntp }
   - { role: conda }
   - { role: monitoring }

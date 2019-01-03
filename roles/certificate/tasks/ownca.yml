@@ -1,0 +1,19 @@
+
+- name: Create own CA Key
+  openssl_privatekey:
+    path: "/tmp/ownca.pem"
+
+- name: Create own CA CSR
+  openssl_csr:
+    path: "/tmp/ownca.csr"
+    privatekey_path: "/tmp/ownca.pem"
+    CN: "{{ ansible_nodename }}-CA"
+    O: ESGF
+    OU: ESGF.ORG
+
+- name: Create own CA Cert
+  openssl_certificate:
+    path: "/tmp/ownca.crt"
+    privatekey_path: "/tmp/ownca.pem"
+    csr_path: "/tmp/ownca.csr"
+    provider: selfsigned
