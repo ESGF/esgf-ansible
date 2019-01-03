@@ -43,17 +43,17 @@ NameVirtualHost *:443
 
 	ProxyPass /thredds	ajp://localhost:8223/thredds
 	ProxyPassReverse /thredds	ajp://localhost:8223/thredds
-#	ProxyPass /esgf-desktop	ajp://localhost:8223/esgf-desktop
-#	ProxyPassReverse /esgf-desktop	ajp://localhost:8223/esgf-desktop
+
 	ProxyPass /las	ajp://localhost:8223/las
 	ProxyPassReverse /las	ajp://localhost:8223/las
+	
 	ProxyPass /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 	ProxyPassReverse /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
 
-	Include conf.d/*.ssl.conf
+	Include {{ httpd.ssl_proxy_dir }}/*.conf
 
 	#WSGIDaemonProcess demo user=apache group=apache threads=5
 	#WSGIScriptAlias /api/demo /opt/esgf/flaskdemo/demo/demo.wsgi

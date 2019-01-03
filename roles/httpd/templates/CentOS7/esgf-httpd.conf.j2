@@ -25,24 +25,23 @@ Listen 80
 LoadModule auth_basic_module modules/mod_auth_basic.so
 LoadModule auth_digest_module modules/mod_auth_digest.so
 LoadModule authn_file_module modules/mod_authn_file.so
-LoadModule authn_alias_module modules/mod_authn_alias.so
 LoadModule authn_anon_module modules/mod_authn_anon.so
 LoadModule authn_dbm_module modules/mod_authn_dbm.so
-LoadModule authn_default_module modules/mod_authn_default.so
+LoadModule authz_core_module modules/mod_authz_core.so
 LoadModule authz_host_module modules/mod_authz_host.so
 LoadModule authz_user_module modules/mod_authz_user.so
 LoadModule authz_owner_module modules/mod_authz_owner.so
 LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
 LoadModule authz_dbm_module modules/mod_authz_dbm.so
-LoadModule authz_default_module modules/mod_authz_default.so
-LoadModule ldap_module modules/mod_ldap.so
-LoadModule authnz_ldap_module modules/mod_authnz_ldap.so
 LoadModule include_module modules/mod_include.so
 LoadModule log_config_module modules/mod_log_config.so
 LoadModule logio_module modules/mod_logio.so
 LoadModule env_module modules/mod_env.so
 LoadModule ext_filter_module modules/mod_ext_filter.so
+LoadModule slotmem_shm_module modules/mod_slotmem_shm.so
+LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
 LoadModule mime_magic_module modules/mod_mime_magic.so
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
 LoadModule expires_module modules/mod_expires.so
 LoadModule deflate_module modules/mod_deflate.so
 LoadModule headers_module modules/mod_headers.so
@@ -50,6 +49,7 @@ LoadModule usertrack_module modules/mod_usertrack.so
 LoadModule setenvif_module modules/mod_setenvif.so
 LoadModule mime_module modules/mod_mime.so
 LoadModule dav_module modules/mod_dav.so
+LoadModule systemd_module modules/mod_systemd.so
 LoadModule status_module modules/mod_status.so
 LoadModule autoindex_module modules/mod_autoindex.so
 LoadModule info_module modules/mod_info.so
@@ -71,10 +71,10 @@ LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
 LoadModule proxy_connect_module modules/mod_proxy_connect.so
 LoadModule cache_module modules/mod_cache.so
 LoadModule suexec_module modules/mod_suexec.so
-LoadModule disk_cache_module modules/mod_disk_cache.so
 LoadModule cgi_module modules/mod_cgi.so
 LoadModule version_module modules/mod_version.so
 LoadModule ssl_module modules/mod_ssl.so
+LoadModule unixd_module modules/mod_unixd.so
 
 User apache
 Group apache
@@ -146,23 +146,19 @@ TraceEnable Off
 NameVirtualHost *:80
 <Location / >
 	<LimitExcept POST GET>
-		Order deny,allow
-		Deny from all
+		Require all denied
 	</LimitExcept>
 </Location>
 <Location /admin>
-	Order deny,allow
-	Deny from All
+	Require all denied
 	#insert-permitted-ips-here
 </Location>
 <Location /solr/admin>
-	Order deny,allow
-	Deny from All
+	Require all denied
 	#insert-permitted-ips-here
 </Location>
 <Location /solr/*/update>
-        Order deny,allow
-        Deny from All
+    Require all denied
 </Location>
 <VirtualHost *:80>
 
@@ -194,23 +190,24 @@ NameVirtualHost *:80
 
 	ProxyPass /esgf-idp	http://localhost:8080/esgf-idp
 	ProxyPassReverse /esgf-idp	http://localhost:8080/esgf-idp
+
 	ProxyPass /esg-orp	ajp://localhost:8223/esg-orp
 	ProxyPassReverse /esg-orp	ajp://localhost:8223/esg-orp
+
 	ProxyPass /esg-search	ajp://localhost:8223/esg-search
 	ProxyPassReverse /esg-search	ajp://localhost:8223/esg-search
+
 	ProxyPass /thredds	ajp://localhost:8223/thredds
 	ProxyPassReverse /thredds	ajp://localhost:8223/thredds
 
-#	ProxyPass /esgf-desktop	ajp://localhost:8223/esgf-desktop
-#	ProxyPassReverse /esgf-desktop	ajp://localhost:8223/esgf-desktop
 	ProxyPass /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 	ProxyPassReverse /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 
 	ProxyPass /las	ajp://localhost:8223/las
 	ProxyPassReverse /las	ajp://localhost:8223/las
 
-	#nm-http rules go here
+	IncludeOptional {{ httpd.proxy_dir }}/*.conf
 
 </VirtualHost>
 
-Include conf/*.ssl.conf
+IncludeOptional conf/*.ssl.conf

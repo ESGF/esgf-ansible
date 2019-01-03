@@ -5,6 +5,26 @@
       - "{{ pkgs.apache }}"
       - "mod_ssl"
 
+# Create config dirs
+- name: Create esgf-proxy configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ httpd.proxy_dir }}"
+    - "{{ httpd.ssl_proxy_dir }}"
+
+- name: Configure firewalld
+  when: is_7
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  loop:
+    - http
+    - https
+
 # Begin setting up certificates for httpd
 - name: Create cert dir
   file:
@@ -26,14 +46,14 @@
 # Get a cert from LetsEncrypt if credentials are not provided
 - name: Install HTTP Config
   template:
-    src: esgf-httpd.conf.j2
+    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
 
 - name: Install LetsEncrypt Certs
   when: hostkey_src is not defined
   import_tasks: letsencrypt.yml
 
-# Copy credentials into place if provided
+# Copy credentials into place, if provided
 - name: Copy {{ hostkey }} into place
   when: hostkey_src is defined
   copy:
@@ -52,9 +72,10 @@
     src: "{{ cachain_src }}"
     dest: "{{ httpd.cachain }}"
 
+# Setup additional config
 - name: Install HTTPS config
   template:
-    src: "esgf-httpd.ssl.conf.j2"
-    dest: "/etc/httpd/conf/httpd.ssl.conf"
+    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.ssl.conf.j2"
+    dest: /etc/httpd/conf/httpd.ssl.conf
 #   notify:
 #     - restart httpd

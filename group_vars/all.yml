@@ -1,4 +1,10 @@
 
+# OS Info
+is_7: ansible_distribution_major_version == "7"
+is_6: ansible_distribution_major_version == "6"
+
+# ESGF Info
+
 mirror:
   base: http://aims1.llnl.gov/esgf/dist
 
@@ -13,8 +19,8 @@ esg:
 
 pkgs:
   apache: httpd
-  postgres_server: postgresql-server-8.4.20
-  postgres_devel: postgresql-devel-8.4.20
+  postgres_server: postgresql-server
+  postgres_devel: postgresql-devel
   psgycopg2: python-psycopg2
 
 conda:
@@ -44,7 +50,7 @@ tomcat:
     pass: "{{ admin_pass }}"
 
 esgf_rpm:
-  baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
+  baseurl: https://aims1.llnl.gov/esgf/RPM/centos/{{ ansible_distribution_major_version }}/x86_64/
 
 all_db:
   users:
@@ -73,6 +79,9 @@ httpd:
   hostkey: /etc/certs/hostkey.pem
   hostcert: /etc/certs/hostcert.pem
   cachain: /etc/certs/cachain.pem
+  ssl_proxy_dir: /etc/httpd/conf.d/esgf-proxy-ssl
+  proxy_dir: /etc/httpd/conf.d/esgf-proxy
+
 
 orp_webapp:
   url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"
