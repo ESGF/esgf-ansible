@@ -1,0 +1,19 @@
+- pause:
+    prompt: "Enter the admin password you would like to use for all services"
+    echo: no
+  register: admin_pass
+  no_log: true
+
+- pause:
+    prompt: "Confirm the admin password"
+    echo: no
+  register: pass_check
+  until: pass_check.user_input == admin_pass.user_input
+  retries: 3
+  delay: 0
+  no_log: true
+
+- name: Set the password
+  set_fact:
+    admin_pass: "{{ admin_pass.user_input }}"
+  no_log: true
