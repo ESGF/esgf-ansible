@@ -38,7 +38,7 @@
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
 
-- name: Import own CA into Truststore
+- name: Import myproxy CA into Truststore
   java_cert:
     cert_path: "{{ myproxy.ca.cert }}"
     keystore_path: "{{ tomcat.ts.path }}"
