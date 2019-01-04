@@ -59,7 +59,7 @@
   shell: >
     {{ conda.actv }} cog && \
     mod_wsgi-express setup-server apache/wsgi.py \
-    --server-root /etc/cog-wsgi-8889 \
+    --server-root {{ cog.wsgi_dir }} \
     --user apache --group apache \
     --host localhost --port 8889 \
     --url-alias /static {{ cog.dest }}/static/

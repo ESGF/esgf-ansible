@@ -1,0 +1,14 @@
+dependencies:
+  - role: base
+
+  - role: data
+    when: "'data' in group_names"
+    tags: data
+
+  - role: idp
+    when: "'idp' in group_names"
+    tags: idp
+    
+  - role: index
+    when: "'index' in group_names"
+    tags: index

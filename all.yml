@@ -5,27 +5,27 @@
   tasks:
     # Get the admin password
     - name: Include the passwd role
-      include_role:
-        name: passwd
+      block:
+        - include_role:
+            name: passwd
+      tags: always
 
-    - name: Include the data role
+    - name: Include the main role
+      include_role:
+        name: main
+
+    - name: Start services
       block:
         - include_role:
-            name: data
-      become: yes
-      when: "'data' in group_names"
-      tags: data
-    - name: Include the idp role
+            name: start
+      tags:
+        - start
+        - never
+
+    - name: Stop services
       block:
         - include_role:
-            name: idp
-      become: yes
-      when: "'idp' in group_names"
-      tags: idp
-    - name: Include the index role
-      block:
-        - include_role:
-            name: index
-      become: yes
-      when: "'index' in group_names"
-      tags: index
+            name: stop
+      tags:
+        - stop
+        - never

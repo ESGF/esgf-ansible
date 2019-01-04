@@ -1,0 +1,13 @@
+
+- name: stop httpd
+  service:
+    name: httpd
+    state: stopped
+
+- name: stop tomcat
+  command: "{{ tomcat.ctrl_script }} stop"
+  ignore_errors: yes
+
+- name: stop cog
+  when: "'index' in group_names"
+  command: "{{ cog.wsgi_dir }}/apachectl stop"

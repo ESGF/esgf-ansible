@@ -1,6 +1,5 @@
 
 dependencies:
-  - { role: base }
   - { role: schema_migrate, egg: "{{ security.egg }}" }
   - { role: orp }
   - { role: cog }

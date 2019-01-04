@@ -1,0 +1,12 @@
+
+- name: start httpd
+  service:
+    name: httpd
+    state: started
+
+- name: start tomcat
+  command: "nohup {{ tomcat.ctrl_script }} start"
+
+- name: start cog
+  when: "'index' in group_names"
+  command: "{{ cog.wsgi_dir }}/apachectl start"
