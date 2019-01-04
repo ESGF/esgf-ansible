@@ -68,8 +68,8 @@
 
 - name : Install the cog proxy config
   template:
-    src: cog.httpd.conf.j2
-    dest: /etc/httpd/conf.d/99cog.ssl.conf
+    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/cog.httpd.conf.j2"
+    dest: "{{ httpd.ssl_proxy_dir }}/9cog.conf"
 
 - name: Set Ownership
   file:

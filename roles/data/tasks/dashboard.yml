@@ -21,6 +21,12 @@
     repo: "{{ dashboard.git.repository }}"
     version: "{{ dashboard.git.version }}"
     dest: "{{ dashboard.git.dest }}"
+    force: yes
+
+- name: Run autoreconf for dashboard-ip
+  command: autoreconf
+  args:
+    chdir: "{{ dashboard.git.dest }}/src/c/esgf-dashboard-ip"
 
 - name: Run automake for dashboard-ip
   command: automake
