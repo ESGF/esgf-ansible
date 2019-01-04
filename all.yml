@@ -11,8 +11,11 @@
       tags: always
 
     - name: Include the main role
-      include_role:
-        name: main
+      block:
+        - include_role:
+            name: main
+      tags:
+        - install
 
     - name: Start services
       block:

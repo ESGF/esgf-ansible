@@ -19,13 +19,13 @@
     executable: "{{ java.path }}/bin/keytool"
 
 # Load the hostkey and hostcert into the tomcat keystore
-- name: Slurp host key
+- name: Load host key
   no_log: true
   slurp:
     src: "{{ httpd.hostkey }}"
   register: keycontents
 
-- name: Slurp host cert
+- name: Load host cert
   no_log: true
   slurp:
     src: "{{ httpd.hostcert }}"
