@@ -9,6 +9,7 @@
         - include_role:
             name: passwd
       tags: always
+      when: admin_pass is not defined
 
     - name: Include the main role
       block:
