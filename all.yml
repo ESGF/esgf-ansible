@@ -2,6 +2,7 @@
 # All ESGF Node Componenets
 
 - hosts: all
+  become: yes
   tasks:
     # Get the admin password
     - name: Include the passwd role
