@@ -38,6 +38,14 @@
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
 
+- name: Import own CA into Truststore
+  java_cert:
+    cert_path: "{{ myproxy.ca.cert }}"
+    keystore_path: "{{ tomcat.ts.path }}"
+    keystore_pass: "{{ tomcat.ts.pass }}"
+    cert_alias: my_esgf_node_myproxy
+    executable: "{{ java.path }}/bin/keytool"
+
 - name: Register MyProxy Server
   when:
     - globus_user is defined

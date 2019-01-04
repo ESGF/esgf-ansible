@@ -10,12 +10,12 @@
     url: "{{ tomcat.ts.url }}"
     dest: "{{ tomcat.ts.path }}"
 
-- name: Import CA to Truststore
+- name: Import web CA into Truststore
   java_cert:
     cert_path: "{{ httpd.cachain }}"
     keystore_path: "{{ tomcat.ts.path }}"
     keystore_pass: "{{ tomcat.ts.pass }}"
-    cert_alias: my_esgf_node 
+    cert_alias: my_esgf_node
     executable: "{{ java.path }}/bin/keytool"
 
 # Load the hostkey and hostcert into the tomcat keystore
