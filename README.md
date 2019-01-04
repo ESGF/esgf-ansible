@@ -37,22 +37,28 @@ Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass`
 
 A test deployment to all managed test hosts, with ssh via the root user and password authentication.
 ```
-ansible-playbook -i hosts.test all.yml --ask-pass -u root
+ansible-playbook -i hosts.test all.yml --ask-pass -u root --tags install
 ```
 
 A test deployment to all managed test hosts, with ssh via a non-root user, *joe*, that has sudo privileges on the managed machine(s).
 ```
-ansible-playbook -i hosts.test all.yml --ask-pass -u joe --ask-become-pass
+ansible-playbook -i hosts.test all.yml --ask-pass -u joe --ask-become-pass --tags install
 ```
 
 The authentication method of choice will also be required below.
 
 A production deployment to all managed production hosts. Optionally just check to see what will happen.
 ```
-ansible-playbook -i hosts.prod all.yml [ --check --diff ]
+ansible-playbook -i hosts.prod all.yml [ --check --diff ] --tags install
 ```
 
-A test deployment to managed test hosts that are to be \[ data | idp | index \] nodes
+A test deployment to your data node
 ```
-ansible-playbook -i hosts.test all.yml --tags [ data | idp | index ]
+ansible-playbook -i hosts.test all.yml --tags "install,data" --limit test-data.my.org
+```
+
+Node services can be started or stopped using tags "start" or "stop"
+```
+ansible-playbook -i hosts.test all.yml --tags start
+ansible-playbook -i hosts.test all.yml --tags stop
 ```
