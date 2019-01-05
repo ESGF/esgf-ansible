@@ -10,3 +10,13 @@
 - name: start cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl start"
+
+- name: start myproxy-server
+  when: "'idp' in group_names"
+  service:
+    name: myproxy-server
+    state: started
+
+- name: start slcs
+  when: "'idp' in group_names"
+  command: "{{ slcs.wsgi_dir }}/apachectl start"

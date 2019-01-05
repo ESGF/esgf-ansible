@@ -1,5 +1,6 @@
 dependencies:
   - role: base
+    tags: base
 
   - role: data
     when: "'data' in group_names"

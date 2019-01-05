@@ -11,3 +11,14 @@
 - name: stop cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
+
+- name: stop myproxy-server
+  when: "'idp' in group_names"
+  service:
+    name: myproxy-server
+    state: stopped
+  ignore_errors: yes  
+
+- name: stop slcs
+  when: "'idp' in group_names"
+  command: "{{ slcs.wsgi_dir }}/apachectl stop"
