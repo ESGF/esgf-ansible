@@ -2,7 +2,7 @@
 - name: Import dashboard tasks
   import_tasks: dashboard.yml
 
-  - name: Import postgres tasks
+- name: Import postgres tasks
   import_tasks: postgres.yml
 
 - name: Import publisher tasks
