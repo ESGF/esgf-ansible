@@ -10,7 +10,8 @@ CertificateFile = {{ grid_security.host.cert }}
 KeyFile = {{ grid_security.host.key }}
 TrustedCertificateDirectory = {{ grid_security.cert_dir }}
 IdentityMethod = MyProxy
-AuthorizationMethod = Gridmap
+[MyProxy]
+Server = {{ groups['idp'][0] }}
 [GridFTP]
 Server = {{ ansible_nodename }}
 IncomingPortRange = 50000,51000

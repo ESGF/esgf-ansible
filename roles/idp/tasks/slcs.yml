@@ -6,6 +6,7 @@
       - libffi-devel
       - openssl-devel
       - postgresql-devel
+      - httpd-devel
 
 - name: Install SLCS Repo
   git:
