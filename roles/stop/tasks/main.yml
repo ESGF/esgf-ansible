@@ -22,3 +22,9 @@
 - name: stop slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl stop"
+
+- name: stop globus-gridftp-server
+  when: "'data' in group_names"
+  service:
+    name: globus-gridftp-server
+    state: stopped

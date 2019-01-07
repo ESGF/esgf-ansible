@@ -20,3 +20,9 @@
 - name: start slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl start"
+
+- name: start globus-gridftp-server
+  when: "'data' in group_names"
+  service:
+    name: globus-gridftp-server
+    state: started
