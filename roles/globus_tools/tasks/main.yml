@@ -24,3 +24,4 @@
     state: directory
   loop:
     - "{{ grid_security.dir }}"
+    - "{{ grid_security.cert_dir }}"
