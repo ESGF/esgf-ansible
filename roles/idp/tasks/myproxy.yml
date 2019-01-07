@@ -64,10 +64,6 @@
     src: myproxy/globus-connect-esgf.j2
     dest: /etc/myproxy.d/globus-connect-esgf
 
-- name: Import the globus_certs role
-  import_role: 
-    name: globus_certs
-
 # Install myproxy scripts for validating credentials and the conda env in which they will run
 - name: Create myproxy conda env
   command: "{{ conda.exe }} create -y -n {{ myproxy.env }} 'python<3' 'pyopenssl' 'psycopg2<2.8'"
