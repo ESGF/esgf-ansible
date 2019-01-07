@@ -1,8 +1,5 @@
 
 
-- name: Import slcs tasks
-  import_tasks: slcs.yml
-
 - name: Import globus tasks
   import_tasks: globus.yml
 
@@ -10,3 +7,7 @@
   template:
     src: esgf_idp.xml.j2
     dest: "{{ esg.config.dir }}/esgf_idp.xml"
+
+- name: Import slcs tasks
+  import_tasks: slcs.yml
+  tags: slcs

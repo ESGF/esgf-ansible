@@ -1,6 +1,5 @@
 
 dependencies:
-  - { role: base }
   - { role: globus_tools }
   - { role: orp }
   - { role: schema_migrate, egg: "{{ security.egg }}" }

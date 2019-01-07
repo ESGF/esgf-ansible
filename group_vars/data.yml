@@ -45,4 +45,3 @@ data_db:
 gridftp:
   port: 2811
   chroot: "{{ esg.home }}/gridftp_root"
-  

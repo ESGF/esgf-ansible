@@ -1,11 +1,125 @@
 
+- name: Install utilities required by SLCS
+  package:
+    name:
+      - gcc
+      - libffi-devel
+      - openssl-devel
+      - postgresql-devel
+
 - name: Install SLCS Repo
   git:
     repo: "{{ slcs.repo }}"
     version: "{{ slcs.version }}"
-    dest: "{{ slcs.src }}"
+    dest: "{{ slcs.dest }}"
 
 - name: Create SLCS conda env
   command: "{{ conda.exe }} create -y -n slcs 'python<3' pip"
   args:
     creates: "{{ conda.envs }}/slcs"
+
+- name: Install SLCS Requirements
+  shell: >
+    {{ conda.actv }} slcs && \
+    pip install 'mod_wsgi<4.6' -r requirements.txt
+  args:
+    chdir: "{{ slcs.dest }}"
+    # creates: "{{ conda.envs }}/slcs/{{ conda.mods }}/mod_wsgi*"
+
+- name: Install SLCS
+  shell: >
+    {{ conda.actv }} slcs && \
+    pip install --no-deps -e . 
+  args:
+    chdir: "{{ slcs.dest }}"
+    # creates: "{{ conda.envs }}/slcs/{{ conda.mods }}/*slcs*"
+
+- name: Install the settings.py file
+  template:
+    src: slcs/settings.py.j2
+    dest: "{{ slcs.dest }}/esgf_slcs_server/settings.py"
+
+- name: Create SLCS config directory
+  file:
+    path: "{{ slcs.home }}/conf/app"
+    state: directory
+
+- name: Create Django secret file
+  shell: tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
+  args:
+    creates: "{{ slcs.home }}/conf/app/secret_key.txt"
+  no_log: true
+
+- name: Set file permissions on secret file
+  file:
+    path: "{{ slcs.home }}/conf/app/secret_key.txt"
+    mode: 0600
+
+- name: Install slcsdb password file
+  copy:
+    content: "{{ all_db.users.super.pass }}"
+    dest: "{{ slcs.home }}/conf/app/slcsdb_passwd.txt"
+    mode: 0600
+  no_log: true
+
+- name: Install userdb password file
+  copy:
+    content: "{{ all_db.users.super.pass }}"
+    dest: "{{ slcs.home }}/conf/app/userdb_passwd.txt"
+    mode: 0600
+  no_log: true
+
+- name: Create slcsdb database
+  become: yes  
+  become_user: postgres
+  postgresql_db:
+    name: "slcsdb"
+
+- name: Run database migrations
+  shell: >
+    {{ conda.actv }} slcs && \
+    python manage.py migrate
+  args:
+    chdir: "{{ slcs.dest }}"
+
+- name: Create Django superuser
+  shell: >
+    {{ conda.actv }} slcs && \
+    python manage.py createsuperuser  \
+    --noinput --username=rootAdmin --email=notused@notused.com
+  args:
+    chdir: "{{ slcs.dest }}"
+  register: create_superuser
+  changed_when: create_superuser.rc == 0
+  failed_when: "create_superuser.rc != 0 and 'duplicate key value violates unique constraint' not in create_superuser.stderr"
+
+- name: Collect static files
+  shell: >
+    {{ conda.actv }} slcs && \
+    python manage.py collectstatic --noinput --clear
+  args:
+    chdir: "{{ slcs.dest }}"
+
+- name: Setup SLCS mod_wsgi-express server
+  shell: >
+    {{ conda.actv }} slcs && \
+    mod_wsgi-express setup-server esgf_slcs_server/wsgi.py \
+    --server-root {{ slcs.wsgi_dir }} \
+    --user apache --group apache \
+    --host localhost --port 8888 \
+    --mount-point /esgf-slcs \
+    --url-alias /static {{ slcs.static }}
+  args:
+    chdir: "{{ slcs.dest }}"
+
+- name: Set apache ownership
+  file:
+    path: "{{ slcs.home }}"
+    owner: apache
+    group: apache
+    recurse: yes
+
+- name : Install the slcs proxy config
+  template:
+    src: "slcs/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/slcs.httpd.conf.j2"
+    dest: "{{ httpd.ssl_proxy_dir }}/0slcs.conf"

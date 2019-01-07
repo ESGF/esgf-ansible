@@ -1,0 +1,24 @@
+
+- name: stop httpd
+  service:
+    name: httpd
+    state: stopped
+
+- name: stop tomcat
+  command: "{{ tomcat.ctrl_script }} stop"
+  ignore_errors: yes
+
+- name: stop cog
+  when: "'index' in group_names"
+  command: "{{ cog.wsgi_dir }}/apachectl stop"
+
+- name: stop myproxy-server
+  when: "'idp' in group_names"
+  service:
+    name: myproxy-server
+    state: stopped
+  ignore_errors: yes  
+
+- name: stop slcs
+  when: "'idp' in group_names"
+  command: "{{ slcs.wsgi_dir }}/apachectl stop"
