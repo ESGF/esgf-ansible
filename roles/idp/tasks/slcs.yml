@@ -109,7 +109,7 @@
     --user apache --group apache \
     --host localhost --port 8888 \
     --mount-point /esgf-slcs \
-    --url-alias /static {{ slcs.static }}
+    --url-alias /esgf-slcs/static {{ slcs.static }}
   args:
     chdir: "{{ slcs.dest }}"
 
@@ -120,7 +120,7 @@
     group: apache
     recurse: yes
 
-- name : Install the slcs proxy config
-  template:
-    src: "slcs/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/slcs.httpd.conf.j2"
-    dest: "{{ httpd.ssl_proxy_dir }}/0slcs.conf"
+# - name : Install the slcs proxy config
+#   template:
+#     src: "slcs/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/slcs.httpd.conf.j2"
+#     dest: "{{ httpd.ssl_proxy_dir }}/0slcs.conf"

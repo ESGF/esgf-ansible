@@ -5,4 +5,4 @@
     dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
 
 - name: Run the globus-connect-server-id-setup Command
-  command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf
+  command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
