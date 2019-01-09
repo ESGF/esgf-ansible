@@ -11,6 +11,15 @@
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl start"
 
+- name: start solr shards
+  when: "'index' in group_names"
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
+  loop: "{{ solr.shards }}"
+  loop_control:
+    loop_var: shard
+
 - name: start myproxy-server
   when: "'idp' in group_names"
   service:

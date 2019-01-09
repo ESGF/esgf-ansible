@@ -12,6 +12,12 @@
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
 
+- name: stop solr
+  when: "'index' in group_names"
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr stop -all"
+
 - name: stop myproxy-server
   when: "'idp' in group_names"
   service:
