@@ -65,6 +65,7 @@
     --url-alias /static {{ cog.dest }}/static/
   args:
     chdir: "{{ cog.dest }}"
+    creates: "{{ cog.wsgi_dir }}"
 
 - name : Install the cog proxy config
   template:
