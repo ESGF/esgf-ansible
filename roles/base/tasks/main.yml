@@ -6,6 +6,7 @@
     name:
       - epel-release
       - unzip
+      - lsof
 
 - name: Import base tasks
   include_tasks: "{{ base_task }}.yml"
