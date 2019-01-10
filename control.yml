@@ -1,0 +1,13 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Start
+      block:
+        - include_role:
+            name: start
+      tags: start
+    - name: Stop
+      block:
+        - include_role:
+            name: stop
+      tags: stop

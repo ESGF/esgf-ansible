@@ -5,7 +5,7 @@
     state: stopped
 
 - name: stop tomcat
-  command: "{{ tomcat.ctrl_script }} stop"
+  command: "{{ tomcat_ctrl }} stop"
   ignore_errors: yes
 
 - name: stop cog

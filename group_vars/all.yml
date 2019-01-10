@@ -35,12 +35,12 @@ java:
   root_dir: jdk1.8.0_192
   path: /usr/local/java
 
+
 tomcat:
   src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
   root_dir: apache-tomcat-8.5.20
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
-  ctrl_script: /usr/local/tomcat/bin/catalina.sh
   ts:
     url: "{{ mirror.base }}/certs/esg-truststore.ts"
     path: "{{ esg.config.dir }}/tomcat/esg-truststore.ts"
@@ -48,6 +48,7 @@ tomcat:
   ks:
     path: "{{ esg.config.dir }}/tomcat/keystore-tomcat"
     pass: "{{ admin_pass }}"
+tomcat_ctrl: /usr/local/tomcat/bin/catalina.sh
 
 esgf_rpm:
   baseurl: https://aims1.llnl.gov/esgf/RPM/centos/{{ ansible_distribution_major_version }}/x86_64/

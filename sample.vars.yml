@@ -1,0 +1,42 @@
+### Globus Services
+##
+### This information is used to connect the node
+### to the Globus system. 
+##
+### Leave unspecified andthe Globus Connect Server 
+### setup steps will be skipped.
+##
+#globus_user:
+#globus_pass:
+#register_gridftp: true|false
+#register_myproxy: true|false
+
+### Keys and Certificates for Globus Services
+##
+### The paths on the local machine to the respective 
+### key/cert that have been signed by ESGF. If these
+### have not been obtained for a node, leave unspecified.
+##
+### Leave unspecified and temporary certificates as
+### well as certificate signing requests for valid
+### certs will be generated in the HOME directory
+### of the user used for deployment on the node.
+##
+#gftphostcert:
+#gftphostkey:
+#myproxycacert:
+#myproxycakey:
+#myproxy_signing_policy:
+
+### Keys and Certificates for Web Services, httpd and tomcat
+##
+### The paths on the local machine to the respective 
+### key/cert that have been signed by a commonly trusted 
+### certificate authority.
+##
+### Leave unspecified and temporary certificates will be 
+### generated.
+##
+#hostkey_src:
+#hostcert_src:
+#cachain_src:
