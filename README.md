@@ -20,14 +20,14 @@ For all the details and features of Ansible see:
 ### Usage
 
 #### Info
-To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These can be populated with the respective fully qualified host names of your managed machines and then specified at the command line as desired on the control machine. There is a sample inventory at the base level of the repo, `sample.hosts`.
+To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These can be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i <inventory file name>`. There is a sample inventory file at the base level of the repo, `sample.hosts`.
 
-The second important file that will be unqiue for each sites deployment is a variable file. There is a sample variables file that contains all available options and info in the base level of the repo, `sample.vars.yml`.
+The second important file that will be unique for each sites deployment is a variable file. There is a sample variables file that contains all available options and info in the base level of the repo, `sample.vars.yml`.
 
 #### Examples
 Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used.
 
-A test deployment to all managed test hosts, with ssh via the root user and password authentication. Note the '@' is required.
+A test deployment to all managed test hosts, with ssh via the root user and password authentication and a variable file named `myvars.test.yml`. Note the '@' is required.
 ```
 ansible-playbook -i hosts.test --ask-pass -u root -e @myvars.test.yml install.yml
 ```
