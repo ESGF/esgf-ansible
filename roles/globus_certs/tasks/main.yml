@@ -14,7 +14,7 @@
     src: "{{ gftphostcert }}"
     dest: "{{ grid_security.host.cert }}"
 
-- name: Download trusted certifcates for Globus
+- name: Download trusted certificates for Globus
   unarchive:
     remote_src: yes
     src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"

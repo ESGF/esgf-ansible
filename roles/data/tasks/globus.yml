@@ -79,10 +79,6 @@
 - name: Add a mapfile entry
   command: grid-mapfile-add-entry -dn '^.*$' -ln globus
 
-- name: Import the globus_certs role
-  import_role:
-    name: globus_certs
-
 - name: Create chroot jail for GridFTP
   command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}
 

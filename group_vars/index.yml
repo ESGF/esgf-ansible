@@ -1,12 +1,18 @@
 
 search_webapp:
-  url: "{{ mirror.base }}/2.6/8/esg-search/esg-search.war"
+  url: "{{ mirror.base }}/2.8/1/esg-search/esg-search.war"
   name: esg-search
 
 solr:
-  src: http://archive.apache.org/dist/lucene/solr/5.5.5/solr-5.5.5.tgz
-  root_dir: solr-5.5.5
+  src: http://archive.apache.org/dist/lucene/solr/6.6.5/solr-6.6.5.zip
+  root_dir: solr-6.6.5
   path: /usr/local/solr
+  home: /usr/local/solr-home
+  shards:
+    - name: master
+      port: 8984
+    - name: slave
+      port: 8983
 
 cog:
   repo: https://github.com/William-Hill/COG.git

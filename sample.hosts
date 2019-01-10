@@ -2,6 +2,11 @@
 [data]
 host-data.my.org
 
+### NOTE: If this is going to be used for a data only deployment
+###  the index and idp groups MUST still be specified with the host(s)
+###  that will be used, respectively.
+### See the data only install example in the README for how to 
+###  direct the installer to only deploy to the data node.
 [index]
 host-index-idp.my.org
 

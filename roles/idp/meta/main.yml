@@ -1,6 +1,7 @@
 
 dependencies:
   - { role: globus_tools }
+  - { role: globus_certs }
   # This is the temporary, self-signed, certificate for myproxy
   - {
       role: 'certificate',

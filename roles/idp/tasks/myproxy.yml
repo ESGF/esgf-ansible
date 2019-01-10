@@ -38,7 +38,19 @@
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
 
-- name: Import myproxy CA into Truststore
+- name: Load myproxy CA cert
+  no_log: yes
+  slurp:
+    src: "{{ myproxy.ca.cert }}"
+  register: certcontents
+
+- name: Import myproxy CA into httpd trusted certs
+  no_log: yes  
+  lineinfile:
+    dest: "{{ httpd.cabundle }}"
+    line: "{{ certcontents['content'] | b64decode }}"
+
+- name: Import myproxy CA into Java Truststore
   java_cert:
     cert_path: "{{ myproxy.ca.cert }}"
     keystore_path: "{{ tomcat.ts.path }}"
@@ -63,10 +75,6 @@
   template:
     src: myproxy/globus-connect-esgf.j2
     dest: /etc/myproxy.d/globus-connect-esgf
-
-- name: Import the globus_certs role
-  import_role: 
-    name: globus_certs
 
 # Install myproxy scripts for validating credentials and the conda env in which they will run
 - name: Create myproxy conda env

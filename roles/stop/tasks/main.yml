@@ -5,12 +5,18 @@
     state: stopped
 
 - name: stop tomcat
-  command: "{{ tomcat.ctrl_script }} stop"
+  command: "{{ tomcat_ctrl }} stop"
   ignore_errors: yes
 
 - name: stop cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
+
+- name: stop solr
+  when: "'index' in group_names"
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr stop -all"
 
 - name: stop myproxy-server
   when: "'idp' in group_names"
@@ -22,3 +28,9 @@
 - name: stop slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl stop"
+
+- name: stop globus-gridftp-server
+  when: "'data' in group_names"
+  service:
+    name: globus-gridftp-server
+    state: stopped
