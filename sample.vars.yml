@@ -3,7 +3,7 @@
 ### This information is used to connect the node
 ### to the Globus system. 
 ##
-### Leave unspecified andthe Globus Connect Server 
+### Leave unspecified and the Globus Connect Server 
 ### setup steps will be skipped.
 ##
 #globus_user:

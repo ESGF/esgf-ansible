@@ -16,7 +16,9 @@
       block:
         - include_role:
             name: base
-      tags: base
+      tags:
+        - always
+        - base
 
     - name: IDP
       block:

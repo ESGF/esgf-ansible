@@ -20,7 +20,7 @@ For all the details and features of Ansible see:
 ### Usage
 
 #### Info
-To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file. These can be populated with the respective fully qualified host names of your managed machines and then specified at the command line as desired on the control machine. There is a sample inventory at the base level of the repo, `sample.hosts`.
+To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These can be populated with the respective fully qualified host names of your managed machines and then specified at the command line as desired on the control machine. There is a sample inventory at the base level of the repo, `sample.hosts`.
 
 The second important file that will be unqiue for each sites deployment is a variable file. There is a sample variables file that contains all available options and info in the base level of the repo, `sample.vars.yml`.
 
@@ -44,11 +44,12 @@ A production deployment to all managed production hosts. Optionally just check t
 ansible-playbook -i hosts.prod [ --check --diff ] -e @myvars.prod.yml install.yml
 ```
 
-A test deployment to your data node
+A useful command for a data-only deployment or a deployment only to your data node
 ```
 ansible-playbook -i hosts.test -e @myvars.test.yml --tags data --limit host-data.my.org install.yml
 ```
-or, if you have already done the `base` steps and don't want to wait for them to be repeated
+
+If you have already done the `base` steps, the steps that are needed on every node type, and don't want to wait for them to be repeated
 ```
 ansible-playbook -i hosts.test -e @myvars.test.yml --skip-tags base install.yml
 ```
