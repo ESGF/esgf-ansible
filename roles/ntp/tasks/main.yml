@@ -1,3 +1,7 @@
+- name: Install ntpd service
+  package:
+    name: ntp
+    state: present
 
 - name: Ensure ntpd is started
   service:
