@@ -71,3 +71,7 @@ To just start your data node, if it is a different host than your IDP and Index 
 ```
 ansible-playbook -i hosts.test --tags start --limit host-data.my.org control.yml
 ```
+
+### Advice and Contributing
+
+If your site would like to use advanced or more specific configuration files and options it is encouraged that you fork this repository. If there are features you believe would benefit all sites that you would like to contribute, create a pull request.
