@@ -19,8 +19,8 @@
 - name: Copy challenge data
   when: acme_challenge is changed
   copy:
-    dest: /var/www/html/{{ acme_challenge['challenge_data'][ansible_nodename]['http-01']['resource'] }}
-    content: "{{ acme_challenge['challenge_data'][ansible_nodename]['http-01']['resource_value'] }}"
+    dest: /var/www/html/{{ acme_challenge['challenge_data'][ansible_fqdn]['http-01']['resource'] }}
+    content: "{{ acme_challenge['challenge_data'][ansible_fqdn]['http-01']['resource_value'] }}"
 
 
 # Start the httpd webserver to serve challenge data

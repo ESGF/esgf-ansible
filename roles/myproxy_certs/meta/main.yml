@@ -15,6 +15,6 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ ansible_env.HOME }}/myproxy-ca.pem",
       csr_dest: "{{ ansible_env.HOME }}/myproxy-ca.csr",
-      common_name: "{{ ansible_nodename }}-CA",
+      common_name: "{{ ansible_fqdn }}-CA",
       csr: true
     }

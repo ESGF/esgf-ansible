@@ -2,7 +2,7 @@
 User = {{ globus_user }}
 Password = {{ globus_pass }}
 [Endpoint]
-Name = {{ ansible_nodename }}
+Name = {{ ansible_fqdn }}
 Public = True
 [Security]
 FetchCredentialFromRelay = False
