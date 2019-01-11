@@ -38,6 +38,7 @@
   copy:
     src: "{{ myproxycakey }}"
     dest: "{{ myproxy.ca.key }}"
+    mode: 0600
 
 - name: Copy myproxy CA signing-policy
   when: myproxy_signing_policy is defined
@@ -150,6 +151,7 @@
     remote_src: yes
     src: "{{ grid_security.host.key }}"
     dest: "{{ grid_security.dir }}/myproxy/hostkey.pem"
+    mode: 0600
 
 - name: Install hostcert into place for myproxy
   copy:
