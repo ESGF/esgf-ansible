@@ -16,3 +16,8 @@
     - name: Install Globus MyProxy key/cert/signing-policy
       include_role:
         name: myproxy_certs
+    
+    - name: Run the globus-connect-server-id-setup Command
+      command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
+    - name: Run globus-connect-server-io-setup
+      command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force
