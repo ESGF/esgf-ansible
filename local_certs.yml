@@ -1,0 +1,18 @@
+- hosts: all
+  become: yes
+  tasks:
+    # Get the admin password
+    - name: Include the admin passwd role
+      block:
+        - include_role:
+            name: passwd
+      tags: always
+      when: admin_pass is not defined
+
+    - name: Install Globus GridFTP key/cert
+      include_role:
+        name: globus_certs
+
+    - name: Install Globus MyProxy key/cert/signing-policy
+      include_role:
+        name: myproxy_certs

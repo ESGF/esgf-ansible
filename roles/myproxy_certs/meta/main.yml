@@ -1,0 +1,20 @@
+dependencies:  
+  # This is the temporary, self-signed, certificate for myproxy
+  - {
+      role: 'certificate',
+      when: myproxycacert is not defined,
+      dest_dir: "{{ myproxy.ca.dir }}",
+      key_dest: "{{ myproxy.ca.key }}",
+      cert_dest: "{{ myproxy.ca.cert }}",
+      use_ownca: true
+    }
+  # This is the to be signed CSR and Key generation for myproxy
+  - {
+      role: 'certificate',
+      when: myproxycacert is not defined,
+      dest_dir: "{{ ansible_env.HOME }}",
+      key_dest: "{{ ansible_env.HOME }}/myproxy-ca.pem",
+      csr_dest: "{{ ansible_env.HOME }}/myproxy-ca.csr",
+      common_name: "{{ ansible_nodename }}-CA",
+      csr: true
+    }
