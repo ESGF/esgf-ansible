@@ -8,6 +8,16 @@
     src: esgf_idp.xml.j2
     dest: "{{ esg.config.dir }}/esgf_idp.xml"
 
+- name: Install esgf_ats.xml
+  template:
+    src: esgf_ats.xml.j2
+    dest: "{{ esg.config.dir }}/esgf_ats.xml"
+
+- name: Install esgf_azs.xml
+  template:
+    src: esgf_azs.xml.j2
+    dest: "{{ esg.config.dir }}/esgf_azs.xml"
+
 - name: Import slcs tasks
   import_tasks: slcs.yml
   tags: slcs

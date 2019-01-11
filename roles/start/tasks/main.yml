@@ -15,7 +15,7 @@
   when: "'index' in group_names"
   become: yes
   become_user: solr
-  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a -Denable.{{ shard.name }}=true"
   loop: "{{ solr.shards }}"
   loop_control:
     loop_var: shard

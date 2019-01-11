@@ -1,11 +1,18 @@
 
+- name: myproxy Group
+  group:
+    name: myproxy
+
+- name: myproxy User
+  user:
+    name: myproxy
+    groups: myproxy
+
 - name: Create myproxy-ca dir
   file:
-    path: "{{ myproxy.ca.dir}}/{{ item }}"
+    path: "{{ myproxy.ca.dir }}/newcerts"
     state: directory
     mode: 700
-  loop:
-    - newcerts
 
 - name: Create scripts dir
   file:
@@ -104,6 +111,8 @@
     src: myproxy/etc_pam_pgsql.conf.j2
     dest: /etc/pam_pgsql.conf
     mode: 0600
+    owner: myproxy
+    group: myproxy
 
 - name: Install pam.d/myproxy
   copy:
@@ -113,10 +122,49 @@
 - name: Install myproxy-server.config
   template:
     src: myproxy/myproxy-server.config.j2
+    dest: /etc/myproxy-server.config
+    mode: 0600
+    owner: myproxy
+    group: myproxy
+
+- name: Install myproxy-server.config
+  template:
+    src: myproxy/myproxy-server.config.j2
     dest: "{{ myproxy.scripts.dir }}/myproxy-server.config"
     mode: 0600
+    owner: myproxy
+    group: myproxy
 
 - name: Install /etc/myproxy.d/myproxy-esgf
   template:
     src: myproxy/myproxy-esgf.j2
     dest: /etc/myproxy.d/myproxy-esgf
+
+- name: Ensure the myproxy hostcert and hostkey dir exists
+  file:
+    path: "{{ grid_security.dir }}/myproxy"
+    state: directory
+
+- name: Install hostkey into place for myproxy
+  copy:
+    remote_src: yes
+    src: "{{ grid_security.host.key }}"
+    dest: "{{ grid_security.dir }}/myproxy/hostkey.pem"
+
+- name: Install hostcert into place for myproxy
+  copy:
+    remote_src: yes
+    src: "{{ grid_security.host.cert }}"
+    dest: "{{ grid_security.dir }}/myproxy/hostcert.pem"
+
+- name: Set myproxy permissions
+  file:
+    path: "{{ item }}"
+    owner: myproxy
+    group: myproxy
+    recurse: yes
+  loop:
+    - /etc/myproxy.d
+    - "{{ myproxy.ca.dir }}"
+    - "{{ myproxy.scripts.dir }}"
+    - "{{ grid_security.dir }}/myproxy"
