@@ -81,3 +81,22 @@
   loop:
     - /etc/myproxy.d
     - "{{ myproxy.scripts.dir }}"
+
+# Install GCS config and register endpoint with globus
+- name : Install the Globus Connect Server Config
+  when: 
+    - globus_user is defined
+    - globus_pass is defined
+    - register_myproxy is defined
+    - register_myproxy
+  template:
+    src: myproxy/globus-connect-server.conf.j2
+    dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
+
+- name: Run the globus-connect-server-id-setup Command
+  when: 
+    - globus_user is defined
+    - globus_pass is defined
+    - register_myproxy is defined
+    - register_myproxy
+  command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
