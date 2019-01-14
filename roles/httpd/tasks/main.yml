@@ -54,28 +54,26 @@
   import_tasks: letsencrypt.yml
 
 # Copy credentials into place, if provided
-- name: Copy {{ hostkey }} into place
+- name: Copy web hostkey into place
   when: hostkey_src is defined
   copy:
     src: "{{ hostkey_src }}"
     dest: "{{ httpd.hostkey }}"
 
-- name: Copy {{ hostcert }} into place
+- name: Copy web hostcert into place
   when: hostcert_src is defined
   copy:
     src: "{{ hostcert_src }}"
     dest: "{{ httpd.hostcert }}"
 
-- name: Copy {{ cachain }} into place
+- name: Copy web CA chain into place
   when: cachain_src is defined
   copy:
     src: "{{ cachain_src }}"
     dest: "{{ httpd.cachain }}"
 
-# Setup additional config
+# Setup additional SSL config
 - name: Install HTTPS config
   template:
     src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.ssl.conf.j2"
     dest: /etc/httpd/conf/httpd.ssl.conf
-#   notify:
-#     - restart httpd
