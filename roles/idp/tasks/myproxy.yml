@@ -94,8 +94,8 @@
     recurse: yes
   loop:
     - /etc/myproxy.d
+    - /var/lib/globus-connect-server
     - "{{ myproxy.scripts.dir }}"
-    - "{{ myproxy.ca.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
 - name: Run the globus-connect-server-id-setup Command
