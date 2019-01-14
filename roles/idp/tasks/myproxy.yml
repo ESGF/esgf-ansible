@@ -84,6 +84,7 @@
     dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
     owner: myproxy
     group: myproxy
+    mode: 0600
 
 - name: Set myproxy permissions
   file:
