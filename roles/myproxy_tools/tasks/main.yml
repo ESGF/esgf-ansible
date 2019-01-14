@@ -7,11 +7,11 @@
       - mhash
       - pam-pgsql
 
-- name: myproxy Group
-  group:
-    name: myproxy
+# - name: myproxy Group
+#   group:
+#     name: myproxy
 
-- name: myproxy User
-  user:
-    name: myproxy
-    groups: myproxy
+# - name: myproxy User
+#   user:
+#     name: myproxy
+#     groups: myproxy

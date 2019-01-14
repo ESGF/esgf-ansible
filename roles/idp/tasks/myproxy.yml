@@ -72,16 +72,6 @@
     src: myproxy/myproxy-esgf.j2
     dest: /etc/myproxy.d/myproxy-esgf
 
-- name: Set myproxy permissions
-  file:
-    path: "{{ item }}"
-    owner: myproxy
-    group: myproxy
-    recurse: yes
-  loop:
-    - /etc/myproxy.d
-    - "{{ myproxy.scripts.dir }}"
-
 # Install GCS config and register endpoint with globus
 - name : Install the Globus Connect Server Config
   when: 
@@ -100,3 +90,15 @@
     - register_myproxy is defined
     - register_myproxy
   command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
+
+- name: Set myproxy permissions
+  file:
+    path: "{{ item }}"
+    owner: myproxy
+    group: myproxy
+    recurse: yes
+  loop:
+    - /etc/myproxy.d
+    - "{{ myproxy.scripts.dir }}"
+    - "{{ myproxy.ca.dir }}"
+    - "{{ grid_security.dir }}/myproxy"
