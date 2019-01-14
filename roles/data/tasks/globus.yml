@@ -82,6 +82,12 @@
 - name: Create chroot jail for GridFTP
   command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}
 
+- name: Install the resolv.conf into the GriFTP chroot
+  copy:
+    remote_src: yes
+    src: /etc/resolv.conf
+    dest: "{{ gridftp.chroot }}/etc/resolv.conf"
+
 - fetch:
     src: "{{ esg.config.dir }}/esgcet/esg.ini"
     dest: /tmp/
