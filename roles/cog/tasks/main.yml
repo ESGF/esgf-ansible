@@ -1,8 +1,9 @@
 
-# - name: Make cog Directory
-#   file:
-#     path: /usr/local/cog
-#     state: directory
+- name: Install required libraries for CoG
+  package:
+    name:
+      - httpd-devel
+      - sqlite-devel
 
 - name: Clone cog Repo
   git: 
@@ -54,17 +55,18 @@
   shell: >
     {{ conda.actv }} cog && \
     mod_wsgi-express setup-server apache/wsgi.py \
-    --server-root /etc/cog-wsgi-8889 \
+    --server-root {{ cog.wsgi_dir }} \
     --user apache --group apache \
     --host localhost --port 8889 \
     --url-alias /static {{ cog.dest }}/static/
   args:
     chdir: "{{ cog.dest }}"
+    creates: "{{ cog.wsgi_dir }}"
 
-- name : Install the cog proxy config
-  template:
-    src: cog.httpd.conf.j2
-    dest: /etc/httpd/conf.d/cog.ssl.conf
+# - name : Install the cog proxy config
+#   template:
+#     src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/cog.httpd.conf.j2"
+#     dest: "{{ httpd.ssl_proxy_dir }}/9cog.conf"
 
 - name: Set Ownership
   file:

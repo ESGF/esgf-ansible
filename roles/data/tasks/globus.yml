@@ -19,11 +19,15 @@
   user:
     name: globus
     groups: globus
-    password: foobar # Needs to be hashed sha512
+    password: "{{ admin_pass|hash('sha512') }}" # Needs to be hashed sha512
 
 - name: Register GridFTP
-  when: gridftp.register
-  include_tasks: gridftp.yml
+  when:
+    - globus_user is defined
+    - globus_pass is defined
+    - register_gridftp is defined
+    - register_gridftp
+  include_tasks: register_gridftp.yml
 
 - name: Create needed gridftp directories
   file:
@@ -75,16 +79,28 @@
 - name: Add a mapfile entry
   command: grid-mapfile-add-entry -dn '^.*$' -ln globus
 
-- name: Download trusted certifcates for GridFTP
-  unarchive:
-    remote_src: yes
-    src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"
-    dest: /tmp
-    creates: /tmp/esg_trusted_certificates
-
-- name: Install trusted certificates for GridFTP
-  shell: >
-    cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}
-
 - name: Create chroot jail for GridFTP
   command: globus-gridftp-server-setup-chroot -r {{ gridftp.chroot }}
+
+- name: Install the resolv.conf into the GriFTP chroot
+  copy:
+    remote_src: yes
+    src: /etc/resolv.conf
+    dest: "{{ gridftp.chroot }}/etc/resolv.conf"
+
+- fetch:
+    src: "{{ esg.config.dir }}/esgcet/esg.ini"
+    dest: /tmp/
+    flat: yes
+
+- set_fact:
+    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
+
+- name: Mount the dataset root directories into the chroot GridFTP
+  mount:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    src: "{{ item.split('|')[1].strip() }}"
+    opts: rw,bind
+    fstype: none
+    state: mounted
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"

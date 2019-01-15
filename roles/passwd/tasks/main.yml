@@ -1,0 +1,22 @@
+- name: Check for password
+  stat:
+    path: "{{ esg.config.dir }}/.esgf_pass"
+  register: stat_result
+  no_log: true
+
+- name: Get password file content if it exists
+  when: stat_result.stat.exists
+  slurp:
+    src: "{{ esg.config.dir }}/.esgf_pass"
+  register: pass_file
+  no_log: true
+
+- name: Register the password if the file exists
+  when: stat_result.stat.exists
+  set_fact:
+    admin_pass: "{{ pass_file['content'] | b64decode }}"
+  no_log: true
+
+- name: Prompt for admin pass
+  when: admin_pass is not defined
+  include_tasks: get.yml

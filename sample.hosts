@@ -1,4 +1,36 @@
 
+### Local Deployment
+### If this is going to be a local deployment, meaning Ansible is being
+###  run on the node itself, it is required to still use the fully qualified
+###  domain name for each host. Always use fully qualified domain names.
+### The host should also be followed with 'ansbile_connection=local' in the
+###  case of a local deployment. This avoids doing any ssh connection or auth.
+# Ex. local deployment to, and from, 'myhost.my.org':
+#    [data]
+#    myhost.my.org    ansbile_connection=local
+#
+#    [index]
+#    myhost.my.org    ansbile_connection=local
+#
+#    [idp]
+#    myhost.my.org    ansbile_connection=local
+
+### Data-only Deployment
+### If this is going to be used for a data-only deployment
+###  the index and idp groups MUST still be specified with the host(s)
+###  that will be used, respectively.
+### See the data-only install example in the README for how to 
+###  direct the installer to only deploy to the data node.
+# Ex:
+#    [data]
+#    host-data.my.org
+#
+#    [index]
+#    host-index-idp.OTHER.org
+#
+#    [idp]
+#    host-index-idp.OTHER.org
+
 [data]
 host-data.my.org
 

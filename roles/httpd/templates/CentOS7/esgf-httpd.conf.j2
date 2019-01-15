@@ -1,0 +1,213 @@
+ServerTokens Prod
+ServerRoot "/etc/httpd"
+PidFile run/httpd.pid
+Timeout 1200
+KeepAlive Off
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+<IfModule prefork.c>
+StartServers       8
+MinSpareServers    5
+MaxSpareServers   20
+ServerLimit      256
+MaxClients       256
+MaxRequestsPerChild  4000
+</IfModule>
+<IfModule worker.c>
+StartServers         4
+MaxClients         300
+MinSpareThreads     25
+MaxSpareThreads     75
+ThreadsPerChild     25
+MaxRequestsPerChild  0
+</IfModule>
+Listen 80
+LoadModule auth_basic_module modules/mod_auth_basic.so
+LoadModule auth_digest_module modules/mod_auth_digest.so
+LoadModule authn_file_module modules/mod_authn_file.so
+LoadModule authn_anon_module modules/mod_authn_anon.so
+LoadModule authn_dbm_module modules/mod_authn_dbm.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule authz_host_module modules/mod_authz_host.so
+LoadModule authz_user_module modules/mod_authz_user.so
+LoadModule authz_owner_module modules/mod_authz_owner.so
+LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
+LoadModule authz_dbm_module modules/mod_authz_dbm.so
+LoadModule include_module modules/mod_include.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule logio_module modules/mod_logio.so
+LoadModule env_module modules/mod_env.so
+LoadModule ext_filter_module modules/mod_ext_filter.so
+LoadModule slotmem_shm_module modules/mod_slotmem_shm.so
+LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
+LoadModule mime_magic_module modules/mod_mime_magic.so
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
+LoadModule expires_module modules/mod_expires.so
+LoadModule deflate_module modules/mod_deflate.so
+LoadModule headers_module modules/mod_headers.so
+LoadModule usertrack_module modules/mod_usertrack.so
+LoadModule setenvif_module modules/mod_setenvif.so
+LoadModule mime_module modules/mod_mime.so
+LoadModule dav_module modules/mod_dav.so
+LoadModule systemd_module modules/mod_systemd.so
+LoadModule status_module modules/mod_status.so
+LoadModule autoindex_module modules/mod_autoindex.so
+LoadModule info_module modules/mod_info.so
+LoadModule dav_fs_module modules/mod_dav_fs.so
+LoadModule vhost_alias_module modules/mod_vhost_alias.so
+LoadModule negotiation_module modules/mod_negotiation.so
+LoadModule dir_module modules/mod_dir.so
+LoadModule actions_module modules/mod_actions.so
+LoadModule speling_module modules/mod_speling.so
+LoadModule userdir_module modules/mod_userdir.so
+LoadModule alias_module modules/mod_alias.so
+LoadModule substitute_module modules/mod_substitute.so
+LoadModule rewrite_module modules/mod_rewrite.so
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+LoadModule proxy_ftp_module modules/mod_proxy_ftp.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
+LoadModule proxy_connect_module modules/mod_proxy_connect.so
+LoadModule cache_module modules/mod_cache.so
+LoadModule suexec_module modules/mod_suexec.so
+LoadModule cgi_module modules/mod_cgi.so
+LoadModule version_module modules/mod_version.so
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule unixd_module modules/mod_unixd.so
+
+User apache
+Group apache
+ServerAdmin root@localhost
+UseCanonicalName Off
+HostnameLookups Off
+ErrorLog logs/error_log
+LogLevel warn
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+LogFormat "%h %l %u %t \"%r\" %>s %b" common
+LogFormat "%{Referer}i -> %U" referer
+LogFormat "%{User-agent}i" agent
+CustomLog logs/access_log combined
+ServerSignature Off
+AddLanguage ca .ca
+AddLanguage cs .cz .cs
+AddLanguage da .dk
+AddLanguage de .de
+AddLanguage el .el
+AddLanguage en .en
+AddLanguage eo .eo
+AddLanguage es .es
+AddLanguage et .et
+AddLanguage fr .fr
+AddLanguage he .he
+AddLanguage hr .hr
+AddLanguage it .it
+AddLanguage ja .ja
+AddLanguage ko .ko
+AddLanguage ltz .ltz
+AddLanguage nl .nl
+AddLanguage nn .nn
+AddLanguage no .no
+AddLanguage pl .po
+AddLanguage pt .pt
+AddLanguage pt-BR .pt-br
+AddLanguage ru .ru
+AddLanguage sv .sv
+AddLanguage zh-CN .zh-cn
+AddLanguage zh-TW .zh-tw
+TypesConfig /etc/mime.types
+LanguagePriority en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv zh-CN zh-TW
+ForceLanguagePriority Prefer Fallback
+AddDefaultCharset UTF-8
+AddType application/x-compress .Z
+AddType application/x-gzip .gz .tgz
+AddType application/x-x509-ca-cert .crt
+AddType application/x-pkcs7-crl    .crl
+AddHandler type-map var
+AddType text/html .shtml
+BrowserMatch "Mozilla/2" nokeepalive
+BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+BrowserMatch "RealPlayer 4\.0" force-response-1.0
+BrowserMatch "Java/1\.0" force-response-1.0
+BrowserMatch "JDK/1\.0" force-response-1.0
+BrowserMatch "Microsoft Data Access Internet Publishing Provider" redirect-carefully
+BrowserMatch "MS FrontPage" redirect-carefully
+BrowserMatch "^WebDrive" redirect-carefully
+BrowserMatch "^WebDAVFS/1.[0123]" redirect-carefully
+BrowserMatch "^gnome-vfs/1.0" redirect-carefully
+BrowserMatch "^XML Spy" redirect-carefully
+BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
+ProxyRequests Off
+ProxyVia Off
+TraceEnable Off
+
+#  ESGF-HTTPD-CONF VERSION: 1.0.11
+
+NameVirtualHost *:80
+<Location / >
+	<LimitExcept POST GET>
+		Require all denied
+	</LimitExcept>
+</Location>
+<Location /admin>
+	Require all denied
+	#insert-permitted-ips-here
+</Location>
+<Location /solr/admin>
+	Require all denied
+	#insert-permitted-ips-here
+</Location>
+<Location /solr/*/update>
+    Require all denied
+</Location>
+<VirtualHost *:80>
+
+	Alias /.well-known/acme-challenge/ /var/www/html/.well-known/acme-challenge/
+	<Directory "/var/www/html/.well-known/acme-challenge/">
+		Options None
+		AllowOverride None
+		ForceType text/plain
+		RedirectMatch 404 "^(?!/\.well-known/acme-challenge/[\w-]{43}$)"
+	</Directory>
+
+    # redirect all requests from HTTP to HTTPS
+    # EXCEPT for the applications listed below
+    RewriteEngine On
+	RewriteCond %{REQUEST_URI} !^/\.well\-known/acme\-challenge/
+    RewriteCond %{HTTPS} off
+    RewriteCond %{REQUEST_URI} !^/esg-search(.*)$
+    RewriteCond %{REQUEST_URI} !^/las(.*)$
+    RewriteCond %{REQUEST_URI} !^/solr(.*)$
+    RewriteCond %{REQUEST_URI} !^/thredds(.*)$
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+	#add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive) and uncomment following line. For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
+	#Include /etc/httpd/conf/esgf-httpd-local.conf
+
+ 	SSLProxyEngine On
+	ProxyPassMatch  ^/solr(.*)$     http://localhost:8983/solr$1
+	ProxyPassReverse        /solr   http://localhost:8983/solr
+
+	ProxyPass /esgf-idp	http://localhost:8080/esgf-idp
+	ProxyPassReverse /esgf-idp	http://localhost:8080/esgf-idp
+
+	ProxyPass /esg-orp	ajp://localhost:8223/esg-orp
+	ProxyPassReverse /esg-orp	ajp://localhost:8223/esg-orp
+
+	ProxyPass /esg-search	ajp://localhost:8223/esg-search
+	ProxyPassReverse /esg-search	ajp://localhost:8223/esg-search
+
+	ProxyPass /thredds	ajp://localhost:8223/thredds
+	ProxyPassReverse /thredds	ajp://localhost:8223/thredds
+
+	ProxyPass /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
+	ProxyPassReverse /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
+
+	ProxyPass /las	ajp://localhost:8223/las
+	ProxyPassReverse /las	ajp://localhost:8223/las
+
+	IncludeOptional {{ httpd.proxy_dir }}/*.conf
+
+</VirtualHost>
+
+IncludeOptional conf/*.ssl.conf

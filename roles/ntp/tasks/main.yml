@@ -1,0 +1,11 @@
+- name: Install ntpd service
+  package:
+    name:
+      - ntp
+      - ntpdate
+
+- name: Ensure ntpd is started
+  service:
+    name: ntpd
+    state: started
+    enabled: yes

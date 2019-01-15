@@ -1,6 +1,0 @@
-
-# Index ESGF Node Componenets
-
-- hosts: index
-  roles:
-    - index

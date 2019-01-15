@@ -21,8 +21,9 @@
     - las_servers_static
 
 - name: Write password files
+  no_log: true
   copy:
-    content: foobar
+    content: "{{ admin_pass }}"
     dest: "{{ esg.config.dir }}/{{ item }}"
   loop:
     - ".esgf_pass"

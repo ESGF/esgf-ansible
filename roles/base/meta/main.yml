@@ -1,3 +1,7 @@
 dependencies:
+  - { role: ntp }
   - { role: conda }
+  - { role: httpd }
+  - { role: java }
+  - { role: tomcat }
   - { role: monitoring }

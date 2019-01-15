@@ -40,8 +40,8 @@
 
 - name : Install the node-exporter proxy config
   template:
-    src: exporters/node_exporter.httpd.conf.j2
-    dest: /etc/httpd/conf.d/node_exporter.ssl.conf
+    src: exporters/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/node_exporter.httpd.conf.j2
+    dest: "{{ httpd.ssl_proxy_dir }}/0node_exporter.conf"
 
 - name: Set prometheus ownership
   file:

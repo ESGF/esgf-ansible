@@ -2,14 +2,14 @@
 - name: Import dashboard tasks
   import_tasks: dashboard.yml
 
-- name: Import globus tasks
-  import_tasks: globus.yml
-
 - name: Import postgres tasks
   import_tasks: postgres.yml
 
 - name: Import publisher tasks
   import_tasks: publisher.yml
+
+- name: Import globus tasks
+  import_tasks: globus.yml
 
 - name: Import thredds tasks
   import_tasks: thredds.yml

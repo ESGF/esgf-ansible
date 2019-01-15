@@ -1,0 +1,26 @@
+
+
+# Trusted, signed, gridftp cert and key
+- name: Copy gftp hostkey into place
+  when: gftphostkey is defined
+  copy:
+    src: "{{ gftphostkey }}"
+    dest: "{{ grid_security.host.key }}"
+    mode: 0600
+
+- name: Copy gftp hostcert into place
+  when: gftphostcert is defined
+  copy:
+    src: "{{ gftphostcert }}"
+    dest: "{{ grid_security.host.cert }}"
+
+- name: Download trusted certificates for Globus
+  unarchive:
+    remote_src: yes
+    src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"
+    dest: /tmp
+    creates: /tmp/esg_trusted_certificates
+
+- name: Install trusted certificates for Globus
+  shell: >
+    cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}

@@ -1,21 +1,22 @@
 [Globus]
-User = {{ globus.user }}
-Password = {{ globus.pass }}
+User = {{ globus_user }}
+Password = {{ globus_pass }}
 [Endpoint]
-Name = {{ ansible_nodename }}
+Name = {{ ansible_fqdn }}
 Public = True
 [Security]
-FetchCredentialFromRelay = True
+FetchCredentialFromRelay = False
 CertificateFile = {{ grid_security.host.cert }}
 KeyFile = {{ grid_security.host.key }}
 TrustedCertificateDirectory = {{ grid_security.cert_dir }}
 IdentityMethod = MyProxy
-AuthorizationMethod = Gridmap
+[MyProxy]
+Server = {{ groups['idp'][0] }}
 [GridFTP]
-Server = {{ ansible_nodename }}
+Server = {{ ansible_fqdn }}
 IncomingPortRange = 50000,51000
 OutgoingPortRange = 50000,51000
 RestrictPaths = R/,N/etc,N/tmp,N/dev
 Sharing = False
 SharingRestrictPaths = R/
-SharingStateDir = {{ esg.home }}/etc/grid-security/sharing/{{ globus.user }}
+SharingStateDir = {{ esg.home }}/etc/grid-security/sharing/{{ globus_user }}

@@ -1,0 +1,37 @@
+
+- name: start httpd
+  service:
+    name: httpd
+    state: started
+
+- name: start tomcat
+  command: "nohup {{ tomcat_ctrl }} start"
+
+- name: start cog
+  when: "'index' in group_names"
+  command: "{{ cog.wsgi_dir }}/apachectl start"
+
+- name: start solr shards
+  when: "'index' in group_names"
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a -Denable.{{ shard.name }}=true"
+  loop: "{{ solr.shards }}"
+  loop_control:
+    loop_var: shard
+
+- name: start myproxy-server
+  when: "'idp' in group_names"
+  service:
+    name: myproxy-server
+    state: started
+
+- name: start slcs
+  when: "'idp' in group_names"
+  command: "{{ slcs.wsgi_dir }}/apachectl start"
+
+- name: start globus-gridftp-server
+  when: "'data' in group_names"
+  service:
+    name: globus-gridftp-server
+    state: started

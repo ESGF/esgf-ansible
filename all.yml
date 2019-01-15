@@ -1,6 +1,0 @@
-
-# All ESGF Node Componenets
-
-- import_playbook: data.yml
-- import_playbook: idp.yml
-- import_playbook: index.yml

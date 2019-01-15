@@ -1,6 +1,12 @@
 
+# OS Info
+is_7: ansible_distribution_major_version == "7"
+is_6: ansible_distribution_major_version == "6"
+
+# ESGF Info
+mirror_host: aims1.llnl.gov
 mirror:
-  base: http://aims1.llnl.gov/esgf/dist
+  base: https://{{ mirror_host }}/esgf/dist
 
 esg:
   config:
@@ -13,8 +19,8 @@ esg:
 
 pkgs:
   apache: httpd
-  postgres_server: postgresql-server-8.4.20
-  postgres_devel: postgresql-devel-8.4.20
+  postgres_server: postgresql-server
+  postgres_devel: postgresql-devel
   psgycopg2: python-psycopg2
 
 conda:
@@ -29,28 +35,29 @@ java:
   root_dir: jdk1.8.0_192
   path: /usr/local/java
 
+
 tomcat:
   src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
   root_dir: apache-tomcat-8.5.20
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
-  ctrl_script: /usr/local/tomcat/bin/catalina.sh
   ts:
     url: "{{ mirror.base }}/certs/esg-truststore.ts"
     path: "{{ esg.config.dir }}/tomcat/esg-truststore.ts"
     pass: changeit
   ks:
     path: "{{ esg.config.dir }}/tomcat/keystore-tomcat"
-    pass: foobar
+    pass: "{{ admin_pass }}"
+tomcat_ctrl: /usr/local/tomcat/bin/catalina.sh
 
 esgf_rpm:
-  baseurl: https://aims1.llnl.gov/esgf/RPM/centos/6/x86_64/
+  baseurl: https://{{ mirror_host }}/esgf/RPM/centos/{{ ansible_distribution_major_version }}/x86_64/
 
 all_db:
   users:
     super: 
       name: dbsuper
-      pass: foobar
+      pass: "{{ admin_pass }}"
   db: esgcet
   host: localhost
   port: 5432
@@ -73,9 +80,12 @@ httpd:
   hostkey: /etc/certs/hostkey.pem
   hostcert: /etc/certs/hostcert.pem
   cachain: /etc/certs/cachain.pem
+  ssl_proxy_dir: /etc/httpd/conf.d/esgf-proxy-ssl
+  proxy_dir: /etc/httpd/conf.d/esgf-proxy
+
 
 orp_webapp:
-  url: "{{ mirror.base }}/2.6/8/esg-orp/esg-orp.war"
+  url: "{{ mirror.base }}/2.8/1/esg-orp/esg-orp.war"
   name: esg-orp
 
 security:

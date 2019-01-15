@@ -1,0 +1,27 @@
+
+# Get globus tools and libraries
+- name: Import Globus GPG key
+  rpm_key:
+    key: http://www.globus.org/ftppub/globus-connect-server/RPM-GPG-KEY-Globus
+
+- name: Download globus-connect-server .rpm file
+  get_url:
+    url: http://toolkit.globus.org/ftppub/globus-connect-server/globus-connect-server-repo-latest.noarch.rpm
+    dest: /tmp/globus-connect-server-repo-latest.noarch.rpm
+
+- name: Install globus-connect-server .rpm file
+  package:
+    name: /tmp/globus-connect-server-repo-latest.noarch.rpm
+
+- name: Add ESGF RPM Repo
+  template:
+    src: esgf.repo.j2
+    dest: /etc/yum.repos.d/esgf.repo
+
+- name: Create needed Globus directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ grid_security.dir }}"
+    - "{{ grid_security.cert_dir }}"

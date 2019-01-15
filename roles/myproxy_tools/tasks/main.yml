@@ -1,0 +1,19 @@
+
+- name: Install Globus IDP services
+  yum:
+    disable_gpg_check: yes
+    name: 
+      - globus-connect-server-id
+      - mhash
+      - pam-pgsql
+
+- name: myproxy Group
+  when: is_6
+  group:
+    name: myproxy
+
+- name: myproxy User
+  when: is_6
+  user:
+    name: myproxy
+    groups: myproxy
