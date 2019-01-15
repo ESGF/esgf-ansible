@@ -12,6 +12,7 @@
       - lsof
       - bind-utils
       - git
+      - wget
 
 - name: Update download utilities
   yum:
