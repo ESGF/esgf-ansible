@@ -61,7 +61,12 @@ or, to only do the `base` steps on your idp and index node
 ansible-playbook -i hosts.test -e @myvars.test.yml --tags base --limit host-index-idp.my.org install.yml
 ```
 
-The tags available in the `install.yml` play are: `base`, `idp`, `index`, and `data`. 
+Multiple tags can be specified at once, for example 
+```
+... --tags "data,idp" --skip-tags "base,index" ...
+```
+
+The tags available in the `install.yml` play are: `base`, `idp`, `index`, and `data`.
 These can be used with `--tags` and `--skip-tags` as well as with `--limit [hostname]` to control exactly what is done and where.
 
 #### Starting and Stopping
