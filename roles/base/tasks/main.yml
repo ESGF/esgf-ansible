@@ -13,6 +13,14 @@
       - bind-utils
       - git
 
+- name: Update download utilities
+  yum:
+    name:
+      - nss
+      - curl
+      - libcurl
+    state: latest
+
 - name: Import base tasks
   include_tasks: "{{ base_task }}.yml"
   loop:
