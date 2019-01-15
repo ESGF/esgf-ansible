@@ -81,7 +81,7 @@ ansible-playbook -i hosts.test --tags start --limit host-data.my.org control.yml
 ```
 
 #### Local Certs
-Globus certifcates and keys, aka 'local certs', for globus services are retreived as part of the post-install process. If not provided, the deployment will place a private key and CSR for these services in the HOME directory on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the variables file and installed using the `local_certs.yml` playbook.
+Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not provided, the deployment will place a private key and CSR for these services in the HOME directory on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the variables file and installed using the `local_certs.yml` playbook.
 ```
 ansible-playbook -i hosts.prod -e @myvars.test.yml local_certs.yml
 ```
