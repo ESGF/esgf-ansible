@@ -1,13 +1,17 @@
 
 # Entry point for installing base components
 
+- name: Install epel-release
+  package:
+    name: epel-release
+
 - name: Install basic utilities
   package:
     name:
-      - epel-release
       - unzip
       - lsof
       - bind-utils
+      - git
 
 - name: Import base tasks
   include_tasks: "{{ base_task }}.yml"
