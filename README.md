@@ -8,7 +8,7 @@ The deployment of ESGF Nodes has traditionally been done by a mix of scripts and
 
 Ansible runs from a host, or 'control', machine and deploys the configuration to 'managed' machines. 
 
-The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommoneded way as this repository was developed and tested with only the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. Using anything other than `ansible==2.7` will result in untested behavior.
+The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. Using anything other than `ansible==2.7` will result in untested behavior.
 
 The simple requirement for the managed machine is that it can be accessed via ssh from the control machine and that it has a `python>=2.6` interpreter. Also, their must be some way to have escalated privileges on the the managed machine to deploy the configuration.
 
