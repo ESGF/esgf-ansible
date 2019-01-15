@@ -28,6 +28,7 @@
     src: myproxy/scripts/retriever.py.j2
     dest: "{{ myproxy.scripts.retriever }}"
 
+# Install config files into /etc/myproxy.d
 - name: Create /etc/myproxy.d
   file:
     path: /etc/myproxy.d
@@ -38,6 +39,12 @@
     src: myproxy/globus-connect-esgf.j2
     dest: /etc/myproxy.d/globus-connect-esgf
 
+- name: Install /etc/myproxy.d/myproxy-esgf
+  template:
+    src: myproxy/myproxy-esgf.j2
+    dest: /etc/myproxy.d/myproxy-esgf
+
+# Install PAM config files fo postgres auth
 - name: Install pam_pgsql.conf
   template:
     src: myproxy/etc_pam_pgsql.conf.j2
@@ -51,6 +58,7 @@
     src: myproxy/etc_pam.d_myproxy
     dest: /etc/pam.d/myproxy
 
+# Install the config file used by the myproxy server
 - name: Install myproxy-server.config
   template:
     src: myproxy/myproxy-server.config.j2
@@ -67,12 +75,7 @@
     owner: myproxy
     group: myproxy
 
-- name: Install /etc/myproxy.d/myproxy-esgf
-  template:
-    src: myproxy/myproxy-esgf.j2
-    dest: /etc/myproxy.d/myproxy-esgf
-
-# Install GCS config and register endpoint with globus
+# Install GCS config
 - name : Install the Globus Connect Server Config
   when: 
     - globus_user is defined
@@ -86,6 +89,7 @@
     group: myproxy
     mode: 0600
 
+# Ensure the myproxy user:group has the correct ownership for CentOS7
 - name: Set myproxy permissions
   file:
     path: "{{ item }}"
@@ -98,6 +102,7 @@
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
+# Register the MyProxy endpoint with Globus
 - name: Run the globus-connect-server-id-setup Command
   when: 
     - globus_user is defined
