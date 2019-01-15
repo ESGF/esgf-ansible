@@ -1,4 +1,8 @@
 
+- name: Install required libraries for Conda install
+  package:
+    name:
+      - bzip2
 
 - name: Download miniconda2 installer
   get_url:

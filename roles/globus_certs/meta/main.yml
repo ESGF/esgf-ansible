@@ -8,7 +8,7 @@ dependencies:
       key_dest: "{{ grid_security.host.key }}",
       csr_dest: "/tmp/gftp.csr",
       cert_dest: "{{ grid_security.host.cert }}",
-      common_name: "{{ ansible_nodename }}",
+      common_name: "{{ ansible_fqdn }}",
       ownca: true
     }
   # This is the to be signed CSR and Key generation
@@ -18,6 +18,6 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ ansible_env.HOME }}/gridftp.pem",
       csr_dest: "{{ ansible_env.HOME }}/gridftp.csr",
-      common_name: "{{ ansible_nodename }}",
+      common_name: "{{ ansible_fqdn }}",
       csr: true
     }

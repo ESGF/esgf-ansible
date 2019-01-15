@@ -4,9 +4,9 @@ is_7: ansible_distribution_major_version == "7"
 is_6: ansible_distribution_major_version == "6"
 
 # ESGF Info
-
+mirror_host: aims1.llnl.gov
 mirror:
-  base: http://aims1.llnl.gov/esgf/dist
+  base: https://{{ mirror_host }}/esgf/dist
 
 esg:
   config:
@@ -51,7 +51,7 @@ tomcat:
 tomcat_ctrl: /usr/local/tomcat/bin/catalina.sh
 
 esgf_rpm:
-  baseurl: https://aims1.llnl.gov/esgf/RPM/centos/{{ ansible_distribution_major_version }}/x86_64/
+  baseurl: https://{{ mirror_host }}/esgf/RPM/centos/{{ ansible_distribution_major_version }}/x86_64/
 
 all_db:
   users:

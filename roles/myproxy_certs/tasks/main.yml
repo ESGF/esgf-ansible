@@ -1,0 +1,82 @@
+
+- name: Create myproxy-ca dir
+  file:
+    path: "{{ myproxy.ca.dir }}/newcerts"
+    state: directory
+    mode: 0700
+
+# Temp CA tasks
+- name: Copy temp myproxy CA signing-policy
+  when: myproxy_signing_policy is not defined
+  template:
+    src: signing-policy.j2
+    dest: "{{ myproxy.ca.signing_policy }}"
+
+# Trusted, Signed, CA tasks
+- name: Copy CA cert
+  when: myproxycacert is defined
+  copy:
+    src: "{{ myproxycacert }}"
+    dest: "{{ myproxy.ca.cert }}"
+
+- name: Copy CA key
+  when: myproxycakey is defined
+  copy:
+    src: "{{ myproxycakey }}"
+    dest: "{{ myproxy.ca.key }}"
+    mode: 0600
+
+- name: Copy myproxy CA signing-policy
+  when: myproxy_signing_policy is defined
+  copy:
+    src: "{{ myproxy_signing_policy }}"
+    dest: "{{ myproxy.ca.signing_policy }}"
+
+- name: Load myproxy CA cert
+  no_log: yes
+  slurp:
+    src: "{{ myproxy.ca.cert }}"
+  register: certcontents
+
+- name: Import myproxy CA into httpd trusted certs
+  no_log: yes  
+  lineinfile:
+    dest: "{{ httpd.cabundle }}"
+    line: "{{ certcontents['content'] | b64decode }}"
+
+- name: Import myproxy CA into Java Truststore
+  java_cert:
+    cert_path: "{{ myproxy.ca.cert }}"
+    keystore_path: "{{ tomcat.ts.path }}"
+    keystore_pass: "{{ tomcat.ts.pass }}"
+    cert_alias: my_esgf_node_myproxy
+    executable: "{{ java.path }}/bin/keytool"
+
+# CentOS7 myproxy-server requires these files be here
+- name: Ensure the myproxy hostcert and hostkey dir exists
+  file:
+    path: "{{ grid_security.dir }}/myproxy"
+    state: directory
+
+- name: Install hostkey into place for myproxy
+  copy:
+    remote_src: yes
+    src: "{{ grid_security.host.key }}"
+    dest: "{{ grid_security.dir }}/myproxy/hostkey.pem"
+    mode: 0600
+
+- name: Install hostcert into place for myproxy
+  copy:
+    remote_src: yes
+    src: "{{ grid_security.host.cert }}"
+    dest: "{{ grid_security.dir }}/myproxy/hostcert.pem"
+
+- name: Set myproxy permissions
+  file:
+    path: "{{ item }}"
+    owner: myproxy
+    group: myproxy
+    recurse: yes
+  loop:
+    - "{{ myproxy.ca.dir }}"
+    - "{{ grid_security.dir }}/myproxy"

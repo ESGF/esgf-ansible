@@ -185,7 +185,7 @@ BOOTSTRAP3 = {
 
 
 # OAuth provider configuration
-CERTIFICATE_SCOPE = 'https://{{ ansible_nodename }}/esgf-slcs/oauth/certificate/'
+CERTIFICATE_SCOPE = 'https://{{ ansible_fqdn }}/esgf-slcs/oauth/certificate/'
 OAUTH2_PROVIDER = {
     'SCOPES' : {
         CERTIFICATE_SCOPE : 'Obtain short-lived certificate for user',

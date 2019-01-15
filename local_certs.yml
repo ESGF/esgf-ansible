@@ -1,0 +1,26 @@
+- hosts: all
+  become: yes
+  tasks:
+    # Get the admin password
+    - name: Include the admin passwd role
+      block:
+        - include_role:
+            name: passwd
+      tags: always
+      when: admin_pass is not defined
+
+    - name: Install Globus Identity key/cert
+      include_role:
+        name: globus_certs
+
+    - name: Install Globus MyProxy key/cert/signing-policy
+      when: "'idp' in group_names"
+      include_role:
+        name: myproxy_certs
+    
+    - name: Run the globus-connect-server-id-setup Command
+      when: "'idp' in group_names"
+      command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
+    - name: Run globus-connect-server-io-setup
+      when: "'data' in group_names"
+      command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force

@@ -7,7 +7,7 @@
   openssl_csr:
     path: "/tmp/ownca.csr"
     privatekey_path: "/tmp/ownca.pem"
-    CN: "{{ ansible_nodename }}-CA"
+    CN: "{{ ansible_fqdn }}-CA"
     O: ESGF
     OU: ESGF.ORG
 

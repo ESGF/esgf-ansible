@@ -6,7 +6,7 @@ dependencies:
       dest_dir: "{{ httpd.cert_dir }}",
       key_dest: "{{ httpd.hostkey }}",
       csr_dest: "/tmp/httpdhost.csr",
-      common_name: "{{ ansible_nodename }}",
+      common_name: "{{ ansible_fqdn }}",
       csr: true
     }
   - {
@@ -15,6 +15,6 @@ dependencies:
       dest_dir: "/tmp",
       key_dest: "/tmp/account_key.pem",
       csr_dest: "/tmp/account.csr",
-      common_name: "{{ ansible_nodename }}",
+      common_name: "{{ ansible_fqdn }}",
       csr: true
     }

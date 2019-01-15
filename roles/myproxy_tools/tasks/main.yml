@@ -7,5 +7,13 @@
       - mhash
       - pam-pgsql
 
-- name: Import myproxy tasks
-  import_tasks: myproxy.yml
+- name: myproxy Group
+  when: is_6
+  group:
+    name: myproxy
+
+- name: myproxy User
+  when: is_6
+  user:
+    name: myproxy
+    groups: myproxy

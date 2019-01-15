@@ -1,8 +1,4 @@
 
-# - name: Make cog Directory
-#   file:
-#     path: /usr/local/cog
-#     state: directory
 - name: Install required libraries for CoG
   package:
     name:

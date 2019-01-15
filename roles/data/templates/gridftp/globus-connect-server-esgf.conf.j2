@@ -2,7 +2,7 @@
 User = {{ globus_user }}
 Password = {{ globus_pass }}
 [Endpoint]
-Name = {{ ansible_nodename }}
+Name = {{ ansible_fqdn }}
 Public = True
 [Security]
 FetchCredentialFromRelay = False
@@ -13,7 +13,7 @@ IdentityMethod = MyProxy
 [MyProxy]
 Server = {{ groups['idp'][0] }}
 [GridFTP]
-Server = {{ ansible_nodename }}
+Server = {{ ansible_fqdn }}
 IncomingPortRange = 50000,51000
 OutgoingPortRange = 50000,51000
 RestrictPaths = R/,N/etc,N/tmp,N/dev

@@ -1,3 +1,16 @@
+### Mirror Host
+##
+### The ESGF mirror to be used. Defaults to
+### aims1.llnl.gov
+##
+### Choices:
+## distrib-coffee.ipsl.jussieu.fr/pub
+## dist.ceda.ac.uk
+## aims1.llnl.gov
+## esg-dn2.nsc.liu.se
+##
+#mirror_host: aims1.llnl.gov
+
 ### Globus Services
 ##
 ### This information is used to connect the node

@@ -41,7 +41,7 @@
   replace:
     path: /esg/config/esgcet/esg.ini
     regexp: 'host.sample.gov'
-    replace: '{{ ansible_nodename }}'
+    replace: '{{ ansible_fqdn }}'
 
 - name: Run esgsetup 2
   no_log: true

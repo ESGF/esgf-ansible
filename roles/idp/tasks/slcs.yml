@@ -1,4 +1,5 @@
 
+# System libraries required by SLCS
 - name: Install utilities required by SLCS
   package:
     name:
@@ -8,6 +9,7 @@
       - postgresql-devel
       - httpd-devel
 
+# Clone the SLCS repo
 - name: Install SLCS Repo
   git:
     repo: "{{ slcs.repo }}"
