@@ -62,7 +62,7 @@ ansible-playbook -i hosts.test -e @myvars.test.yml --tags base --limit host-inde
 ```
 
 The tags available in the `install.yml` play are: `base`, `idp`, `index`, and `data`. 
-These can be used with `--tags` and `--skip-tags` as well as with the `--limit` flag to control exactly what is done and where.
+These can be used with `--tags` and `--skip-tags` as well as with `--limit [hostname]` to control exactly what is done and where.
 
 #### Starting and Stopping
 Node services can be started or stopped using the control play and tags "start" or "stop"
