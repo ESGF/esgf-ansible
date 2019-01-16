@@ -58,7 +58,13 @@
     dest: /etc/httpd/conf/httpd.conf
 
 # Handle legacy use of esgf-httpd.conf
+- name: Check for legacy esgf-httpd.conf
+  stat:
+    path: /etc/httpd/conf/esgf-httpd.conf
+  register: esgf_httpd
+
 - name: Create backup of legacy esgf-httpd.conf
+  when: esgf_httpd.stat.exists and not esgf_httpd.stat.islnk
   copy:
     remote_src: yes
     src: /etc/httpd/conf/esgf-httpd.conf
