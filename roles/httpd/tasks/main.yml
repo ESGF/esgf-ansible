@@ -43,14 +43,36 @@
     url: "{{ trusted_certs }}"
     dest: "{{ httpd.cabundle }}"
 
+# Install self-signed certificate as CA, if generated
+- name: Copy self-signed web CA chain into place
+  when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt),
+  copy:
+    remote_src: yes
+    src: "{{ httpd.hostcert }}"
+    dest: "{{ httpd.cachain }}"
+
 # Get a cert from LetsEncrypt if credentials are not provided
 - name: Install HTTP Config
   template:
     src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
 
+# Handle legacy use of esgf-httpd.conf
+- name: Create backup of legacy esgf-httpd.conf
+  copy:
+    remote_src: yes
+    src: /etc/httpd/conf/esgf-httpd.conf
+    dest: /etc/httpd/conf/esgf-httpd.conf.bak
+
+- name: Create symlink of legacy esgf-httpd.conf
+  file:
+    src: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf/esgf-httpd.conf
+    state: link
+    force: yes
+
 - name: Install LetsEncrypt Certs
-  when: hostkey_src is not defined
+  when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt
   import_tasks: letsencrypt.yml
 
 # Copy credentials into place, if provided

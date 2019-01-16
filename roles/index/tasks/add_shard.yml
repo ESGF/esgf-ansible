@@ -15,6 +15,13 @@
     group: solr
   register: solr_xml
 
+- name: Install solr.in.sh template
+  template:
+    src: solr/solr.in.sh.j2
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.in.sh"
+    owner: solr
+    group: solr
+
 - name: Start this Solr instance
   become: yes
   become_user: solr

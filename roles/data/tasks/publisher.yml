@@ -19,27 +19,28 @@
     {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
   args:
-    creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet*"
+    creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
+  register: pub_pip
 
 - name: Run esgsetup 1
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup --rootid llnl.gov
+    esgsetup --config --minimal-setup --rootid foobar123
   args:
-    creates: /esg/config/esgcet/*
+    creates: "{{ esg.config.dir }}/esgcet/esg.ini"
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
 - name: Insert publisher password into esg.ini
   no_log: true
   replace:
-    path: /esg/config/esgcet/esg.ini
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
     regexp: 'esgcetpass'
     replace: "{{ admin_pass }}"
 
 - name: Insert publisher host into esg.ini
   replace:
-    path: /esg/config/esgcet/esg.ini
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
     regexp: 'host.sample.gov'
     replace: '{{ ansible_fqdn }}'
 
