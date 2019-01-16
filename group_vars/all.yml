@@ -110,3 +110,15 @@ prometheus:
   node_exporter: 
     dir: /usr/local/node-exporter
     sh: /usr/local/node-exporter/node_exporter.sh
+
+dashboard:
+  egg:
+    name: "esgf_dashboard-0.0.2-py2.7.egg"
+    url: "{{ mirror.base }}/2.8/1/esgf-dashboard/esgf_dashboard-0.0.2-py2.7.egg"
+    script: esgf_dashboard_initialize
+  git:
+    repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
+    version: "v1.5.21"
+    dest: /usr/local/esgf-dashboard
+  ip:
+    home: /usr/local/esgf-dashboard-ip

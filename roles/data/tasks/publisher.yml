@@ -22,7 +22,7 @@
     creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
   register: pub_pip
 
-- name: Run esgsetup 1
+- name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup --rootid foobar123
@@ -44,7 +44,7 @@
     regexp: 'host.sample.gov'
     replace: '{{ ansible_fqdn }}'
 
-- name: Run esgsetup 2
+- name: Run esgsetup for the database
   no_log: true
   shell: >
     {{ conda.actv }} esgf-pub && \

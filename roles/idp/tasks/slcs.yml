@@ -5,7 +5,6 @@
     name:
       - gcc
       - libffi-devel
-      - openssl-devel
       - postgresql-devel
       - httpd-devel
 
