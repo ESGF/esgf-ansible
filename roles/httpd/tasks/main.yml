@@ -14,7 +14,7 @@
     - "{{ httpd.proxy_dir }}"
     - "{{ httpd.ssl_proxy_dir }}"
 
-- name: Configure firewalld
+- name: Configure firewalld for http and https
   when: is_7
   firewalld:
     service: "{{ item }}"
@@ -45,14 +45,14 @@
 
 # Install self-signed certificate as CA, if generated
 - name: Copy self-signed web CA chain into place
-  when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt),
+  when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt)
   copy:
     remote_src: yes
     src: "{{ httpd.hostcert }}"
     dest: "{{ httpd.cachain }}"
 
-# Get a cert from LetsEncrypt if credentials are not provided
-- name: Install HTTP Config
+# Install base HTTPD config file
+- name: Install HTTPD Config
   template:
     src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
@@ -77,6 +77,7 @@
     state: link
     force: yes
 
+# Get a cert from LetsEncrypt if credentials are not provided
 - name: Install LetsEncrypt Certs
   when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt
   import_tasks: letsencrypt.yml
