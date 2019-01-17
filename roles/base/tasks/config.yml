@@ -30,3 +30,19 @@
     - ".esg_keystore_pass"
     - ".esg_pg_pass"
     - ".esg_pg_publisher_pass"
+
+# Essential config files for IDP services
+- name: Install esgf_idp.xml
+  template:
+    src: esgf_idp.xml.j2
+    dest: "{{ esg.config.dir }}/esgf_idp.xml"
+
+- name: Install esgf_ats.xml
+  template:
+    src: esgf_ats.xml.j2
+    dest: "{{ esg.config.dir }}/esgf_ats.xml"
+
+- name: Install esgf_azs.xml
+  template:
+    src: esgf_azs.xml.j2
+    dest: "{{ esg.config.dir }}/esgf_azs.xml"
