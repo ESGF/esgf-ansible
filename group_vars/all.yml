@@ -122,3 +122,7 @@ dashboard:
     dest: /usr/local/esgf-dashboard
   ip:
     home: /usr/local/esgf-dashboard-ip
+
+gridftp:
+  port: 2811
+  chroot: "{{ esg.home }}/gridftp_root"

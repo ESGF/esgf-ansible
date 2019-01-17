@@ -30,7 +30,3 @@ data_db:
     pub:
       name: esgcet
       pass: "{{ admin_pass }}"
-
-gridftp:
-  port: 2811
-  chroot: "{{ esg.home }}/gridftp_root"
