@@ -43,7 +43,7 @@
 
 - name: Download ESGF Solr Cores template
   unarchive:
-    src: "{{ mirror.base }}/2.8/1/esg-search/solr-home.tar"
+    src: "{{ assets.base }}/solr-home.tar"
     dest: /tmp
     remote_src: yes
     creates: /tmp/solr-home
