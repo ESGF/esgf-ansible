@@ -84,12 +84,12 @@
 
 - name: Copy remote esg-orp library into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esg-orp/esg-orp-2.10.11.jar"
+    url: "{{ assets.orp }}/esg-orp-2.10.11.jar"
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esg-orp-2.10.11.jar"
 
 - name: Copy remote esgf-security library into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esgf-security/esgf-security-2.8.8.jar"
+    url: "{{ assets.security }}/esgf-security-2.8.8.jar"
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-2.8.8.jar"
 
 # Node Manager Jars
@@ -139,5 +139,3 @@
   #   creates: /esg/config/esgcet/*
   environment:
     UVCDAT_ANONYMOUS_LOG: no
-
-

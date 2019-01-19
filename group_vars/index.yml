@@ -1,6 +1,6 @@
 
 search_webapp:
-  url: "{{ mirror.base }}/2.8/1/esg-search/esg-search.war"
+  url: "{{ assets.search }}/esg-search.war"
   name: esg-search
 
 solr:

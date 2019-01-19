@@ -5,6 +5,26 @@ is_6: "{{ (ansible_distribution_major_version == '6') | bool }}"
 httpd_version: "{{ '2.4' if (is_7) else '2.2' }}"
 
 # ESGF Info
+versions:
+  installer: 4.0.0-alpha1
+  search: v4.17.9
+  stats_api: v1.0.9
+  dashboard: v1.5.23
+  node_manager: v1.0.3
+  orp: v2.10.11
+  security: v2.8.8
+  idp: v2.8.8
+
+assets:
+  base: https://github.com/ESGF/esgf-ansible/releases/download/{{ versions.installer }}
+  search: https://github.com/ESGF/esg-search/releases/download/{{ versions.search }}
+  stats_api: https://github.com/ESGF/esgf-stats-api/releases/download/{{ versions.stats_api }}
+  dashboard: https://github.com/ESGF/esgf-dashboard/releases/download/{{ versions.dashboard }}
+  node_manager: https://github.com/ESGF/esgf-node-manager/releases/download/{{ versions.node_manager }}
+  orp: https://github.com/ESGF/esg-orp/releases/download/{{ versions.orp }}
+  security: https://github.com/ESGF/esgf-security/releases/download/{{ versions.security }}
+  idp: https://github.com/ESGF/esgf-idp/releases/download/{{ versions.idp }}
+
 mirror_host: aims1.llnl.gov
 mirror:
   base: https://{{ mirror_host }}/esgf/dist
@@ -32,7 +52,7 @@ conda:
   mods: lib/python2.7/site-packages
 
 java:
-  src: "{{ mirror.base }}/java/1.8.0_192/jdk1.8.0_192-64.tar.gz"
+  src: "{{ assets.base }}/jdk1.8.0_192-64.tar.gz"
   root_dir: jdk1.8.0_192
   path: /usr/local/java
 
@@ -43,7 +63,7 @@ tomcat:
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ts:
-    url: "{{ mirror.base }}/certs/esg-truststore.ts"
+    url: "{{ assets.base }}/esg-truststore.ts"
     path: "{{ esg.config.dir }}/tomcat/esg-truststore.ts"
     pass: changeit
   ks:
@@ -56,7 +76,7 @@ esgf_rpm:
 
 all_db:
   users:
-    super: 
+    super:
       name: dbsuper
       pass: "{{ admin_pass }}"
   db: esgcet
@@ -66,7 +86,7 @@ all_db:
 db_url: '{{ all_db.users.super.name }}:{{ all_db.users.super.pass }}@{{ all_db.host }}:{{ all_db.port }}/{{ all_db.db }}'
 
 schema_migrate:
-  env: schema-migrate 
+  env: schema-migrate
 
 properties:
   dest: /esg/config/esgf.properties
@@ -74,7 +94,7 @@ properties:
 
 httpd:
   trusted_ca:
-    url: "{{ mirror.base }}/certs/esgf-ca-bundle.crt"
+    url: "{{ assets.base }}/esgf-ca-bundle.crt"
     name: esgf-ca-bundle.crt
   cert_dir: /etc/certs
   cabundle: /etc/certs/esgf-ca-bundle.crt
@@ -86,13 +106,13 @@ httpd:
 
 
 orp_webapp:
-  url: "{{ mirror.base }}/2.8/1/esg-orp/esg-orp.war"
+  url: "{{ assets.orp }}/esg-orp.war"
   name: esg-orp
 
 security:
   egg:
-    name: "esgf_security-0.1.6-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a2/esgf-security/esgf_security-0.1.6-py2.7.egg"
+    name: "esgf_security-0.1.5-py2.7.egg"
+    url: "{{ assets.security }}/esgf_security-0.1.5-py2.7.egg"
     script: "esgf_security_initialize"
 
 type_bits:
