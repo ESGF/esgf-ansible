@@ -48,7 +48,7 @@
 ### certificate authority.
 ##
 ### Leave unspecified and temporary, or LetsEncrypt (see below), 
-### certificates will be  generated.
+### certificates will be generated.
 ##
 #hostkey_src:
 #hostcert_src:
@@ -56,13 +56,13 @@
 
 ### LetsEncrypt Certificates for Web Services
 ##
-### LetsEncrypt certificates are browser trusted certifcates
+### LetsEncrypt certificates are browser trusted certificates
 ### that can be obtained in an automated fashion by proving
 ### you control the domain.
 ### In order for this to work your host must be publicly
 ### available at deployment time.
 ### This variable has no effect if the above host key/cert/chain
-### for web services are specified.
+### variables for web services are specified.
 ##
 ### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
 ##
