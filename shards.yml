@@ -6,4 +6,4 @@
       vars:
         shard:
           name: '{{ name }}'
-          name: '{{ port }}'
+          port: '{{ port }}'
