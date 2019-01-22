@@ -52,49 +52,6 @@
   when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
 
-- name: Insert Replica Shard URL
-  when: shard.name != master and shard.name != slave
-  replace:
-    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}/conf/solrconfig.xml"
-    regexp: 'localhost:8984'
-    replace: '{{ shard.name }}'
-  loop:
-    - datasets
-    - files
-    - aggregations
-
-- name: Remove remote entry in esgf_shards_static.xml
-  when: shard.name != master and shard.name != slave
-  lineinfile:
-    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
-    regexp: '^.*{{ shard.name }}.*$'
-    state: absent
-
-- name: Insert local replica shard entry
-  when: shard.name != master and shard.name != slave
-  lineinfile:
-    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
-    line: '    <value>localhost:{{ shard.port }}/solr</value>\n'
-    insertbefore: '^</shards>'
-
-- name: Load solr startup file
-  when: shard.name != master and shard.name != slave
-  slurp:
-    src: "{{ esg.config.dir }}/shards_startup.yml"
-  register: shard_startup_file
-
-- name: Load existing shards
-  when: shard.name != master and shard.name != slave
-  set_fact:
-    existing_shards: "{{ shard_startup_file | b64decode | from_yaml }}"
-
-- name: Set this shards info
-  when: shard.name != master and shard.name != slave
-  set_fact:
-    shard: "{{ shard | combine({'args': '-Denable.master=true -Denable.slave=true'}) }}" 
-
-- name: Add new shard
-  when: shard.name != master and shard.name != slave
-  copy:
-    content: "{{ existing_shards + [shard] | to_yaml }}"
-    dest: "{{ esg.config.dir }}/shards_startup.yml"
+- name: Perform additional steps for Replica Shards
+  when: shard.name != 'master' and shard.name != 'slave'
+  import_tasks: replica.yml
