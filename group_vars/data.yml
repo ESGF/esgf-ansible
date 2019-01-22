@@ -32,7 +32,7 @@ dashboard:
 node_manager:
   egg:
     name: "esgf_node_manager-0.1.5-py2.7.egg"
-    url: "{{ assets.node_manager }}/v1.0.3/esgf_node_manager-0.1.5-py2.7.egg"
+    url: "{{ assets.node_manager }}/esgf_node_manager-0.1.5-py2.7.egg"
     script: esgf_node_manager_initialize
 
 publisher:
