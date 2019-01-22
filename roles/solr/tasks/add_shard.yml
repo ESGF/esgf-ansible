@@ -31,13 +31,11 @@
 - name: Start this Solr instance
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
 
 - name: Create cores
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr create_core -c {{ item }} -d /tmp/solr-home/mycore -p {{ shard.port }}"
   args:
     creates: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}"
@@ -49,7 +47,6 @@
 - name: Stop this Solr instance
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
 
 - name: Perform additional steps for Replica Shards
