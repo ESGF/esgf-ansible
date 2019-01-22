@@ -8,6 +8,7 @@
             name: solr
       tags: add
       vars:
+        is_replica: true
         shard:
           name: '{{ name }}'
           port: '{{ port }}'
