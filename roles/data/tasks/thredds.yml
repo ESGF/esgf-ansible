@@ -51,19 +51,12 @@
 # ORP Jars
 - name: Install .jar files for use by thredds filters
   get_url:
-    url: "{{ mirror.base }}/2.8/1/filters/{{ item }}.jar"
+    url: "{{ assets.base }}/{{ item }}.jar"
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
   with_items:
     - jdom-legacy-1.1.3
     - commons-httpclient-3.1
     - commons-lang-2.6
-
-- name: Copy local ORP Libraries into thredds webapp
-  copy:
-    remote_src: yes
-    src: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
-  with_items:
     - esapi-2.1.0.1
     - opensaml-2.6.6
     - openws-1.5.6
@@ -81,6 +74,10 @@
     - slf4j-api-1.7.6
     - slf4j-log4j12-1.6.4
     - log4j-1.2.17
+    - commons-dbcp-1.4
+    - commons-dbutils-1.3
+    - commons-pool-1.5.4
+    - postgresql-8.4-703.jdbc3
 
 - name: Copy remote esg-orp library into thredds webapp
   get_url:
@@ -95,21 +92,11 @@
 # Node Manager Jars
 - name: Copy remote node-manager libraries into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esgf-node-manager/{{ item }}-1.0.3.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}-1.0.3.jar"
+    url: "{{ node_manager.base }}/{{ item }}-{{ versions.node_manager[1:] }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}-{{ versions.node_manager[1:] }}.jar"
   loop:
     - esgf-node-manager-common
     - esgf-node-manager-filters
-
-- name: Copy remote access logging filter libraries into thredds webapp
-  get_url:
-    url: "{{ mirror.base }}/filters/{{ item }}.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
-  loop:
-    - commons-dbcp-1.4
-    - commons-dbutils-1.3
-    - commons-pool-1.5.4
-    - postgresql-8.4-703.jdbc3
 
 
 # Set ownership
