@@ -25,7 +25,7 @@
 - name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup --rootid foobar123
+    esgsetup --config --minimal-setup --rootid {{ ansible_fqdn.split('.', 1)[-1] }}
   args:
     creates: "{{ esg.config.dir }}/esgcet/esg.ini"
   environment:
