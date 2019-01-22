@@ -9,3 +9,9 @@
     name: ntpd
     state: started
     enabled: yes
+  register: ntpd_start
+
+- name: Pause for 5 seconds to acquire correct time
+  when: ntpd_start is changed
+  pause:
+    seconds: 5
