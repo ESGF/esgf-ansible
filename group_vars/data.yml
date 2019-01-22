@@ -13,7 +13,7 @@ thredds_webapp:
 stats_api_version: v1.0.9
 
 stats_webapp:
-  url: "{{ assets.stats_api }}/{{ stats_api_version }}/esgf-stats-api.war"
+  url: "{{ assets.stats_api }}/esgf-stats-api.war"
   name: esgf-stats-api
 
 dashboard:
