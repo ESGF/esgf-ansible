@@ -28,7 +28,7 @@
 
 - name: Load existing shards
   set_fact:
-    existing_shards: "{{ shard_startup_file | b64decode | from_yaml }}"
+    existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
 
 - name: Set this shards info
   set_fact:
