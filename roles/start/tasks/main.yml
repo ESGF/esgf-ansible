@@ -11,12 +11,23 @@
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl start"
 
+- name: Load solr startup file
+  when: "'index' in group_names"
+  slurp:
+    src: "{{ esg.config.dir }}/shards_startup.yml"
+  register: shard_startup_file
+
+- name: Load existing shards
+  when: "'index' in group_names"
+  set_fact:
+    existing_shards: "{{ shard_startup_file | b64decode | from_yaml }}"
+
 - name: start solr shards
   when: "'index' in group_names"
   become: yes
   become_user: solr
-  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a -Denable.{{ shard.name }}=true"
-  loop: "{{ solr.shards }}"
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }}"
+  loop: "{{ existing_shards }}"
   loop_control:
     loop_var: shard
 

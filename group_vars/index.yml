@@ -11,8 +11,10 @@ solr:
   shards:
     - name: master
       port: 8984
+      args: "-Denable.master=true"
     - name: slave
       port: 8983
+      args: "-Denable.slave=true"
 
 cog:
   repo: https://github.com/William-Hill/COG.git

@@ -1,0 +1,9 @@
+- hosts: index
+  strategy: free
+  become: yes
+  tasks:
+    - include: roles/solr/tasks/add_shard.yml
+      vars:
+        shard:
+          name: '{{ name }}'
+          name: '{{ port }}'

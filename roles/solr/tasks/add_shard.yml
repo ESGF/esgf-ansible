@@ -1,0 +1,100 @@
+
+- name: Write default shards to shards_startup.yml
+  copy:
+    content: "{{ solr.shards | to_yaml }}"
+    dest: "{{ esg.config.dir }}/shards_startup.yml"
+    force: no
+
+- name: Create shard solr.solr.home directory
+  file:
+    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}"
+    state: directory
+    owner: solr
+    group: solr
+
+- name: Install solr.xml config
+  copy:
+    remote_src: yes
+    src: /tmp/solr-home/solr.xml
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.xml"
+    owner: solr
+    group: solr
+  register: solr_xml
+
+- name: Install solr.in.sh template
+  template:
+    src: solr.in.sh.j2
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.in.sh"
+    owner: solr
+    group: solr
+
+- name: Start this Solr instance
+  become: yes
+  become_user: solr
+  when: solr_xml is changed
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
+
+- name: Create cores
+  become: yes
+  become_user: solr
+  when: solr_xml is changed
+  command: "{{ solr.path }}/bin/solr create_core -c {{ item }} -d /tmp/solr-home/mycore -p {{ shard.port }}"
+  args:
+    creates: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}"
+  loop:
+    - datasets
+    - files
+    - aggregations
+
+- name: Stop this Solr instance
+  become: yes
+  become_user: solr
+  when: solr_xml is changed
+  command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
+
+- name: Insert Replica Shard URL
+  when: shard.name != master and shard.name != slave
+  replace:
+    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}/conf/solrconfig.xml"
+    regexp: 'localhost:8984'
+    replace: '{{ shard.name }}'
+  loop:
+    - datasets
+    - files
+    - aggregations
+
+- name: Remove remote entry in esgf_shards_static.xml
+  when: shard.name != master and shard.name != slave
+  lineinfile:
+    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
+    regexp: '^.*{{ shard.name }}.*$'
+    state: absent
+
+- name: Insert local replica shard entry
+  when: shard.name != master and shard.name != slave
+  lineinfile:
+    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
+    line: '    <value>localhost:{{ shard.port }}/solr</value>\n'
+    insertbefore: '^</shards>'
+
+- name: Load solr startup file
+  when: shard.name != master and shard.name != slave
+  slurp:
+    src: "{{ esg.config.dir }}/shards_startup.yml"
+  register: shard_startup_file
+
+- name: Load existing shards
+  when: shard.name != master and shard.name != slave
+  set_fact:
+    existing_shards: "{{ shard_startup_file | b64decode | from_yaml }}"
+
+- name: Set this shards info
+  when: shard.name != master and shard.name != slave
+  set_fact:
+    shard: "{{ shard | combine({'args': '-Denable.master=true -Denable.slave=true'}) }}" 
+
+- name: Add new shard
+  when: shard.name != master and shard.name != slave
+  copy:
+    content: "{{ existing_shards + [shard] | to_yaml }}"
+    dest: "{{ esg.config.dir }}/shards_startup.yml"
