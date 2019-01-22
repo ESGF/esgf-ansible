@@ -2,7 +2,11 @@
   strategy: free
   become: yes
   tasks:
-    - include: roles/solr/tasks/add_shard.yml
+    - name: Add a replica shard
+      block:
+        - include_role:
+            name: solr
+      tags: add
       vars:
         shard:
           name: '{{ name }}'

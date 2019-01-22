@@ -1,0 +1,35 @@
+
+- name: solr Group
+  group:
+    name: solr
+
+- name: solr User
+  user:
+    name: solr
+    groups: solr
+
+- name: solr Download
+  register: solr_download
+  unarchive:
+    src: "{{ solr.src }}"
+    dest: /tmp
+    remote_src: yes
+    creates: "/tmp/{{ solr.root_dir }}"
+
+- name: Install solr
+  when: solr_download is changed
+  command: "cp -R /tmp/{{ solr.root_dir }} {{ solr.path }}"
+
+- name: Set solr ownership
+  file:
+    path: "{{ solr.path }}"
+    owner: solr
+    group: solr
+    recurse: yes
+
+- name: Download ESGF Solr Cores template
+  unarchive:
+    src: "{{ mirror.base }}/2.8/1/esg-search/solr-home.tar"
+    dest: /tmp
+    remote_src: yes
+    creates: /tmp/solr-home
