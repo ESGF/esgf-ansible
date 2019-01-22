@@ -2,6 +2,7 @@
 # All ESGF Node Componenets
 
 - hosts: all
+  strategy: free
   become: yes
   tasks:
     # Get the admin password
