@@ -27,4 +27,5 @@
       local date is {{ lookup('pipe', 'date +%Y-%m-%d-%H')}}
     "
   until: ansible_date_time.date + '-' + ansible_date_time.hour == lookup('pipe', 'date +%Y-%m-%d-%H')
-  delay: 3
+  delay: 5
+  retries: 24
