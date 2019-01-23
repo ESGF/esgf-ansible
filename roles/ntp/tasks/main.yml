@@ -11,7 +11,20 @@
     enabled: yes
   register: ntpd_start
 
-# - name: Pause for 5 seconds to acquire correct time
-#   when: ntpd_start is changed
-#   pause:
-#     seconds: 5
+- name: Waiting for correct time
+  when: ntpd_start is changed
+  debug:
+    msg: "
+      Date on {{ ansible_fqdn }} is {{ ansible_date_time.date }}-{{ ansible_date_time.hour }},
+      local date is {{ lookup('pipe', 'date +%Y-%m-%d-%H')}}
+    "
+
+- name: Acquire correct time
+  when: ntpd_start is changed
+  debug:
+    msg: "
+      Date on {{ ansible_fqdn }} is {{ ansible_date_time.date }}-{{ ansible_date_time.hour }},
+      local date is {{ lookup('pipe', 'date +%Y-%m-%d-%H')}}
+    "
+  until: ansible_date_time.date + '-' + ansible_date_time.hour == lookup('pipe', 'date +%Y-%m-%d-%H')
+  delay: 3
