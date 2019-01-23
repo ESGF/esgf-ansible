@@ -41,6 +41,10 @@
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl start"
 
+- name: start dashboard information provider
+  when: "'data' in group_names"
+  shell: "{{ dashboard.ip.ctrl_script }} start &>> {{ dashboard.ip.log }}"
+
 - name: start globus-gridftp-server
   when: "'data' in group_names"
   service:

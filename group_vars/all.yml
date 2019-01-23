@@ -122,6 +122,8 @@ dashboard:
     dest: /usr/local/esgf-dashboard
   ip:
     home: /usr/local/esgf-dashboard-ip
+    ctrl_script: /usr/local/esgf-dashboard-ip/bin/ip.service
+    log: /usr/local/esgf-dashboard-ip/dashboard-ip.log
 
 gridftp:
   port: 2811

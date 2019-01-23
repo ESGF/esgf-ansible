@@ -23,11 +23,15 @@
   service:
     name: myproxy-server
     state: stopped
-  ignore_errors: yes  
+  ignore_errors: yes
 
 - name: stop slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl stop"
+
+- name: stop dashboard information provider
+  when: "'data' in group_names"
+  shell: "{{ dashboard.ip.ctrl_script }} stop &>> {{ dashboard.ip.log }}"
 
 - name: stop globus-gridftp-server
   when: "'data' in group_names"
