@@ -18,8 +18,8 @@
 
 - name: Acquire correct time
   when: ntpd_start is changed
-  shell: "date +%Y-%m-%d H%H"
+  shell: "date '+%Y-%m-%d H%H'"
   register: remote_date
-  until: remote_date.stdout == lookup('pipe', 'date +%Y-%m-%d H%H')
+  until: remote_date.stdout == lookup('pipe', "date '+%Y-%m-%d H%H'")
   delay: 5
   retries: 24
