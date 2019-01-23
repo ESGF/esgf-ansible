@@ -10,6 +10,6 @@
       vars:
         is_replica: true
         shard:
-          name: '{{ name }}'
-          port: '{{ port }}'
+          name: '{{ remote_hostname }}'
+          port: '{{ local_port }}'
           args: '-Denable.master=true -Denable.slave=true'

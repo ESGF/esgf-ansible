@@ -12,9 +12,7 @@
 
 - name: Add replica shard
   when: is_replica is defined and is_replica
-  tags:
-    - never
-    - add
+  tags: add
   include_tasks: add_shard.yml
 
 - name: Set solr ownership
