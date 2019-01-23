@@ -21,11 +21,8 @@
 
 - name: Acquire correct time
   when: ntpd_start is changed
-  debug:
-    msg: "
-      Date on {{ ansible_fqdn }} is {{ ansible_date_time.date }}-{{ ansible_date_time.hour }},
-      local date is {{ lookup('pipe', 'date +%Y-%m-%d-%H')}}
-    "
-  until: ansible_date_time.date + '-' + ansible_date_time.hour == lookup('pipe', 'date +%Y-%m-%d-%H')
+  shell: "date +%Y-%m-%d-%H"
+  register: remote_date
+  until: remote_date.stdout == lookup('pipe', 'date +%Y-%m-%d-%H')
   delay: 5
   retries: 24
