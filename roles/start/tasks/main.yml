@@ -7,6 +7,11 @@
 - name: start tomcat
   command: "nohup {{ tomcat_ctrl }} start"
 
+- name: start postgres
+  service:
+    name: postgresql
+    state: started
+
 - name: start cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl start"

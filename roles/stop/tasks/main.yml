@@ -8,6 +8,11 @@
   command: "{{ tomcat_ctrl }} stop"
   ignore_errors: yes
 
+- name: stop postgres
+  service:
+    name: postgresql
+    state: stopped
+
 - name: stop cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
