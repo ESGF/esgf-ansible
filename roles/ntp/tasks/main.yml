@@ -14,15 +14,12 @@
 - name: Waiting for correct time
   when: ntpd_start is changed
   debug:
-    msg: "
-      Date on {{ ansible_fqdn }} is {{ ansible_date_time.date }}-{{ ansible_date_time.hour }},
-      local date is {{ lookup('pipe', 'date +%Y-%m-%d-%H')}}
-    "
+    msg: Waiting for ntp to set the correct time.
 
 - name: Acquire correct time
   when: ntpd_start is changed
-  shell: "date +%Y-%m-%d-%H"
+  shell: "date +%Y-%m-%d H%H"
   register: remote_date
-  until: remote_date.stdout == lookup('pipe', 'date +%Y-%m-%d-%H')
+  until: remote_date.stdout == lookup('pipe', 'date +%Y-%m-%d H%H')
   delay: 5
   retries: 24
