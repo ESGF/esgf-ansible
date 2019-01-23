@@ -12,3 +12,4 @@
         shard:
           name: '{{ name }}'
           port: '{{ port }}'
+          args: '-Denable.master=true -Denable.slave=true'

@@ -30,11 +30,7 @@
   set_fact:
     existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
 
-- name: Set this shards info
-  set_fact:
-    shard: "{{ shard | combine({'args': '-Denable.master=true -Denable.slave=true'}) }}" 
-
 - name: Add new shard
   copy:
-    content: "{{ existing_shards + [shard] | to_yaml }}"
+    content: "{{ (existing_shards + [shard]) | to_yaml }}"
     dest: "{{ esg.config.dir }}/shards_startup.yml"
