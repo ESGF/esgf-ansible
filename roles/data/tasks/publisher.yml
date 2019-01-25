@@ -8,13 +8,26 @@
       - libxslt-devel
       - gcc
 
+- name: Check for correct esgf-publisher
+  stat:
+    path: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
+  register: publisher_module
+
+- name: Cleanup publisher repo
+  when: not publisher_module.stat.exists
+  file:
+    path: "{{ conda.envs }}/esgf-pub"
+    state: absent
+
 - name: Create esgf-pub conda env
+  when: not publisher_module.stat.exists
   command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
 
 # The requests install in the below statement is to match the requests in esgprep
 - name: Install publisher
+  when: not publisher_module.stat.exists
   shell: >
     {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}' 'requests==2.20.0'

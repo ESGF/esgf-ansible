@@ -32,7 +32,6 @@
   register: certcontents
 
 - name: Create Keystore
-  no_log: true
   java_keystore:
     private_key: "{{ keycontents['content'] | b64decode }}"
     certificate: "{{ certcontents['content'] | b64decode }}"

@@ -1,5 +1,5 @@
 
-- name: Download schema migration scripts
+- name: Download schema migration script {{ egg.script }}
   get_url:
     url: "{{ egg.url }}"
     dest: "/tmp/{{ egg.name }}"
