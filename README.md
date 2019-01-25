@@ -93,9 +93,9 @@ ansible-playbook -v -i hosts.test start.yml [ --tags "start tags" ]
 ansible-playbook -v -i hosts.test stop.yml [ --tags "stop tags" ]
 ```
 
-Multiple playbooks may be specfified and executed in the order specified. For example, to restart `cog`, `slcs` and `myproxy`:
+Multiple playbooks may be specfified and are executed in the order specified. For example, to restart `cog`, `slcs` and `myproxy`:
 ```
-ansible-playbook -v -i hosts.test stop.yml start.yml --tags "cog,slcs,myproxy"
+ansible-playbook -v -i hosts.test stop.yml start.yml --tags "cog, slcs, myproxy"
 ```
 
 To start or stop a data-only node use `--limit [data node hostname]`. Only the common tags and those associated with data nodes will have an effect.
@@ -105,7 +105,7 @@ ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags "st
 ```
 
 #### Local Certs
-Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not provided, the deployment will place a private key and CSR for these services in the HOME directory on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the variables file and installed using the `local_certs.yml` playbook.
+Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified the the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the `local_certs.yml` playbook.
 ```
 ansible-playbook -v -i hosts.prod local_certs.yml
 ```
