@@ -28,8 +28,16 @@ The second important file(s) that will be unique for each site's deployment are 
 
 This section assumes the information in "Info" is understood and the proper files have been created.
 
-This is NOT comprehensive, it only shows common patterns and (hopefully) useful commands. 
-Use `ansible-playbook --help` to see all command line options.
+This is NOT comprehensive, it only shows common patterns and useful commands. Refer to the docs linked above and the `--help` flag for more information.
+The primary command line tool used is `ansible-playbook`.
+```
+ansible-playbook --help
+```
+
+Although not discussed in this guide, the `ansible` command line tool can be useful as well.
+```
+ansible --help
+```
 
 It is recommended that users use the verbose flag `-v[v...]`, where each additonal `v` adds more output.
 
@@ -79,7 +87,7 @@ These can be used with `--tags` and `--skip-tags` as well as with `--limit [host
 #### Starting and Stopping Services
 Node services can be started or stopped using the `start.yml` and `stop.yml` playbooks. In the examples below, `start tags` and `stop tags` are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
 
- By default, if no start tags are specified, all services will be started. `httpd`, `postgres` and `monitoring` will always be started, unless specified via `--skip-tags` as a start tag. If no stop tags are specfied all services, EXCEPT `httpd`, `postgres` and `monitoring`, will be stopped. `httpd`, `postgres` and `monitoring` will only be stopped if their respective tag is specified via `--tags` as stop tag.
+ By default, if no start tags are specified, all services will be started. `httpd`, `postgres` and `monitoring` will always be started, unless specified via `--skip-tags` as a start tag. If no stop tags are specfied, all services, EXCEPT `httpd`, `postgres` and `monitoring`, will be stopped. `httpd`, `postgres` and `monitoring` will only be stopped if their respective tag is specified via `--tags` as stop tag.
 ```
 ansible-playbook -v -i hosts.test start.yml [ --tags "start tags" ]
 ansible-playbook -v -i hosts.test stop.yml [ --tags "stop tags" ]
