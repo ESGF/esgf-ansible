@@ -1,31 +1,70 @@
 
+# Always start base services
 - name: start httpd
   service:
     name: httpd
     state: started
-
-- name: start tomcat
-  command: "nohup {{ tomcat_ctrl }} start"
+  tags:
+    - httpd 
+    - always
 
 - name: start postgres
   service:
     name: postgresql
     state: started
+  tags: 
+    - postgres 
+    - always
 
+- name: start monitoring
+  command: "service node_exporter start"
+  args:
+    warn: no 
+  register: result
+  changed_when: '"already running" not in result.stderr'
+  failed_when: 'result.rc != 0 and "already running" not in result.stderr'
+  tags: 
+    - monitoring 
+    - always
+
+# Almost always start tomcat
+- name: start tomcat
+  command: "nohup {{ tomcat_ctrl }} start"
+  register: result
+  changed_when: '"Tomcat appears to still be running" not in result.stdout'
+  failed_when: 'result.rc != 0 and "Tomcat appears to still be running" not in result.stdout'
+  tags:
+    - data
+    - idp
+    - index
+    - tomcat
+
+# Index services
 - name: start cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl start"
+  register: result
+  changed_when: '"already running" not in result.stdout'
+  tags: 
+    - index
+    - cog
 
 - name: Load solr startup file
   when: "'index' in group_names"
   slurp:
     src: "{{ esg.config.dir }}/shards_startup.yml"
   register: shard_startup_file
+  tags: 
+    - index
+    - solr
 
 - name: Load existing shards
   when: "'index' in group_names"
   set_fact:
     existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
+  tags: 
+    - index
+    - solr
 
 - name: start solr shards
   when: "'index' in group_names"
@@ -33,25 +72,47 @@
   become_user: solr
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }}"
   loop: "{{ existing_shards }}"
+  register: result
+  changed_when: '"Port {{ shard.port }} is already being used" not in result.stdout'
+  failed_when: 'result.rc != 0 and "Port {{ shard.port }} is already being used" not in result.stdout'
   loop_control:
     loop_var: shard
+  tags: 
+    - index
+    - solr
 
+# IDP Services
 - name: start myproxy-server
   when: "'idp' in group_names"
   service:
     name: myproxy-server
     state: started
+  tags:
+    - idp
+    - myproxy
 
 - name: start slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl start"
+  register: result
+  changed_when: '"already running" not in result.stdout'
+  tags:
+    - idp
+    - slcs
 
+# Data services
 - name: start dashboard information provider
   when: "'data' in group_names"
-  shell: "{{ dashboard.ip.ctrl_script }} start &>> {{ dashboard.ip.log }}"
+  shell: "nohup {{ dashboard.ip.ctrl_script }} start &>> {{ dashboard.ip.log }}"
+  tags:
+    - data
+    - dashboard-ip
 
 - name: start globus-gridftp-server
   when: "'data' in group_names"
   service:
     name: globus-gridftp-server
     state: started
+  tags:
+    - data
+    - gridftp
