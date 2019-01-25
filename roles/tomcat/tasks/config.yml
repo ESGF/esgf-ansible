@@ -38,6 +38,7 @@
     name: my_esgf_node 
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
+    force: yes
   environment:
     PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
 
