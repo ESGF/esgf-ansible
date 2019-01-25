@@ -15,6 +15,13 @@
     dest: /tmp
     remote_src: yes
     creates: "/tmp/{{ solr.root_dir }}"
+  register: solr_download
+
+- name: Remove {{ solr.path }} if new Solr downloaded
+  when: solr_download is changed
+  file:
+    path: "{{ solr.path }}"
+    state: absent
 
 - name: Install solr
   when: solr_download is changed
