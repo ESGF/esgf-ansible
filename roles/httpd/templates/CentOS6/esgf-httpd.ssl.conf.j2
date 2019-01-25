@@ -53,6 +53,8 @@ NameVirtualHost *:443
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
 
+	Include {{ httpd.ssl_proxy_dir }}/*.conf
+
 	# CoG will go here
 	# With Location blocks later matches overwrite early matches.
 	# So if the cog location "/" is the last location block, it will match all paths and thus overwrite all other Location blocks.
@@ -60,6 +62,5 @@ NameVirtualHost *:443
 	ProxyPass / http://localhost:8889/
 	ProxyPassReverse / http://localhost:8889/
 
-	Include {{ httpd.ssl_proxy_dir }}/*.conf
 
 </VirtualHost>
