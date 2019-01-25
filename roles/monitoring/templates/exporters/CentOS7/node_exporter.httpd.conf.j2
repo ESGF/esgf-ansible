@@ -1,9 +1,12 @@
 
 <Location "/metrics">
+
     Require host localhost {% if prometheus_host is defined %} {{ prometheus_host }} {% endif %}
+
     {% if prometheus_ip is defined %} 
     Require ip {{ prometheus_ip }} 
     {% endif %}
+
     ProxyPass http://localhost:9100/metrics
     ProxyPassReverse http://localhost:9100/metrics
 </Location>
