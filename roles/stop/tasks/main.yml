@@ -17,10 +17,10 @@
     - never
 
 - name: stop montioring
-  service:
-    name: node_exporter
-    state: stopped
-  tags: 
+  command: "service node_exporter stop"
+  args:
+    warn: no
+  tags:
     - monitoring
     - never
 
