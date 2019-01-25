@@ -4,20 +4,17 @@
       - ntp
       - ntpdate
 
-- name: Ensure ntpd is started
+- name: Ensure ntpd is restarted
   service:
     name: ntpd
-    state: started
+    state: restarted
     enabled: yes
-  register: ntpd_start
 
 - name: Waiting for correct time
-  when: ntpd_start is changed
   debug:
     msg: Waiting for ntp to set the correct time. Using {{ lookup('pipe', "date '+%Y-%m-%d H%H'") }} as current time.
 
 - name: Acquire correct time
-  when: ntpd_start is changed
   shell: "date '+%Y-%m-%d H%H'"
   register: remote_date
   until: remote_date.stdout == lookup('pipe', "date '+%Y-%m-%d H%H'")
