@@ -90,8 +90,8 @@ orp_webapp:
 
 security:
   egg:
-    name: "esgf_security-0.1.5-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a/esgf-security/esgf_security-0.1.5-py2.7.egg"
+    name: "esgf_security-0.1.6-py2.7.egg"
+    url: "{{ mirror.base }}/devel/3.0/a2/esgf-security/esgf_security-0.1.6-py2.7.egg"
     script: "esgf_security_initialize"
 
 type_bits:
@@ -113,8 +113,8 @@ prometheus:
 
 dashboard:
   egg:
-    name: "esgf_dashboard-0.0.2-py2.7.egg"
-    url: "{{ mirror.base }}/2.8/1/esgf-dashboard/esgf_dashboard-0.0.2-py2.7.egg"
+    name: "esgf_dashboard-0.0.3-py2.7.egg"
+    url: "{{ mirror.base }}/devel/3.0/a2/esgf-dashboard/esgf_dashboard-0.0.3-py2.7.egg"
     script: esgf_dashboard_initialize
   git:
     repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
