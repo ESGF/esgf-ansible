@@ -4,19 +4,31 @@
       - ntp
       - ntpdate
 
-- name: Ensure ntpd is restarted
+- name: Ensure ntpd is started
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+
+- name: Get date and time on {{ ansible_fqdn }}, to the hour
+  shell: "date '+%Y-%m-%d %H h'"
+  register: remote_date
+
+- name: Restart ntpd
+  when: remote_date.stdout != lookup('pipe', "date '+%Y-%m-%d %H h'")
   service:
     name: ntpd
     state: restarted
-    enabled: yes
 
 - name: Waiting for correct time
+  when: remote_date.stdout != lookup('pipe', "date '+%Y-%m-%d %H h'")
   debug:
-    msg: Waiting for ntp to set the correct time. Using {{ lookup('pipe', "date '+%Y-%m-%d H%H'") }} as current time.
+    msg: Waiting for ntp to set the correct time. Using {{ lookup('pipe', "date '+%Y-%m-%d %H h'") }} as current time.
 
 - name: Acquire correct time
-  shell: "date '+%Y-%m-%d H%H'"
+  when: remote_date.stdout != lookup('pipe', "date '+%Y-%m-%d %H h'")
+  shell: "date '+%Y-%m-%d %H h'"
   register: remote_date
-  until: remote_date.stdout == lookup('pipe', "date '+%Y-%m-%d H%H'")
+  until: remote_date.stdout == lookup('pipe', "date '+%Y-%m-%d %H h'")
   delay: 5
   retries: 24
