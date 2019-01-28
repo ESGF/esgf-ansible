@@ -107,9 +107,30 @@ grid_security:
     cert: /etc/grid-security/hostcert.pem
 
 prometheus:
-  node_exporter: 
-    dir: /usr/local/node-exporter
-    sh: /usr/local/node-exporter/node_exporter.sh
+  exporters:
+    - name: node_exporter
+      full_name: node_exporter-0.17.0.linux-amd64
+      src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
+      port: 9100
+      dir: /usr/local/node_exporter
+      web_path: /metrics
+      run: /usr/local/node_exporter/node_exporter
+
+    - name: apache_exporter
+      full_name: apache_exporter-0.5.0.linux-amd64
+      src: https://github.com/Lusitaniae/apache_exporter/releases/download/v0.5.0/apache_exporter-0.5.0.linux-amd64.tar.gz
+      port: 9117
+      dir: /usr/local/apache_exporter
+      web_path: /apache-metrics
+      run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ ansible_fqdn }}/server-status/?auto'"
+
+    # - name: postgres_exporter
+    #   full_name: postgres_exporter_v0.4.7_linux-amd64
+    #   src: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.4.7/postgres_exporter_v0.4.7_linux-amd64.tar.gz
+    #   port: 9187
+    #   dir: /usr/local/postgres_exporter
+    #   web_path: /postgres-metrics
+    #   run: "DATA_SOURCE_NAME='{{ db_url }}' /usr/local/postgres_exporter/postgres_exporter"
 
 dashboard:
   egg:

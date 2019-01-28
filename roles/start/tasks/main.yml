@@ -17,13 +17,16 @@
     - always
 
 - name: start monitoring
-  command: "service node_exporter start"
+  command: "service {{ exporter.name }} start"
   args:
     warn: no 
   register: result
   changed_when: '"already running" not in result.stderr'
   failed_when: 'result.rc != 0 and "already running" not in result.stderr'
-  tags: 
+  loop: "{{ prometheus.exporters }}"
+  loop_control:
+    loop_var: exporter
+  tags:
     - monitoring 
     - always
 

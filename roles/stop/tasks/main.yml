@@ -17,9 +17,12 @@
     - never
 
 - name: stop montioring
-  command: "service node_exporter stop"
+  command: "service {{ exporter.name }} stop"
   args:
     warn: no
+  loop: "{{ prometheus.exporters }}"
+  loop_control:
+    loop_var: exporter
   tags:
     - monitoring
     - never
