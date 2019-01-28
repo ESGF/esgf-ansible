@@ -1,0 +1,8 @@
+- hosts: all
+  become: yes
+  tasks:
+    - include_role:
+        name: httpd
+    - include_role:
+        name: tomcat
+        tasks_from: certs.yml

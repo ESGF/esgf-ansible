@@ -4,43 +4,8 @@
     path: "{{ esg.config.dir }}/tomcat"
     state: directory
 
-# Load certificates Tomcat will trust
-- name: Get trusted certificates
-  get_url:
-    url: "{{ tomcat.ts.url }}"
-    dest: "{{ tomcat.ts.path }}"
-
-- name: Import web CA into Truststore
-  java_cert:
-    cert_path: "{{ httpd.cachain }}"
-    keystore_path: "{{ tomcat.ts.path }}"
-    keystore_pass: "{{ tomcat.ts.pass }}"
-    cert_alias: my_esgf_node
-    executable: "{{ java.path }}/bin/keytool"
-
-# Load the hostkey and hostcert into the tomcat keystore
-- name: Load host key
-  no_log: true
-  slurp:
-    src: "{{ httpd.hostkey }}"
-  register: keycontents
-
-- name: Load host cert
-  no_log: true
-  slurp:
-    src: "{{ httpd.hostcert }}"
-  register: certcontents
-
-- name: Create Keystore
-  java_keystore:
-    private_key: "{{ keycontents['content'] | b64decode }}"
-    certificate: "{{ certcontents['content'] | b64decode }}"
-    name: my_esgf_node 
-    dest: "{{ tomcat.ks.path }}"
-    password: "{{ tomcat.ks.pass }}"
-    force: yes
-  environment:
-    PATH: "{{ java.path }}/bin:{{ ansible_env.PATH }}"
+- name: Include certificate tasks
+  include_tasks: certs.yml
 
 # Install Tomcat configuration files
 - name: Install server.xml
