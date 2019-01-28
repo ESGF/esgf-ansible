@@ -114,10 +114,21 @@ or, for data-only
 ansible-playbook -v -i hosts.prod --limit host-data.my.org local_certs.yml
 ```
 
+#### Web Certs
+Certificates for web services may be installed independent from the primary installation process via the `web_certs.yml` playbook. See the sample host variable file to see how to specify what certifcate/key/cachain to install. This can be used to try to setup LetsEncrypt certificates as well. See the `try_letsencrypt` variable in the sample host variable file for more information.
+```
+ansible-playbook -v -i hosts.prod web_certs.yml
+```
+
 #### Shards
 A number of Solr shards are loaded as remote indecies. For improved load times these can be replicated locally. A utility is provided to ease this process.
 ```
 ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host to replicate locally] local_port=[start at 8985 and increment]" --tags add shards.yml
+```
+
+If you would like to remove the replicated shard.
+```
+ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host replicated locally] local_port=[port used by replicated shard]" --tags remove shards.yml
 ```
 
 ## Advice and Contributing
