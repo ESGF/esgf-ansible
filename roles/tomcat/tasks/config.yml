@@ -40,7 +40,7 @@
     password: "{{ tomcat.ks.pass }}"
     force: yes
   environment:
-    PATH: "{{ lookup('env', 'PATH') }}:{{ java.path }}/bin"
+    PATH: "{{ java.path }}/bin:{{ ansible_env.PATH }}"
 
 # Install Tomcat configuration files
 - name: Install server.xml
