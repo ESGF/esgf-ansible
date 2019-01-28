@@ -120,7 +120,7 @@ Certificates for web services may be installed independent from the primary inst
 ansible-playbook -v -i hosts.prod web_certs.yml
 ```
 
-#### Shards
+#### Solr Shards
 A number of Solr shards are loaded as remote indecies. For improved load times these can be replicated locally. A utility is provided to ease this process.
 ```
 ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host to replicate locally] local_port=[start at 8985 and increment]" --tags add shards.yml
