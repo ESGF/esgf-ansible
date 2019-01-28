@@ -1,3 +1,7 @@
+### All paths in this file are on the machine
+### on which Ansible itself will be run. That is,
+### they are on the 'control' machine.
+
 ### Mirror Host
 ##
 ### The ESGF mirror to be used. Defaults to

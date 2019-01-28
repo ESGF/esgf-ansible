@@ -6,11 +6,11 @@ The deployment of ESGF Nodes has traditionally been done by a mix of scripts and
 
 ## Basic Info
 
-Ansible runs from a host, or 'control', machine and deploys the configuration to 'managed' machines. 
+Ansible runs from a 'control' machine and deploys the configuration to 'managed' machines.
 
-The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. Using anything other than `ansible==2.7` will result in untested behavior.
+The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. __Using anything other than `ansible==2.7` will result in untested behavior.__
 
-The simple requirement for the managed machine is that it can be accessed via ssh from the control machine and that it has a `python>=2.6` interpreter. Also, their must be some way to have escalated privileges on the the managed machine to deploy the configuration.
+The simple requirement for the managed machine is that it can be accessed via ssh from the control machine and that the managed machine has a `python>=2.6` interpreter. Also, there must be some way to have escalated privileges on the the managed machine to deploy the configuration.
 
 For all the details and features of Ansible see:
 - [Ansible Docs](https://docs.ansible.com/)
@@ -39,7 +39,7 @@ Although not discussed in this guide, the `ansible` command line tool can be use
 ansible --help
 ```
 
-It is recommended that users use the verbose flag `-v[v...]`, where each additonal `v` adds more output.
+It is recommended that users use the verbose flag `-v[v...]`, where each additional `v` adds more output.
 
 #### SSH Authentication
 Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password.
