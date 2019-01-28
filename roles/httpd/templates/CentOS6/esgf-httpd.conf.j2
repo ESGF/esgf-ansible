@@ -144,6 +144,12 @@ TraceEnable Off
 #  ESGF-HTTPD-CONF VERSION: 1.0.11
 
 NameVirtualHost *:80
+<Location "/server-status">
+    SetHandler server-status
+	Order deny,allow
+	Deny from all
+    Allow from {{ ansible_fqdn }}
+</Location>
 <Location / >
 	<LimitExcept POST GET>
 		Order deny,allow
@@ -183,6 +189,7 @@ NameVirtualHost *:80
     RewriteCond %{REQUEST_URI} !^/las(.*)$
     RewriteCond %{REQUEST_URI} !^/solr(.*)$
     RewriteCond %{REQUEST_URI} !^/thredds(.*)$
+	RewriteCond %{REQUEST_URI} !^/server-status(.*)$
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 
 	#add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive) and uncomment following line. For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
