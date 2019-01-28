@@ -1,0 +1,35 @@
+- hosts: index
+  strategy: free
+  become: yes
+  vars:
+    shard:
+      name: '{{ remote_hostname }}'
+      port: '{{ local_port }}'
+      args: '-Denable.master=true -Denable.slave=true'
+  tasks:
+    - name: Add shard {{ shard.name }}
+      block:
+        - include_role:
+            name: solr
+            tasks_from: "{{ add_task }}"
+          loop_control:
+            loop_var: add_task
+          loop:
+            - add_shard.yml
+            - replica.yml
+      tags:
+        - never
+        - add
+
+    - name: Remove shard {{ shard.name }}
+      block:
+        - include_role:
+            name: solr
+            tasks_from: "{{ remove_task }}"
+          loop_control:
+            loop_var: remove_task
+          loop:
+            - remove_shard.yml
+      tags:
+        - never
+        - remove

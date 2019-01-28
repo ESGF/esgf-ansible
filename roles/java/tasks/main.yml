@@ -4,6 +4,13 @@
     dest: /tmp
     remote_src: yes
     creates: "/tmp/{{ java.root_dir }}"
+  register: java_download
+
+- name: Remove {{ java.path }} if new Java downloaded
+  when: java_download is changed
+  file:
+    path: "{{ java.path }}"
+    state: absent
 
 - name: Install java
   command: "cp -R /tmp/{{ java.root_dir }} {{ java.path }}"

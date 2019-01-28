@@ -1,0 +1,23 @@
+- name: Stop this solr instance
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
+  register: result
+  failed_when: "result.rc != 0 and 'No process found for Solr node running on port {{ shard.port }}' not in result.stdout"
+
+- name: Remove shard solr.solr.home directory
+  file:
+    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}"
+    state: absent
+
+- name: Remove entry in esgf_shards_static.xml
+  lineinfile:
+    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
+    regexp: '^.*localhost:{{ shard.port }}.*$'
+    state: absent
+
+- name: Remove entry from shards_startup.yml
+  lineinfile:
+    path: "{{ esg.config.dir }}/shards_startup.yml"
+    regexp: '{{ shard.name }}'
+    state: absent  

@@ -1,0 +1,16 @@
+
+- name: Install Solr
+  include_tasks: install.yml
+
+- name: Add default shards
+  include_tasks: add_shard.yml
+  loop: "{{ solr.shards }}"
+  loop_control:
+    loop_var: shard
+
+- name: Set solr ownership
+  file:
+    path: "{{ solr.path }}"
+    owner: solr
+    group: solr
+    recurse: yes

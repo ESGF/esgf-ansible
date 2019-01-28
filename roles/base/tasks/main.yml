@@ -13,10 +13,9 @@
       - bind-utils
       - git
       - wget
-
-- name: Update download utilities
-  yum:
-    name:
+      - gcc
+      - openssl
+      - openssl-devel
       - nss
       - curl
       - libcurl

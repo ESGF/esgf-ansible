@@ -1,3 +1,7 @@
+### All paths in this file are on the machine
+### on which Ansible itself will be run. That is,
+### they are on the 'control' machine.
+
 ### Mirror Host
 ##
 ### The ESGF mirror to be used. Defaults to
@@ -47,9 +51,23 @@
 ### key/cert that have been signed by a commonly trusted 
 ### certificate authority.
 ##
-### Leave unspecified and temporary certificates will be 
-### generated.
+### Leave unspecified and temporary, or LetsEncrypt (see below), 
+### certificates will be generated.
 ##
 #hostkey_src:
 #hostcert_src:
 #cachain_src:
+
+### LetsEncrypt Certificates for Web Services
+##
+### LetsEncrypt certificates are browser trusted certificates
+### that can be obtained in an automated fashion by proving
+### you control the domain.
+### In order for this to work your host must be publicly
+### available at deployment time.
+### This variable has no effect if the above host key/cert/chain
+### variables for web services are specified.
+##
+### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
+##
+#try_letsencrypt: true|false

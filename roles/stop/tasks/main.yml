@@ -1,36 +1,91 @@
 
+# Never stop base services, unless explicitly directed
 - name: stop httpd
   service:
     name: httpd
     state: stopped
+  tags:
+    - httpd
+    - never
 
+- name: stop postgres
+  service:
+    name: postgresql
+    state: stopped
+  tags:
+    - postgres
+    - never
+
+- name: stop montioring
+  command: "service {{ exporter.name }} stop"
+  args:
+    warn: no
+  loop: "{{ prometheus.exporters }}"
+  loop_control:
+    loop_var: exporter
+  tags:
+    - monitoring
+    - never
+
+# Tomcat
 - name: stop tomcat
   command: "{{ tomcat_ctrl }} stop"
-  ignore_errors: yes
+  register: result
+  failed_when: 'result.rc != 0 and "Is Tomcat running?" not in result.stdout'
+  tags:
+    - data
+    - idp
+    - index
+    - tomcat
 
+# Index services
 - name: stop cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
+  tags: 
+    - index
+    - cog
 
 - name: stop solr
   when: "'index' in group_names"
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -all"
+  tags: 
+    - index
+    - solr
 
+# IDP services
 - name: stop myproxy-server
   when: "'idp' in group_names"
   service:
     name: myproxy-server
     state: stopped
-  ignore_errors: yes  
+  ignore_errors: yes
+  tags: 
+    - idp
+    - myproxy
 
 - name: stop slcs
   when: "'idp' in group_names"
   command: "{{ slcs.wsgi_dir }}/apachectl stop"
+  tags:
+    - idp
+    - slcs
+
+# Data services
+- name: stop dashboard information provider
+  when: "'data' in group_names"
+  shell: "{{ dashboard.ip.ctrl_script }} stop &>> {{ dashboard.ip.log }}"
+  tags:
+    - data
+    - dashboard-ip
 
 - name: stop globus-gridftp-server
   when: "'data' in group_names"
   service:
     name: globus-gridftp-server
     state: stopped
+  tags:
+    - data
+    - gridftp

@@ -37,8 +37,8 @@ java:
 
 
 tomcat:
-  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
-  root_dir: apache-tomcat-8.5.20
+  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.tar.gz
+  root_dir: apache-tomcat-8.5.34
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ts:
@@ -90,8 +90,8 @@ orp_webapp:
 
 security:
   egg:
-    name: "esgf_security-0.1.5-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a/esgf-security/esgf_security-0.1.5-py2.7.egg"
+    name: "esgf_security-0.1.6-py2.7.egg"
+    url: "{{ mirror.base }}/devel/3.0/a2/esgf-security/esgf_security-0.1.6-py2.7.egg"
     script: "esgf_security_initialize"
 
 type_bits:
@@ -107,6 +107,45 @@ grid_security:
     cert: /etc/grid-security/hostcert.pem
 
 prometheus:
-  node_exporter: 
-    dir: /usr/local/node-exporter
-    sh: /usr/local/node-exporter/node_exporter.sh
+  exporters:
+    - name: node_exporter
+      full_name: node_exporter-0.17.0.linux-amd64
+      src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
+      port: 9100
+      dir: /usr/local/node_exporter
+      web_path: /metrics
+      run: /usr/local/node_exporter/node_exporter
+
+    - name: apache_exporter
+      full_name: apache_exporter-0.5.0.linux-amd64
+      src: https://github.com/Lusitaniae/apache_exporter/releases/download/v0.5.0/apache_exporter-0.5.0.linux-amd64.tar.gz
+      port: 9117
+      dir: /usr/local/apache_exporter
+      web_path: /apache-metrics
+      run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ ansible_fqdn }}/server-status/?auto'"
+
+    # - name: postgres_exporter
+    #   full_name: postgres_exporter_v0.4.7_linux-amd64
+    #   src: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.4.7/postgres_exporter_v0.4.7_linux-amd64.tar.gz
+    #   port: 9187
+    #   dir: /usr/local/postgres_exporter
+    #   web_path: /postgres-metrics
+    #   run: "DATA_SOURCE_NAME='{{ db_url }}' /usr/local/postgres_exporter/postgres_exporter"
+
+dashboard:
+  egg:
+    name: "esgf_dashboard-0.0.3-py2.7.egg"
+    url: "{{ mirror.base }}/devel/3.0/a2/esgf-dashboard/esgf_dashboard-0.0.3-py2.7.egg"
+    script: esgf_dashboard_initialize
+  git:
+    repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
+    version: "v1.5.21"
+    dest: /usr/local/esgf-dashboard
+  ip:
+    home: /usr/local/esgf-dashboard-ip
+    ctrl_script: /usr/local/esgf-dashboard-ip/bin/ip.service
+    log: /usr/local/esgf-dashboard-ip/dashboard-ip.log
+
+gridftp:
+  port: 2811
+  chroot: "{{ esg.home }}/gridftp_root"

@@ -14,6 +14,13 @@
     dest: /tmp
     remote_src: yes
     creates: "/tmp/{{ tomcat.root_dir }}"
+  register: tomcat_download
+
+- name: Remove {{ tomcat.path }} if new Tomcat downloaded
+  when: tomcat_download is changed
+  file:
+    path: "{{ tomcat.path }}"
+    state: absent
 
 - name: Install tomcat
   command: "cp -R /tmp/{{ tomcat.root_dir }} {{ tomcat.path }}"

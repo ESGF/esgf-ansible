@@ -1,4 +1,10 @@
 
+- name: Write default shards to shards_startup.yml
+  copy:
+    content: "{{ solr.shards | to_yaml }}"
+    dest: "{{ esg.config.dir }}/shards_startup.yml"
+    force: no
+
 - name: Create shard solr.solr.home directory
   file:
     path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}"
@@ -15,16 +21,21 @@
     group: solr
   register: solr_xml
 
+- name: Install solr.in.sh template
+  template:
+    src: solr.in.sh.j2
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.in.sh"
+    owner: solr
+    group: solr
+
 - name: Start this Solr instance
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
 
 - name: Create cores
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr create_core -c {{ item }} -d /tmp/solr-home/mycore -p {{ shard.port }}"
   args:
     creates: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}"
@@ -36,5 +47,4 @@
 - name: Stop this Solr instance
   become: yes
   become_user: solr
-  when: solr_xml is changed
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"

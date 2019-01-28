@@ -2,7 +2,7 @@
 dependencies:
   - {
       role: 'certificate',
-      when: hostkey_src is not defined,
+      when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt,
       dest_dir: "{{ httpd.cert_dir }}",
       key_dest: "{{ httpd.hostkey }}",
       csr_dest: "/tmp/httpdhost.csr",
@@ -11,10 +11,20 @@ dependencies:
     }
   - {
       role: 'certificate',
-      when: hostkey_src is not defined,
+      when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt,
       dest_dir: "/tmp",
       key_dest: "/tmp/account_key.pem",
       csr_dest: "/tmp/account.csr",
       common_name: "{{ ansible_fqdn }}",
       csr: true
+    }
+  - {
+      role: 'certificate',
+      when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt),
+      dest_dir: "{{ httpd.cert_dir }}",
+      key_dest: "{{ httpd.hostkey }}",
+      cert_dest: "{{ httpd.hostcert }}",
+      csr_dest: "/tmp/httpdhost.csr",
+      common_name: "{{ ansible_fqdn }}",
+      self_signed: true
     }

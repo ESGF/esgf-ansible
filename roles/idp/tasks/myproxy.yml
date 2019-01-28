@@ -102,6 +102,15 @@
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
+# Open the MyProxy port on CentOS 7
+- name: Configure firewalld for MyProxy
+  when: is_7
+  firewalld:
+    port: 7512/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
 # Register the MyProxy endpoint with Globus
 - name: Run the globus-connect-server-id-setup Command
   when: 
