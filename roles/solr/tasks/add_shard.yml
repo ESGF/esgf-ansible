@@ -48,7 +48,3 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
-
-- name: Perform additional steps for Replica Shards
-  when: shard.name != 'master' and shard.name != 'slave'
-  import_tasks: replica.yml

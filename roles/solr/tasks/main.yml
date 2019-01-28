@@ -1,19 +1,12 @@
 
 - name: Install Solr
-  when: is_replica is not defined or not is_replica
   include_tasks: install.yml
 
 - name: Add default shards
-  when: is_replica is not defined or not is_replica
   include_tasks: add_shard.yml
   loop: "{{ solr.shards }}"
   loop_control:
     loop_var: shard
-
-- name: Add replica shard
-  when: is_replica is defined and is_replica
-  tags: add
-  include_tasks: add_shard.yml
 
 - name: Set solr ownership
   file:
