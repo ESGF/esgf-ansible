@@ -21,6 +21,24 @@
     groups: globus
     password: "{{ admin_pass|hash('sha512') }}" # Needs to be hashed sha512
 
+# Open the GridFTP control port on CentOS 7
+- name: Configure firewalld for GridFTP control
+  when: is_7
+  firewalld:
+    port: 2811/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+# Open the GridFTP data ports on CentOS 7
+- name: Configure firewalld for GridFTP data ports
+  when: is_7
+  firewalld:
+    port: 50000-51000/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
 - name: Register GridFTP
   when:
     - globus_user is defined
