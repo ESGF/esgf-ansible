@@ -1,5 +1,4 @@
 - hosts: index
-  strategy: free
   become: yes
   vars:
     shard:
