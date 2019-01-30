@@ -6,12 +6,16 @@ is_6: ansible_distribution_major_version == "6"
 # ESGF Info
 versions:
   installer: 4.0.0-alpha1
+  java: jdk1.8.0_192
   search: v4.17.9
   stats_api: v1.0.9
   dashboard: v1.5.24
-  node_manager: v1.0.3
+  dashboard_db: 0.0.3
+  node_manager: v1.0.4
+  node_manager_db: 0.1.6
   orp: v2.10.11
   security: v3.0.0-a2
+  security_db: 0.1.6
   idp: v2.8.8
 
 assets:
@@ -51,8 +55,8 @@ conda:
   mods: lib/python2.7/site-packages
 
 java:
-  src: "{{ assets.base }}/jdk1.8.0_192-64.tar.gz"
-  root_dir: jdk1.8.0_192
+  src: "{{ assets.base }}/{{ versions.java }}-64.tar.gz"
+  root_dir: "{{ versions.java }}"
   path: /usr/local/java
 
 
@@ -110,8 +114,8 @@ orp_webapp:
 
 security:
   egg:
-    name: "esgf_security-0.1.6-py2.7.egg"
-    url: "{{ assets.security }}/esgf_security-0.1.6-py2.7.egg"
+    name: "esgf_security-{{ versions.security_db }}-py2.7.egg"
+    url: "{{ assets.security }}/esgf_security-{{ versions.security_db }}-py2.7.egg"
     script: "esgf_security_initialize"
 
 type_bits:
@@ -154,8 +158,8 @@ prometheus:
 
 dashboard:
   egg:
-    name: "esgf_dashboard-0.0.3-py2.7.egg"
-    url: "{{ assets.dashboard }}/esgf_dashboard-0.0.3-py2.7.egg"
+    name: "esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
+    url: "{{ assets.dashboard }}/esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
     script: esgf_dashboard_initialize
   git:
     repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
