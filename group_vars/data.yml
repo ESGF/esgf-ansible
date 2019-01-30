@@ -18,21 +18,21 @@ stats_webapp:
 
 dashboard:
   egg:
-    name: "esgf_dashboard-0.0.2-py2.7.egg"
+    name: "esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
     # TODO: test and update dashboard version number with variable
-    url: "{{ assets.dashboard }}/esgf_dashboard-0.0.2-py2.7.egg"
+    url: "{{ assets.dashboard }}/esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
     script: esgf_dashboard_initialize
   git:
     repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
-    version: "v1.5.21"
+    version: "{{ versions.dashboard }}"
     dest: /usr/local/esgf-dashboard
   ip:
     home: /usr/local/esgf-dashboard-ip
 
 node_manager:
   egg:
-    name: "esgf_node_manager-0.1.5-py2.7.egg"
-    url: "{{ assets.node_manager }}/esgf_node_manager-0.1.5-py2.7.egg"
+    name: "esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
+    url: "{{ assets.node_manager }}/esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
     script: esgf_node_manager_initialize
 
 publisher:
