@@ -85,13 +85,14 @@
 
 - name: Copy remote esg-orp library into thredds webapp
   get_url:
-    url: "{{ assets.orp }}/esg-orp-2.10.11.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esg-orp-2.10.11.jar"
+    url: "{{ assets.orp }}/esg-orp-{{ versions.orp.split("-")[0][1:] }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esg-orp-{{ versions.orp.split("-")[0][1:] }}.jar"
 
 - name: Copy remote esgf-security library into thredds webapp
   get_url:
-    url: "{{ assets.security }}/esgf-security-2.8.8.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-2.8.8.jar"
+    #Get security version by manipulating versions.security. I.e. v3.0.0-a2 becomes 3.0.0
+    url: "{{ assets.security }}/esgf-security-{{ versions.security.split("-")[0][1:]}}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-{{ versions.security.split("-")[0][1:] }}.jar"
 
 # Node Manager Jars
 - name: Copy remote node-manager libraries into thredds webapp
