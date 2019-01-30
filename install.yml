@@ -4,6 +4,7 @@
 - hosts: all
   # strategy: free
   become: yes
+  connection: paramiko
   tasks:
     # Get the admin password
     - name: Include the admin passwd role

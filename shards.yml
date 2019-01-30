@@ -1,4 +1,5 @@
 - hosts: index
+  connection: paramiko
   become: yes
   vars:
     shard:

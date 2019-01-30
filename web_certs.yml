@@ -1,4 +1,5 @@
 - hosts: all
+  connection: paramiko
   become: yes
   tasks:
     # Get the admin password

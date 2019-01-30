@@ -42,8 +42,7 @@ ansible --help
 It is recommended that users use the verbose flag `-v[v...]`, where each additional `v` adds more output.
 
 #### SSH Authentication
-Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password.
-
+Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
 A test deployment to all managed test hosts, with ssh via the root user and password authentication.
 ```
 ansible-playbook -v -i hosts.test --ask-pass -u root install.yml
@@ -130,6 +129,11 @@ If you would like to remove the replicated shard.
 ```
 ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host replicated locally] local_port=[port used by replicated shard]" --tags remove shards.yml
 ```
+
+## FAQ
+__Q: Ansible is stuck on a task for a long period of time and doesn't seem to be doing anything.__
+
+Answer: First, Ansible will not report the result, stdout and stderr of a task until the task is completed. Some tasks can take several minutes to complete. Second, make sure the verbose flag is specified, `-v`, to get more information upon the completion of tasks.
 
 ## Advice and Contributing
 
