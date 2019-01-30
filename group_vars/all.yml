@@ -9,10 +9,10 @@ versions:
   installer: 4.0.0-alpha1
   search: v4.17.9
   stats_api: v1.0.9
-  dashboard: v1.5.23
+  dashboard: v1.5.24
   node_manager: v1.0.3
   orp: v2.10.11
-  security: v2.8.8
+  security: v3.0.0-a2
   idp: v2.8.8
 
 assets:
@@ -111,8 +111,8 @@ orp_webapp:
 
 security:
   egg:
-    name: "esgf_security-0.1.5-py2.7.egg"
-    url: "{{ assets.security }}/esgf_security-0.1.5-py2.7.egg"
+    name: "esgf_security-0.1.6-py2.7.egg"
+    url: "{{ assets.security }}/esgf_security-0.1.6-py2.7.egg"
     script: "esgf_security_initialize"
 
 type_bits:
@@ -159,11 +159,11 @@ prometheus:
 dashboard:
   egg:
     name: "esgf_dashboard-0.0.3-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a2/esgf-dashboard/esgf_dashboard-0.0.3-py2.7.egg"
+    url: "{{ assets.dashboard }}/esgf_dashboard-0.0.3-py2.7.egg"
     script: esgf_dashboard_initialize
   git:
     repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
-    version: "v1.5.21"
+    version: "{{ versions.dashboard }}"
     dest: /usr/local/esgf-dashboard
   ip:
     home: /usr/local/esgf-dashboard-ip
