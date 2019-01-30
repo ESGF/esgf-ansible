@@ -10,17 +10,17 @@
 ### If this is going to be a local deployment, meaning Ansible is being
 ###  run on the node itself, it is required to still use the fully qualified
 ###  domain name for each host. *Always use fully qualified domain names.*
-### The host should also be followed with 'ansbile_connection=local' in the
+### The host should also be followed with 'ansible_connection=local' in the
 ###  case of a local deployment. This avoids doing any ssh connection or auth.
 # Ex. local deployment to, and from, 'myhost.my.org':
 #    [data]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
 #
 #    [index]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
 #
 #    [idp]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
 
 ### Single Machine Remote Deployment
 # Ex. remote deployment to 'myhost.my.org':
