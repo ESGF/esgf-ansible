@@ -28,7 +28,9 @@ The second important file(s) that will be unique for each site's deployment are 
 
 This section assumes the information in "Info" is understood and the proper files have been created.
 
-This is NOT comprehensive, it only shows common patterns and useful commands. Refer to the docs linked above and the `--help` flag for more information.
+These examples are __not__ presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. That being said, the *information* presented in earlier examples is requisite for later examples.
+
+These examples are __not__ comprehensive, they only show common patterns and useful commands. Refer to the docs linked above and the `--help` flag for more information.
 The primary command line tool used is `ansible-playbook`.
 ```
 ansible-playbook --help
@@ -40,6 +42,9 @@ ansible --help
 ```
 
 It is recommended that users use the verbose flag `-v[v...]`, where each additional `v` adds more output.
+
+#### Playbooks
+Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is `install.yml` for performing deployments. Other utility-like playbooks are outlined below as well.
 
 #### SSH Authentication
 Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
@@ -56,9 +61,9 @@ ansible-playbook -v -i hosts.test --ask-pass -u joe --ask-become-pass install.ym
 __*The authentication method of choice will also be required below.*__
 
 #### Deployment Control
-A production deployment to all managed production hosts. Optionally just check to see what will happen.
+A production deployment to all managed production hosts.
 ```
-ansible-playbook -v -i hosts.prod [ --check --diff ] install.yml
+ansible-playbook -v -i hosts.prod install.yml
 ```
 
 A useful command for a data-only deployment or a deployment only to your data node
