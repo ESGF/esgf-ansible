@@ -10,7 +10,7 @@ Ansible runs from a 'control' machine and deploys the configuration to 'managed'
 
 The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. __Using anything other than `ansible==2.7` will result in untested behavior.__
 
-The simple requirement for the managed machine is that it can be accessed via SSH from the control machine and that the managed machine has a `python>=2.6` interpreter. Also, there must be some way to have escalated privileges on the managed machine to deploy the configuration.
+The simple requirement for the managed machine is that it can be accessed via SSH from the control machine and that the managed machine has a Python interpreter. Ansible works reliably with Python 2 on the managed machine. Ansible is working towards supporting Python 3 on managed machines, see [their info](https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html), but is aware of incompatabilities. Since the system Python on CentOS/Redhat 6 and 7 is 2.6 and 2.7 respectively this is not an issue.  Also, there must be some way to have escalated privileges on the managed machine to deploy the configuration. This is described more below.
 
 For all the details and features of Ansible see:
 - [Ansible Docs](https://docs.ansible.com/)
@@ -136,7 +136,7 @@ ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host rep
 ```
 
 ## FAQ
-__Q: How can I use this to upgrade my older node?.__
+__Q: How can I use this to upgrade my older node?__
 
 Answer: Make sure you stop all services on your older node using the legacy tools for doing so. If there are valid certificates and keys in place on the machine that you would like to continue to use, put those in a place on your control machine and specify that path in your host variable file. Once you have filled your variable file(s) and your inventory file as described above, the same example commands above for doing clean installs can be used to perform the upgrade. While many considerations have been made for upgrades and the preservation of customizations, it is still recommended that users create backups of site-specific changes to their node.
 
