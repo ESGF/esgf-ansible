@@ -1,4 +1,8 @@
 
+- name: Install libselinux-python
+  package:
+    name: libselinux-python
+
 - name: Disable SELinux
   selinux:
     state: disabled
