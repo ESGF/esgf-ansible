@@ -62,8 +62,6 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
-  environment:
-    JAVA_HOME: "{{ java.path }}"
 
 - name: Create cores
   become: yes
@@ -71,8 +69,6 @@
   command: "{{ solr.path }}/bin/solr create_core -c {{ item }} -d /tmp/solr-home/mycore -p {{ shard.port }}"
   args:
     creates: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}"
-  environment:
-    JAVA_HOME: "{{ java.path }}"
   loop:
     - datasets
     - files
@@ -82,5 +78,3 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
-  environment:
-    JAVA_HOME: "{{ java.path }}"

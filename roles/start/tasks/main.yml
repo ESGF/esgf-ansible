@@ -75,8 +75,6 @@
   become_user: solr
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }}"
   loop: "{{ existing_shards }}"
-  environment:
-    JAVA_HOME: "{{ java.path }}"
   register: result
   changed_when: '"Port {{ shard.port }} is already being used" not in result.stdout'
   failed_when: 'result.rc != 0 and "Port {{ shard.port }} is already being used" not in result.stdout'

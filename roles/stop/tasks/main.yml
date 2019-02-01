@@ -51,8 +51,6 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -all"
-  environment:
-    JAVA_HOME: "{{ java.path }}"
   tags: 
     - index
     - solr
