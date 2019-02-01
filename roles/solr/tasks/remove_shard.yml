@@ -2,6 +2,8 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"
+  environment:
+    JAVA_HOME: "{{ java.path }}"
   register: result
   failed_when: "result.rc != 0 and 'No process found for Solr node running on port {{ shard.port }}' not in result.stdout"
 
