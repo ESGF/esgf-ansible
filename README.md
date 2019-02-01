@@ -20,10 +20,10 @@ For all the details and features of Ansible see:
 ## Usage
 
 ### Info
-#### Inventory File
+#### Inventory Files
 To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These must be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i [inventory file name]`. [See the sample inventory file with more info at the base level of the repo, sample.hosts.](sample.hosts)
 
-#### Host Variables File
+#### Host Variables Files
 The second important file(s) that will be unique for each site's deployment are host variable files. [See the sample host variable file that contains all available options and info, host_vars/myhost.my.org.yml.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see [Advice and Contributing](#advice-and-contributing).
 
 ### Examples
