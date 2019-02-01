@@ -10,7 +10,7 @@ Ansible runs from a 'control' machine and deploys the configuration to 'managed'
 
 The simple requirements for the control machine is to have Ansible installed in some way. This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment. The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, `2.7`. It has been found that Ansible `2.4` is not supported. __Using anything other than `ansible==2.7` will result in untested behavior.__
 
-The simple requirement for the managed machine is that it can be accessed via SSH from the control machine and that the managed machine has a Python interpreter. Ansible works reliably with Python 2 on the managed machine. Ansible is working towards supporting Python 3 on managed machines, see [their info](https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html), but is aware of incompatabilities. Since the system Python on CentOS/Redhat 6 and 7 is 2.6 and 2.7 respectively this is not an issue.  Also, there must be some way to have escalated privileges on the managed machine to deploy the configuration. This is described more below.
+The simple requirement for the managed machine is that it can be accessed via SSH from the control machine and that the managed machine has a Python interpreter. Ansible works reliably with Python 2 on the managed machine. Ansible is working towards supporting Python 3 on managed machines, see [their info](https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html), but is aware of incompatabilities. Since the system Python on CentOS/Redhat 6 and 7 is 2.6 and 2.7, respectively, this is not an issue.  Also, there must be some way to have escalated privileges on the managed machine to deploy the configuration. This is described more below.
 
 For all the details and features of Ansible see:
 - [Ansible Docs](https://docs.ansible.com/)
@@ -22,11 +22,11 @@ For all the details and features of Ansible see:
 ### Info
 To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These must be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i [inventory file name]`. [There is a sample inventory file with more info at the base level of the repo.](sample.hosts)
 
-The second important file(s) that will be unique for each site's deployment are host variable files. [There is a sample host variable file that contains all available options and info.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see **[Advice and Contributing](#advice-and-contributing)**<br>.
+The second important file(s) that will be unique for each site's deployment are host variable files. [There is a sample host variable file that contains all available options and info.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see [Advice and Contributing](#advice-and-contributing).
 
 ### Examples
 
-This section assumes the information in **[Info](#info)**<br> is understood and the proper files have been created.
+This section assumes the information in [Info](#info) is understood and the proper files have been created.
 
 These examples are __not__ presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. That being said, the *information* presented in earlier examples is requisite for later examples.
 
