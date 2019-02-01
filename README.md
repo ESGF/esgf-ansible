@@ -47,13 +47,13 @@ It is recommended that users use the verbose flag `-v[v...]`, where each additio
 Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is [install.yml](install.yml) for performing deployments. Other utility-like playbooks are outlined below as well.
 
 #### SSH Authentication
-Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
-A test deployment to all managed test hosts, with ssh via the root user and password authentication.
+SSH authentication is not required for local deployments, where the control and managed machine are the same host. Ansible assumes the use of keys for SSH authentication. It provides `--ask-pass` and `-u [user]` to SSH via password authentication. For escalated privileges, if SSHing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
+A test deployment to all managed test hosts, with SSH via the root user and password authentication.
 ```
 ansible-playbook -v -i hosts.test --ask-pass -u root install.yml
 ```
 
-A test deployment to all managed test hosts, with ssh via a non-root user, *joe*, that has sudo privileges on the managed machine(s).
+A test deployment to all managed test hosts, with SSH via a non-root user, *joe*, that has sudo privileges on the managed machine(s).
 ```
 ansible-playbook -v -i hosts.test --ask-pass -u joe --ask-become-pass install.yml
 ```
