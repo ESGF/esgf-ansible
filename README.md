@@ -22,11 +22,11 @@ For all the details and features of Ansible see:
 ### Info
 To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These must be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i [inventory file name]`. [There is a sample inventory file with more info at the base level of the repo.](sample.hosts)
 
-The second important file(s) that will be unique for each site's deployment are host variable files. [There is a sample host variable file that contains all available options and info.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within `group_vars/*` to make their own modifications, see "Advice and Contributing" below.
+The second important file(s) that will be unique for each site's deployment are host variable files. [There is a sample host variable file that contains all available options and info.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see **[Advice and Contributing](#advice-and-contributing)**<br>.
 
 ### Examples
 
-This section assumes the information in "Info" is understood and the proper files have been created.
+This section assumes the information in **[Info](#info)**<br> is understood and the proper files have been created.
 
 These examples are __not__ presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. That being said, the *information* presented in earlier examples is requisite for later examples.
 
@@ -44,7 +44,7 @@ ansible --help
 It is recommended that users use the verbose flag `-v[v...]`, where each additional `v` adds more output.
 
 #### Playbooks
-Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is `install.yml` for performing deployments. Other utility-like playbooks are outlined below as well.
+Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is [install.yml](install.yml) for performing deployments. Other utility-like playbooks are outlined below as well.
 
 #### SSH Authentication
 Ansible assumes the use of keys for ssh authentication. It provides `--ask-pass` and `-u [user]` to ssh via password authentication. For escalated privileges, if sshing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
@@ -85,11 +85,11 @@ Multiple tags can be specified at once, for example
 ... --tags "data,idp" --skip-tags "base,index" ...
 ```
 
-The tags available in the `install.yml` play are: `base`, `idp`, `index`, and `data`.
+The tags available in the [install.yml](install.yml) play are: `base`, `idp`, `index`, and `data`.
 These can be used with `--tags` and `--skip-tags` as well as with `--limit [hostname]` to control exactly what is done and where.
 
 #### Starting and Stopping Services
-Node services can be started or stopped using the `start.yml` and `stop.yml` playbooks. In the examples below, `start tags` and `stop tags` are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
+Node services can be started or stopped using the [start.yml](start.yml) and [stop.yml](stop.yml) playbooks. In the examples below, `start tags` and `stop tags` are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
 
  By default, if no start tags are specified, all services will be started. `httpd`, `postgres` and `monitoring` will always be started, unless specified via `--skip-tags` as a start tag. If no stop tags are specfied, all services, EXCEPT `httpd`, `postgres` and `monitoring`, will be stopped. `httpd`, `postgres` and `monitoring` will only be stopped if their respective tag is specified via `--tags` as stop tag.
 ```
@@ -109,7 +109,7 @@ ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags "st
 ```
 
 #### Local Certs
-Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified the the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the `local_certs.yml` playbook.
+Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified the the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the [local_certs.yml](local_certs.yml) playbook.
 ```
 ansible-playbook -v -i hosts.prod local_certs.yml
 ```
@@ -119,13 +119,13 @@ ansible-playbook -v -i hosts.prod --limit host-data.my.org local_certs.yml
 ```
 
 #### Web Certs
-Certificates for web services may be installed independent from the primary installation process via the `web_certs.yml` playbook. See the sample host variable file to see how to specify what certifcate/key/cachain to install. This can be used to try to setup LetsEncrypt certificates as well. See the `try_letsencrypt` variable in the sample host variable file for more information.
+Certificates for web services may be installed independent from the primary installation process via the [web_certs.yml](web_certs.yml) playbook. See the sample host variable file to see how to specify what certifcate/key/cachain to install. This can be used to try to setup LetsEncrypt certificates as well. See the `try_letsencrypt` variable in the sample host variable file for more information.
 ```
 ansible-playbook -v -i hosts.prod web_certs.yml
 ```
 
 #### Solr Shards
-A number of Solr shards are loaded as remote indicies. For improved load times these can be replicated locally. A utility is provided to ease this process.
+A number of Solr shards are loaded as remote indicies. For improved load times these can be replicated locally. [shards.yml](shards.yml) is provided to ease this process.
 ```
 ansible-playbook -v -i hosts.prod --extra-vars="remote_hostname=[remote host to replicate locally] local_port=[start at 8985 and increment]" --tags add shards.yml
 ```
