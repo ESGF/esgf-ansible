@@ -89,9 +89,9 @@ The tags available in the [install.yml](install.yml) play are: `base`, `idp`, `i
 These can be used with `--tags` and `--skip-tags` as well as with `--limit [hostname]` to control exactly what is done and where.
 
 #### Starting and Stopping Services
-Node services can be started or stopped using the [start.yml](start.yml) and [stop.yml](stop.yml) playbooks. In the examples below, `start tags` and `stop tags` are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
+Node services can be started or stopped using the [start.yml](start.yml) and [stop.yml](stop.yml) playbooks. In the examples below, start tags and stop tags are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
 
- By default, if no start tags are specified, all services will be started. `httpd`, `postgres` and `monitoring` will always be started, unless specified via `--skip-tags` as a start tag. If no stop tags are specfied, all services, EXCEPT `httpd`, `postgres` and `monitoring`, will be stopped. `httpd`, `postgres` and `monitoring` will only be stopped if their respective tag is specified via `--tags` as stop tag.
+By default, if no start tags are specified, all services will be started. The services `httpd`, `postgres` and `monitoring` will always be started, unless specified via `--skip-tags`. If no stop tags are specfied, all services, EXCEPT `httpd`, `postgres` and `monitoring`, will be stopped. The services `httpd`, `postgres` and `monitoring` will only be stopped if their respective tag is specified via `--tags`.
 ```
 ansible-playbook -v -i hosts.test start.yml [ --tags "start tags" ]
 ansible-playbook -v -i hosts.test stop.yml [ --tags "stop tags" ]
