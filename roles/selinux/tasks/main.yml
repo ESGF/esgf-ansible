@@ -8,6 +8,11 @@
     state: disabled
   register: selinux_result
 
+- name: Pause for reboot confirmation
+  when: selinux_result.reboot_required and (prompt_reboot is not defined or prompt_reboot)
+  pause:
+    prompt: Hit enter to confirm {{ ansible_fqdn }} reboot. If this is a local deployment, the deployment will need to be restarted, otherwise the deployment will continue automatically once the reboot is complete.
+
 - name: Reboot {{ ansible_fqdn }} using a 15 minute timeout
   when: selinux_result.reboot_required
   reboot:
