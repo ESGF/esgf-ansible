@@ -13,6 +13,21 @@
   when: (ownca is defined and ownca) or (csr is defined and csr) or (self_signed is defined and self_signed)
   import_tasks: genkeycsr.yml
 
+- name: Check if {{ cert_dest }} exists
+  when: cert_dest is defined
+  stat:
+    path: "{{ cert_dest }}"
+  register: certpath
+
+- name: Check if {{ cert_dest }} is expired
+  when: cert_dest is defined and certpath.stat.exists
+  openssl_certificate:
+    path: "{{ cert_dest }}"
+    provider: assertonly
+    has_expired: False
+  ignore_errors: True
+  register: expired_check
+
 - name: Create {{ common_name }} Cert Self Signed
   when: self_signed is defined and self_signed
   openssl_certificate:
@@ -20,6 +35,7 @@
     csr_path: "{{ csr_dest }}"
     privatekey_path: "{{ key_dest }}"
     provider: selfsigned
+    force: "{{ certpath.stat.exists and expired_check.failed }}"
 
 - name: Create {{ common_name }} Cert Own CA
   when: ownca is defined and ownca
@@ -29,6 +45,7 @@
     ownca_path: /tmp/ownca.crt
     ownca_privatekey_path: /tmp/ownca.pem
     provider: ownca
+    force: "{{ certpath.stat.exists and expired_check.failed }}"
 
 - name: Use Own CA certificate and key
   when: use_ownca is defined and use_ownca
