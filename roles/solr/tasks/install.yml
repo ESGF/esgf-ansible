@@ -27,6 +27,13 @@
   when: solr_download is changed
   command: "cp -R /tmp/{{ solr.root_dir }} {{ solr.path }}"
 
+- name: Install solr.in.sh
+  template:
+    src: solr.in.sh.j2
+    dest: "{{ solr.path }}/bin/solr.in.sh"
+    owner: solr
+    group: solr
+
 - name: Set solr ownership
   file:
     path: "{{ solr.path }}"

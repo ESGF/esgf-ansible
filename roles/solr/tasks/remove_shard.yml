@@ -10,6 +10,11 @@
     path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}"
     state: absent
 
+- name: Remove shard solr-index directory
+  file:
+    path: "/esg/solr-index/{{ shard.name }}-{{ shard.port }}"
+    state: absent
+
 - name: Remove entry in esgf_shards_static.xml
   lineinfile:
     path: "{{ esg.config.dir }}/esgf_shards_static.xml"

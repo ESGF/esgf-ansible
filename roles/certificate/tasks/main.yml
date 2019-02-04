@@ -1,13 +1,26 @@
 
+- name: Check if {{ key_dest }} exists
+  stat:
+    path: "{{ key_dest }}"
+  register: keypath
+
+- name: Check if {{ cert_dest }} exists
+  when: cert_dest is defined
+  stat:
+    path: "{{ cert_dest }}"
+  register: certpath
+
 # Create environment in which to generate certificates
 # Required for pyopenssl >= .15
 - name: Create cert-gen conda environment
+  when: (cert_dest is defined and not certpath.stat.exists and not keypath.stat.exists) or (cert_dest is not defined and not keypath.stat.exists)
   command: "{{ conda.exe }} create -y -n cert-gen 'python<3' pyopenssl"
   args:
     creates: "{{ conda.envs }}/cert-gen"
 
 # Use this python interpreter to generate key/csr and optionally self-sign
 - name: "{{ common_name }} Certificate Tasks"
+  when: (cert_dest is defined and not certpath.stat.exists and not keypath.stat.exists) or (cert_dest is not defined and not keypath.stat.exists)
   import_tasks: cert.yml
   vars:
     ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"

@@ -1,4 +1,5 @@
 - hosts: all
+  connection: paramiko
   become: yes
   tasks:
     # Get the admin password
@@ -17,10 +18,10 @@
       when: "'idp' in group_names"
       include_role:
         name: myproxy_certs
-    
-    - name: Run the globus-connect-server-id-setup Command
-      when: "'idp' in group_names"
-      command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
-    - name: Run globus-connect-server-io-setup
-      when: "'data' in group_names"
-      command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force
+
+    # - name: Run the globus-connect-server-id-setup Command
+    #   when: "'idp' in group_names"
+    #   command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
+    # - name: Run globus-connect-server-io-setup
+    #   when: "'data' in group_names"
+    #   command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force

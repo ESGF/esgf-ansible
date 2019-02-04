@@ -28,16 +28,29 @@
 #register_gridftp: true|false
 #register_myproxy: true|false
 
+### Keys and Certificates
+# The priority for installing certs and keys goes like this:
+# 1. Whatever is specified in the host_vars file will be installed,
+#    whether or not the destination path is already present on the 
+#    managed machine.
+#
+# 2. If the files are already present on the managed machine and 
+#    nothing is specified in the host_vars file, the files that 
+#    are present are assumed to be valid and will be left in place.
+#
+# 3. If no key and certificate files on the managed machine are
+#    present and nothing is specified in the host_vars file, self-signed,
+#    Ansible generated, certificates will be installed.
+
 ### Keys and Certificates for Globus Services
 ##
 ### The paths on the local machine to the respective 
 ### key/cert that have been signed by ESGF. If these
 ### have not been obtained for a node, leave unspecified.
 ##
-### Leave unspecified and temporary certificates as
-### well as certificate signing requests for valid
-### certs will be generated in the HOME directory
-### of the user used for deployment on the node.
+### Leave unspecified and certificate signing requests for
+### valid certs will be generated in the HOME directory
+### of the root user.
 ##
 #gftphostcert:
 #gftphostkey:

@@ -1,5 +1,5 @@
 - hosts: index
-  strategy: free
+  connection: paramiko
   become: yes
   vars:
     shard:
