@@ -111,6 +111,22 @@
     immediate: yes
     state: enabled
 
+- name: Configure iptables for http and https
+  when: is_6
+  iptables:
+    chain: INPUT
+    destination_port: 7512
+    jump: ACCEPT
+    protocol: tcp
+    match: tcp
+  register: iptables_conf_myproxy
+
+- name: Save iptables change
+  when: is_6 and iptables_conf_myproxy is changed
+  command: "service iptables save"
+  args:
+    warn: no
+
 # Register the MyProxy endpoint with Globus
 - name: Run the globus-connect-server-id-setup Command
   when: 

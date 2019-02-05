@@ -30,6 +30,16 @@
     immediate: yes
     state: enabled
 
+- name: Configure iptables for http and https
+  when: is_6
+  iptables:
+    chain: INPUT
+    destination_port: 2811
+    jump: ACCEPT
+    protocol: tcp
+    match: tcp
+  register: iptables_conf_gftp_ctrl
+
 # Open the GridFTP data ports on CentOS 7
 - name: Configure firewalld for GridFTP data ports
   when: is_7
@@ -38,6 +48,22 @@
     permanent: yes
     immediate: yes
     state: enabled
+
+- name: Configure iptables for http and https
+  when: is_6
+  iptables:
+    chain: INPUT
+    destination_port: 50000:51000
+    jump: ACCEPT
+    protocol: tcp
+    match: multiport
+  register: iptables_conf_gftp_data
+
+- name: Save iptables change
+  when: is_6 and (iptables_conf_gftp_data is changed or iptables_conf_gftp_ctrl is changed)
+  command: "service iptables save"
+  args:
+    warn: no
 
 - name: Register GridFTP
   when:
