@@ -16,7 +16,7 @@
     - **[Web Certs](#web-certs)**
     - **[Solr Shards](#solr-shards)**
 - **[FAQ](#faq)**
-- **[Advice and Contributing}(#advice-and-contributing)**
+- **[Advice and Contributing](#advice-and-contributing)**
 
 ## Introduction
 
