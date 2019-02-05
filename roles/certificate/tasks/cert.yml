@@ -25,8 +25,8 @@
     path: "{{ cert_dest }}"
     privatekey_path: "{{ key_dest }}"
     provider: assertonly
-    has_expired: true
-    valid_in: 1
+    has_expired: false # Currently has no effect and is bugged in version 2.7.5/6 Issue #51267
+    valid_in: 1 # Use as a work around for bugged has_expired
   ignore_errors: true
   register: expired_check
 
