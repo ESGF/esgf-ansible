@@ -1,5 +1,5 @@
 # ESGF-Ansible
-![ESGF Logo](https://esgf.llnl.gov/media/images/logos/esgf.png "ESGF")
+<img src="https://esgf.llnl.gov/media/images/logos/esgf.png" alt="ESGF Logo" width="400" height="300">
 
 ## Table of Contents
 - **[Introduction](#introduction)**
