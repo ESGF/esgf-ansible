@@ -1,5 +1,23 @@
 # ESGF-Ansible
 
+## Table of Contents
+1. **[Introduction](#introduction)**
+2. **[Basic Info](#basic-info)**
+3. **[Usage](#usage)**
+  1. **[Info](#info)**
+    1. **[Inventory Files](#inventory-files)**
+    2. **[Host Variables Files](#host-variables-files)**
+    3. **[Playbooks](#inventory-files)**
+  2. **[Examples](#examples)**
+    1. **[SSH Authentication](#ssh-authentication)**
+    2. **[Deployment Control](#deployment-control)**
+    3. **[Starting and Stopping Services](#starting-and-stopping-services)**
+    4. **[Local Certs](#local-certs)**
+    6. **[Web Certs](#web-certs)**
+    7. **[Solr Shards](#solr-shards)**
+4. **[FAQ](#faq)**
+5. **[Advice and Contributing}(#advice-and-contributing)**
+
 ## Introduction
 
 The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions. This repository holds files which are used by the popular automated system configuration tool [Ansible](https://www.ansible.com/) that will perform the ESGF Node deployment.
@@ -26,6 +44,9 @@ To deploy the specified configurations to your managed machines it is required t
 #### Host Variables Files
 The second important file(s) that will be unique for each site's deployment are host variable files. [See the sample host variable file that contains all available options and info, host_vars/myhost.my.org.yml.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see [Advice and Contributing](#advice-and-contributing).
 
+#### Playbooks
+Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is [install.yml](install.yml) for performing deployments. Other utility-like playbooks are outlined below as well.
+
 ### Examples
 
 This section assumes the information in [Info](#info) is understood and the proper files have been created.
@@ -44,9 +65,6 @@ ansible --help
 ```
 
 It is recommended that users use the verbose flag `-v[v...]`, where each additional `v` adds more output.
-
-#### Playbooks
-Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is [install.yml](install.yml) for performing deployments. Other utility-like playbooks are outlined below as well.
 
 #### SSH Authentication
 SSH authentication is not required for local deployments, where the control and managed machine are the same host. Ansible assumes the use of keys for SSH authentication. It provides `--ask-pass` and `-u [user]` to SSH via password authentication. For escalated privileges, if SSHing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
