@@ -1,22 +1,22 @@
 # ESGF-Ansible
 
 ## Table of Contents
-1. **[Introduction](#introduction)**
-2. **[Basic Info](#basic-info)**
-3. **[Usage](#usage)**
-  1. **[Info](#info)**
-    1. **[Inventory Files](#inventory-files)**
-    2. **[Host Variables Files](#host-variables-files)**
-    3. **[Playbooks](#inventory-files)**
-  2. **[Examples](#examples)**
-    1. **[SSH Authentication](#ssh-authentication)**
-    2. **[Deployment Control](#deployment-control)**
-    3. **[Starting and Stopping Services](#starting-and-stopping-services)**
-    4. **[Local Certs](#local-certs)**
-    6. **[Web Certs](#web-certs)**
-    7. **[Solr Shards](#solr-shards)**
-4. **[FAQ](#faq)**
-5. **[Advice and Contributing}(#advice-and-contributing)**
+- **[Introduction](#introduction)**
+- **[Basic Info](#basic-info)**
+- **[Usage](#usage)**
+  - **[Info](#info)**
+    - **[Inventory Files](#inventory-files)**
+    - **[Host Variables Files](#host-variables-files)**
+    - **[Playbooks](#inventory-files)**
+  - **[Examples](#examples)**
+    - **[SSH Authentication](#ssh-authentication)**
+    - **[Deployment Control](#deployment-control)**
+    - **[Starting and Stopping Services](#starting-and-stopping-services)**
+    - **[Local Certs](#local-certs)**
+    - **[Web Certs](#web-certs)**
+    - **[Solr Shards](#solr-shards)**
+- **[FAQ](#faq)**
+- **[Advice and Contributing}(#advice-and-contributing)**
 
 ## Introduction
 
