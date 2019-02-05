@@ -1,5 +1,5 @@
 # ESGF-Ansible
-<div style="text-align:center"><img src="https://esgf.llnl.gov/media/images/logos/esgf.png" alt="ESGF Logo" width="700" height="525"/></div>
+<img src="https://esgf.llnl.gov/media/images/logos/esgf.png" alt="ESGF Logo"/>
 
 ## Table of Contents
 - **[Introduction](#introduction)**
