@@ -1,5 +1,5 @@
 # ESGF-Ansible
-![alt text](https://esgf.llnl.gov/media/images/logos/esgf.png "ESGF")
+![ESGF Logo](https://esgf.llnl.gov/media/images/logos/esgf.png "ESGF")
 
 ## Table of Contents
 - **[Introduction](#introduction)**
@@ -8,7 +8,7 @@
   - **[Info](#info)**
     - **[Inventory Files](#inventory-files)**
     - **[Host Variables Files](#host-variables-files)**
-    - **[Playbooks](#inventory-files)**
+    - **[Playbooks](#playbooks)**
   - **[Examples](#examples)**
     - **[SSH Authentication](#ssh-authentication)**
     - **[Deployment Control](#deployment-control)**
