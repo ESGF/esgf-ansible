@@ -1,6 +1,7 @@
 # ESGF-Ansible
-<img src="https://esgf.llnl.gov/media/images/logos/esgf.png" alt="ESGF Logo" width="400" height="300">
-
+<div style="width: 800px; height:400px; overflow: hidden">
+    <img src="https://esgf.llnl.gov/media/images/logos/esgf.png" alt="ESGF Logo" />
+</div>
 ## Table of Contents
 - **[Introduction](#introduction)**
 - **[Basic Info](#basic-info)**
@@ -40,10 +41,10 @@ For all the details and features of Ansible see:
 
 ### Info
 #### Inventory Files
-To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These must be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i [inventory file name]`. [See the sample inventory file with more info at the base level of the repo, sample.hosts.](sample.hosts)
+To deploy the specified configurations to your managed machines it is required to specify hosts in an 'inventory' file. It is often convenient to specify two of these inventory files, a 'production' and a 'staging' (or 'testing') file, if the resources for both are available. These must be populated with the respective fully qualified host names of your managed machines and then specified at the command line by using `-i [inventory file name]`. See the sample inventory file with more info at the base level of the repo, [sample.hosts](sample.hosts).
 
 #### Host Variables Files
-The second important file(s) that will be unique for each site's deployment are host variable files. [See the sample host variable file that contains all available options and info, host_vars/myhost.my.org.yml.](host_vars/myhost.my.org.yml) Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see [Advice and Contributing](#advice-and-contributing).
+The second important file(s) that will be unique for each site's deployment are host variable files. See the sample host variable file that contains all available options and info, [host_vars/myhost.my.org.yml](host_vars/myhost.my.org.yml). Note the format of the file name of any host variable file must be `host_vars/[hostname].yml`, where `[hostname]` matches with that specified in the inventory file. It is required to specify one for each host your site will be deploying to. Ansible will automatically find them and assign them to the respective hosts. More advanced users may like to review or revise variables within [group_vars](group_vars) to make their own modifications, see [Advice and Contributing](#advice-and-contributing).
 
 #### Playbooks
 Ansible uses 'playbooks' to define what actions to take on the managed machine(s). The primary playbook used is [install.yml](install.yml) for performing deployments. Other utility-like playbooks are outlined below as well.
@@ -130,7 +131,7 @@ ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags "st
 ```
 
 #### Local Certs
-Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified the the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the [local_certs.yml](local_certs.yml) playbook.
+Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified in the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the [local_certs.yml](local_certs.yml) playbook.
 ```
 ansible-playbook -v -i hosts.prod local_certs.yml
 ```
