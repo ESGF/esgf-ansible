@@ -22,8 +22,8 @@ node_manager:
 
 publisher:
   pip:
-    version: "3.4.9"
-    name: "git+https://github.com/ESGF/esg-publisher.git@v3.5.0#egg=esgcet&subdirectory=src/python/esgcet"
+    version: "3.6.0-a2"
+    name: "git+https://github.com/ESGF/esg-publisher.git@v3.6.0-a2#egg=esgcet&subdirectory=src/python/esgcet"
 
 data_db:
   users:
