@@ -23,10 +23,18 @@
   when: cert_dest is defined and certpath.stat.exists
   openssl_certificate:
     path: "{{ cert_dest }}"
+    privatekey_path: "{{ key_dest }}"
     provider: assertonly
-    has_expired: False
-  ignore_errors: True
+    has_expired: true
+    valid_in: 1
+  ignore_errors: true
   register: expired_check
+
+- name: Destroy {{ cert_dest }} if it is invalid
+  when:  cert_dest is defined and certpath.stat.exists and expired_check.failed
+  file:
+    path: "{{ cert_dest }}"
+    state: absent
 
 - name: Create {{ common_name }} Cert Self Signed
   when: self_signed is defined and self_signed
@@ -35,7 +43,6 @@
     csr_path: "{{ csr_dest }}"
     privatekey_path: "{{ key_dest }}"
     provider: selfsigned
-    force: "{{ certpath.stat.exists and expired_check.failed }}"
 
 - name: Create {{ common_name }} Cert Own CA
   when: ownca is defined and ownca
@@ -45,7 +52,6 @@
     ownca_path: /tmp/ownca.crt
     ownca_privatekey_path: /tmp/ownca.pem
     provider: ownca
-    force: "{{ certpath.stat.exists and expired_check.failed }}"
 
 - name: Use Own CA certificate and key
   when: use_ownca is defined and use_ownca
