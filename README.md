@@ -1,4 +1,5 @@
 # ESGF-Ansible
+![alt text](https://esgf.llnl.gov/media/images/logos/esgf.png "ESGF")
 
 ## Table of Contents
 - **[Introduction](#introduction)**
