@@ -54,7 +54,7 @@ This section assumes the information in [Info](#info) is understood and the prop
 
 These examples are __not__ presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. That being said, the *information* presented in earlier examples is requisite for later examples.
 
-These examples are __not__ comprehensive, they only show common patterns and useful commands. Refer to the docs linked above and the `--help` flag for more information.
+These examples are __not__ comprehensive, they only show some common patterns and useful commands. Refer to the docs linked above and the `--help` flag for more information.
 The primary command line tool used is `ansible-playbook`.
 ```
 ansible-playbook --help
@@ -69,6 +69,7 @@ It is recommended that users use the verbose flag `-v[v...]`, where each additio
 
 #### SSH Authentication
 SSH authentication is not required for local deployments, where the control and managed machine are the same host. Ansible assumes the use of keys for SSH authentication. It provides `--ask-pass` and `-u [user]` to SSH via password authentication. For escalated privileges, if SSHing as a non-root user, `--ask-become-pass` is used to prompt for a sudo password. See [Ansible's examples](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands) as well.
+
 A test deployment to all managed test hosts, with SSH via the root user and password authentication.
 ```
 ansible-playbook -v -i hosts.test --ask-pass -u root install.yml
