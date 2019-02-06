@@ -111,7 +111,7 @@
     immediate: yes
     state: enabled
 
-- name: Configure iptables for http and https
+- name: Configure iptables for MyProxy
   when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
   iptables:
     chain: INPUT

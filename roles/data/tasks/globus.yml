@@ -30,8 +30,8 @@
     immediate: yes
     state: enabled
 
-- name: Configure iptables for http and https
-  when: is_6
+- name: Configure iptables for GridFTP control
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
   iptables:
     chain: INPUT
     destination_port: 2811
@@ -51,7 +51,7 @@
     immediate: yes
     state: enabled
 
-- name: Configure iptables for http and https
+- name: Configure iptables for GridFTP data
   when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
   iptables:
     chain: INPUT
