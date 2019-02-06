@@ -52,7 +52,7 @@
     state: enabled
 
 - name: Configure iptables for http and https
-  when: is_6
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
   iptables:
     chain: INPUT
     destination_port: 50000:51000
@@ -64,7 +64,7 @@
   register: iptables_conf_gftp_data
 
 - name: Save iptables change
-  when: is_6 and (iptables_conf_gftp_data is changed or iptables_conf_gftp_ctrl is changed)
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and (iptables_conf_gftp_data is changed or iptables_conf_gftp_ctrl is changed)
   command: "service iptables save"
   args:
     warn: no
