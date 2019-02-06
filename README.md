@@ -83,6 +83,12 @@ ansible-playbook -v -i hosts.test --ask-pass -u joe --ask-become-pass install.ym
 __*The authentication method of choice will also be required below.*__
 
 #### Deployment Control
+These examples show various ways of controlling the deployment process. Deployments are done in the order of includes in [install.yml](install.yml). This order is base, idp, index then data. While repeating steps will not cause any problems, it simply slows things down. Additionally, for a more reliable deployment process it may be desired to do one phase at a time. Or if the deployment got interrupted after completing, for example, the `base` steps, these steps could be skipped when the deployment is started again.
+
+Controlling the deployment is done with tags. The tags available in the [install.yml](install.yml) play are `base`, `idp`, `index`, and `data`.
+These can be used with `--tags` and `--skip-tags`,  as well as with `--limit [hostname]` to control exactly what is done and where.
+The `base` steps will be done everytime unless specified via `--skip-tags`.
+
 A production deployment to all managed production hosts.
 ```
 ansible-playbook -v -i hosts.prod install.yml
@@ -104,11 +110,8 @@ ansible-playbook -v -i hosts.test --tags base --limit host-index-idp.my.org inst
 
 Multiple tags can be specified at once, for example 
 ```
-... --tags "data,idp" --skip-tags "base,index" ...
+... --tags "data, idp" --skip-tags "base, index" ...
 ```
-
-The tags available in the [install.yml](install.yml) play are: `base`, `idp`, `index`, and `data`.
-These can be used with `--tags` and `--skip-tags` as well as with `--limit [hostname]` to control exactly what is done and where.
 
 #### Starting and Stopping Services
 Node services can be started or stopped using the [start.yml](start.yml) and [stop.yml](stop.yml) playbooks. In the examples below, start tags and stop tags are any combination of `[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]`. These tags can also be used in any combination in `--skip-tags`.
