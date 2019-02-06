@@ -38,6 +38,8 @@
     jump: ACCEPT
     protocol: tcp
     match: tcp
+    action: insert
+    rule_num: 5
   register: iptables_conf_gftp_ctrl
 
 # Open the GridFTP data ports on CentOS 7
@@ -57,6 +59,8 @@
     jump: ACCEPT
     protocol: tcp
     match: multiport
+    action: insert
+    rule_num: 5
   register: iptables_conf_gftp_data
 
 - name: Save iptables change

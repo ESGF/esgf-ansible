@@ -33,6 +33,8 @@
     jump: ACCEPT
     protocol: tcp
     match: tcp
+    action: insert
+    rule_num: 5
   register: iptables_conf
   loop:
     - 80
