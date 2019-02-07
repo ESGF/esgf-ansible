@@ -124,13 +124,16 @@ prometheus:
       web_path: /apache-metrics
       run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ ansible_fqdn }}/server-status/?auto'"
 
-    # - name: postgres_exporter
-    #   full_name: postgres_exporter_v0.4.7_linux-amd64
-    #   src: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.4.7/postgres_exporter_v0.4.7_linux-amd64.tar.gz
-    #   port: 9187
-    #   dir: /usr/local/postgres_exporter
-    #   web_path: /postgres-metrics
-    #   run: "DATA_SOURCE_NAME='{{ db_url }}' /usr/local/postgres_exporter/postgres_exporter"
+    - name: postgres_exporter
+      full_name: postgres_exporter_v0.4.7_linux-amd64
+      src: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.4.7/postgres_exporter_v0.4.7_linux-amd64.tar.gz
+      port: 9187
+      dir: /usr/local/postgres_exporter
+      web_path: /postgres-metrics
+      run: DATA_SOURCE_NAME='postgresql://{{ db_url }}?sslmode=disable'
+        /usr/local/postgres_exporter/postgres_exporter
+        --disable-default-metrics
+        --extend.query-path=/usr/local/postgres_exporter/queries.yml
 
 dashboard:
   egg:

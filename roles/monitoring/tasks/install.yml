@@ -16,7 +16,7 @@
   template:
     src: exporters/initd.exporter.j2
     dest: /etc/init.d/{{ exporter.name }}
-    mode: 0755
+    mode: 0751
 
 - name : Install the {{ exporter.name }} proxy config
   template:
