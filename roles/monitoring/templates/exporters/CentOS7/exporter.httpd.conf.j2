@@ -1,10 +1,10 @@
 
 <Location "{{ exporter.web_path }}">
 
-    Require host localhost {% if prometheus_host is defined %} {{ prometheus_host }} {% endif %}
+    Require host localhost {% if prometheus_hosts is defined %} {{ prometheus_hosts | join(' ') }} {% endif %}
 
-    {% if prometheus_ip is defined %} 
-    Require ip {{ prometheus_ip }} 
+    {% if prometheus_ips is defined %}
+    Require ip {{ prometheus_ips | join(' ') }}
     {% endif %}
 
     ProxyPass http://localhost:{{ exporter.port }}/metrics
