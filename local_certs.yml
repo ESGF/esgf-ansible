@@ -19,9 +19,47 @@
       include_role:
         name: myproxy_certs
 
-    # - name: Run the globus-connect-server-id-setup Command
-    #   when: "'idp' in group_names"
-    #   command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
-    # - name: Run globus-connect-server-io-setup
-    #   when: "'data' in group_names"
-    #   command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force
+    # Install GCS config for MyProxy
+    - name : Install the Globus Connect Server Config
+      when:
+        - "'idp' in group_names"
+        - globus_user is defined
+        - globus_pass is defined
+        - register_myproxy is defined
+        - register_myproxy
+      template:
+        src: myproxy/globus-connect-server.conf.j2
+        dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
+        owner: myproxy
+        group: myproxy
+        mode: 0600
+
+    - name: Run the globus-connect-server-id-setup Command
+      when:
+        - "'idp' in group_names"
+        - globus_user is defined
+        - globus_pass is defined
+        - register_myproxy is defined
+        - register_myproxy
+      command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
+    
+    # Install GCS config for GridFTP
+    - name: Install GCS GridFTP config file
+      when:
+        - "'data' in group_names"
+        - globus_user is defined
+        - globus_pass is defined
+        - register_gridftp is defined
+        - register_gridftp
+      template:
+        src: gridftp/globus-connect-server-esgf.conf.j2
+        dest: /etc/globus-connect-server-esgf.conf
+
+    - name: Run globus-connect-server-io-setup
+      when:
+        - "'data' in group_names"
+        - globus_user is defined
+        - globus_pass is defined
+        - register_gridftp is defined
+        - register_gridftp
+      command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force
