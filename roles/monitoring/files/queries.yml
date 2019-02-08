@@ -1,3 +1,32 @@
+# pg_esgf_dataset_project:
+#   query: "select project, count(*) as n_project from dataset group by project"
+#   metrics:
+#     - project:
+#         usage: "LABEL"
+#         description: "Project name"
+#     - n_project:
+#         usage: "GAUGE"
+#         description: "Number of this project"
+# pg_esgf_dataset_model:
+#   query: "select model, count(*) as n_model from dataset group by model"
+#   metrics:
+#     - model:
+#         usage: "LABEL"
+#         description: "Model name"
+#     - n_model:
+#         usage: "GAUGE"
+#         description: "Number of this model"
+
+# pg_esgf_dataset_experiment:
+#   query: "select experiment, count(*) as n_experiment from dataset group by experiment"
+#   metrics:
+#     - experiment:
+#         usage: "LABEL"
+#         description: "Experiment name"
+#     - n_experiment:
+#         usage: "GAUGE"
+#         description: "Number of this experiment"
+
 pg_postmaster:
   query: "SELECT pg_postmaster_start_time as start_time_seconds from pg_postmaster_start_time()"
   metrics:
