@@ -149,6 +149,6 @@
     path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
     src: "{{ item.split('|')[1].strip() }}"
     opts: rw,bind
-    fstype: none
+    fstype: gpfs
     state: mounted
   with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
