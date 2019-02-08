@@ -10,6 +10,7 @@
       tags: always
       when: admin_pass is not defined
 
+    # Install Certs
     - name: Install Globus Identity key/cert
       include_role:
         name: globus_certs
@@ -19,47 +20,26 @@
       include_role:
         name: myproxy_certs
 
-    # Install GCS config for MyProxy
-    - name : Install the Globus Connect Server Config
-      when:
-        - "'idp' in group_names"
-        - globus_user is defined
-        - globus_pass is defined
-        - register_myproxy is defined
-        - register_myproxy
-      template:
-        src: myproxy/globus-connect-server.conf.j2
-        dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
-        owner: myproxy
-        group: myproxy
-        mode: 0600
-
-    - name: Run the globus-connect-server-id-setup Command
-      when:
-        - "'idp' in group_names"
-        - globus_user is defined
-        - globus_pass is defined
-        - register_myproxy is defined
-        - register_myproxy
-      command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
-    
-    # Install GCS config for GridFTP
-    - name: Install GCS GridFTP config file
+    # Install GCS config for GridFTP and register
+    - name: Install GCS config for GridFTP and register with Globus
       when:
         - "'data' in group_names"
         - globus_user is defined
         - globus_pass is defined
         - register_gridftp is defined
         - register_gridftp
-      template:
-        src: gridftp/globus-connect-server-esgf.conf.j2
-        dest: /etc/globus-connect-server-esgf.conf
-
-    - name: Run globus-connect-server-io-setup
+      include_role:
+        name: data
+        tasks_from: register_gridftp.yml
+  
+    # Install GCS config for MyProxy and register
+    - name: Install GCS config for MyProxy and register with Globus
       when:
-        - "'data' in group_names"
+        - "'idp' in group_names"
         - globus_user is defined
         - globus_pass is defined
-        - register_gridftp is defined
-        - register_gridftp
-      command: globus-connect-server-io-setup -c /etc/globus-connect-server-esgf.conf --force
+        - register_myproxy is defined
+        - register_myproxy
+      include_role:
+        name: idp
+        tasks_from: register_myproxy.yml

@@ -1,0 +1,12 @@
+# Install GCS config
+- name : Install the Globus Connect Server Config
+  template:
+    src: myproxy/globus-connect-server.conf.j2
+    dest: "{{ myproxy.scripts.dir }}/globus-connect-server.conf"
+    owner: myproxy
+    group: myproxy
+    mode: 0600
+
+# Register the MyProxy endpoint with Globus
+- name: Run the globus-connect-server-id-setup Command
+  command: globus-connect-server-id-setup -c {{ myproxy.scripts.dir }}/globus-connect-server.conf --force
