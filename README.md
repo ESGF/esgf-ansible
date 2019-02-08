@@ -134,7 +134,7 @@ ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags "st
 ```
 
 #### Local Certs
-Globus certificates and keys, aka 'local certs', for globus services are retrieved as part of the post-install process. If not specified in the host's variable file, the deployment will place a private key and CSR for these services in the HOME directory of the root user on the node. Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the [local_certs.yml](local_certs.yml) playbook.
+Globus certificates, aka 'local certs', for Globus services are retrieved as part of the post-install process. These certifcates allow the site to register their GridFTP and/or MyProxy servers with Globus. They also establish trust for these services within ESGF.  If not specified in the host's variable file, the deployment will place a private key and a certificate signing request (CSR) for these services in the home directory of the root user on the node. The certifcates are obtained by emailing the CSR (do not email the private key) to the addresses in [esgf-globus-ca.yml](esgf-globus-ca.yml). Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the [local_certs.yml](local_certs.yml) playbook.
 ```
 ansible-playbook -v -i hosts.prod local_certs.yml
 ```

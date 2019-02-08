@@ -1,0 +1,12 @@
+# ESGF certificate authorities for processing certificate signing request
+#  for Globus Services (GridFTP and MyProxy) certificates.
+
+- name: Prashanth Dwarakanath
+  email: pchengi@nsc.liu.se
+
+- name: Sebastien Denvil
+  email: sebastien.denvil@ipsl.jussieu.fr
+
+- name: Lukasz Lacinski
+  email: lukasz@uchicago.edu
+
