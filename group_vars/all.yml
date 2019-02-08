@@ -1,7 +1,8 @@
 
 # OS Info
-is_7: ansible_distribution_major_version == "7"
-is_6: ansible_distribution_major_version == "6"
+is_7: "{{ ansible_distribution_major_version == '7' | bool }}"
+is_6: "{{ ansible_distribution_major_version == '6' | bool }}"
+httpd_version: "{{ '2.4' if (is_7) else '2.2' }}"
 
 # ESGF Info
 mirror_host: aims1.llnl.gov

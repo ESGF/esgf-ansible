@@ -75,7 +75,7 @@
 # Install base HTTPD config file
 - name: Install HTTPD Config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
 
 # Handle legacy use of esgf-httpd.conf
@@ -125,5 +125,5 @@
 # Setup additional SSL config
 - name: Install HTTPS config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.ssl.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.ssl.conf.j2"
     dest: /etc/httpd/conf/httpd.ssl.conf

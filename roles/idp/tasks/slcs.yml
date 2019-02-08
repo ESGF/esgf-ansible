@@ -123,5 +123,5 @@
 
 # - name : Install the slcs proxy config
 #   template:
-#     src: "slcs/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/slcs.httpd.conf.j2"
+#     src: "slcs/httpd{{ httpd_version }}/slcs.httpd.conf.j2"
 #     dest: "{{ httpd.ssl_proxy_dir }}/0slcs.conf"

@@ -20,7 +20,7 @@
 
 - name : Install the {{ exporter.name }} proxy config
   template:
-    src: exporters/{{ ansible_distribution }}{{ ansible_distribution_major_version }}/exporter.httpd.conf.j2
+    src: exporters/httpd{{ httpd_version }}/exporter.httpd.conf.j2
     dest: "{{ httpd.ssl_proxy_dir }}/{{ exporter.name }}.conf"
 
 - name: Set prometheus ownership
