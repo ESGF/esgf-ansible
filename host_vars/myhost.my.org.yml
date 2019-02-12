@@ -15,6 +15,26 @@
 ##
 #mirror_host: aims1.llnl.gov
 
+### Prometheus Hosts and/or IPs
+##
+### This deployment deploys Prometheus exporters. These
+### exporters report information and metrics about the node
+### to a Prometheus server. The Prometheus server(s) must be
+### specified so that it can be trusted to communicate with
+### the exporters. Place your own Prometheus server here if
+### applicable. This trust is at the webserver level.
+##
+### Information will not be collected until your host is added
+### to the Prometheus server's target list. Remove the following
+### lines if you would not like to participate in this, in which
+### case only localhost will be trusted to access the exporters'
+### information.
+##
+prometheus_hosts:
+  - aims1.llnl.gov
+#prometheus_ips:
+#  - 10 # Trust your whole internal network
+
 ### Globus Services
 ##
 ### This information is used to connect the node
@@ -85,3 +105,16 @@
 ### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
 ##
 #try_letsencrypt: true|false
+
+### CentOS 6 iptables
+##
+### iptables is a tool that controls the Linux kernel's packet firewall.
+### Many sites will likely wish to manage this on their own. If you are
+### not familiar with this tool and would like this deployment to
+### takes steps to configure the iptables for you on CentOS 6 then
+### uncomment the below variable and set it to true. Otherwise your
+### site will be responsible for ensuring the proper ports are open.
+##
+### Leave unspecified to manage iptables on CentOS 6 yourself.
+##
+#configure_centos6_iptables: true|false

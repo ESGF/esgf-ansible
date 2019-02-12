@@ -13,3 +13,8 @@
   loop: "{{ prometheus.exporters }}"
   loop_control:
     loop_var: exporter
+
+- name: Install queries.yml for the Postgres exporter
+  copy:
+    src: queries.yml
+    dest: /usr/local/postgres_exporter/queries.yml

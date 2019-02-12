@@ -25,6 +25,27 @@
     - http
     - https
 
+- name: Configure iptables for http and https
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
+  iptables:
+    chain: INPUT
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    protocol: tcp
+    match: tcp
+    action: insert
+    rule_num: 5
+  register: iptables_conf
+  loop:
+    - 80
+    - 443
+
+- name: Save iptables change
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and iptables_conf is changed
+  command: "service iptables save"
+  args:
+    warn: no 
+
 # Begin setting up certificates for httpd
 - name: Create cert dir
   file:
@@ -54,7 +75,7 @@
 # Install base HTTPD config file
 - name: Install HTTPD Config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
 
 # Handle legacy use of esgf-httpd.conf
@@ -104,5 +125,5 @@
 # Setup additional SSL config
 - name: Install HTTPS config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.ssl.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.ssl.conf.j2"
     dest: /etc/httpd/conf/httpd.ssl.conf
