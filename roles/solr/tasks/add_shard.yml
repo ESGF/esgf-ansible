@@ -20,7 +20,7 @@
     shards_list: "{{ solr.shards }}"
 
 - name: Add legacy shards to default shards list
-  when: legacy_shards_stat.stat.exists and (legacy_shards_list|length) > 0 and 'master' not in new_shard and 'slave' not in new_shard
+  when: legacy_shards_stat.stat.exists and (legacy_shards_list|length) > 0 and new_shard != '' and 'master' not in new_shard and 'slave' not in new_shard
   set_fact:
     shards_list: "{{ shards_list + [ {'name': new_shard.split(':')[0].strip(), 'port': new_shard.split(':')[1].strip(), 'args':'-Denable.master=true -Denable.slave=true'} ] }}"
   loop_control:
