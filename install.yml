@@ -5,7 +5,7 @@
   # strategy: free
   become: yes
   connection: paramiko
-  tasks:
+  tasks:   
     # Get the admin password
     - name: Include the admin passwd role
       block:
