@@ -13,3 +13,22 @@
   command: "bash /tmp/Miniconda2-latest-Linux-x86_64.sh -b -p {{ conda.prefix }}"
   args:
     creates: "{{ conda.prefix }}"
+
+
+- name: Create conda environment files directory
+  file:
+    path: /esg/conda_env_files
+    state: directory
+
+- name: Copy conda environment yml files to directory
+  copy:
+    src: env_files/{{ item }}.yml
+    dest: /esg/conda_env_files/{{ item }}.yml
+    force: no
+  loop:
+    - cert-gen_env
+    - cog_env
+    - esgf-pub_env
+    - myproxy_env
+    - schema-migrate_env
+    - slcs_env
