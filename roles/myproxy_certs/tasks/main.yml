@@ -44,13 +44,29 @@
     dest: "{{ httpd.cabundle }}"
     line: "{{ certcontents['content'] | b64decode }}"
 
+- name: Get myproxy CA hash
+  command: openssl x509 -in {{ myproxy.ca.cert }} -hash -noout
+  register: myproxyca_hash
+
 - name: Import myproxy CA into Java Truststore
   java_cert:
     cert_path: "{{ myproxy.ca.cert }}"
     keystore_path: "{{ tomcat.ts.path }}"
     keystore_pass: "{{ tomcat.ts.pass }}"
-    cert_alias: my_esgf_node_myproxy
+    cert_alias: "{{ myproxyca_hash.stdout.strip() }}"
     executable: "{{ java.path }}/bin/keytool"
+
+- name: Install myproxy CA cert into {{ grid_security.cert_dir }}
+  copy:
+    remote_src: yes
+    src: "{{ myproxy.ca.cert }}"
+    dest: "{{ grid_security.cert_dir }}/{{ myproxyca_hash.stdout.strip() }}.0"
+
+- name: Install myproxy CA signing policy into {{ grid_security.cert_dir }}
+  copy:
+    remote_src: yes
+    src: "{{ myproxy.ca.signing_policy }}"
+    dest: "{{ grid_security.cert_dir }}/{{ myproxyca_hash.stdout.strip() }}.signing_policy"
 
 # CentOS7 myproxy-server requires these files be here
 - name: Ensure the myproxy hostcert and hostkey dir exists

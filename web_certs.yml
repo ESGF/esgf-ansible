@@ -1,0 +1,16 @@
+- hosts: all
+  connection: paramiko
+  become: yes
+  tasks:
+    # Get the admin password
+    - name: Include the admin passwd role
+      block:
+        - include_role:
+            name: passwd
+      tags: always
+      when: admin_pass is not defined
+    - include_role:
+        name: httpd
+    - include_role:
+        name: tomcat
+        tasks_from: certs.yml

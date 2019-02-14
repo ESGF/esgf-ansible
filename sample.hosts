@@ -1,25 +1,43 @@
+### Ansible uses groups to help manage deployments.
+###   The groups used here are data, index, and idp.
+
+### Each host specified under [data] will be assigned the first host under [index] as the
+###   index peer node and the first host under [idp] as the idp peer node, even if
+###   multiple hosts are specified under [idp] or [index]. At least one host
+###   must be specified for each group.
 
 ### Local Deployment
 ### If this is going to be a local deployment, meaning Ansible is being
 ###  run on the node itself, it is required to still use the fully qualified
-###  domain name for each host. Always use fully qualified domain names.
-### The host should also be followed with 'ansbile_connection=local' in the
+###  domain name for each host. *Always use fully qualified domain names.*
+### The host should also be followed with 'ansible_connection=local' in the
 ###  case of a local deployment. This avoids doing any ssh connection or auth.
 # Ex. local deployment to, and from, 'myhost.my.org':
 #    [data]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
 #
 #    [index]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
 #
 #    [idp]
-#    myhost.my.org    ansbile_connection=local
+#    myhost.my.org    ansible_connection=local
+
+### Single Machine Remote Deployment
+# Ex. remote deployment to 'myhost.my.org':
+#    [data]
+#    myhost.my.org
+#
+#    [index]
+#    myhost.my.org
+#
+#    [idp]
+#    myhost.my.org
 
 ### Data-only Deployment
 ### If this is going to be used for a data-only deployment
 ###  the index and idp groups MUST still be specified with the host(s)
 ###  that will be used, respectively.
-### See the data-only install example in the README for how to 
+### See the data-only install examples in the README for how to
 ###  direct the installer to only deploy to the data node.
 # Ex:
 #    [data]
@@ -31,11 +49,27 @@
 #    [idp]
 #    host-index-idp.OTHER.org
 
-[data]
-host-data.my.org
-
-[index]
-host-index-idp.my.org
-
-[idp]
-host-index-idp.my.org
+### Deploying to Multiple Machines
+### It is possible to deploy and manage multiple machines in parallel
+# Ex:
+#    [data]
+#    host-data.my.org
+#
+#    [index]
+#    host-index-idp.my.org
+#
+#    [idp]
+#    host-index-idp.my.org
+### Or with multiple data nodes.
+# Ex:
+#    [data]
+#    host-data1.my.org
+#    host-data2.my.org
+#    host-data3.my.org
+#    host-dataN.my.org
+#
+#    [index]
+#    host-index-idp.my.org
+#
+#    [idp]
+#    host-index-idp.my.org

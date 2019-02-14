@@ -14,7 +14,7 @@
 - name: Register the password if the file exists
   when: stat_result.stat.exists
   set_fact:
-    admin_pass: "{{ pass_file['content'] | b64decode }}"
+    admin_pass: "{{ (pass_file['content'] | b64decode).strip() }}"
   no_log: true
 
 - name: Prompt for admin pass

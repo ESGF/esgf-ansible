@@ -14,7 +14,7 @@
     - "{{ httpd.proxy_dir }}"
     - "{{ httpd.ssl_proxy_dir }}"
 
-- name: Configure firewalld
+- name: Configure firewalld for http and https
   when: is_7
   firewalld:
     service: "{{ item }}"
@@ -24,6 +24,27 @@
   loop:
     - http
     - https
+
+- name: Configure iptables for http and https
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
+  iptables:
+    chain: INPUT
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    protocol: tcp
+    match: tcp
+    action: insert
+    rule_num: 5
+  register: iptables_conf
+  loop:
+    - 80
+    - 443
+
+- name: Save iptables change
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and iptables_conf is changed
+  command: "service iptables save"
+  args:
+    warn: no 
 
 # Begin setting up certificates for httpd
 - name: Create cert dir
@@ -43,14 +64,43 @@
     url: "{{ trusted_certs }}"
     dest: "{{ httpd.cabundle }}"
 
-# Get a cert from LetsEncrypt if credentials are not provided
-- name: Install HTTP Config
+# Install self-signed certificate as CA, if generated
+- name: Copy self-signed web CA chain into place
+  when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt)
+  copy:
+    remote_src: yes
+    src: "{{ httpd.hostcert }}"
+    dest: "{{ httpd.cachain }}"
+
+# Install base HTTPD config file
+- name: Install HTTPD Config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.conf.j2"
     dest: /etc/httpd/conf/httpd.conf
 
+# Handle legacy use of esgf-httpd.conf
+- name: Check for legacy esgf-httpd.conf
+  stat:
+    path: /etc/httpd/conf/esgf-httpd.conf
+  register: esgf_httpd
+
+- name: Create backup of legacy esgf-httpd.conf
+  when: esgf_httpd.stat.exists and not esgf_httpd.stat.islnk
+  copy:
+    remote_src: yes
+    src: /etc/httpd/conf/esgf-httpd.conf
+    dest: /etc/httpd/conf/esgf-httpd.conf.bak
+
+- name: Create symlink of legacy esgf-httpd.conf
+  file:
+    src: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf/esgf-httpd.conf
+    state: link
+    force: yes
+
+# Get a cert from LetsEncrypt if credentials are not provided
 - name: Install LetsEncrypt Certs
-  when: hostkey_src is not defined
+  when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt
   import_tasks: letsencrypt.yml
 
 # Copy credentials into place, if provided
@@ -75,5 +125,5 @@
 # Setup additional SSL config
 - name: Install HTTPS config
   template:
-    src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/esgf-httpd.ssl.conf.j2"
+    src: "httpd{{ httpd_version }}/esgf-httpd.ssl.conf.j2"
     dest: /etc/httpd/conf/httpd.ssl.conf

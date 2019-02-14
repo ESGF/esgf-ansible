@@ -10,7 +10,8 @@
     src: "{{ webapp.url }}"
     dest: "{{ tomcat.webapps }}/{{ webapp.name }}"
     remote_src: yes
-    creates: "{{ tomcat.webapps }}/{{ webapp.name }}/WEB-INF"
+    owner: tomcat
+    group: tomcat
 
 - name: "Set {{ webapp.name }} Webapp Ownership"
   file:

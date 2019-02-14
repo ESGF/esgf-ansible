@@ -8,42 +8,56 @@
       - libxslt-devel
       - gcc
 
+- name: Check for correct esgf-publisher
+  stat:
+    path: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
+  register: publisher_module
+
+- name: Cleanup publisher repo
+  when: not publisher_module.stat.exists
+  file:
+    path: "{{ conda.envs }}/esgf-pub"
+    state: absent
+
 - name: Create esgf-pub conda env
+  when: not publisher_module.stat.exists
   command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
 
 # The requests install in the below statement is to match the requests in esgprep
 - name: Install publisher
+  when: not publisher_module.stat.exists
   shell: >
     {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
   args:
-    creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet*"
+    creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
+  register: pub_pip
 
-- name: Run esgsetup 1
+- name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup --rootid llnl.gov
+    esgsetup --config --minimal-setup --rootid {{ ansible_fqdn.split('.', 1)[-1] }}
   args:
-    creates: /esg/config/esgcet/*
+    creates: "{{ esg.config.dir }}/esgcet/esg.ini"
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
 - name: Insert publisher password into esg.ini
   no_log: true
   replace:
-    path: /esg/config/esgcet/esg.ini
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
     regexp: 'esgcetpass'
     replace: "{{ admin_pass }}"
 
 - name: Insert publisher host into esg.ini
   replace:
-    path: /esg/config/esgcet/esg.ini
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
     regexp: 'host.sample.gov'
     replace: '{{ ansible_fqdn }}'
 
-- name: Run esgsetup 2
+- name: Run esgsetup for the database
   no_log: true
   shell: >
     {{ conda.actv }} esgf-pub && \

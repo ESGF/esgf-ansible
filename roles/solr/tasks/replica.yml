@@ -1,0 +1,37 @@
+
+- name: Insert Replica Shard URL
+  replace:
+    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}/conf/solrconfig.xml"
+    regexp: 'localhost:8984'
+    replace: '{{ shard.name }}'
+  loop:
+    - datasets
+    - files
+    - aggregations
+
+- name: Remove remote entry in esgf_shards_static.xml
+  lineinfile:
+    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
+    regexp: '^.*{{ shard.name }}.*$'
+    state: absent
+
+- name: Insert local replica shard entry
+  lineinfile:
+    path: "{{ esg.config.dir }}/esgf_shards_static.xml"
+    line: '    <value>localhost:{{ shard.port }}/solr</value>'
+    insertbefore: '^</shards>'
+
+- name: Load solr startup file
+  slurp:
+    src: "{{ esg.config.dir }}/shards_startup.yml"
+  register: shard_startup_file
+
+- name: Load existing shards
+  set_fact:
+    existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
+
+- name: Add new shard
+  when: shard not in existing_shards
+  copy:
+    content: "{{ (existing_shards + [shard]) | to_yaml }}"
+    dest: "{{ esg.config.dir }}/shards_startup.yml"

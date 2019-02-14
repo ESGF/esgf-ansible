@@ -1,0 +1,80 @@
+
+# Handle the case when shards already are present on the machine
+- name: Detect shards from legacy esgf_shards.config
+  stat:
+    path: "{{ esg.config.dir }}/esgf_shards.config"
+  register: legacy_shards_stat
+
+- name: Load shards from legacy file
+  when: legacy_shards_stat.stat.exists
+  slurp:
+    path: "{{ esg.config.dir }}/esgf_shards.config"
+  register: legacy_shards
+
+- name: Build list of legacy shards
+  when: legacy_shards_stat.stat.exists
+  set_fact:
+    legacy_shards_list: "{{ (legacy_shards['content'] | b64decode).strip().split('\n') }}"
+
+- set_fact:
+    shards_list: "{{ solr.shards }}"
+
+- name: Add legacy shards to default shards list
+  when: legacy_shards_stat.stat.exists and (legacy_shards_list|length) > 0 and new_shard != '' and 'master' not in new_shard and 'slave' not in new_shard
+  set_fact:
+    shards_list: "{{ shards_list + [ {'name': new_shard.split(':')[0].strip(), 'port': new_shard.split(':')[1].strip(), 'args':'-Denable.master=true -Denable.slave=true'} ] }}"
+  loop_control:
+    loop_var: new_shard
+  loop: "{{ legacy_shards_list }}"
+
+# Write all present shards and the default master and slave to the startup file
+- name: Write default shards to shards_startup.yml
+  copy:
+    content: "{{ shards_list | to_yaml }}"
+    dest: "{{ esg.config.dir }}/shards_startup.yml"
+    force: no
+
+# Create the current 'shard'
+- name: Create shard solr.solr.home directory
+  file:
+    path: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}"
+    state: directory
+    owner: solr
+    group: solr
+
+- name: Install solr.xml config
+  copy:
+    remote_src: yes
+    src: /tmp/solr-home/solr.xml
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.xml"
+    owner: solr
+    group: solr
+  register: solr_xml
+
+- name: Install solr.in.sh template
+  template:
+    src: solr.in.sh.j2
+    dest: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/solr.in.sh"
+    owner: solr
+    group: solr
+
+- name: Start this Solr instance
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
+
+- name: Create cores
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr create_core -c {{ item }} -d /tmp/solr-home/mycore -p {{ shard.port }}"
+  args:
+    creates: "{{ solr.home }}/{{ shard.name }}-{{ shard.port }}/{{ item }}"
+  loop:
+    - datasets
+    - files
+    - aggregations
+
+- name: Stop this Solr instance
+  become: yes
+  become_user: solr
+  command: "{{ solr.path }}/bin/solr stop -p {{ shard.port }}"

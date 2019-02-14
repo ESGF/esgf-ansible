@@ -3,7 +3,7 @@ Listen 443
 SSLPassPhraseDialog  builtin
 SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
 SSLSessionCacheTimeout  300
-SSLMutex default
+Mutex default
 SSLRandomSeed startup file:/dev/urandom  256
 SSLRandomSeed connect builtin
 SSLCryptoDevice builtin
@@ -33,11 +33,13 @@ NameVirtualHost *:443
 
 	ProxyPassMatch  ^/solr(.*)$     http://localhost:8983/solr$1
 	ProxyPassReverse        /solr   http://localhost:8983/solr
+	
 	ProxyPass 	/esg-orp	ajp://localhost:8223/esg-orp
 	ProxyPassReverse /esg-orp	ajp://localhost:8223/esg-orp
 
 	ProxyPass /esgf-idp	ajp://localhost:8223/esgf-idp
 	ProxyPassReverse /esgf-idp	ajp://localhost:8223/esgf-idp
+
 	ProxyPass /esg-search	ajp://localhost:8223/esg-search
 	ProxyPassReverse /esg-search	ajp://localhost:8223/esg-search
 
@@ -46,12 +48,14 @@ NameVirtualHost *:443
 
 	ProxyPass /las	ajp://localhost:8223/las
 	ProxyPassReverse /las	ajp://localhost:8223/las
-	
+
 	ProxyPass /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 	ProxyPassReverse /esgf-stats-api	ajp://localhost:8223/esgf-stats-api
 
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
+
+	IncludeOptional {{ httpd.ssl_proxy_dir }}/*.conf
 
 	# CoG will go here
 	# With Location blocks later matches overwrite early matches.
@@ -59,7 +63,5 @@ NameVirtualHost *:443
 	# And all other matching proxy pass directives
 	ProxyPass / http://localhost:8889/
 	ProxyPassReverse / http://localhost:8889/
-
-	Include {{ httpd.ssl_proxy_dir }}/*.conf
 
 </VirtualHost>

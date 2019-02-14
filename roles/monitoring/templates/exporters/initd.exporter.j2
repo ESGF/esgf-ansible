@@ -8,11 +8,11 @@
 # Description:
 ### END INIT INFO
  
-SCRIPT={{ prometheus.node_exporter.dir }}/node_exporter
+SCRIPT="{{ exporter.run }}"
 RUNAS=prometheus
  
-PIDFILE={{ prometheus.node_exporter.dir }}/node_exporter.pid
-LOGFILE={{ prometheus.node_exporter.dir }}/node_exporter.log
+PIDFILE={{ exporter.dir }}/{{ exporter.name }}.pid
+LOGFILE={{ exporter.dir }}/{{ exporter.name }}.log
  
 start() {
 if [ -f "$PIDFILE" ] && kill -0 $(cat "$PIDFILE"); then

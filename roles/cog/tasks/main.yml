@@ -5,11 +5,12 @@
       - httpd-devel
       - sqlite-devel
 
-- name: Clone cog Repo
+- name: Clone CoG Repo
   git: 
     repo: "{{ cog.repo }}"
     dest: "{{ cog.dest }}"
     version: "{{ cog.version }}"
+  register: cog_clone
 
 - name: Clone Transfer API Client Repo
   git: 
@@ -20,8 +21,10 @@
   command: "{{ conda.exe }} create -y -n cog 'python<3' pip"
   args:
     creates: "{{ conda.envs }}/cog"
+  register: cog_env
 
 - name: Install CoG Requirments
+  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
@@ -30,6 +33,7 @@
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/mod_wsgi*"
 
 - name: Install CoG into conda env
+  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python setup.py --quiet install
@@ -38,6 +42,7 @@
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
 - name: Setup CoG
+  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python setup.py setup_cog --esgf=true
@@ -45,6 +50,7 @@
     chdir: "{{ cog.dest }}"
 
 - name: CoG collectstatic
+  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python manage.py collectstatic --no-input
@@ -52,6 +58,7 @@
     chdir: "{{ cog.dest }}"
 
 - name: Setup CoG mod_wsgi-express server
+  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     mod_wsgi-express setup-server apache/wsgi.py \
@@ -65,7 +72,7 @@
 
 # - name : Install the cog proxy config
 #   template:
-#     src: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}/cog.httpd.conf.j2"
+#     src: "httpd{{ httpd_version }}/cog.httpd.conf.j2"
 #     dest: "{{ httpd.ssl_proxy_dir }}/9cog.conf"
 
 - name: Set Ownership

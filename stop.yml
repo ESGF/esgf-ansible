@@ -1,0 +1,12 @@
+- hosts: all
+  connection: paramiko
+  become: yes
+  tasks:
+    - name: Include the admin passwd role
+      block:
+        - include_role:
+            name: passwd
+      tags: always
+    - include_role:
+        name: stop
+      tags: always
