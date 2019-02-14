@@ -1,0 +1,26 @@
+name: channel_upload
+channels:
+  - esgf
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2018.11.29
+  - certifi=2018.11.29
+  - click=7.0
+  - libcxx=7.0.0
+  - llvm-meta=7.0.0
+  - openssl=1.1.1a
+  - python=2.7.15
+  - libffi=3.2.1
+  - ncurses=6.1
+  - pip=19.0.1
+  - pyyaml=3.13
+  - readline=7.0
+  - setuptools=40.7.1
+  - sqlite=3.26.0
+  - tk=8.6.9
+  - wheel=0.32.3
+  - yaml=0.1.7
+  - zlib=1.2.11
+  - pip:
+    - plumbum==1.6.7

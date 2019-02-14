@@ -1,0 +1,47 @@
+name: slcs
+channels:
+  - defaults
+dependencies:
+  - ca-certificates=2018.12.5
+  - certifi=2018.11.29
+  - libedit=3.1.20181209
+  - libffi=3.2.1
+  - libgcc-ng=8.2.0
+  - libstdcxx-ng=8.2.0
+  - ncurses=6.1
+  - openssl=1.1.1a
+  - pip=18.1
+  - python=2.7.15
+  - readline=7.0
+  - setuptools=40.6.3
+  - sqlite=3.26.0
+  - tk=8.6.8
+  - wheel=0.32.3
+  - zlib=1.2.11
+  - pip:
+    - asn1crypto==0.24.0
+    - cffi==1.11.5
+    - chardet==3.0.4
+    - contrailca==0.4.0
+    - cryptography==2.2.2
+    - django==1.10.8
+    - django-bootstrap3==10.0.1
+    - django-oauth-toolkit==1.0.0
+    - django-onlineca==0.1.dev10+g3d41f51
+    - django-settings-object==0.1.dev3+g0f88e7d
+    - enum34==1.1.6
+    - esgf-slcs-server==0.1
+    - idna==2.7
+    - ipaddress==1.0.22
+    - mod-wsgi==4.5.24
+    - oauthlib==2.1.0
+    - passlib==1.7.1
+    - psycopg2==2.7.4
+    - pycparser==2.18
+    - pyopenssl==18.0.0
+    - pytz==2018.4
+    - requests==2.19.1
+    - six==1.11.0
+    - urllib3==1.23
+prefix: /usr/local/conda/envs/slcs
+
