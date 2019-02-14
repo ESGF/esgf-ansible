@@ -6,7 +6,7 @@
   register: schema_download
 
 - name: Create {{ schema_migrate.env }} conda env
-  command: "{{ conda.exe }} create -y -n {{ schema_migrate.env }} 'python<3' pip"
+  command: "{{ conda.exe }} env create -f /esg/conda_env_files/schema-migrate_env.yml"
   args:
     creates: "{{ conda.envs }}/{{ schema_migrate.env }}"
 

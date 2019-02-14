@@ -16,7 +16,7 @@
     dest: "{{ slcs.dest }}"
 
 - name: Create SLCS conda env
-  command: "{{ conda.exe }} create -y -n slcs 'python<3' pip"
+  command: "{{ conda.exe }} env create -f /esg/conda_env_files/slcs_env.yml"
   args:
     creates: "{{ conda.envs }}/slcs"
 
@@ -31,7 +31,7 @@
 - name: Install SLCS
   shell: >
     {{ conda.actv }} slcs && \
-    pip install --no-deps -e . 
+    pip install --no-deps -e .
   args:
     chdir: "{{ slcs.dest }}"
     # creates: "{{ conda.envs }}/slcs/{{ conda.mods }}/*slcs*"
@@ -72,7 +72,7 @@
   no_log: true
 
 - name: Create slcsdb database
-  become: yes  
+  become: yes
   become_user: postgres
   postgresql_db:
     name: "slcsdb"

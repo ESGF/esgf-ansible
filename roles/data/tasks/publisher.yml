@@ -21,7 +21,7 @@
 
 - name: Create esgf-pub conda env
   when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
+  command: "{{ conda.exe }} env create -f /esg/conda_env_files/esgf-pub_env.yml"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
 
