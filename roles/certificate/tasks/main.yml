@@ -2,7 +2,7 @@
 # Create environment in which to generate certificates
 # Required for pyopenssl >= .15
 - name: Create cert-gen conda environment
-  command: "{{ conda.exe }} env update"
+  command: "{{ conda.exe }} env create -f /esg/conda_env_files/cert-gen_env.yml"
   args:
     creates: "{{ conda.envs }}/cert-gen"
 
