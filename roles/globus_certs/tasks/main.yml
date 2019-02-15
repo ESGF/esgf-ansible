@@ -17,7 +17,7 @@
 - name: Download trusted certificates for Globus
   unarchive:
     remote_src: yes
-    src: "{{ mirror.base }}/certs/esg_trusted_certificates.tar"
+    src: "{{ assets.base }}/esg_trusted_certificates.tar"
     dest: /tmp
     creates: /tmp/esg_trusted_certificates
 
