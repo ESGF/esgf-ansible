@@ -1,8 +1,8 @@
 
 dependencies:
-  - { role: globus_tools }
-  - { role: globus_certs }
-  - { role: myproxy_tools }
-  - { role: myproxy_certs }
-  - { role: tomcat_webapp, webapp: "{{ idp_webapp }}" }
-  - { role: schema_migrate, egg: "{{ security.egg }}" }
+  - { role: globus_tools, when: skip_deps is not defined or not skip_deps }
+  - { role: globus_certs, when: skip_deps is not defined or not skip_deps }
+  - { role: myproxy_tools, when: skip_deps is not defined or not skip_deps }
+  - { role: myproxy_certs, when: skip_deps is not defined or not skip_deps }
+  - { role: tomcat_webapp, webapp: "{{ idp_webapp }}", when: skip_deps is not defined or not skip_deps }
+  - { role: schema_migrate, egg: "{{ security.egg }}", when: skip_deps is not defined or not skip_deps }

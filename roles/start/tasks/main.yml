@@ -5,21 +5,21 @@
     name: httpd
     state: started
   tags:
-    - httpd 
+    - httpd
     - always
 
 - name: start postgres
   service:
     name: postgresql
     state: started
-  tags: 
-    - postgres 
+  tags:
+    - postgres
     - always
 
 - name: start monitoring
   command: "service {{ exporter.name }} start"
   args:
-    warn: no 
+    warn: no
   register: result
   changed_when: '"already running" not in result.stderr'
   failed_when: 'result.rc != 0 and "already running" not in result.stderr'
@@ -27,7 +27,7 @@
   loop_control:
     loop_var: exporter
   tags:
-    - monitoring 
+    - monitoring
     - always
 
 # Almost always start tomcat
@@ -48,7 +48,7 @@
   command: "{{ cog.wsgi_dir }}/apachectl start"
   register: result
   changed_when: '"already running" not in result.stdout'
-  tags: 
+  tags:
     - index
     - cog
 
@@ -57,7 +57,7 @@
   slurp:
     src: "{{ esg.config.dir }}/shards_startup.yml"
   register: shard_startup_file
-  tags: 
+  tags:
     - index
     - solr
 
@@ -65,7 +65,7 @@
   when: "'index' in group_names"
   set_fact:
     existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
-  tags: 
+  tags:
     - index
     - solr
 
@@ -80,7 +80,7 @@
   failed_when: 'result.rc != 0 and "Port {{ shard.port }} is already being used" not in result.stdout'
   loop_control:
     loop_var: shard
-  tags: 
+  tags:
     - index
     - solr
 
