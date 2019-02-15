@@ -1,10 +1,12 @@
-- pause:
+- name: Pause to enter the admin password to be used for all services
+  pause:
     prompt: "Enter the admin password you would like to use for all services"
     echo: no
   register: admin_pass_input
   no_log: true
 
-- pause:
+- name: Pause to confirm the admin password to be used for all services
+  pause:
     prompt: "Confirm the admin password"
     echo: no
   register: pass_check

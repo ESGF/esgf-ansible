@@ -9,7 +9,6 @@
     groups: solr
 
 - name: solr Download
-  register: solr_download
   unarchive:
     src: "{{ solr.src }}"
     dest: /tmp

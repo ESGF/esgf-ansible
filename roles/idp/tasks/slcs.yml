@@ -31,7 +31,7 @@
 - name: Install SLCS
   shell: >
     {{ conda.actv }} slcs && \
-    pip install --no-deps -e . 
+    pip install --no-deps -e .
   args:
     chdir: "{{ slcs.dest }}"
     # creates: "{{ conda.envs }}/slcs/{{ conda.mods }}/*slcs*"
@@ -47,7 +47,7 @@
     state: directory
 
 - name: Create Django secret file
-  shell: tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
+  shell: set -o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
   args:
     creates: "{{ slcs.home }}/conf/app/secret_key.txt"
   no_log: true
@@ -72,7 +72,7 @@
   no_log: true
 
 - name: Create slcsdb database
-  become: yes  
+  become: yes
   become_user: postgres
   postgresql_db:
     name: "slcsdb"

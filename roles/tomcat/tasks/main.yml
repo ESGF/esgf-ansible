@@ -25,7 +25,7 @@
 - name: Install tomcat
   command: "cp -R /tmp/{{ tomcat.root_dir }} {{ tomcat.path }}"
   args:
-    creates: "{{ tomcat.path }}" 
+    creates: "{{ tomcat.path }}"
 
 - name: Cleanup default webapps
   file:

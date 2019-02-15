@@ -12,10 +12,10 @@
     version: "{{ cog.version }}"
   register: cog_clone
 
-- name: Clone Transfer API Client Repo
-  git: 
-    repo: "https://github.com/globusonline/transfer-api-client-python.git"
-    dest: "{{ cog.base }}/transfer-api-client-python"
+# - name: Clone Transfer API Client Repo
+#   git:
+#     repo: "https://github.com/globusonline/transfer-api-client-python.git"
+#     dest: "{{ cog.base }}/transfer-api-client-python"
 
 - name: Create CoG conda env
   command: "{{ conda.exe }} create -y -n cog 'python<3' pip"

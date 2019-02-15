@@ -4,7 +4,7 @@ dependencies:
   - {
       role: 'certificate',
       when: gftphostcert is not defined,
-      dest_dir: "{{ grid_security.dir }}", 
+      dest_dir: "{{ grid_security.dir }}",
       key_dest: "{{ grid_security.host.key }}",
       csr_dest: "/tmp/gftp.csr",
       cert_dest: "{{ grid_security.host.cert }}",
