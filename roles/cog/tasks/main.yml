@@ -18,7 +18,7 @@
     dest: "{{ cog.base }}/transfer-api-client-python"
 
 - name: Create CoG conda env
-  command: "{{ conda.exe }} env create -f /esg/conda_env_files/cog_env.yml"
+  command: "{{ conda.exe }} env update -f /esg/conda_env_files/cog_env.yml"
   args:
     creates: "{{ conda.envs }}/cog"
   register: cog_env
