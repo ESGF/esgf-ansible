@@ -7,17 +7,19 @@ thredds:
     roles: "tdrAdmin,tdsConfig"
 
 thredds_webapp:
-  url: "{{ mirror.base }}/2.8/1/thredds/5.0/5.0.3/thredds.war"
+  url: "{{ assets.base }}/thredds.war"
   name: thredds
 
+stats_api_version: v1.0.9
+
 stats_webapp:
-  url: "{{ mirror.base }}/2.8/1/esgf-stats-api/esgf-stats-api.war"
+  url: "{{ assets.stats_api }}/esgf-stats-api.war"
   name: esgf-stats-api
 
 node_manager:
   egg:
-    name: "esgf_node_manager-0.1.6-py2.7.egg"
-    url: "{{ mirror.base }}/devel/3.0/a2/esgf-node-manager/esgf_node_manager-0.1.6-py2.7.egg"
+    name: "esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
+    url: "{{ assets.node_manager }}/esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
     script: esgf_node_manager_initialize
 
 publisher:

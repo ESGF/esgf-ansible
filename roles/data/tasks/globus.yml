@@ -98,7 +98,7 @@
 - name: Install the esg_usage_parser for GridFTP Metrics
   unarchive:
     remote_src: yes
-    src: "{{ mirror.base }}/globus/gridftp/esg_usage_parser-0.1.1.tar.bz2"
+    src: "{{ assets.base }}/esg_usage_parser-0.1.1.tar.bz2"
     dest: /usr/local/esg-usage-parser/src
 
 - name: Install the esg_usage_parser config
