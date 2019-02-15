@@ -20,9 +20,6 @@ dependencies:
   - zlib=1.2.11
   - pip:
     - decorator==4.3.2
-    - esgf-dashboard==0.0.3
-    - esgf-node-manager==0.1.6
-    - esgf-security==0.1.6
     - pbr==5.1.2
     - psycopg2==2.7.7
     - six==1.12.0
@@ -31,4 +28,3 @@ dependencies:
     - sqlparse==0.2.4
     - tempita==0.5.3.dev0
 prefix: /usr/local/conda/envs/schema-migrate
-

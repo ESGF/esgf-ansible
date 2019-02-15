@@ -21,7 +21,6 @@ dependencies:
   - pip:
     - bleach==1.4.2
     - chardet==3.0.4
-    - cog==3.11
     - django==1.10.4
     - django-contrib-comments==1.6.2
     - django-grappelli==2.8.1
@@ -50,4 +49,3 @@ dependencies:
     - sqlalchemy==1.2.17
     - urllib3==1.24.1
 prefix: /usr/local/conda/envs/cog
-

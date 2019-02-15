@@ -1,7 +1,6 @@
 name: esgf-pub
 channels:
-  - conda-forge
-  - defaults
+  - esgf
 dependencies:
   - asn1crypto=0.24.0
   - blas=1.1
@@ -101,4 +100,3 @@ dependencies:
     - tempita==0.5.2
     - treelib==1.4.0
 prefix: /usr/local/conda/envs/esgf-pub
-
