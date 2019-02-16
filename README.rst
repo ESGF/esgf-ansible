@@ -1,4 +1,4 @@
-Gihub Pages hosted documentation
+Github Pages hosted documentation
 --------------------------------
 Publishing
 ==========
