@@ -26,6 +26,9 @@
   copy:
     content: "{{ admin_pass }}"
     dest: "{{ esg.config.dir }}/{{ item }}"
+    mode: 0640
+    owner: root
+    group: tomcat
   loop:
     - ".esgf_pass"
     - ".esg_keystore_pass"
