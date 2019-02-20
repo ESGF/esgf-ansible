@@ -6,7 +6,7 @@
       - sqlite-devel
 
 - name: Clone CoG Repo
-  git: 
+  git:
     repo: "{{ cog.repo }}"
     dest: "{{ cog.dest }}"
     version: "{{ cog.version }}"
