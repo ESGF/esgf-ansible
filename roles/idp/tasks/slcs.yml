@@ -47,7 +47,7 @@
     state: directory
 
 - name: Create Django secret file
-  shell: set -o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
+  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
   args:
     creates: "{{ slcs.home }}/conf/app/secret_key.txt"
   no_log: true
