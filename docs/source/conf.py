@@ -26,7 +26,7 @@ author = u'Nathan Carlson, William Hill'
 # The short X.Y version
 version = u'4.0.0'
 # The full version, including alpha/beta/rc tags
-release = u'alpha2'
+release = u''
 
 
 # -- General configuration ---------------------------------------------------
