@@ -13,6 +13,6 @@ These steps describe how to setup the control machine. SSH access to the managed
 
     pip install ansible==2.7.5
 
-4. Check the ``ansible`` version is as installed above.::
+4. Check the ``ansible`` version is as installed above. ::
 
     ansible --version
