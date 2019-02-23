@@ -1,6 +1,8 @@
 Setup
 =====
 
+These steps describe how to setup the control machine. SSH access to the managed machine(s) is the responsibility of the user.
+
 1. Clone the esgf-ansible repo at the current version, for example version 4.0.0 ::
 
     git clone --branch v4.0.0 https://github.com/ESGF/esgf-ansible.git && cd esgf-ansible
