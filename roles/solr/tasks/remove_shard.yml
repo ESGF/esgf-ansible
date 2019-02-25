@@ -25,4 +25,4 @@
   lineinfile:
     path: "{{ esg.config.dir }}/shards_startup.yml"
     regexp: '{{ shard.name }}'
-    state: absent  
+    state: absent

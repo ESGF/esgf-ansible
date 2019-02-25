@@ -2,7 +2,7 @@
 - name: Install Globus IDP services
   yum:
     disable_gpg_check: yes
-    name: 
+    name:
       - globus-connect-server-id
       - mhash
       - pam-pgsql

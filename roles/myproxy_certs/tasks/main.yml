@@ -39,7 +39,7 @@
   register: certcontents
 
 - name: Import myproxy CA into httpd trusted certs
-  no_log: yes  
+  no_log: yes
   lineinfile:
     dest: "{{ httpd.cabundle }}"
     line: "{{ certcontents['content'] | b64decode }}"

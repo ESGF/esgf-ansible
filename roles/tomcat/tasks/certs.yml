@@ -30,7 +30,7 @@
   java_keystore:
     private_key: "{{ keycontents['content'] | b64decode }}"
     certificate: "{{ certcontents['content'] | b64decode }}"
-    name: my_esgf_node 
+    name: my_esgf_node
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
     force: yes
