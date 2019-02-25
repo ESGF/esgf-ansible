@@ -31,7 +31,9 @@
       include_role:
         name: data
         tasks_from: register_gridftp.yml
-  
+      vars:
+        skip_deps: true
+
     # Install GCS config for MyProxy and register
     - name: Install GCS config for MyProxy and register with Globus
       when:
@@ -43,3 +45,5 @@
       include_role:
         name: idp
         tasks_from: register_myproxy.yml
+      vars:
+        skip_deps: true

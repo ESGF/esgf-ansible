@@ -1,10 +1,10 @@
 
 dependencies:
-  - { role: globus_tools }
-  - { role: globus_certs }
-  - { role: orp }
-  - { role: schema_migrate, egg: "{{ security.egg }}" }
-  - { role: schema_migrate, egg: "{{ node_manager.egg }}" }
-  - { role: schema_migrate, egg: "{{ dashboard.egg }}" }
-  - { role: tomcat_webapp, webapp: "{{ thredds_webapp }}" }
-  - { role: tomcat_webapp, webapp: "{{ stats_webapp }}" }
+  - { role: globus_tools, when: skip_deps is not defined or not skip_deps }
+  - { role: globus_certs, when: skip_deps is not defined or not skip_deps }
+  - { role: orp, when: skip_deps is not defined or not skip_deps }
+  - { role: schema_migrate, egg: "{{ security.egg }}", when: skip_deps is not defined or not skip_deps }
+  - { role: schema_migrate, egg: "{{ node_manager.egg }}", when: skip_deps is not defined or not skip_deps }
+  - { role: schema_migrate, egg: "{{ dashboard.egg }}", when: skip_deps is not defined or not skip_deps }
+  - { role: tomcat_webapp, webapp: "{{ thredds_webapp }}", when: skip_deps is not defined or not skip_deps }
+  - { role: tomcat_webapp, webapp: "{{ stats_webapp }}", when: skip_deps is not defined or not skip_deps }

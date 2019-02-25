@@ -11,7 +11,7 @@
     enabled: yes
 
 - name: Get date and time on {{ ansible_fqdn }}, to the hour
-  shell: "date '+%Y-%m-%d %H h'"
+  command: "date '+%Y-%m-%d %H h'"
   register: remote_date
 
 - name: Restart ntpd
@@ -27,7 +27,7 @@
 
 - name: Acquire correct time
   when: remote_date.stdout != lookup('pipe', "date '+%Y-%m-%d %H h'")
-  shell: "date '+%Y-%m-%d %H h'"
+  command: "date '+%Y-%m-%d %H h'"
   register: remote_date
   until: remote_date.stdout == lookup('pipe', "date '+%Y-%m-%d %H h'")
   delay: 5

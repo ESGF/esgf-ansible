@@ -44,7 +44,7 @@
   when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and iptables_conf is changed
   command: "service iptables save"
   args:
-    warn: no 
+    warn: no
 
 # Begin setting up certificates for httpd
 - name: Create cert dir

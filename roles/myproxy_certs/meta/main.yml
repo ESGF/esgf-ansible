@@ -1,4 +1,4 @@
-dependencies:  
+dependencies:
   # This is the temporary, self-signed, certificate for myproxy
   - {
       role: 'certificate',
