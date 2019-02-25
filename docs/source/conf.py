@@ -24,7 +24,7 @@ copyright = u'2019, Nathan Carlson, William Hill'
 author = u'Nathan Carlson, William Hill'
 
 # The short X.Y version
-version = u'4.0.0'
+version = u'4.0.0-beta1'
 # The full version, including alpha/beta/rc tags
 release = u''
 
