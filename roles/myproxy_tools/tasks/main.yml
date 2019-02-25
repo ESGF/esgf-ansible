@@ -17,3 +17,10 @@
   user:
     name: myproxy
     groups: myproxy
+
+- name: Ensure the myproxy user can read the appropriate password file
+  when: is_7
+  user:
+    name: myproxy
+    groups: tomcat
+    append: yes

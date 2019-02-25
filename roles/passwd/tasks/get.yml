@@ -1,8 +1,11 @@
 - name: Pause to enter the admin password to be used for all services
   pause:
-    prompt: "Enter the admin password you would like to use for all services"
+    prompt: "Enter the admin password you would like to use for all services (at least 6 characters)"
     echo: no
   register: admin_pass_input
+  until: (admin_pass_input.user_input|length) >= 6
+  retries: 25
+  delay: 0
   no_log: true
 
 - name: Pause to confirm the admin password to be used for all services
