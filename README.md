@@ -2,7 +2,7 @@
 # ESGF-Ansible
 ## Documentation
 
-Please refer to [our documetation site](https://esgf.github.io/esgf-ansible/) for details on requirements, setting up and usage of this tool. The site also hosts documentation for each release of the tool, `beta` and later. For `alpha` releases refer to the `README.md` included with those.
+Please refer to [our documentation site](https://esgf.github.io/esgf-ansible/) for details on requirements, setting up and usage of this tool. The site also hosts documentation for each release of the tool, `beta` and later. For `alpha` releases refer to the `README.md` included with those.
 
 ## Advice and Contributing
 
