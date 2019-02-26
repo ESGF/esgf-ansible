@@ -11,20 +11,27 @@
 - name: solr Download
   unarchive:
     src: "{{ solr.src }}"
-    dest: /tmp
+    dest: /usr/local
     remote_src: yes
-    creates: "/tmp/{{ solr.root_dir }}"
+    creates: "/usr/local/{{ solr.root_dir }}"
   register: solr_download
 
-- name: Remove {{ solr.path }} if new Solr downloaded
-  when: solr_download is changed
+- name: Check for solr symlink
+  stat:
+    path: "{{ solr.path }}"
+  register: solr_link
+
+- name: Remove {{ solr.path }} if it exists and is not a symlink
+  when: solr_link.stat.exists and not solr_link.stat.islnk
   file:
     path: "{{ solr.path }}"
     state: absent
 
 - name: Install solr
-  when: solr_download is changed
-  command: "cp -R /tmp/{{ solr.root_dir }} {{ solr.path }}"
+  file:
+    dest: "{{ solr.path }}"
+    src: "/usr/local/{{ solr.root_dir }}"
+    state: link
 
 - name: Install solr.in.sh
   template:
