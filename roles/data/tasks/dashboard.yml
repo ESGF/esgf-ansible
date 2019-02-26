@@ -17,7 +17,7 @@
       - openssl-devel
 
 - name: Clone the dashboard repository
-  git: 
+  git:
     repo: "{{ dashboard.git.repository }}"
     version: "{{ dashboard.git.version }}"
     dest: "{{ dashboard.git.dest }}"

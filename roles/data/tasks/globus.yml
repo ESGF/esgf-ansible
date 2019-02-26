@@ -2,7 +2,7 @@
 - name: Install Globus Data Services
   yum:
     disable_gpg_check: yes
-    name: 
+    name:
       - globus-connect-server-io
       - globus-authz-esgsaml-callout
       - globus-gaa
@@ -98,7 +98,7 @@
 - name: Install the esg_usage_parser for GridFTP Metrics
   unarchive:
     remote_src: yes
-    src: "{{ mirror.base }}/globus/gridftp/esg_usage_parser-0.1.1.tar.bz2"
+    src: "{{ assets.base }}/esg_usage_parser-0.1.1.tar.bz2"
     dest: /usr/local/esg-usage-parser/src
 
 - name: Install the esg_usage_parser config
@@ -136,12 +136,14 @@
     src: /etc/resolv.conf
     dest: "{{ gridftp.chroot }}/etc/resolv.conf"
 
-- fetch:
+- name: Retrieve info about what datasets to mount
+  fetch:
     src: "{{ esg.config.dir }}/esgcet/esg.ini"
     dest: /tmp/
     flat: yes
 
-- set_fact:
+- name: Read datasets from esg.ini
+  set_fact:
     raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
 
 - name: Mount the dataset root directories into the chroot GridFTP

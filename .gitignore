@@ -1,5 +1,6 @@
 *.test
 *.retry
 *.log
+docs/build
 host_vars/*
 !host_vars/myhost.my.org.yml

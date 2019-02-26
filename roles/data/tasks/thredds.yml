@@ -51,12 +51,19 @@
 # ORP Jars
 - name: Install .jar files for use by thredds filters
   get_url:
-    url: "{{ mirror.base }}/2.8/1/filters/{{ item }}.jar"
+    url: "{{ assets.base }}/{{ item }}.jar"
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
   with_items:
     - jdom-legacy-1.1.3
     - commons-httpclient-3.1
     - commons-lang-2.6
+    - commons-dbcp-1.4
+    - commons-dbutils-1.3
+    - commons-pool-1.5.4
+    - postgresql-8.4-703.jdbc3
+
+
+
 
 - name: Copy local ORP Libraries into thredds webapp
   copy:
@@ -84,32 +91,23 @@
 
 - name: Copy remote esg-orp library into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esg-orp/esg-orp-2.10.11.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esg-orp-2.10.11.jar"
+    url: "{{ assets.orp }}/esg-orp-{{ versions.orp.split('-')[0][1:] }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esg-orp-{{ versions.orp.split('-')[0][1:] }}.jar"
 
 - name: Copy remote esgf-security library into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esgf-security/esgf-security-2.8.8.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-2.8.8.jar"
+    #Get security version by manipulating versions.security. I.e. v3.0.0-a2 becomes 3.0.0
+    url: "{{ assets.security }}/esgf-security-{{ versions.security.split('-')[0][1:] }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/esgf-security-{{ versions.security.split('-')[0][1:] }}.jar"
 
 # Node Manager Jars
 - name: Copy remote node-manager libraries into thredds webapp
   get_url:
-    url: "{{ mirror.base }}/2.8/1/esgf-node-manager/{{ item }}-1.0.3.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}-1.0.3.jar"
+    url: "{{ assets.node_manager }}/{{ item }}-{{ versions.node_manager[1:] }}.jar"
+    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}-{{ versions.node_manager[1:] }}.jar"
   loop:
     - esgf-node-manager-common
     - esgf-node-manager-filters
-
-- name: Copy remote access logging filter libraries into thredds webapp
-  get_url:
-    url: "{{ mirror.base }}/filters/{{ item }}.jar"
-    dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/lib/{{ item }}.jar"
-  loop:
-    - commons-dbcp-1.4
-    - commons-dbutils-1.3
-    - commons-pool-1.5.4
-    - postgresql-8.4-703.jdbc3
 
 
 # Set ownership
@@ -139,5 +137,3 @@
   #   creates: /esg/config/esgcet/*
   environment:
     UVCDAT_ANONYMOUS_LOG: no
-
-

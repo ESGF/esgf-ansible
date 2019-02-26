@@ -42,7 +42,7 @@
 - name: stop cog
   when: "'index' in group_names"
   command: "{{ cog.wsgi_dir }}/apachectl stop"
-  tags: 
+  tags:
     - index
     - cog
 
@@ -51,7 +51,7 @@
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr stop -all"
-  tags: 
+  tags:
     - index
     - solr
 
@@ -62,7 +62,7 @@
     name: myproxy-server
     state: stopped
   ignore_errors: yes
-  tags: 
+  tags:
     - idp
     - myproxy
 
