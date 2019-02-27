@@ -124,16 +124,3 @@
     owner: tomcat
     group: tomcat
     recurse: yes
-
-# Configure publisher with thredds
-- name: Run esgsetup for thredds
-  no_log: true
-  shell: >
-    {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup \
-    --thredds --publish --gateway {{ groups['index'][0] }} \
-    --thredds-password {{ admin_pass }}
-  # args:
-  #   creates: /esg/config/esgcet/*
-  environment:
-    UVCDAT_ANONYMOUS_LOG: no

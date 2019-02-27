@@ -15,15 +15,18 @@
 
 - name: Cleanup publisher repo
   when: not publisher_module.stat.exists
-  file:
-    path: "{{ conda.envs }}/esgf-pub"
-    state: absent
+  command: "{{ conda.exe }} env remove -y -n esgf-pub"
+  register: remove_esgfpub
+  failed_when: remove_esgfpub.rc != 0 and "Not a conda environment" not in remove_esgfpub.stderr
 
 - name: Create esgf-pub conda env
   when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
+  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip"
   args:
     creates: "{{ conda.envs }}/esgf-pub"
+
+- name: Install CMOR into esgf-pub
+  command: "{{ conda.exe }} install -y -n esgf-pub cmor -c conda-forge"
 
 # The requests install in the below statement is to match the requests in esgprep
 - name: Install publisher
@@ -87,3 +90,35 @@
   file:
     path: /esg/data/test
     state: directory
+
+# Configure publisher with thredds
+- name: Run esgsetup for thredds
+  no_log: true
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --config --minimal-setup \
+    --thredds --publish --gateway {{ groups['index'][0] }} \
+    --thredds-password {{ admin_pass }}
+  # args:
+  #   creates: /esg/config/esgcet/*
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Retrieve info about what datasets to mount
+  fetch:
+    src: "{{ esg.config.dir }}/esgcet/esg.ini"
+    dest: /tmp/
+    flat: yes
+
+- name: Read datasets from esg.ini
+  set_fact:
+    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
+
+- name: Mount the dataset root directories into the chroot GridFTP
+  mount:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    src: "{{ item.split('|')[1].strip() }}"
+    opts: rw,bind
+    fstype: gpfs
+    state: mounted
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"

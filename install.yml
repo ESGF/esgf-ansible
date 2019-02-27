@@ -41,3 +41,12 @@
             name: data
       tags: data
       when: "'data' in group_names"
+
+    - name: Publisher
+      block:
+        - include_role:
+            name: publisher
+      tags:
+        - data
+        - publisher
+      when: "'data' in group_names"

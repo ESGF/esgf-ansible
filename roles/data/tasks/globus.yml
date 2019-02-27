@@ -135,22 +135,3 @@
     remote_src: yes
     src: /etc/resolv.conf
     dest: "{{ gridftp.chroot }}/etc/resolv.conf"
-
-- name: Retrieve info about what datasets to mount
-  fetch:
-    src: "{{ esg.config.dir }}/esgcet/esg.ini"
-    dest: /tmp/
-    flat: yes
-
-- name: Read datasets from esg.ini
-  set_fact:
-    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
-
-- name: Mount the dataset root directories into the chroot GridFTP
-  mount:
-    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
-    src: "{{ item.split('|')[1].strip() }}"
-    opts: rw,bind
-    fstype: gpfs
-    state: mounted
-  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
