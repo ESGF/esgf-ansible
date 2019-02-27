@@ -10,7 +10,7 @@
 
 - name: Set solr ownership
   file:
-    path: "{{ solr.path }}"
+    path: "/usr/local/{{ solr.root_dir }}"
     owner: solr
     group: solr
     recurse: yes
