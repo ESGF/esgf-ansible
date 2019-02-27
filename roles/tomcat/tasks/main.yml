@@ -49,7 +49,7 @@
 
 - name: Set Ownership
   file:
-    path: "{{ tomcat.path }}"
+    path: "/usr/local/{{ tomcat.root_dir }}"
     owner: tomcat
     group: tomcat
     recurse: yes
