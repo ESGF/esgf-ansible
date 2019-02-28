@@ -1,0 +1,7 @@
+name: esgf-pub
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - 'python<3'
+  - 'cmor==3.4.0'

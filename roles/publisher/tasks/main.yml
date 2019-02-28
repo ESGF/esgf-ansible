@@ -8,15 +8,13 @@
       - libxslt-devel
       - gcc
 
-# Create a simple environment for esgsetup only
-- name: Check for esgf-pub
-  stat:
-    path: "{{ conda.envs }}/esgf-pub"
-  register: esgf_pub_result
+- name: Install environment.yml file
+  copy:
+    src: environment.yml
+    dest: /tmp/esgf-pub.yml
 
 - name: Create esgf-pub if it does not exist
-  when: not esgf_pub_result.stat.exists
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' 'cmor==3.4.0' -c defaults -c conda-forge"
+  command: "{{ conda.exe }} env update -n esgf-pub -f=/tmp/esgf-pub.yml"
 
 - name: Install publisher for esgsetup
   shell: >
