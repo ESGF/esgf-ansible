@@ -9,24 +9,24 @@
       - gcc
 
 # Create a simple environment for esgsetup only
-- name: Check for esgsetup-env
+- name: Check for esgf-pub
   stat:
-    path: "{{ conda.envs }}/esgsetup-env"
-  register: esgsetup_result
+    path: "{{ conda.envs }}/esgf-pub"
+  register: esgf_pub_result
 
-- name: Create esgsetup-env if it does not exist
-  when: not esgsetup_result.stat.exists
-  command: "{{ conda.exe }} create -y -n esgsetup_env 'python<3'"
+- name: Create esgf-pub if it does not exist
+  when: not esgf_pub_result.stat.exists
+  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' 'cmor==3.4.0' -c defaults -c conda-forge"
 
 - name: Install publisher for esgsetup
   shell: >
-    {{ conda.actv }} esgsetup-env && \
+    {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
 
 # Perform esgsetup steps
 - name: Run esgsetup for config files
   shell: >
-    {{ conda.actv }} esgsetup-env && \
+    {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup --rootid {{ ansible_fqdn.split('.', 1)[-1] }}
   args:
     creates: "{{ esg.config.dir }}/esgcet/esg.ini"
@@ -49,7 +49,7 @@
 - name: Run esgsetup for the database
   no_log: true
   shell: >
-    {{ conda.actv }} esgsetup-env && \
+    {{ conda.actv }} esgf-pub && \
     esgsetup --db --minimal-setup \
     --db-name {{ all_db.db }} \
     --db-admin {{ all_db.users.super.name }} \
@@ -63,7 +63,7 @@
 
 - name: Run esginitialize
   shell: >
-    {{ conda.actv }} esgsetup-env && \
+    {{ conda.actv }} esgf-pub && \
     esginitialize -c
   environment:
     UVCDAT_ANONYMOUS_LOG: no
@@ -77,7 +77,7 @@
 - name: Run esgsetup for thredds
   no_log: true
   shell: >
-    {{ conda.actv }} esgsetup-env && \
+    {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup \
     --thredds --publish --gateway {{ groups['index'][0] }} \
     --thredds-password {{ admin_pass }}
@@ -102,30 +102,3 @@
     fstype: gpfs
     state: mounted
   with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
-
-
-# Create actual publishing environment
-- name: Check for correct esgf-publisher
-  stat:
-    path: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
-  register: publisher_module
-
-- name: Cleanup publisher repo
-  when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} env remove -y -n esgf-pub"
-  register: remove_esgfpub
-  failed_when: remove_esgfpub.rc != 0 and "Not a conda environment" not in remove_esgfpub.stderr
-
-- name: Create esgf-pub conda env
-  when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3'"
-
-- name: Install CMOR into esgf-pub
-  when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} install -y -n esgf-pub 'cmor==3.4.0' -c conda-forge"
-
-- name: Install publisher
-  when: not publisher_module.stat.exists
-  shell: >
-    {{ conda.actv }} esgf-pub && \
-    pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
