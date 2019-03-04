@@ -8,33 +8,20 @@
       - libxslt-devel
       - gcc
 
-- name: Check for correct esgf-publisher
-  stat:
-    path: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
-  register: publisher_module
+- name: Install environment.yml file
+  copy:
+    src: environment.yml
+    dest: /tmp/esgf-pub.yml
 
-- name: Cleanup publisher repo
-  when: not publisher_module.stat.exists
-  file:
-    path: "{{ conda.envs }}/esgf-pub"
-    state: absent
+- name: Create esgf-pub if it does not exist
+  command: "{{ conda.exe }} env update -n esgf-pub -f=/tmp/esgf-pub.yml"
 
-- name: Create esgf-pub conda env
-  when: not publisher_module.stat.exists
-  command: "{{ conda.exe }} create -y -n esgf-pub 'python<3' pip cmor -c conda-forge"
-  args:
-    creates: "{{ conda.envs }}/esgf-pub"
-
-# The requests install in the below statement is to match the requests in esgprep
-- name: Install publisher
-  when: not publisher_module.stat.exists
+- name: Install publisher for esgsetup
   shell: >
     {{ conda.actv }} esgf-pub && \
     pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
-  args:
-    creates: "{{ conda.envs }}/esgf-pub/{{ conda.mods }}/esgcet-{{ publisher.pip.version }}.dist-info"
-  register: pub_pip
 
+# Perform esgsetup steps
 - name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
@@ -69,8 +56,6 @@
     --db-user-password {{ data_db.users.pub.pass }} \
     --db-host {{ all_db.host }} \
     --db-port {{ all_db.port }}
-#   args:
-#     creates: /esg/config/esgcet/*
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
@@ -78,8 +63,6 @@
   shell: >
     {{ conda.actv }} esgf-pub && \
     esginitialize -c
-#   args:
-#     creates: /esg/config/esgcet/*
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
@@ -87,3 +70,33 @@
   file:
     path: /esg/data/test
     state: directory
+
+# Configure publisher with thredds
+- name: Run esgsetup for thredds
+  no_log: true
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --config --minimal-setup \
+    --thredds --publish --gateway {{ groups['index'][0] }} \
+    --thredds-password {{ admin_pass }}
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Retrieve info about what datasets to mount
+  fetch:
+    src: "{{ esg.config.dir }}/esgcet/esg.ini"
+    dest: /tmp/
+    flat: yes
+
+- name: Read datasets from esg.ini
+  set_fact:
+    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
+
+- name: Mount the dataset root directories into the chroot GridFTP
+  mount:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    src: "{{ item.split('|')[1].strip() }}"
+    opts: rw,bind
+    fstype: gpfs
+    state: mounted
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
