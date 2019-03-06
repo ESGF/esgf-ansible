@@ -92,6 +92,12 @@
   set_fact:
     raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
 
+- name: Remove fetched esg.ini file
+  local_action:
+    module: file
+    path: /tmp/esg.ini
+    state: absent
+
 - name: Mount the dataset root directories into the chroot GridFTP
   mount:
     path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
