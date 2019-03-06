@@ -2,6 +2,7 @@
 - name: Create own CA Key
   openssl_privatekey:
     path: "/tmp/ownca.pem"
+    mode: 0640
 
 - name: Create own CA CSR
   openssl_csr:
