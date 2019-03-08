@@ -66,3 +66,4 @@
     remote_src: yes
     src: /tmp/ownca.pem
     dest: "{{ key_dest }}"
+    mode: 0640
