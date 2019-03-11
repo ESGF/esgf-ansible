@@ -93,6 +93,7 @@
     raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
 
 - name: Remove fetched esg.ini file
+  become: false
   local_action:
     module: file
     path: /tmp/esg.ini
