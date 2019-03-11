@@ -8,8 +8,20 @@
     state: disabled
   register: selinux_result
 
+- name: Install firewalld
+  when: is_7
+  package:
+    name: firewalld
+
+- name: Enable firewalld
+  when: is_7
+  service:
+    name: firewalld
+    enabled: yes
+  register: firewalld_enabled
+
 - name: Pause for reboot confirmation
-  when: selinux_result.reboot_required and (prompt_reboot is not defined or prompt_reboot)
+  when: (selinux_result.reboot_required or firewalld_enabled is changed) and (prompt_reboot is not defined or prompt_reboot)
   pause:
     prompt: Hit enter to confirm {{ ansible_fqdn }} reboot.
         Use 'ctrl+c' then 'a' to abort.
@@ -17,11 +29,11 @@
         otherwise the deployment will continue automatically once the reboot is complete.
 
 - name: Reboot {{ ansible_fqdn }} using a 15 minute timeout
-  when: selinux_result.reboot_required
+  when: (selinux_result.reboot_required or firewalld_enabled is changed)
   reboot:
     reboot_timeout: 900 # 15 minutes
   register: reboot_result
 
 - debug:
     msg: "{{ ansible_fqdn }} rebooted in {{ reboot_result.elapsed }} seconds"
-  when: selinux_result.reboot_required
+  when: (selinux_result.reboot_required or firewalld_enabled is changed)
