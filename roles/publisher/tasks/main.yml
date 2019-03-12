@@ -14,12 +14,7 @@
     dest: /tmp/esgf-pub.yml
 
 - name: Create esgf-pub if it does not exist
-  command: "{{ conda.exe }} env update -n esgf-pub -f=/tmp/esgf-pub.yml"
-
-- name: Install publisher for esgsetup
-  shell: >
-    {{ conda.actv }} esgf-pub && \
-    pip install '{{ publisher.pip.name }}' 'requests==2.20.0'
+  command: "{{ conda.exe }} env update -n esgf-pub -f=/tmp/esgf-pub.yml --prune"
 
 # Perform esgsetup steps
 - name: Run esgsetup for config files
