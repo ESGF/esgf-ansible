@@ -1,17 +1,17 @@
 
 
 # Trusted, signed, gridftp cert and key
-- name: Copy gftp hostkey into place
-  when: gftphostkey is defined
+- name: Copy globus hostkey into place
+  when: globushostkey is defined
   copy:
-    src: "{{ gftphostkey }}"
+    src: "{{ globushostkey }}"
     dest: "{{ grid_security.host.key }}"
     mode: 0600
 
-- name: Copy gftp hostcert into place
-  when: gftphostcert is defined
+- name: Copy globus hostcert into place
+  when: globushostcert is defined
   copy:
-    src: "{{ gftphostcert }}"
+    src: "{{ globushostcert }}"
     dest: "{{ grid_security.host.cert }}"
 
 - name: Download trusted certificates for Globus

@@ -3,10 +3,10 @@ dependencies:
   # This is the temporary, ownca-signed, certificate
   - {
       role: 'certificate',
-      when: gftphostcert is not defined,
+      when: globushostcert is not defined,
       dest_dir: "{{ grid_security.dir }}",
       key_dest: "{{ grid_security.host.key }}",
-      csr_dest: "/tmp/gftp.csr",
+      csr_dest: "/tmp/globus.csr",
       cert_dest: "{{ grid_security.host.cert }}",
       common_name: "{{ ansible_fqdn }}",
       ownca: true
@@ -14,10 +14,10 @@ dependencies:
   # This is the to be signed CSR and Key generation
   - {
       role: 'certificate',
-      when: gftphostcert is not defined,
+      when: globushostcert is not defined,
       dest_dir: "{{ ansible_env.HOME }}",
-      key_dest: "{{ ansible_env.HOME }}/gridftp.pem",
-      csr_dest: "{{ ansible_env.HOME }}/gridftp.csr",
+      key_dest: "{{ ansible_env.HOME }}/globushostkey.pem",
+      csr_dest: "{{ ansible_env.HOME }}/globushostcsr.csr",
       common_name: "{{ ansible_fqdn }}",
       csr: true
     }

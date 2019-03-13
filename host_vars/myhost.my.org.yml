@@ -73,8 +73,8 @@ prometheus_hosts:
 ### valid certs will be generated in the HOME directory
 ### of the root user.
 ##
-#gftphostcert:
-#gftphostkey:
+#globushostcert:
+#globushostkey:
 #myproxycacert:
 #myproxycakey:
 #myproxy_signing_policy:
