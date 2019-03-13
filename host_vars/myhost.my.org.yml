@@ -2,9 +2,9 @@
 ### on which Ansible itself will be run. That is,
 ### they are on the 'control' machine.
 
-### Admin password
+### Admin password, specification required, see options
 ##
-### An admin password, at least 6 characters, is requested and will be used
+### An admin password, at least 6 characters, is required and will be used
 ### for the services being installed on a node.
 ##
 ## The password priority goes like this:
@@ -15,7 +15,8 @@
 ## 2. The 'admin_pass' variable below. Note Ansible supports encrypting 
 ##    variable files, using Vault:
 ##    https://docs.ansible.com/ansible/latest/user_guide/vault.html
-#
+##
+## *The password must be specified in at least of the above two places*
 #admin_pass:
 
 ### Keys and Certificates
