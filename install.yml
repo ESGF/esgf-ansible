@@ -5,6 +5,7 @@
   # strategy: free
   become: yes
   connection: paramiko
+  any_errors_fatal: true
   tasks:
     # Get the admin password
     - name: Include the admin passwd role

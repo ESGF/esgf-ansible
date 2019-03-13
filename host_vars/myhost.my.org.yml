@@ -2,51 +2,21 @@
 ### on which Ansible itself will be run. That is,
 ### they are on the 'control' machine.
 
-### Mirror Host
+### Admin password
 ##
-### The ESGF mirror to be used. Defaults to
-### aims1.llnl.gov
+### An admin password, at least 6 characters, is requested and will be used
+### for the services being installed on a node.
 ##
-### Choices:
-## distrib-coffee.ipsl.jussieu.fr/pub
-## dist.ceda.ac.uk
-## aims1.llnl.gov
-## esg-dn2.nsc.liu.se
+## The password priority goes like this:
+## 1. The contents of /esg/config/.esgf_pass on the Node.
+##    Feel free to write this remote file manually if you would not like
+##    to store the password in this host variable file.
 ##
-#mirror_host: aims1.llnl.gov
-
-### Prometheus Hosts and/or IPs
-##
-### This deployment deploys Prometheus exporters. These
-### exporters report information and metrics about the node
-### to a Prometheus server. The Prometheus server(s) must be
-### specified so that it can be trusted to communicate with
-### the exporters. Place your own Prometheus server here if
-### applicable. This trust is at the webserver level.
-##
-### Information will not be collected until your host is added
-### to the Prometheus server's target list. Remove the following
-### lines if you would not like to participate in this, in which
-### case only localhost will be trusted to access the exporters'
-### information.
-##
-prometheus_hosts:
-  - aims1.llnl.gov
-#prometheus_ips:
-#  - 10 # Trust your whole internal network
-
-### Globus Services
-##
-### This information is used to connect the node
-### to the Globus system. 
-##
-### Leave unspecified and the Globus Connect Server 
-### setup steps will be skipped.
-##
-#globus_user:
-#globus_pass:
-#register_gridftp: true|false
-#register_myproxy: true|false
+## 2. The 'admin_pass' variable below. Note Ansible supports encrypting 
+##    variable files, using Vault:
+##    https://docs.ansible.com/ansible/latest/user_guide/vault.html
+#
+#admin_pass:
 
 ### Keys and Certificates
 # The priority for installing certs and keys goes like this:
@@ -92,19 +62,22 @@ prometheus_hosts:
 #hostcert_src:
 #cachain_src:
 
-### LetsEncrypt Certificates for Web Services
+
+
+### Globus Services
 ##
-### LetsEncrypt certificates are browser trusted certificates
-### that can be obtained in an automated fashion by proving
-### you control the domain.
-### In order for this to work your host must be publicly
-### available at deployment time.
-### This variable has no effect if the above host key/cert/chain
-### variables for web services are specified.
+### This information is used to connect the node
+### to the Globus system. 
 ##
-### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
+### Leave unspecified and the Globus Connect Server 
+### setup steps will be skipped.
 ##
-#try_letsencrypt: true|false
+#globus_user:
+#globus_pass:
+#register_gridftp: true|false
+#register_myproxy: true|false
+
+
 
 ### iptables and firewalld
 ##
@@ -120,3 +93,54 @@ prometheus_hosts:
 ##
 #configure_centos6_iptables: true|false
 #configure_centos7_firewalld: true|false
+
+
+
+### Mirror Host
+##
+### The ESGF mirror to be used. Defaults to
+### aims1.llnl.gov
+##
+### Choices:
+## distrib-coffee.ipsl.jussieu.fr/pub
+## dist.ceda.ac.uk
+## aims1.llnl.gov
+## esg-dn2.nsc.liu.se
+##
+#mirror_host: aims1.llnl.gov
+
+
+
+### LetsEncrypt Certificates for Web Services
+##
+### LetsEncrypt certificates are browser trusted certificates
+### that can be obtained in an automated fashion by proving
+### you control the domain.
+### In order for this to work your host must be publicly
+### available at deployment time.
+### This variable has no effect if the above host key/cert/chain
+### variables for web services are specified.
+##
+### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
+##
+#try_letsencrypt: true|false
+
+### Prometheus Hosts and/or IPs
+##
+### This deployment deploys Prometheus exporters. These
+### exporters report information and metrics about the node
+### to a Prometheus server. The Prometheus server(s) must be
+### specified so that it can be trusted to communicate with
+### the exporters. Place your own Prometheus server here if
+### applicable. This trust is at the webserver level.
+##
+### Information will not be collected until your host is added
+### to the Prometheus server's target list. Remove the following
+### lines if you would not like to participate in this, in which
+### case only localhost will be trusted to access the exporters'
+### information.
+##
+prometheus_hosts:
+  - aims1.llnl.gov
+#prometheus_ips:
+#  - 10 # Trust your whole internal network

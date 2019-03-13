@@ -25,20 +25,7 @@
   set_fact:
     should_reboot: (selinux_result.reboot_required or (is_7 and firewalld_enabled is defined and firewalld_enabled is changed))
 
-- name: Pause for reboot confirmation
-  when: should_reboot and (prompt_reboot is not defined or prompt_reboot)
-  pause:
-    prompt: Hit enter to confirm {{ ansible_fqdn }} reboot.
-        Use 'ctrl+c' then 'a' to abort.
-        If this is a local deployment and a reboot is confirmed, the deployment will need to be restarted,
-        otherwise the deployment will continue automatically once the reboot is complete.
-
-- name: Reboot {{ ansible_fqdn }} using a 15 minute timeout
+- name: End execution if it is determined this machine requires a reboot
   when: should_reboot
-  reboot:
-    reboot_timeout: 900 # 15 minutes
-  register: reboot_result
-
-- debug:
-    msg: "{{ ansible_fqdn }} rebooted in {{ reboot_result.elapsed }} seconds"
-  when: should_reboot
+  fail:
+    msg: It has been determined that a reboot of {{ ansible_fqdn }} is required to continue. Please reboot {{ ansible_fqdn }} then restart the deployment.
