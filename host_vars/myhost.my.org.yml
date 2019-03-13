@@ -106,15 +106,17 @@ prometheus_hosts:
 ##
 #try_letsencrypt: true|false
 
-### CentOS 6 iptables
+### iptables and firewalld
 ##
-### iptables is a tool that controls the Linux kernel's packet firewall.
+### iptables and firewalld are tools that controls the Linux kernel's packet firewall.
 ### Many sites will likely wish to manage this on their own. If you are
 ### not familiar with this tool and would like this deployment to
 ### takes steps to configure the iptables for you on CentOS 6 then
 ### uncomment the below variable and set it to true. Otherwise your
 ### site will be responsible for ensuring the proper ports are open.
 ##
-### Leave unspecified to manage iptables on CentOS 6 yourself.
+### By default, iptables WILL NOT be configured on CentOS 6, set to true to change this behavior
+### By default, firewalld WILL be configured on CentOS 7, set to false to change this behavior
 ##
 #configure_centos6_iptables: true|false
+#configure_centos7_firewalld: true|false
