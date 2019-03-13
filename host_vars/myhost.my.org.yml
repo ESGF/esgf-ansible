@@ -135,12 +135,10 @@
 ### applicable. This trust is at the webserver level.
 ##
 ### Information will not be collected until your host is added
-### to the Prometheus server's target list. Remove the following
-### lines if you would not like to participate in this, in which
-### case only localhost will be trusted to access the exporters'
-### information.
+### to the Prometheus server's target list. Uncomment the following
+### lines if you would like to participate in this.
 ##
-prometheus_hosts:
-  - aims1.llnl.gov
+#prometheus_hosts:
+#  - aims1.llnl.gov
 #prometheus_ips:
 #  - 10 # Trust your whole internal network
