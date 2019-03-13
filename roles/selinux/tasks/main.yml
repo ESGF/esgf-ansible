@@ -3,9 +3,10 @@
   package:
     name: libselinux-python
 
-- name: Disable SELinux
+- name: Set SELinux to permissive
   selinux:
-    state: disabled
+    policy: targeted
+    state: permissive
   register: selinux_result
 
 - name: Install firewalld
