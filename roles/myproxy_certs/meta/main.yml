@@ -13,8 +13,8 @@ dependencies:
       role: 'certificate',
       when: myproxycacert is not defined,
       dest_dir: "{{ ansible_env.HOME }}",
-      key_dest: "{{ ansible_env.HOME }}/myproxy-ca.pem",
-      csr_dest: "{{ ansible_env.HOME }}/myproxy-ca.csr",
+      key_dest: "{{ ansible_env.HOME }}/myproxycakey.pem",
+      csr_dest: "{{ ansible_env.HOME }}/myproxycacsr.csr",
       common_name: "{{ ansible_fqdn }}-CA",
       csr: true
     }
