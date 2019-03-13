@@ -23,6 +23,8 @@
     valid_in: 1 # Use as a work around for bugged has_expired
   ignore_errors: true
   register: expired_check
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 # If invalid, destroy
 - name: Destroy {{ cert_dest }} if it is invalid
@@ -38,5 +40,3 @@
 - name: "{{ common_name }} Certificate Tasks"
   import_tasks: cert.yml
   when: (cert_dest is not defined) or (certpath is defined and not certpath.stat.exists) or (cert_destroyed is defined and cert_destroyed is changed)
-  vars:
-    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
