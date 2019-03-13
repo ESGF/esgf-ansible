@@ -16,7 +16,7 @@
 ##    variable files, using Vault:
 ##    https://docs.ansible.com/ansible/latest/user_guide/vault.html
 ##
-## *The password must be specified in at least of the above two places*
+## *The password must be specified in at least one of the above two places*
 #admin_pass:
 
 ### Keys and Certificates
