@@ -23,7 +23,7 @@
 
 # Open the GridFTP control port on CentOS 7
 - name: Configure firewalld for GridFTP control
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   firewalld:
     port: 2811/tcp
     permanent: yes
@@ -44,7 +44,7 @@
 
 # Open the GridFTP data ports on CentOS 7
 - name: Configure firewalld for GridFTP data ports
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   firewalld:
     port: 50000-51000/tcp
     permanent: yes

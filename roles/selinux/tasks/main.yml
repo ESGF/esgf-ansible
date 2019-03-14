@@ -10,12 +10,12 @@
   register: selinux_result
 
 - name: Install firewalld
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   package:
     name: firewalld
 
 - name: Enable firewalld
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   service:
     name: firewalld
     enabled: yes

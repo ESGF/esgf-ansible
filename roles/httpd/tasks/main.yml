@@ -15,7 +15,7 @@
     - "{{ httpd.ssl_proxy_dir }}"
 
 - name: Configure firewalld for http and https
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   firewalld:
     service: "{{ item }}"
     permanent: yes

@@ -90,7 +90,7 @@
 ### site will be responsible for ensuring the proper ports are open.
 ##
 ### By default, iptables WILL NOT be configured on CentOS 6, set to true to change this behavior
-### By default, firewalld WILL be configured on CentOS 7, set to false to change this behavior
+### By default, firewalld WILL NOT be configured on CentOS 7, set to true to change this behavior
 ##
 #configure_centos6_iptables: true|false
 #configure_centos7_firewalld: true|false

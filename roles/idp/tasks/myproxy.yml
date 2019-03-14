@@ -90,7 +90,7 @@
 
 # Open the MyProxy port on CentOS 7
 - name: Configure firewalld for MyProxy
-  when: is_7 and (configure_centos7_firewalld is not defined or configure_centos7_firewalld)
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
   firewalld:
     port: 7512/tcp
     permanent: yes
