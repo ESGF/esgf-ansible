@@ -17,6 +17,7 @@
     - always
 
 - name: start monitoring
+  no_log: true
   when: prometheus_hosts is defined or prometheus_ips is defined
   command: "service {{ exporter.name }} start"
   args:
