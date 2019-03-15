@@ -8,6 +8,16 @@
       - libxslt-devel
       - gcc
 
+- name: Check the state of the esgf-pub environment
+  shell: "{{ conda.exe }} list -c -n esgf-pub | grep -E 'defaults|conda-forge'"
+  register: env_check
+  failed_when: "env_check.rc != 0 and 'EnvironmentLocationNotFound' not in env_check.stderr"
+
+# This resolves the problem of a postgresql installation *in* the esgf-pub environment
+- name: Remove esgf-pub env if it is in a bad state
+  when: '"psycopg" in env_check.stdout'
+  command: "{{ conda.exe }} env remove -n esgf-pub -y"
+
 - name: Install environment.yml file
   copy:
     src: environment.yml
