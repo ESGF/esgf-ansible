@@ -2,51 +2,22 @@
 ### on which Ansible itself will be run. That is,
 ### they are on the 'control' machine.
 
-### Mirror Host
+### Admin password, specification required, see options
 ##
-### The ESGF mirror to be used. Defaults to
-### aims1.llnl.gov
+### An admin password, at least 6 characters, is required and will be used
+### for the services being installed on a node.
 ##
-### Choices:
-## distrib-coffee.ipsl.jussieu.fr/pub
-## dist.ceda.ac.uk
-## aims1.llnl.gov
-## esg-dn2.nsc.liu.se
+## The password priority goes like this:
+## 1. The contents of /esg/config/.esgf_pass on the Node.
+##    Feel free to write this remote file manually if you would not like
+##    to store the password in this host variable file.
 ##
-#mirror_host: aims1.llnl.gov
-
-### Prometheus Hosts and/or IPs
+## 2. The 'admin_pass' variable below. Note Ansible supports encrypting 
+##    variable files, using Vault:
+##    https://docs.ansible.com/ansible/latest/user_guide/vault.html
 ##
-### This deployment deploys Prometheus exporters. These
-### exporters report information and metrics about the node
-### to a Prometheus server. The Prometheus server(s) must be
-### specified so that it can be trusted to communicate with
-### the exporters. Place your own Prometheus server here if
-### applicable. This trust is at the webserver level.
-##
-### Information will not be collected until your host is added
-### to the Prometheus server's target list. Remove the following
-### lines if you would not like to participate in this, in which
-### case only localhost will be trusted to access the exporters'
-### information.
-##
-prometheus_hosts:
-  - aims1.llnl.gov
-#prometheus_ips:
-#  - 10 # Trust your whole internal network
-
-### Globus Services
-##
-### This information is used to connect the node
-### to the Globus system. 
-##
-### Leave unspecified and the Globus Connect Server 
-### setup steps will be skipped.
-##
-#globus_user:
-#globus_pass:
-#register_gridftp: true|false
-#register_myproxy: true|false
+## *The password must be specified in at least one of the above two places*
+#admin_pass:
 
 ### Keys and Certificates
 # The priority for installing certs and keys goes like this:
@@ -73,8 +44,8 @@ prometheus_hosts:
 ### valid certs will be generated in the HOME directory
 ### of the root user.
 ##
-#gftphostcert:
-#gftphostkey:
+#globushostcert:
+#globushostkey:
 #myproxycacert:
 #myproxycakey:
 #myproxy_signing_policy:
@@ -92,6 +63,55 @@ prometheus_hosts:
 #hostcert_src:
 #cachain_src:
 
+
+
+### Globus Services
+##
+### This information is used to connect the node
+### to the Globus system. 
+##
+### Leave unspecified and the Globus Connect Server 
+### setup steps will be skipped.
+##
+#globus_user:
+#globus_pass:
+#register_gridftp: true|false
+#register_myproxy: true|false
+
+
+
+### iptables and firewalld
+##
+### iptables and firewalld are tools that controls the Linux kernel's packet firewall.
+### Many sites will likely wish to manage this on their own. If you are
+### not familiar with this tool and would like this deployment to
+### takes steps to configure the iptables for you on CentOS 6 then
+### uncomment the below variable and set it to true. Otherwise your
+### site will be responsible for ensuring the proper ports are open.
+##
+### By default, iptables WILL NOT be configured on CentOS 6, set to true to change this behavior
+### By default, firewalld WILL NOT be configured on CentOS 7, set to true to change this behavior
+##
+#configure_centos6_iptables: true|false
+#configure_centos7_firewalld: true|false
+
+
+
+### Mirror Host
+##
+### The ESGF mirror to be used. Defaults to
+### aims1.llnl.gov
+##
+### Choices:
+## distrib-coffee.ipsl.jussieu.fr/pub
+## dist.ceda.ac.uk
+## aims1.llnl.gov
+## esg-dn2.nsc.liu.se
+##
+#mirror_host: aims1.llnl.gov
+
+
+
 ### LetsEncrypt Certificates for Web Services
 ##
 ### LetsEncrypt certificates are browser trusted certificates
@@ -106,15 +126,22 @@ prometheus_hosts:
 ##
 #try_letsencrypt: true|false
 
-### CentOS 6 iptables
+### Prometheus Hosts and/or IPs
 ##
-### iptables is a tool that controls the Linux kernel's packet firewall.
-### Many sites will likely wish to manage this on their own. If you are
-### not familiar with this tool and would like this deployment to
-### takes steps to configure the iptables for you on CentOS 6 then
-### uncomment the below variable and set it to true. Otherwise your
-### site will be responsible for ensuring the proper ports are open.
+### This deployment deploys Prometheus exporters if either of
+### the below variables are specified.
 ##
-### Leave unspecified to manage iptables on CentOS 6 yourself.
+### These exporters report information and metrics about the node
+### to a Prometheus server. The Prometheus server(s) must be
+### specified so that it can be trusted to communicate with
+### the exporters. Place your own Prometheus server here if
+### applicable. This trust is at the webserver level.
 ##
-#configure_centos6_iptables: true|false
+### Information will not be collected until your host is added
+### to the Prometheus server's target list. Uncomment and populate
+### the following lines if you would like to participate in this.
+##
+#prometheus_hosts:
+#  - aims1.llnl.gov
+#prometheus_ips:
+#  - 10 # Trust your whole internal network

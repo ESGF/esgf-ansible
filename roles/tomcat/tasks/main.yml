@@ -32,6 +32,8 @@
     dest: "{{ tomcat.path }}"
     src: "/usr/local/{{ tomcat.root_dir }}"
     state: link
+    owner: tomcat
+    group: tomcat
 
 - name: Cleanup default webapps
   file:

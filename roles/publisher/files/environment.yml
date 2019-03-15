@@ -6,5 +6,5 @@ dependencies:
   - 'python<3'
   - 'cmor==3.4.0'
   - pip:
-    - 'esgcet==3.6.1'
+    - 'esgcet==3.6.3'
     - 'requests==2.20.0'

@@ -7,10 +7,14 @@
 - name: Generate own CA
   when: (use_ownca is defined and use_ownca) or (ownca is defined and ownca)
   import_tasks: ownca.yml
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Generate Key and CSR
   when: (ownca is defined and ownca) or (csr is defined and csr) or (self_signed is defined and self_signed)
   import_tasks: genkeycsr.yml
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Create {{ common_name }} Cert Self Signed
   when: self_signed is defined and self_signed
@@ -19,6 +23,8 @@
     csr_path: "{{ csr_dest }}"
     privatekey_path: "{{ key_dest }}"
     provider: selfsigned
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Create {{ common_name }} Cert Own CA
   when: ownca is defined and ownca
@@ -28,6 +34,8 @@
     ownca_path: /tmp/ownca.crt
     ownca_privatekey_path: /tmp/ownca.pem
     provider: ownca
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Use Own CA certificate and key
   when: use_ownca is defined and use_ownca

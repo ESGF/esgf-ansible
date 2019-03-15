@@ -16,7 +16,3 @@
   set_fact:
     admin_pass: "{{ (pass_file['content'] | b64decode).strip() }}"
   no_log: true
-
-- name: Prompt for admin pass
-  when: admin_pass is not defined
-  include_tasks: get.yml

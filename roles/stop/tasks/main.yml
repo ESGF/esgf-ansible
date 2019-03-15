@@ -17,6 +17,8 @@
     - never
 
 - name: stop montioring
+  when: prometheus_hosts is defined or prometheus_ips is defined
+  no_log: true
   command: "service {{ exporter.name }} stop"
   args:
     warn: no
