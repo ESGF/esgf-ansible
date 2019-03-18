@@ -1,0 +1,17 @@
+# See the sample myhost.my.org.yml file for all the details
+# of these variables and other important information.
+
+### Keys and Certificates
+
+### Keys and Certificates for Globus Services
+globushostcert: /path/on/node/to/globushostcert
+globushostkey: /path/on/node/to/globushostkey
+
+myproxycacert: /path/on/node/to/myproxycacert
+myproxycakey: /path/on/node/to/myproxycakey
+myproxy_signing_policy: /path/on/node/to/myproxyca.signing_policy
+
+### Keys and Certificates for Web Services
+hostkey_src: /path/on/node/to/hostkey
+hostcert_src: /path/on/node/to/hostcert
+cachain_src: /path/on/node/to/cachain
