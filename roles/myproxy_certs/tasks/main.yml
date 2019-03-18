@@ -16,12 +16,14 @@
 - name: Copy CA cert
   when: myproxycacert is defined
   copy:
+    remote_src: yes
     src: "{{ myproxycacert }}"
     dest: "{{ myproxy.ca.cert }}"
 
 - name: Copy CA key
   when: myproxycakey is defined
   copy:
+    remote_src: yes
     src: "{{ myproxycakey }}"
     dest: "{{ myproxy.ca.key }}"
     mode: 0600
@@ -29,6 +31,7 @@
 - name: Copy myproxy CA signing-policy
   when: myproxy_signing_policy is defined
   copy:
+    remote_src: yes
     src: "{{ myproxy_signing_policy }}"
     dest: "{{ myproxy.ca.signing_policy }}"
 

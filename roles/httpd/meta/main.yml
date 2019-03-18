@@ -1,6 +1,6 @@
 
 dependencies:
-  - {
+  - { # Generate key to be used with LetsEncrypt
       role: 'certificate',
       when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt,
       dest_dir: "{{ httpd.cert_dir }}",
@@ -9,7 +9,7 @@ dependencies:
       common_name: "{{ ansible_fqdn }}",
       csr: true
     }
-  - {
+  - { # Generate account key to be used with LetsEncrypt
       role: 'certificate',
       when: hostkey_src is not defined and try_letsencrypt is defined and try_letsencrypt,
       dest_dir: "/tmp",
@@ -18,9 +18,9 @@ dependencies:
       common_name: "{{ ansible_fqdn }}",
       csr: true
     }
-  - {
+  - { # Self-sign a certificate for web services
       role: 'certificate',
-      when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt),
+      when: hostkey_src is not defined and (try_letsencrypt is not defined or not try_letsencrypt) and (generate_httpd is defined and generate_httpd),
       dest_dir: "{{ httpd.cert_dir }}",
       key_dest: "{{ httpd.hostkey }}",
       cert_dest: "{{ httpd.hostcert }}",

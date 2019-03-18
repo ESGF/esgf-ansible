@@ -5,12 +5,16 @@
     url: "{{ tomcat.ts.url }}"
     dest: "{{ tomcat.ts.path }}"
 
+- name: Get webcert hash
+  command: openssl x509 -in {{ httpd.hostcert }} -hash -noout
+  register: httpd_hostcert_hash
+
 - name: Import web CA into Truststore
   java_cert:
     cert_path: "{{ httpd.hostcert }}"
     keystore_path: "{{ tomcat.ts.path }}"
     keystore_pass: "{{ tomcat.ts.pass }}"
-    cert_alias: my_esgf_node
+    cert_alias: "{{ httpd_hostcert_hash.stdout.strip() }}"
     executable: "{{ java.path }}/bin/keytool"
 
 # Load the hostkey and hostcert into the tomcat keystore

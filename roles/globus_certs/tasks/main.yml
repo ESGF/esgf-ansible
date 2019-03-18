@@ -4,6 +4,7 @@
 - name: Copy globus hostkey into place
   when: globushostkey is defined
   copy:
+    remote_src: yes
     src: "{{ globushostkey }}"
     dest: "{{ grid_security.host.key }}"
     mode: 0600
@@ -11,6 +12,7 @@
 - name: Copy globus hostcert into place
   when: globushostcert is defined
   copy:
+    remote_src: yes
     src: "{{ globushostcert }}"
     dest: "{{ grid_security.host.cert }}"
 
