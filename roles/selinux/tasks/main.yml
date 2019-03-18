@@ -11,7 +11,7 @@
     state: yes
     persistent: yes
   register: sebool_res
-  failed_when: "'disabled' not in sebool_res.msg"
+  failed_when: "'msg' in sebool_res and 'disabled' not in sebool_res.msg"
 
 - name: Install firewalld
   when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
