@@ -4,3 +4,5 @@
 docs/build
 host_vars/*
 !host_vars/myhost.my.org.yml
+!host_vars/sampleUpgrade.my.org.yml
+!host_vars/sampleNew.my.org.yml
