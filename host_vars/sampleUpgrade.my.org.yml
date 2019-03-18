@@ -1,3 +1,5 @@
+# This file is an example of what variables may be specified
+# for performing an upgrade on a node with index/idp or all services.
 # See the sample myhost.my.org.yml file for all the details
 # of these variables and other important information.
 

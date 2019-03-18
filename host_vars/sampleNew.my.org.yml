@@ -1,3 +1,5 @@
+# This file is an example of what variables may be specified
+# for deploying a new node with index/idp or all services.
 # See the sample myhost.my.org.yml file for all the details
 # of these variables and other important information.
 
@@ -10,21 +12,11 @@ admin_pass: myAdminPass
 generate_globus: true
 generate_myproxyca: true
 
-### Keys and Certificates for Web Services, httpd and tomcat
+### Keys and Certificates for Web Services, httpd
 hostkey_src: /path/on/node/to/hostkey
 hostcert_src: /path/on/node/to/hostcert
 cachain_src: /path/on/node/to/cachain
 
-
-### Globus Services
-globus_user: myGlobusUser
-globus_pass: myGlobusPass
-register_gridftp: true
-register_myproxy: true
-
 ## If on CentOS 7, which is strongly recommended for new deployments
 ### iptables and firewalld
 configure_centos7_firewalld: true
-
-### Mirror Host
-mirror_host: aims1.llnl.gov
