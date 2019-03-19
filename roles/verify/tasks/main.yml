@@ -4,7 +4,7 @@
 # Web certs check
 - name: Check if web cert paths are defined
   set_fact:
-    webcerts_specified: hostkey_src is defined and hostcert_src is defined and cachain_src is defined
+    webcerts_specified: "{{ (hostkey_src is defined and hostcert_src is defined and cachain_src is defined)|bool }}"
 
 - name: Check if web certificate variables are vaild
   when: not (webcerts_specified or (generate_httpd is defined and generate_httpd) or (try_letsencrypt is defined and try_letsencrypt))
@@ -14,7 +14,7 @@
 # Globus certs check
 - name: Check if globus cert paths are defined
   set_fact:
-    globuscerts_specified: globushostkey is defined and globushostcert is defined
+    globuscerts_specified: "{{ (globushostkey is defined and globushostcert is defined)|bool }}"
 
 - name: Check if globus certifcate variables are valid
   when: not (globuscerts_specified or (generate_globus is defined and generate_globus))
@@ -25,7 +25,7 @@
 - name: Check if myproxyca cert paths are defined
   when: "'idp' in group_names"
   set_fact:
-    myproxycacerts_specified: myproxycakey is defined and myproxycacert is defined and myproxy_signing_policy is defined
+    myproxycacerts_specified: "{{ (myproxycakey is defined and myproxycacert is defined and myproxy_signing_policy is defined)|bool }}"
 
 - name: Check if myproxyca certifcate variables are valid
   when: "'idp' in group_names and not (myproxycacerts_specified or (generate_myproxyca is defined and generate_myproxyca))"
