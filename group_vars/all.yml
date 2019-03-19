@@ -12,10 +12,10 @@ versions:
   stats_api: v1.0.9
   dashboard: v1.5.24
   dashboard_db: 0.0.3
-  node_manager: v1.0.4
-  node_manager_db: 0.1.6
+  node_manager: v1.0.5
+  node_manager_db: 0.1.7
   orp: v2.10.10
-  security: v2.8.10
+  security: v2.8.9
   security_db: 0.1.7
   idp: v2.8.8
 

@@ -1,0 +1,15 @@
+# This file is an example of what variables may be specified
+# for performing an upgrade on a date node.
+# See the sample myhost.my.org.yml file for all the details
+# of these variables and other important information.
+
+### Keys and Certificates
+
+### Keys and Certificates for Globus Services
+globushostcert: /path/on/node/to/globushostcert
+globushostkey: /path/on/node/to/globushostkey
+
+### Keys and Certificates for Web Services
+hostkey_src: /path/on/node/to/hostkey
+hostcert_src: /path/on/node/to/hostcert
+cachain_src: /path/on/node/to/cachain

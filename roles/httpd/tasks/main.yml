@@ -107,18 +107,21 @@
 - name: Copy web hostkey into place
   when: hostkey_src is defined
   copy:
+    remote_src: yes
     src: "{{ hostkey_src }}"
     dest: "{{ httpd.hostkey }}"
 
 - name: Copy web hostcert into place
   when: hostcert_src is defined
   copy:
+    remote_src: yes
     src: "{{ hostcert_src }}"
     dest: "{{ httpd.hostcert }}"
 
 - name: Copy web CA chain into place
   when: cachain_src is defined
   copy:
+    remote_src: yes
     src: "{{ cachain_src }}"
     dest: "{{ httpd.cachain }}"
 

@@ -1,6 +1,3 @@
-### All paths in this file are on the machine
-### on which Ansible itself will be run. That is,
-### they are on the 'control' machine.
 
 ### Admin password, specification required, see options
 ##
@@ -8,7 +5,7 @@
 ### for the services being installed on a node.
 ##
 ## The password priority goes like this:
-## 1. The contents of /esg/config/.esgf_pass on the Node.
+## 1. The contents of /esg/config/.esgf_pass on the Node, the managed machine.
 ##    Feel free to write this remote file manually if you would not like
 ##    to store the password in this host variable file.
 ##
@@ -20,49 +17,74 @@
 #admin_pass:
 
 ### Keys and Certificates
-# The priority for installing certs and keys goes like this:
-# 1. Whatever is specified in the host_vars file will be installed,
-#    whether or not the destination path is already present on the 
-#    managed machine.
-#
-# 2. If the files are already present on the managed machine and 
-#    nothing is specified in the host_vars file, the files that 
-#    are present will be checked for validity. If the certificate is
-#    found to be invalid, it will be removed and regenerated.
-#
-# 3. If no key and certificate files on the managed machine are
-#    present and nothing is specified in the host_vars file, self-signed,
-#    Ansible generated, certificates will be installed.
+# General options:
+# 1. Whatever is at the path that is specified in the host's
+#    variable file will be installed, whether or not the destination 
+#    path is already present on the managed machine.
+#    Paths specified are on the *managed* machine.
+#    Note that the path specifed here may also be the destination path, 
+#    but is is still required to be specified.
+# OR
+# 2. Ansible will generate the key certificate pair and install it
+#    if the corresponding generate_* variable is uncommented and set
+#    to true. See the below certificate sections.
 
 ### Keys and Certificates for Globus Services
 ##
-### The paths on the local machine to the respective 
+### The paths on the *managed* machine to the respective
 ### key/cert that have been signed by ESGF. If these
-### have not been obtained for a node, leave unspecified.
+### have not been obtained for a node, specify generate_*: true.
 ##
-### Leave unspecified and certificate signing requests for
-### valid certs will be generated in the HOME directory
-### of the root user.
-##
+### One of these two options must be sepcified for both globus
+### and myproxy (if applicable to this host).
+#
 #globushostcert:
 #globushostkey:
+# OR
+#generate_globus: true|false
+#
 #myproxycacert:
 #myproxycakey:
 #myproxy_signing_policy:
+# OR
+#generate_myproxyca: true|false
 
 ### Keys and Certificates for Web Services, httpd and tomcat
 ##
-### The paths on the local machine to the respective 
+### The paths on the *managed* machine to the respective 
 ### key/cert that have been signed by a commonly trusted 
-### certificate authority.
+### certificate authority. These are required to operate
+### a production ESGF Node. As an alternative to costly 
+### key/certificate pairs see the LetsEncrypt Section below.
 ##
-### Leave unspecified and temporary, or LetsEncrypt (see below), 
-### certificates will be generated.
+### For test cases it is okay to simply specify generate_httpd: true
+### Note this will not be valid for production and will not 
+### create browser trusted certificates.
+##
+### One of these three options must be sepcified.
 ##
 #hostkey_src:
 #hostcert_src:
 #cachain_src:
+# OR
+#See the LetsEncrypt Section below
+# OR
+#generate_httpd: true|false
 
+### LetsEncrypt Certificates for Web Services
+##
+### LetsEncrypt certificates are browser trusted certificates
+### that can be obtained in an automated fashion by proving
+### you control the domain. They are valid for a limited time, 
+### a few months, but can be easily renewed.
+### In order for this to work your host must be publicly
+### available at deployment time.
+### This variable has no effect if the above host key/cert/chain
+### variables for web services are specified.
+##
+### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
+##
+#try_letsencrypt: true|false
 
 
 ### Globus Services
@@ -109,22 +131,6 @@
 ## esg-dn2.nsc.liu.se
 ##
 #mirror_host: aims1.llnl.gov
-
-
-
-### LetsEncrypt Certificates for Web Services
-##
-### LetsEncrypt certificates are browser trusted certificates
-### that can be obtained in an automated fashion by proving
-### you control the domain.
-### In order for this to work your host must be publicly
-### available at deployment time.
-### This variable has no effect if the above host key/cert/chain
-### variables for web services are specified.
-##
-### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
-##
-#try_letsencrypt: true|false
 
 ### Prometheus Hosts and/or IPs
 ##

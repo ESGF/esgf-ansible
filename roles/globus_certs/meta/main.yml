@@ -3,7 +3,7 @@ dependencies:
   # This is the temporary, ownca-signed, certificate
   - {
       role: 'certificate',
-      when: globushostcert is not defined,
+      when: globushostcert is not defined and generate_globus is defined and generate_globus,
       dest_dir: "{{ grid_security.dir }}",
       key_dest: "{{ grid_security.host.key }}",
       csr_dest: "/tmp/globus.csr",
@@ -14,9 +14,18 @@ dependencies:
   # This is the to be signed CSR and Key generation
   - {
       role: 'certificate',
-      when: globushostcert is not defined,
+      when: globushostkey is not defined,
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ ansible_env.HOME }}/globushostkey.pem",
+      csr_dest: "{{ ansible_env.HOME }}/globushostcsr.csr",
+      common_name: "{{ ansible_fqdn }}",
+      csr: true
+    }
+  - {
+      role: 'certificate',
+      when: globushostkey is defined and new_csr is defined and new_csr,
+      dest_dir: "{{ ansible_env.HOME }}",
+      key_dest: "{{ globushostkey }}",
       csr_dest: "{{ ansible_env.HOME }}/globushostcsr.csr",
       common_name: "{{ ansible_fqdn }}",
       csr: true

@@ -13,30 +13,19 @@
     path: "{{ cert_dest }}"
   register: certpath
 
-# If present, check if valid
-- name: Check if {{ cert_dest }} is expired
+- name: Make a backup of {{ cert_dest }} to {{ cert_dest }}.{{ ansible_date_time.epoch }}
   when: cert_dest is defined and certpath.stat.exists
-  openssl_certificate:
-    path: "{{ cert_dest }}"
-    provider: assertonly
-    has_expired: false # Currently has no effect and is bugged in version 2.7.5/6 Issue #51267
-    valid_in: 1 # Use as a work around for bugged has_expired
-  ignore_errors: true
-  register: expired_check
-  vars:
-    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
+  copy:
+    remote_src: yes
+    src: "{{ cert_dest }}"
+    dest: "{{ cert_dest }}.{{ ansible_date_time.epoch }}"
 
-# If invalid, destroy
-- name: Destroy {{ cert_dest }} if it is invalid
-  when: cert_dest is defined and certpath.stat.exists and expired_check.failed
+- name: Move certificate
+  when: cert_dest is defined and certpath.stat.exists
   file:
     path: "{{ cert_dest }}"
     state: absent
-  register: cert_destroyed
 
 # Use this python interpreter to generate key/csr and optionally self-sign
-# Only do IF the cert is not present or it was destroyed beacause it was invalid
-# Other wise it is assumed to be valid and should be there.
 - name: "{{ common_name }} Certificate Tasks"
   import_tasks: cert.yml
-  when: (cert_dest is not defined) or (certpath is defined and not certpath.stat.exists) or (cert_destroyed is defined and cert_destroyed is changed)

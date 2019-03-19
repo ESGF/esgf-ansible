@@ -88,6 +88,14 @@
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
+# Set this as root is user on Cent OS 6
+- name: Set CentOS 6 MyProxy permissions
+  when: is_6
+  file:
+    path: "{{ myproxy.ca.dir }}/store"
+    owner: root
+    recurse: yes
+
 # Open the MyProxy port on CentOS 7
 - name: Configure firewalld for MyProxy
   when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)

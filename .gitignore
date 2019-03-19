@@ -4,3 +4,4 @@
 docs/build
 host_vars/*
 !host_vars/myhost.my.org.yml
+!host_vars/sample*

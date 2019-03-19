@@ -13,6 +13,12 @@
         - include_role:
             name: passwd
       tags: always
+  
+    - name: Verify variables
+      block:
+        - include_role:
+            name: verify
+      tags: always
 
     - name: Base
       block:

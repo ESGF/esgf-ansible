@@ -30,6 +30,7 @@
     mode: 0640
     owner: root
     group: tomcat
+    force: no
   loop:
     - ".esgf_pass"
     - ".esg_keystore_pass"
