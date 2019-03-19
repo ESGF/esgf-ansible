@@ -4,6 +4,7 @@
     repo: "{{ esg.config.repo }}"
     version: "{{ esg.config.version }}"
     dest: /tmp/esgf-config
+    force: yes
 
 - name: Copy ESGF config files into place
   copy:
