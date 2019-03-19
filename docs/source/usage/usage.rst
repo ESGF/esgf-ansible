@@ -40,6 +40,9 @@ Although not discussed in this guide, the ``ansible`` command line tool can be u
 
 It is recommended that users use the verbose flag ``-v[v...]``, where each additional ``v`` adds more output.
 
+.. warning::
+    The ``--check`` and ``--diff`` flags will do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.
+
 SSH Authentication
 ******************
 SSH authentication is not required for local deployments, where the control and managed machine are the same host. 
