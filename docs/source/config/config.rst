@@ -1,8 +1,10 @@
 Configuration
 =============
 
-Inventory File
---------------
+There are two types of files a user is responsible for making, Inventory Files and Host Variable Files.
+
+Inventory Files
+---------------
 
 This file serves a simple, yet critical, role in the deployment process.
 
@@ -39,8 +41,8 @@ Regardless of Node type (data-only, index/idp, all, etc.) all three groups, ``da
 In the case of data-only this means another site's index/idp host(s) must be assigned to their respective group.
 
 
-Host Variable File
-------------------
+Host Variable Files
+-------------------
 
 The host variable file provides an interface that allows users to easily configure their deployment for a given host.
 

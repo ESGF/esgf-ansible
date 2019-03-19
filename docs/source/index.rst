@@ -14,6 +14,7 @@ Welcome to ESGF-Ansible's documentation!
    setup/setup.rst
    config/config.rst
    usage/usage.rst
+   whatsnew/whatsnew.rst
    faq/faq.rst
 
 Indices and tables
