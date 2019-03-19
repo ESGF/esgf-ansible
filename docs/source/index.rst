@@ -7,11 +7,12 @@ Welcome to ESGF-Ansible's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Contents:
 
    intro/intro.rst
    setup/setup.rst
+   config/config.rst
    usage/usage.rst
    faq/faq.rst
 

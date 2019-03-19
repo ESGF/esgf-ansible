@@ -17,16 +17,17 @@
 #admin_pass:
 
 ### Keys and Certificates
-# 1. Whatever is specified in this host_vars file will be installed,
-#    whether or not the destination path is already present on the 
-#    managed machine.
+# General options:
+# 1. Whatever is at the path that is specified in the host's
+#    variable file will be installed, whether or not the destination 
+#    path is already present on the managed machine.
 #    Paths specified are on the *managed* machine.
+#    Note that the path specifed here may also be the destination path, 
+#    but is is still required to be specified.
 # OR
 # 2. Ansible will generate the key certificate pair and install it
 #    if the corresponding generate_* variable is uncommented and set
-#    to true. See below certificate sections.
-#
-# *One of these two modes is required to be specified to work reliably*
+#    to true. See the below certificate sections.
 
 ### Keys and Certificates for Globus Services
 ##
@@ -34,6 +35,8 @@
 ### key/cert that have been signed by ESGF. If these
 ### have not been obtained for a node, specify generate_*: true.
 ##
+### One of these two options must be sepcified for both globus
+### and myproxy (if applicable to this host).
 #
 #globushostcert:
 #globushostkey:
@@ -58,6 +61,7 @@
 ### Note this will not be valid for production and will not 
 ### create browser trusted certificates.
 ##
+### One of these three options must be sepcified.
 ##
 #hostkey_src:
 #hostcert_src:
