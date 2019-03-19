@@ -43,4 +43,4 @@ See the host variables directory, `host_vars <https://github.com/ESGF/esgf-ansib
 that best describes the desired use case.
 Also see the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/host_vars/myhost.my.org.yml>`_ for a comprehensive overview.
 Advanced users may want to make configuration choices beyond what is provided in the host variable file
-, see the `FAQ section <../faq/faq.html>`_ for more information on this.
+, see the `Contributing Guide <https://github.com/ESGF/esgf-ansible#advice-and-contributing>`_ for more information on this.
