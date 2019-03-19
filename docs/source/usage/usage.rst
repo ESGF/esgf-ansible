@@ -4,7 +4,7 @@ Quick Configuration
 -------------------
 There are two types of files a user is responsible for making, Inventory Files and Host Variable Files.
 
-More comprehensive information and advice can be found in the `Config <../config/config.html>` section.
+More comprehensive information and advice can be found in the `Config <../config/config.html>`_ section.
 
 Inventory Files
 ***************
@@ -22,7 +22,7 @@ It is automatically detected for each managed machine and must be named ``host_v
 
 See the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/host_vars/myhost.my.org.yml>`_ for more information.
 
-Also, see the other sample files in `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/host_vars`_, and find the sample file
+Also, see the other sample files in `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/host_vars>`_, and find the sample file
 that best describes the desired use case.
 
 Examples
