@@ -32,14 +32,14 @@ It is often most convenient to use your usual work station machine that has SSH 
 
 A local deployment means that the Setup steps are performed on a machine that is to be an ESGF Node.
 
-Which ever is chosen there are a few required variables to be present in each hosts' variable file
-
 Node Type
 *********
 
 Regardless of Node type (data-only, index/idp, all, etc.) all three groups, ``data``, ``idp`` and ``index``, must have a host assigned to them.
 In the case of data-only this means another site's index/idp host(s) must be assigned to their respective group.
 
+
+See the sample inventory file, `sample.hosts <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/sample.hosts>`_ for more information regarding inventory files.
 
 Host Variable Files
 -------------------
