@@ -51,15 +51,12 @@ Users may set the following, applicable, variable and ESGF-Ansible will take ste
 
 The required open ports for each node type are as follows, for the default configuration
 
-Data Node
-
-- 80
-- 443
-- 50000:51000
-- 2811
-
-Index/IDP Node
-
-- 80
-- 443
-- 7512
++---------+----------------------------+
+| Type    | Ports                      |
++=========+============================+
+| Data    | 80, 443, 50000:51000, 2811 |
++---------+----------------------------+
+| IDP     | 80, 443, 7512              |
++---------+----------------------------+
+| Index   | 80, 443                    |
++---------+----------------------------+
