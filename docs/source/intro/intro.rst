@@ -42,14 +42,14 @@ See the `Web Certificate Section <../usage/usage.html#web-certificate-installati
 Firewall
 --------
 
-By default the firewall for a machine will not be configured.
+By default the firewall for a machine will **not** be configured.
 Users may set the following, applicable, variable and ESGF-Ansible will take steps to configure the firewall::
 
     configure_centos6_iptables: true
     # or
     configure_centos7_firewalld: true
 
-The required open ports for each node type are as follows, for the default configuration
+The required open ports for each node type are as follows, for the default configuration:
 
 +---------+----------------------------+
 | Type    | Ports                      |
