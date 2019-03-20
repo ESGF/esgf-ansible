@@ -38,6 +38,7 @@ Host Variable Files
 -------------------
 
 The host variable file provides an interface that allows users to configure common options for their deployments.
+It is automatically detected for each managed machine and must be named ``host_vars/[hostname].yml`` where ``[hostname]`` is the hostname of each managed machine.
 Options regarding certificates and keys for various services require the most attention as certain requirements have been placed on these variables.
 See the host variables directory, `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.0-beta2/host_vars>`_, and find the sample file
 that best describes the desired use case.

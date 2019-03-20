@@ -140,8 +140,8 @@ Local Certificate Installation
 Globus certificates, aka 'local certs', for Globus services are retrieved as part of the post-install process. 
 These certifcates allow the site to register their GridFTP and/or MyProxy servers with Globus. 
 They also establish trust for these services within ESGF.  
-If not specified in the host's variable file, 
-the deployment will place a private key and a certificate signing request (CSR) for these services in the home directory of the root user on the node. 
+If not specified in the host's variable file and ``generate_globus`` or ``generate_myproxyca`` are specfied,
+the deployment will place a private key and a certificate signing request (CSR) for that service in the home directory of the root user on the node. 
 The certifcates are obtained by emailing the CSR (do not email the private key) to the addresses in `esgf-globus-ca.yml <https://github.com/ESGF/esgf-ansible/blob/master/esgf-globus-ca.yml>`_. 
 Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the local_certs.yml playbook. ::
 
