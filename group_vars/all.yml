@@ -10,8 +10,8 @@ versions:
   java: jdk1.8.0_192
   search: v4.17.9
   stats_api: v1.0.9
-  dashboard: v1.5.24
-  dashboard_db: 0.0.3
+  dashboard: v1.5.25
+  dashboard_db: 0.0.4
   node_manager: v1.0.5
   node_manager_db: 0.1.7
   orp: v2.10.10

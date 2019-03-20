@@ -11,5 +11,4 @@
     creates: "{{ conda.envs }}/{{ schema_migrate.env }}"
 
 - name: Install and execute schema migration
-  when: schema_download is changed
   import_tasks: install.yml
