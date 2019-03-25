@@ -27,7 +27,7 @@ that best describes the desired use case.
 
 Examples
 --------
-This section assumes the information in above is understood and the required files have been created.
+This section assumes the configuration information is understood and the required files have been created.
 
 These examples are **not** presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. 
 That being said, the *information* presented in earlier examples is requisite for later examples.
@@ -46,7 +46,7 @@ Although not discussed in this guide, the ``ansible`` command line tool can be u
 It is recommended that users use the verbose flag ``-v[v...]``, where each additional ``v`` adds more output.
 
 .. warning::
-    The ``--check`` and ``--diff`` flags will do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.
+    The ``--check`` and ``--diff`` flags do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.
 
 SSH Authentication
 ******************
@@ -130,7 +130,7 @@ Multiple playbooks may be specfified and are executed in the order specified. Fo
     ansible-playbook -v -i hosts.test stop.yml start.yml --tags "cog, slcs, myproxy"
 
 
-To start or stop a data-only node use `--limit [data node hostname]`. Only the common tags and those associated with data nodes will have an effect. ::
+To start or stop a data-only node use ``--limit [data node hostname]``. Only the common tags and those associated with data nodes will have an effect. ::
 
     ansible-playbook -v -i hosts.test --limit host-data.my.org start.yml [ --tags [start tags] ]
     ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags [stop tags] ]
@@ -154,7 +154,7 @@ or, for data-only::
 
 Web Certificate Installation
 ****************************
-Certificates for web services may be installed independent from the primary installation process via the web_certs.yml playbook. 
+Certificates for web services may be installed independent from the primary installation process via the ``web_certs.yml`` playbook. 
 See the sample host variable file to see how to specify what certifcate/key/cachain to install. 
 This can be used to try to setup LetsEncrypt certificates as well. 
 See the ``try_letsencrypt`` variable in the sample host variable file for more information. ::

@@ -22,8 +22,9 @@ Info
 ----
 - A new tag, ``publisher``, has been added to the ``install.yml`` playbook to easily repeat the esg-publisher setup steps in the event of failure
 - No longer managing SELinux state
-- Not deploying monitoring software if neither of the ``prometheus_*`` variables are specified
+- New sample files within the ``host_vars/`` directory
 - If setting up ``firewalld`` on CentOS 7, and it was not previously installed and enabled, a reboot will be required after installing and enabling
+- Not deploying monitoring software if neither of the ``prometheus_*`` variables are specified
 
 A number of reported bugs have been resolved and fragile setup steps were made more resilient.
 

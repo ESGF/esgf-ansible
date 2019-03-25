@@ -22,4 +22,4 @@ Some tasks can take several minutes to complete. Make sure the verbose flag is s
 This second case could be things such as bad SSH authentication, a temporary network issue, an issue with the machine being deployed to, 
 or a variable improperly specified in the host variables file. 
 In this second case, attempt to determine and resolve the error, then start the deployment again. 
-If it is confidently determined be the first case, please `submit an issue <https://github.com/ESGF/esgf-ansible/issues/new>`_ to this repository.
+If it is confidently determined be the first case, please `submit an issue <https://github.com/ESGF/esgf-ansible/issues/new/choose>`_ to this repository.
