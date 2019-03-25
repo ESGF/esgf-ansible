@@ -49,7 +49,7 @@ Users may set the following, applicable, variable and ESGF-Ansible will take ste
     # or
     configure_centos7_firewalld: true
 
-See the `Host Variables Configuration Section <../config/config.html#host-variable-files`_ for links to info about these variables.
+See the `Host Variables Configuration Section <../config/config.html#host-variable-files>`_ for links to info about these variables.
 
 The required open ports for each node type are as follows, for the default configuration:
 
