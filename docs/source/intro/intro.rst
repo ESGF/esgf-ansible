@@ -8,7 +8,7 @@ Ansible runs from a *control* machine and deploys the configuration to *managed*
 For all the details and features of Ansible see the `Ansible Docs <https://docs.ansible.com/>`_.
 
 .. warning::
-    ESGF-Ansible is completely seperate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatable with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.
+    ESGF-Ansible is completely seperate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.
 
 Requirements
 ============
@@ -36,7 +36,7 @@ SSL Certificates
 ----------------
 
 To anyone new to ESGF and/or Web-based service deployments, running services in HTTPS is *a must*, 
-and this requires SSL certificates recoginized by current browsers and other http(s) clients, eg. ``wget``, ``curl``, Python ``requests``.  
+and this requires SSL certificates recognized by current browsers and other http(s) clients, eg. ``wget``, ``curl``, Python ``requests``.  
 If you haven't already, please check with your organization to see if you already purchase certificates from vendor.  
 If so, purchase one for your targeted ESGF Node server.  If not, free certificates can be obtained from ``LetsEncrypt``.  
 See the `Web Certificate Section <../usage/usage.html#web-certificate-installation>`_ within this site for more information.

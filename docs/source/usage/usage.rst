@@ -118,14 +118,14 @@ These tags can also be used in any combination in ``--skip-tags``.
 
 By default, if no start tags are specified, all services will be started. 
 The services ``httpd``, ``postgres`` and ``monitoring`` will always be started, unless specified via ``--skip-tags``. 
-If no stop tags are specfied, all services, **except** ``httpd``, ``postgres`` and ``monitoring``, will be stopped. 
+If no stop tags are specified, all services, **except** ``httpd``, ``postgres`` and ``monitoring``, will be stopped. 
 The services ``httpd``, ``postgres`` and ``monitoring`` will only be stopped if their respective tag is specified via ``--tags``. ::
 
     ansible-playbook -v -i hosts.test start.yml [ --tags [start tags] ]
     ansible-playbook -v -i hosts.test stop.yml [ --tags [stop tags] ]
 
 
-Multiple playbooks may be specfified and are executed in the order specified. For example, to restart ``cog``, ``slcs`` and ``myproxy`` ::
+Multiple playbooks may be specified and are executed in the order specified. For example, to restart ``cog``, ``slcs`` and ``myproxy`` ::
 
     ansible-playbook -v -i hosts.test stop.yml start.yml --tags "cog, slcs, myproxy"
 
