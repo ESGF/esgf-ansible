@@ -21,7 +21,6 @@
     remote_src: yes
     src: "{{ assets.base }}/esg_trusted_certificates.tar"
     dest: /tmp
-    creates: /tmp/esg_trusted_certificates
 
 - name: Install trusted certificates for Globus
   shell: >
