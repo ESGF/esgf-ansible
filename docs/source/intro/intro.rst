@@ -13,7 +13,10 @@ For all the details and features of Ansible see the `Ansible Docs <https://docs.
 Requirements
 ============
 
-Here is a summary of the requirements,
+System
+------
+
+Here is a summary of the system requirements,
 see `Ansible Installation <https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>`_ for more information.
 
 +---------+-------------------------+-----------------------------------+
