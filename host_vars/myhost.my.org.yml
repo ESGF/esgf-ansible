@@ -90,7 +90,8 @@
 ### Globus Services
 ##
 ### This information is used to connect the node
-### to the Globus system. 
+### to the Globus system. Note globus_user should
+### *not* include the "@globusid.org" portion.
 ##
 ### Leave unspecified and the Globus Connect Server 
 ### setup steps will be skipped.
