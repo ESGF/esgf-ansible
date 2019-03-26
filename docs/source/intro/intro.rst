@@ -2,7 +2,7 @@ Introduction
 ============
 
     The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions.
-    Many ESGF Nodes have been managed this way for many years and each machine is truly in its own unique state.
+    ESGF Nodes have been managed this way for many years and each machine is truly in its own unique state.
     The developers of this tool have taken much into consideration to ensure that it performs as reliably as possible with the information and resources available to us.
     We rely on users to provide feedback and help us understand their cases so that we can continue to improve this tool.
     
