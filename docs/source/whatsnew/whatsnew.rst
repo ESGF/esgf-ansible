@@ -1,11 +1,10 @@
 Releases
 ========
 
-This page contains infomation of what is added or changed with each new release.
-All items described in a release are relative to the previous release.
+This page contains infomation about what is added or changed with each new release.
 The Critical section outlines any items the are highly likely to require changes from users.
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
-
+All items described within a release are relative to the previous release.
 
 4.0.0-beta2
 ***********
