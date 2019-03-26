@@ -56,9 +56,9 @@
     esgsetup --db --minimal-setup \
     --db-name {{ all_db.db }} \
     --db-admin {{ all_db.users.super.name }} \
-    --db-admin-password {{ all_db.users.super.pass }} \
+    --db-admin-password "{{ all_db.users.super.pass }}" \
     --db-user {{ data_db.users.pub.name }} \
-    --db-user-password {{ data_db.users.pub.pass }} \
+    --db-user-password "{{ data_db.users.pub.pass }}" \
     --db-host {{ all_db.host }} \
     --db-port {{ all_db.port }}
   environment:
@@ -83,7 +83,7 @@
     {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup \
     --thredds --publish --gateway {{ groups['index'][0] }} \
-    --thredds-password {{ admin_pass }}
+    --thredds-password "{{ admin_pass }}"
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
