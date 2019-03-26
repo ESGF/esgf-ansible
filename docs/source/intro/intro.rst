@@ -13,5 +13,7 @@ Ansible runs from a *control* machine and deploys the configuration to *managed*
 
 For all the details and features of Ansible see the `Ansible Docs <https://docs.ansible.com/>`_.
 
+If you have upgraded to a new version of ESGF-Ansible be sure to `check out what's new <../whatsnew/whatsnew.html>`_.
+
 .. warning::
     ESGF-Ansible is completely seperate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.
