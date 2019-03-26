@@ -1,8 +1,14 @@
 Introduction
 ============
-The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions. 
-This repository holds files which are used by the popular automated system configuration tool `Ansible <https://www.ansible.com/>`_ that will perform the ESGF Node deployment.
 
+    The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions.
+    Many ESGF Nodes have been managed this way for many years and each machine is truly in its own unique state.
+    The developers of this tool have taken much into consideration to ensure that it performs as reliably as possible with the information and resources available to us.
+    We rely on users to provide feedback and help us understand their cases so that we can continue to improve this tool.
+    
+    Thank you for your participation.
+
+This tool is a collection of files which are used by the popular automated system configuration tool `Ansible <https://www.ansible.com/>`_ that will perform the ESGF Node deployment.
 Ansible runs from a *control* machine and deploys the configuration to *managed* machines via SSH.
 
 For all the details and features of Ansible see the `Ansible Docs <https://docs.ansible.com/>`_.
@@ -37,8 +43,8 @@ SSL Certificates
 
 To anyone new to ESGF and/or Web-based service deployments, running services in HTTPS is *a must*, 
 and this requires SSL certificates recognized by current browsers and other http(s) clients, eg. ``wget``, ``curl``, Python ``requests``.  
-If you haven't already, please check with your organization to see if you already purchase certificates from vendor.  
-If so, purchase one for your targeted ESGF Node server.  If not, free certificates can be obtained from ``LetsEncrypt``.  
+If you haven't already, please check with your organization to see if you have already purchased certificates from a vendor.  
+If not, purchase one for your targeted ESGF Node server. Free certificates can be obtained from ``LetsEncrypt``.  
 See the `Web Certificate Section <../usage/usage.html#web-certificate-installation>`_ within this site for more information.
 
 
