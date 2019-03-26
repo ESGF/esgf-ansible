@@ -16,4 +16,4 @@
   register: conda_install
 
 - name: Get latest 4.6 Conda
-  command: "{{ conda.exe }} install -y -n base -c defaults 'conda<4.7'"
+  command: "{{ conda.exe }} install -y -c defaults 'conda<4.7'"
