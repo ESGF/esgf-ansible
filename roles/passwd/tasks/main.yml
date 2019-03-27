@@ -17,6 +17,8 @@
     admin_pass: "{{ (pass_file['content'] | b64decode).strip() }}"
   no_log: true
 
-- name: Prompt for admin pass
+# Admin pass check
+- name: Check for admin_pass
   when: admin_pass is not defined
-  include_tasks: get.yml
+  fail:
+    msg: "No admin password found or specified. See the sample variable file for more information."

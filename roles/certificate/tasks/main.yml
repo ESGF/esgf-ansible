@@ -6,8 +6,26 @@
   args:
     creates: "{{ conda.envs }}/cert-gen"
 
+# Check for present certificate
+- name: Check if {{ cert_dest }} exists
+  when: cert_dest is defined
+  stat:
+    path: "{{ cert_dest }}"
+  register: certpath
+
+- name: Make a backup of {{ cert_dest }} to {{ cert_dest }}.{{ ansible_date_time.epoch }}
+  when: cert_dest is defined and certpath.stat.exists
+  copy:
+    remote_src: yes
+    src: "{{ cert_dest }}"
+    dest: "{{ cert_dest }}.{{ ansible_date_time.epoch }}"
+
+- name: Move certificate
+  when: cert_dest is defined and certpath.stat.exists
+  file:
+    path: "{{ cert_dest }}"
+    state: absent
+
 # Use this python interpreter to generate key/csr and optionally self-sign
 - name: "{{ common_name }} Certificate Tasks"
   import_tasks: cert.yml
-  vars:
-    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"

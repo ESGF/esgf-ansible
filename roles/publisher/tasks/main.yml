@@ -1,0 +1,114 @@
+
+- name: Install publisher required libraries
+  package:
+    name:
+      - libxml2
+      - libxml2-devel
+      - libxslt
+      - libxslt-devel
+      - gcc
+
+- name: Check the state of the esgf-pub environment
+  shell: "{{ conda.exe }} list -c -n esgf-pub | grep -E 'defaults|conda-forge'"
+  register: env_check
+  failed_when: "env_check.rc != 0 and 'EnvironmentLocationNotFound' not in env_check.stderr"
+
+# This resolves the problem of a postgresql installation *in* the esgf-pub environment
+- name: Remove esgf-pub env if it is in a bad state
+  when: '"psycopg" in env_check.stdout'
+  command: "{{ conda.exe }} env remove -n esgf-pub -y"
+
+- name: Install environment.yml file
+  copy:
+    src: environment.yml
+    dest: /tmp/esgf-pub.yml
+
+- name: Create esgf-pub if it does not exist
+  command: "{{ conda.exe }} env update -n esgf-pub -f=/tmp/esgf-pub.yml --prune"
+
+# Perform esgsetup steps
+- name: Run esgsetup for config files
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --config --minimal-setup --rootid {{ ansible_fqdn.split('.', 1)[-1] }}
+  args:
+    creates: "{{ esg.config.dir }}/esgcet/esg.ini"
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Insert publisher password into esg.ini
+  no_log: true
+  replace:
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
+    regexp: 'esgcetpass'
+    replace: "{{ admin_pass }}"
+
+- name: Insert publisher host into esg.ini
+  replace:
+    path: "{{ esg.config.dir }}/esgcet/esg.ini"
+    regexp: 'host.sample.gov'
+    replace: '{{ ansible_fqdn }}'
+
+- name: Run esgsetup for the database
+  no_log: true
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --db --minimal-setup \
+    --db-name {{ all_db.db }} \
+    --db-admin {{ all_db.users.super.name }} \
+    --db-admin-password "{{ all_db.users.super.pass }}" \
+    --db-user {{ data_db.users.pub.name }} \
+    --db-user-password "{{ data_db.users.pub.pass }}" \
+    --db-host {{ all_db.host }} \
+    --db-port {{ all_db.port }}
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Run esginitialize
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esginitialize -c
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Create test publication data directory
+  file:
+    path: /esg/data/test
+    state: directory
+
+# Configure publisher with thredds
+- name: Run esgsetup for thredds
+  no_log: true
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgsetup --config --minimal-setup \
+    --thredds --publish --gateway {{ groups['index'][0] }} \
+    --thredds-password "{{ admin_pass }}"
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
+- name: Retrieve info about what datasets to mount
+  fetch:
+    src: "{{ esg.config.dir }}/esgcet/esg.ini"
+    dest: /tmp/
+    flat: yes
+
+- name: Read datasets from esg.ini
+  set_fact:
+    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
+
+- name: Remove fetched esg.ini file
+  become: false
+  local_action:
+    module: file
+    path: /tmp/esg.ini
+    state: absent
+
+- name: Mount the dataset root directories into the chroot GridFTP
+  mount:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    src: "{{ item.split('|')[1].strip() }}"
+    opts: rw,bind
+    fstype: gpfs
+    state: mounted
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"

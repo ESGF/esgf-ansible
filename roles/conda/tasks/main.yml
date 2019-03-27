@@ -4,12 +4,16 @@
     name:
       - bzip2
 
-- name: Download miniconda2 installer
+- name: Download miniconda3 installer
   get_url:
-    url: https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
-    dest: /tmp/Miniconda2-latest-Linux-x86_64.sh
+    url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    dest: /tmp/Miniconda3-latest-Linux-x86_64.sh
 
-- name: Run miniconda2 installer
-  command: "bash /tmp/Miniconda2-latest-Linux-x86_64.sh -b -p {{ conda.prefix }}"
+- name: Run miniconda3 installer
+  command: "bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b -p {{ conda.prefix }}"
   args:
     creates: "{{ conda.prefix }}"
+  register: conda_install
+
+- name: Get latest 4.6 Conda
+  command: "{{ conda.exe }} install -y -c defaults 'conda<4.7'"

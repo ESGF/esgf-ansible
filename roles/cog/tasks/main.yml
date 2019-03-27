@@ -24,7 +24,6 @@
   register: cog_env
 
 - name: Install CoG Requirments
-  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
@@ -33,7 +32,6 @@
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/mod_wsgi*"
 
 - name: Install CoG into conda env
-  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python setup.py --quiet install
@@ -42,7 +40,6 @@
     creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
 - name: Setup CoG
-  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python setup.py setup_cog --esgf=true
@@ -50,7 +47,6 @@
     chdir: "{{ cog.dest }}"
 
 - name: CoG collectstatic
-  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     python manage.py collectstatic --no-input
@@ -58,7 +54,6 @@
     chdir: "{{ cog.dest }}"
 
 - name: Setup CoG mod_wsgi-express server
-  when: cog_env is changed or cog_clone is changed
   shell: >
     {{ conda.actv }} cog && \
     mod_wsgi-express setup-server apache/wsgi.py \

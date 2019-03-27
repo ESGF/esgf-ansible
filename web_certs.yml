@@ -8,7 +8,13 @@
         - include_role:
             name: passwd
       tags: always
-      when: admin_pass is not defined
+    
+    - name: Verify variables
+      block:
+        - include_role:
+            name: verify
+      tags: always
+
     - include_role:
         name: httpd
     - include_role:

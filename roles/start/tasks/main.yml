@@ -17,6 +17,8 @@
     - always
 
 - name: start monitoring
+  no_log: true
+  when: prometheus_hosts is defined or prometheus_ips is defined
   command: "service {{ exporter.name }} start"
   args:
     warn: no
@@ -73,7 +75,7 @@
   when: "'index' in group_names"
   become: yes
   become_user: solr
-  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }}"
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }} -Ddisable.configEdit=true"
   loop: "{{ existing_shards }}"
   register: result
   changed_when: '"Port {{ shard.port }} is already being used" not in result.stdout'

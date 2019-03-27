@@ -1,6 +1,124 @@
-### All paths in this file are on the machine
-### on which Ansible itself will be run. That is,
-### they are on the 'control' machine.
+
+### Admin password, specification required, see options
+##
+### An admin password, at least 6 characters, is required and will be used
+### for the services being installed on a node.
+##
+## The password priority goes like this:
+## 1. The contents of /esg/config/.esgf_pass on the Node, the managed machine.
+##    Feel free to write this remote file manually if you would not like
+##    to store the password in this host variable file.
+##
+## 2. The 'admin_pass' variable below. Note Ansible supports encrypting 
+##    variable files, using Vault:
+##    https://docs.ansible.com/ansible/latest/user_guide/vault.html
+##
+## *The password must be specified in at least one of the above two places*
+#admin_pass:
+
+### Keys and Certificates
+# General options:
+# 1. Whatever is at the path that is specified in the host's
+#    variable file will be installed, whether or not the destination 
+#    path is already present on the managed machine.
+#    Paths specified are on the *managed* machine.
+#    Note that the path specifed here may also be the destination path, 
+#    but is is still required to be specified.
+# OR
+# 2. Ansible will generate the key certificate pair and install it
+#    if the corresponding generate_* variable is uncommented and set
+#    to true. See the below certificate sections.
+
+### Keys and Certificates for Globus Services
+##
+### The paths on the *managed* machine to the respective
+### key/cert that have been signed by ESGF. If these
+### have not been obtained for a node, specify generate_*: true.
+##
+### One of these two options must be sepcified for both globus
+### and myproxy (if applicable to this host).
+#
+#globushostcert:
+#globushostkey:
+# OR
+#generate_globus: true|false
+#
+#myproxycacert:
+#myproxycakey:
+#myproxy_signing_policy:
+# OR
+#generate_myproxyca: true|false
+
+### Keys and Certificates for Web Services, httpd and tomcat
+##
+### The paths on the *managed* machine to the respective 
+### key/cert that have been signed by a commonly trusted 
+### certificate authority. These are required to operate
+### a production ESGF Node. As an alternative to costly 
+### key/certificate pairs see the LetsEncrypt Section below.
+##
+### For test cases it is okay to simply specify generate_httpd: true
+### Note this will not be valid for production and will not 
+### create browser trusted certificates.
+##
+### One of these three options must be sepcified.
+##
+#hostkey_src:
+#hostcert_src:
+#cachain_src:
+# OR
+#See the LetsEncrypt Section below
+# OR
+#generate_httpd: true|false
+
+### LetsEncrypt Certificates for Web Services
+##
+### LetsEncrypt certificates are browser trusted certificates
+### that can be obtained in an automated fashion by proving
+### you control the domain. They are valid for a limited time, 
+### a few months, but can be easily renewed.
+### In order for this to work your host must be publicly
+### available at deployment time.
+### This variable has no effect if the above host key/cert/chain
+### variables for web services are specified.
+##
+### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
+##
+#try_letsencrypt: true|false
+
+
+### Globus Services
+##
+### This information is used to connect the node
+### to the Globus system. Note globus_user should
+### *not* include the "@globusid.org" portion.
+##
+### Leave unspecified and the Globus Connect Server 
+### setup steps will be skipped.
+##
+#globus_user:
+#globus_pass:
+#register_gridftp: true|false
+#register_myproxy: true|false
+
+
+
+### iptables and firewalld
+##
+### iptables and firewalld are tools that controls the Linux kernel's packet firewall.
+### Many sites will likely wish to manage this on their own. If you are
+### not familiar with this tool and would like this deployment to
+### takes steps to configure the iptables for you on CentOS 6 then
+### uncomment the below variable and set it to true. Otherwise your
+### site will be responsible for ensuring the proper ports are open.
+##
+### By default, iptables WILL NOT be configured on CentOS 6, set to true to change this behavior
+### By default, firewalld WILL NOT be configured on CentOS 7, set to true to change this behavior
+##
+#configure_centos6_iptables: true|false
+#configure_centos7_firewalld: true|false
+
+
 
 ### Mirror Host
 ##
@@ -17,104 +135,20 @@
 
 ### Prometheus Hosts and/or IPs
 ##
-### This deployment deploys Prometheus exporters. These
-### exporters report information and metrics about the node
+### This deployment deploys Prometheus exporters if either of
+### the below variables are specified.
+##
+### These exporters report information and metrics about the node
 ### to a Prometheus server. The Prometheus server(s) must be
 ### specified so that it can be trusted to communicate with
 ### the exporters. Place your own Prometheus server here if
 ### applicable. This trust is at the webserver level.
 ##
 ### Information will not be collected until your host is added
-### to the Prometheus server's target list. Remove the following
-### lines if you would not like to participate in this, in which
-### case only localhost will be trusted to access the exporters'
-### information.
+### to the Prometheus server's target list. Uncomment and populate
+### the following lines if you would like to participate in this.
 ##
-prometheus_hosts:
-  - aims1.llnl.gov
+#prometheus_hosts:
+#  - aims1.llnl.gov
 #prometheus_ips:
 #  - 10 # Trust your whole internal network
-
-### Globus Services
-##
-### This information is used to connect the node
-### to the Globus system. 
-##
-### Leave unspecified and the Globus Connect Server 
-### setup steps will be skipped.
-##
-#globus_user:
-#globus_pass:
-#register_gridftp: true|false
-#register_myproxy: true|false
-
-### Keys and Certificates
-# The priority for installing certs and keys goes like this:
-# 1. Whatever is specified in the host_vars file will be installed,
-#    whether or not the destination path is already present on the 
-#    managed machine.
-#
-# 2. If the files are already present on the managed machine and 
-#    nothing is specified in the host_vars file, the files that 
-#    are present will be checked for validity. If the certificate is
-#    found to be invalid, it will be removed and regenerated.
-#
-# 3. If no key and certificate files on the managed machine are
-#    present and nothing is specified in the host_vars file, self-signed,
-#    Ansible generated, certificates will be installed.
-
-### Keys and Certificates for Globus Services
-##
-### The paths on the local machine to the respective 
-### key/cert that have been signed by ESGF. If these
-### have not been obtained for a node, leave unspecified.
-##
-### Leave unspecified and certificate signing requests for
-### valid certs will be generated in the HOME directory
-### of the root user.
-##
-#gftphostcert:
-#gftphostkey:
-#myproxycacert:
-#myproxycakey:
-#myproxy_signing_policy:
-
-### Keys and Certificates for Web Services, httpd and tomcat
-##
-### The paths on the local machine to the respective 
-### key/cert that have been signed by a commonly trusted 
-### certificate authority.
-##
-### Leave unspecified and temporary, or LetsEncrypt (see below), 
-### certificates will be generated.
-##
-#hostkey_src:
-#hostcert_src:
-#cachain_src:
-
-### LetsEncrypt Certificates for Web Services
-##
-### LetsEncrypt certificates are browser trusted certificates
-### that can be obtained in an automated fashion by proving
-### you control the domain.
-### In order for this to work your host must be publicly
-### available at deployment time.
-### This variable has no effect if the above host key/cert/chain
-### variables for web services are specified.
-##
-### Leave unspecified to not attempt to retrieve LetsEncrypt certs.
-##
-#try_letsencrypt: true|false
-
-### CentOS 6 iptables
-##
-### iptables is a tool that controls the Linux kernel's packet firewall.
-### Many sites will likely wish to manage this on their own. If you are
-### not familiar with this tool and would like this deployment to
-### takes steps to configure the iptables for you on CentOS 6 then
-### uncomment the below variable and set it to true. Otherwise your
-### site will be responsible for ensuring the proper ports are open.
-##
-### Leave unspecified to manage iptables on CentOS 6 yourself.
-##
-#configure_centos6_iptables: true|false

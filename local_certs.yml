@@ -8,7 +8,12 @@
         - include_role:
             name: passwd
       tags: always
-      when: admin_pass is not defined
+
+    - name: Verify variables
+      block:
+        - include_role:
+            name: verify
+      tags: always
 
     # Install Certs
     - name: Install Globus Identity key/cert

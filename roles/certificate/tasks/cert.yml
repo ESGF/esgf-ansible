@@ -1,5 +1,4 @@
 
-
 - name: Make key/csr/cert dir for {{ common_name }}
   file:
     path: "{{ dest_dir }}"
@@ -8,33 +7,14 @@
 - name: Generate own CA
   when: (use_ownca is defined and use_ownca) or (ownca is defined and ownca)
   import_tasks: ownca.yml
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Generate Key and CSR
   when: (ownca is defined and ownca) or (csr is defined and csr) or (self_signed is defined and self_signed)
   import_tasks: genkeycsr.yml
-
-- name: Check if {{ cert_dest }} exists
-  when: cert_dest is defined
-  stat:
-    path: "{{ cert_dest }}"
-  register: certpath
-
-- name: Check if {{ cert_dest }} is expired
-  when: cert_dest is defined and certpath.stat.exists
-  openssl_certificate:
-    path: "{{ cert_dest }}"
-    privatekey_path: "{{ key_dest }}"
-    provider: assertonly
-    has_expired: false # Currently has no effect and is bugged in version 2.7.5/6 Issue #51267
-    valid_in: 1 # Use as a work around for bugged has_expired
-  ignore_errors: true
-  register: expired_check
-
-- name: Destroy {{ cert_dest }} if it is invalid
-  when:  cert_dest is defined and certpath.stat.exists and expired_check.failed
-  file:
-    path: "{{ cert_dest }}"
-    state: absent
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Create {{ common_name }} Cert Self Signed
   when: self_signed is defined and self_signed
@@ -43,6 +23,8 @@
     csr_path: "{{ csr_dest }}"
     privatekey_path: "{{ key_dest }}"
     provider: selfsigned
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Create {{ common_name }} Cert Own CA
   when: ownca is defined and ownca
@@ -52,6 +34,8 @@
     ownca_path: /tmp/ownca.crt
     ownca_privatekey_path: /tmp/ownca.pem
     provider: ownca
+  vars:
+    ansible_python_interpreter: "{{ conda.envs }}/cert-gen/bin/python"
 
 - name: Use Own CA certificate and key
   when: use_ownca is defined and use_ownca
@@ -66,3 +50,4 @@
     remote_src: yes
     src: /tmp/ownca.pem
     dest: "{{ key_dest }}"
+    mode: 0640

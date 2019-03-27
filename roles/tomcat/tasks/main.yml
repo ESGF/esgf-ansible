@@ -11,21 +11,29 @@
 - name: Tomcat Download
   unarchive:
     src: "{{ tomcat.src }}"
-    dest: /tmp
+    dest: /usr/local
     remote_src: yes
-    creates: "/tmp/{{ tomcat.root_dir }}"
+    creates: "/usr/local/{{ tomcat.root_dir }}"
   register: tomcat_download
 
-- name: Remove {{ tomcat.path }} if new Tomcat downloaded
-  when: tomcat_download is changed
+- name: Check for tomcat symlink
+  stat:
+    path: "{{ tomcat.path }}"
+  register: tomcat_link
+
+- name: Remove {{ tomcat.path }} if it exists and is not a symlink
+  when: tomcat_link.stat.exists and not tomcat_link.stat.islnk
   file:
     path: "{{ tomcat.path }}"
     state: absent
 
 - name: Install tomcat
-  command: "cp -R /tmp/{{ tomcat.root_dir }} {{ tomcat.path }}"
-  args:
-    creates: "{{ tomcat.path }}"
+  file:
+    dest: "{{ tomcat.path }}"
+    src: "/usr/local/{{ tomcat.root_dir }}"
+    state: link
+    owner: tomcat
+    group: tomcat
 
 - name: Cleanup default webapps
   file:
@@ -43,7 +51,7 @@
 
 - name: Set Ownership
   file:
-    path: "{{ tomcat.path }}"
+    path: "/usr/local/{{ tomcat.root_dir }}"
     owner: tomcat
     group: tomcat
     recurse: yes

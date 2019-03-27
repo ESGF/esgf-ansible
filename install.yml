@@ -5,12 +5,19 @@
   # strategy: free
   become: yes
   connection: paramiko
+  any_errors_fatal: true
   tasks:
     # Get the admin password
     - name: Include the admin passwd role
       block:
         - include_role:
             name: passwd
+      tags: always
+  
+    - name: Verify variables
+      block:
+        - include_role:
+            name: verify
       tags: always
 
     - name: Base
@@ -40,4 +47,13 @@
         - include_role:
             name: data
       tags: data
+      when: "'data' in group_names"
+
+    - name: Publisher
+      block:
+        - include_role:
+            name: publisher
+      tags:
+        - data
+        - publisher
       when: "'data' in group_names"
