@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Setup" href="../setup/setup.html" />
+    <link rel="next" title="Requirements" href="../requirements/requirements.html" />
     <link rel="prev" title="Welcome to ESGF-Ansible’s documentation!" href="../index.html" /> 
 </head>
 
@@ -75,7 +75,7 @@
             
             
               <div class="version">
-                4.0.0-beta1
+                4.0.0-beta2
               </div>
             
           
@@ -102,12 +102,11 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#requirements">Requirements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#additional-info">Additional Info</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">FAQ</a></li>
 </ul>
 
@@ -175,56 +174,20 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions.
-This repository holds files which are used by the popular automated system configuration tool <a class="reference external" href="https://www.ansible.com/">Ansible</a> that will perform the ESGF Node deployment.</p>
-<p>Ansible runs from a <em>control</em> machine and deploys the configuration to <em>managed</em> machines via SSH.</p>
+<blockquote>
+<div><p>The deployment of ESGF Nodes has traditionally been done by a mix of scripts and manual admin actions.
+ESGF Nodes have been managed this way for many years and each machine is truly in its own unique state.
+The developers of this tool have taken much into consideration to ensure that it performs as reliably as possible with the information and resources available to us.
+We rely on users to provide feedback and help us understand their cases so that we can continue to improve this tool.</p>
+<p>Thank you for your participation.</p>
+</div></blockquote>
+<p>This tool is a collection of files which are used by the popular automated system configuration tool <a class="reference external" href="https://www.ansible.com/">Ansible</a> that will perform the ESGF Node deployment.
+Ansible runs from a <em>control</em> machine and deploys the configuration to <em>managed</em> machines via SSH.</p>
 <p>For all the details and features of Ansible see the <a class="reference external" href="https://docs.ansible.com/">Ansible Docs</a>.</p>
-</div>
-<div class="section" id="requirements">
-<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
-<p>Here is a summary of the requirements, see <a class="reference external" href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">Ansible Installation</a> for more information.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="13%" />
-<col width="36%" />
-<col width="51%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">&#160;</th>
-<th class="head">Control Machine</th>
-<th class="head">Managed Machine</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>OS</td>
-<td>Any, Not Windows</td>
-<td>CentOS 6/7</td>
-</tr>
-<tr class="row-odd"><td>Python</td>
-<td>&gt;=2.7</td>
-<td>2 (CentOS 6/7 has 2.6/7)</td>
-</tr>
-<tr class="row-even"><td>Ansible</td>
-<td>2.7</td>
-<td>None</td>
-</tr>
-<tr class="row-odd"><td>Other</td>
-<td>SSH to Managed Machine</td>
-<td>Account with escalated privileges</td>
-</tr>
-</tbody>
-</table>
-<div class="section" id="additional-info">
-<h2>Additional Info<a class="headerlink" href="#additional-info" title="Permalink to this headline">¶</a></h2>
-<p>The simple requirements for the control machine is to have Ansible installed in some way.
-This can be done via a system package manager, or simply via pip, the Python package manager into a Python environment.
-The later is the recommended way as this repository was developed and tested with the latest Ansible at the time, <code class="docutils literal"><span class="pre">2.7</span></code>.
-It has been found that Ansible <code class="docutils literal"><span class="pre">2.4</span></code> is not supported. <strong>Using anything other than Ansible 2.7 will result in untested behavior.</strong></p>
-<p>The requirements for the managed machine are that it can be accessed via SSH from the control machine and that the managed machine has a Python interpreter.
-Also, an ESGF requirement is that the OS of the managed machine must be <strong>CentOS 6 or 7</strong>. Work is being done to support RedHat 6 and 7 as well.
-Ansible works reliably with Python 2 on the managed machine. Ansible is working towards supporting Python 3 on managed machines, see <a class="reference external" href="https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html">Ansible&#8217;s remarks</a>,
-but is aware of incompatabilities. Since the system Python on CentOS/Redhat 6 and 7 is 2.6 and 2.7, respectively, this is not an issue.
-Also, there must be some way to have escalated privileges on the managed machine to deploy the configuration. This is described more below.</p>
+<p>If you have upgraded to a new version of ESGF-Ansible be sure to <a class="reference external" href="../whatsnew/whatsnew.html">check out what&#8217;s new</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">ESGF-Ansible is completely seperate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.</p>
 </div>
 </div>
 
@@ -236,7 +199,7 @@ Also, there must be some way to have escalated privileges on the managed machine
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../setup/setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../requirements/requirements.html" class="btn btn-neutral float-right" title="Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to ESGF-Ansible’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -266,13 +229,14 @@ Also, there must be some way to have escalated privileges on the managed machine
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 4.0.0-beta1
+        v: 4.0.0-beta2
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
             <dd><a href="../4.0.0-beta1/intro/intro.html">4.0.0-beta1</a></dd>
+            <dd><a href="../4.0.0-beta2/intro/intro.html">4.0.0-beta2</a></dd>
         </dl>
     </div>
 </div>

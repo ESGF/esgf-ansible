@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Usage" href="../usage/usage.html" /> 
+    <link rel="prev" title="Releases" href="../whatsnew/whatsnew.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                4.0.0-beta1
+                4.0.0-beta2
               </div>
             
           
@@ -101,9 +101,11 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/intro.html#requirements">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a></li>
 </ul>
 
@@ -171,23 +173,23 @@
             
   <div class="section" id="faq">
 <h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<p><strong>Q: How can I use this to upgrade my older node?</strong></p>
+<p><strong>Q: How can I use this to upgrade my legacy install?</strong></p>
 <p><strong>Answer:</strong> Make sure you stop all services on your older node using the legacy tools for doing so.
 If there are valid certificates and keys in place on the machine that you would like to continue to use,
 put those in a place on your control machine and specify that path in your host variable file.
 Once you have filled your variable file(s) and your inventory file,
-the same example commands above for doing clean installs can be used to perform the upgrade.
+the same example commands from the Usage section for doing clean installs can be used to perform the upgrade.
 While many considerations have been made for upgrades and the preservation of customizations,
 it is still recommended that users create backups of site-specific changes to their node.</p>
 <p><strong>Q: Ansible is stuck on a task for a long period of time and doesn&#8217;t seem to be doing anything.</strong></p>
 <p><strong>Answer:</strong> Ansible will not report the result of a task until the task is completed.
 Some tasks can take several minutes to complete. Make sure the verbose flag is specified, <code class="docutils literal"><span class="pre">-v</span></code>, to get more information upon the completion of tasks.</p>
 <p><strong>Q: My deployment failed, what should I do?</strong></p>
-<p><strong>Answer:</strong> Try to determine if the failure was related to a bug in the steps taken by the installer or if it was some intermitten, or site-specific, issue.
+<p><strong>Answer:</strong> Try to determine if the failure was related to a bug in the steps taken by the installer or if it was some intermittent, or site-specific, issue.
 This second case could be things such as bad SSH authentication, a temporary network issue, an issue with the machine being deployed to,
 or a variable improperly specified in the host variables file.
 In this second case, attempt to determine and resolve the error, then start the deployment again.
-If it is confidently determined be the first case, please <a class="reference external" href="https://github.com/ESGF/esgf-ansible/issues/new">submit an issue</a> to this repository.</p>
+If it is confidently determined be the first case, please <a class="reference external" href="https://github.com/ESGF/esgf-ansible/issues/new/choose">submit an issue</a> to this repository.</p>
 </div>
 
 
@@ -199,7 +201,7 @@ If it is confidently determined be the first case, please <a class="reference ex
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../usage/usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../whatsnew/whatsnew.html" class="btn btn-neutral float-left" title="Releases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -226,13 +228,14 @@ If it is confidently determined be the first case, please <a class="reference ex
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 4.0.0-beta1
+        v: 4.0.0-beta2
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
             <dd><a href="../4.0.0-beta1/faq/faq.html">4.0.0-beta1</a></dd>
+            <dd><a href="../4.0.0-beta2/faq/faq.html">4.0.0-beta2</a></dd>
         </dl>
     </div>
 </div>
