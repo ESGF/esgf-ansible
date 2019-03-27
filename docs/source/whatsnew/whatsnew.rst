@@ -6,8 +6,8 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
-4.0.0-beta2
-***********
+4.0.0-beta2 (2019-03-27)
+************************
 
 Critical
 --------
@@ -27,8 +27,8 @@ Info
 
 A number of reported bugs have been resolved and fragile setup steps were made more resilient.
 
-4.0.0-beta1
-***********
+4.0.0-beta1 (2019-02-25)
+************************
 
 Critical
 --------
