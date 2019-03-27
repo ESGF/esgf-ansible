@@ -27,7 +27,7 @@ that best describes the desired use case.
 
 Examples
 --------
-This section assumes the information in above is understood and the required files have been created.
+This section assumes the configuration information is understood and the required files have been created.
 
 These examples are **not** presented in a "step by step" style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node. 
 That being said, the *information* presented in earlier examples is requisite for later examples.
@@ -46,7 +46,7 @@ Although not discussed in this guide, the ``ansible`` command line tool can be u
 It is recommended that users use the verbose flag ``-v[v...]``, where each additional ``v`` adds more output.
 
 .. warning::
-    The ``--check`` and ``--diff`` flags will do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.
+    The ``--check`` and ``--diff`` flags do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.
 
 SSH Authentication
 ******************
@@ -118,19 +118,19 @@ These tags can also be used in any combination in ``--skip-tags``.
 
 By default, if no start tags are specified, all services will be started. 
 The services ``httpd``, ``postgres`` and ``monitoring`` will always be started, unless specified via ``--skip-tags``. 
-If no stop tags are specfied, all services, **except** ``httpd``, ``postgres`` and ``monitoring``, will be stopped. 
+If no stop tags are specified, all services, **except** ``httpd``, ``postgres`` and ``monitoring``, will be stopped. 
 The services ``httpd``, ``postgres`` and ``monitoring`` will only be stopped if their respective tag is specified via ``--tags``. ::
 
     ansible-playbook -v -i hosts.test start.yml [ --tags [start tags] ]
     ansible-playbook -v -i hosts.test stop.yml [ --tags [stop tags] ]
 
 
-Multiple playbooks may be specfified and are executed in the order specified. For example, to restart ``cog``, ``slcs`` and ``myproxy`` ::
+Multiple playbooks may be specified and are executed in the order specified. For example, to restart ``cog``, ``slcs`` and ``myproxy`` ::
 
     ansible-playbook -v -i hosts.test stop.yml start.yml --tags "cog, slcs, myproxy"
 
 
-To start or stop a data-only node use `--limit [data node hostname]`. Only the common tags and those associated with data nodes will have an effect. ::
+To start or stop a data-only node use ``--limit [data node hostname]``. Only the common tags and those associated with data nodes will have an effect. ::
 
     ansible-playbook -v -i hosts.test --limit host-data.my.org start.yml [ --tags [start tags] ]
     ansible-playbook -v -i hosts.test --limit host-data.my.org stop.yml [ --tags [stop tags] ]
@@ -140,8 +140,8 @@ Local Certificate Installation
 Globus certificates, aka 'local certs', for Globus services are retrieved as part of the post-install process. 
 These certifcates allow the site to register their GridFTP and/or MyProxy servers with Globus. 
 They also establish trust for these services within ESGF.  
-If not specified in the host's variable file, 
-the deployment will place a private key and a certificate signing request (CSR) for these services in the home directory of the root user on the node. 
+If not specified in the host's variable file and ``generate_globus`` or ``generate_myproxyca`` are specfied,
+the deployment will place a private key and a certificate signing request (CSR) for that service in the home directory of the root user on the node. 
 The certifcates are obtained by emailing the CSR (do not email the private key) to the addresses in `esgf-globus-ca.yml <https://github.com/ESGF/esgf-ansible/blob/master/esgf-globus-ca.yml>`_. 
 Once signed and retrieved from an ESGF certificate authority, these can be specified in the host's variable file and installed using the local_certs.yml playbook. ::
 
@@ -154,7 +154,7 @@ or, for data-only::
 
 Web Certificate Installation
 ****************************
-Certificates for web services may be installed independent from the primary installation process via the web_certs.yml playbook. 
+Certificates for web services may be installed independent from the primary installation process via the ``web_certs.yml`` playbook. 
 See the sample host variable file to see how to specify what certifcate/key/cachain to install. 
 This can be used to try to setup LetsEncrypt certificates as well. 
 See the ``try_letsencrypt`` variable in the sample host variable file for more information. ::

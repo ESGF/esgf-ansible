@@ -1,14 +1,13 @@
 Releases
 ========
 
-This page contains infomation of what is added or changed with each new release.
-All items described in a release are relative to the previous release.
+This page contains infomation about what is added or changed with each new release.
 The Critical section outlines any items the are highly likely to require changes from users.
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
+All items described within a release are relative to the previous release.
 
-
-4.0.0-beta2
-***********
+4.0.0-beta2 (2019-03-27)
+************************
 
 Critical
 --------
@@ -20,15 +19,16 @@ Critical
 
 Info
 ----
+- New sample files within the ``host_vars/`` directory to help with all the new changes above
 - A new tag, ``publisher``, has been added to the ``install.yml`` playbook to easily repeat the esg-publisher setup steps in the event of failure
 - No longer managing SELinux state
-- Not deploying monitoring software if neither of the ``prometheus_*`` variables are specified
 - If setting up ``firewalld`` on CentOS 7, and it was not previously installed and enabled, a reboot will be required after installing and enabling
+- Not deploying monitoring software if neither of the ``prometheus_*`` variables are specified
 
 A number of reported bugs have been resolved and fragile setup steps were made more resilient.
 
-4.0.0-beta1
-***********
+4.0.0-beta1 (2019-02-25)
+************************
 
 Critical
 --------

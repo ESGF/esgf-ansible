@@ -11,6 +11,7 @@ Welcome to ESGF-Ansible's documentation!
    :caption: Contents:
 
    intro/intro.rst
+   requirements/requirements.rst
    setup/setup.rst
    config/config.rst
    usage/usage.rst
