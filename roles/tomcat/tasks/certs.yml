@@ -15,7 +15,7 @@
     keystore_path: "{{ tomcat.ts.path }}"
     keystore_pass: "{{ tomcat.ts.pass }}"
     cert_alias: "{{ httpd_hostcert_hash.stdout.strip() }}"
-    executable: "{{ java.path }}/bin/keytool"
+    # executable: "{{ java.path }}/bin/keytool"
 
 # Load the hostkey and hostcert into the tomcat keystore
 - name: Load host key
@@ -38,5 +38,5 @@
     dest: "{{ tomcat.ks.path }}"
     password: "{{ tomcat.ks.pass }}"
     force: yes
-  environment:
-    PATH: "{{ java.path }}/bin:{{ ansible_env.PATH }}"
+  # environment:
+    # PATH: "{{ java.path }}/bin:{{ ansible_env.PATH }}"
