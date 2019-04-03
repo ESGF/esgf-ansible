@@ -5,14 +5,13 @@
     key: http://www.globus.org/ftppub/globus-connect-server/RPM-GPG-KEY-Globus
 
 - name: Download globus-connect-server .rpm file
-  command: "wget https://www.globus.org/ftppub/gt6/installers/repo/globus-toolkit-repo-latest.noarch.rpm -O /tmp/globus-toolkit-repo-latest.noarch.rpm"
-  args:
-    chdir: /tmp
-    warn: no
+  get_url:
+    url: http://toolkit.globus.org/ftppub/globus-connect-server/globus-connect-server-repo-latest.noarch.rpm
+    dest: /tmp/globus-connect-server-repo-latest.noarch.rpm
 
 - name: Install globus-connect-server .rpm file
-  yum:
-    name: /tmp/globus-toolkit-repo-latest.noarch.rpm
+  package:
+    name: /tmp/globus-connect-server-repo-latest.noarch.rpm
 
 - name: Add ESGF RPM Repo
   template:
