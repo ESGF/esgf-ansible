@@ -57,7 +57,6 @@
     keystore_path: "{{ tomcat.ts.path }}"
     keystore_pass: "{{ tomcat.ts.pass }}"
     cert_alias: "{{ myproxyca_hash.stdout.strip() }}"
-    # executable: "{{ java.path }}/bin/keytool"
 
 - name: Install myproxy CA cert into {{ grid_security.cert_dir }}
   copy:
