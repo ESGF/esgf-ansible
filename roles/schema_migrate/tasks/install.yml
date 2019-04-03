@@ -6,4 +6,4 @@
 
 - name: Run schema migration script {{ egg.script }}
   no_log: true
-  shell: "{{ conda.actv }} {{ schema_migrate.env }} && {{ egg.script }} --dburl {{ db_url }} -c"
+  shell: '{{ conda.actv }} {{ schema_migrate.env }} && {{ egg.script }} --dburl "{{ db_url }}" -c'
