@@ -55,12 +55,6 @@ conda:
   envs: /usr/local/conda/envs
   mods: lib/python2.7/site-packages
 
-java:
-  src: "{{ assets.base }}/{{ versions.java }}-64.tar.gz"
-  root_dir: "{{ versions.java }}"
-  path: /usr/local/java
-
-
 tomcat:
   src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz
   root_dir: apache-tomcat-8.5.39
