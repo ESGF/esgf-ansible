@@ -103,7 +103,7 @@
     
     # HTTP checks
     - name: Check the ORP URL
-      when: "'index' in group_names or 'idp' in group_names"
+      when: "'index' in group_names or 'data' in group_names"
       uri:
         url: "https://{{ ansible_fqdn }}/esg-orp/home.htm"
 
