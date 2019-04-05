@@ -101,16 +101,18 @@
         - index
         - tomcat
     
-    - name: Check ORP path
+    # HTTP checks
+    - name: Check the ORP URL
+      when: "'index' in group_names or 'idp' in group_names"
       uri:
         url: "https://{{ ansible_fqdn }}/esg-orp/home.htm"
 
-    - name: Check data path
+    - name: Check data URL
       when: "'data' in group_names"
       uri:
         url: "https://{{ ansible_fqdn }}/thredds/catalog/catalog.html"
 
-    - name: Check index paths
+    - name: Check index URLs
       when: "'index' in group_names"
       uri:
         url: "{{ item }}"
@@ -119,7 +121,7 @@
         - https://{{ ansible_fqdn }}/esg-search/search/?limit=0
         - https://{{ ansible_fqdn }}/
     
-    - name: Check idp path
+    - name: Check idp URL
       when: "'idp' in group_names"
       uri:
         url: "{{ item }}"
