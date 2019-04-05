@@ -4,7 +4,7 @@
   become: yes
   tasks:
     # httpd
-    - name: Check for connections on web ports
+    - name: Check the web ports
       wait_for:
         port: "{{ item }}"
         timeout: 5
@@ -13,7 +13,7 @@
         - 443
 
     # postgres
-    - name: Check for connections on postgres port
+    - name: Check the postgres port
       wait_for:
         port: 5432
         timeout: 5
@@ -34,7 +34,7 @@
       tags:
         - index
         - solr
-    - name: Check for connections on solr ports
+    - name: Check the solr ports
       when: "'index' in group_names"
       wait_for:
         port: "{{ shard.port }}"
@@ -47,7 +47,7 @@
         - solr
 
     # cog
-    - name: Check for connection on cog port
+    - name: Check the cog port
       when: "'index' in group_names"
       wait_for:
         port: 8889
@@ -57,7 +57,7 @@
         - cog
 
     # slcs
-    - name: Check for connection on slcs port
+    - name: Check the slcs port
       when: "'idp' in group_names"
       wait_for:
         port: 8888
@@ -67,7 +67,7 @@
         - slcs
     
     # myproxy
-    - name: Check for connection on myproxy-server port
+    - name: Check the myproxy-server port
       when: "'idp' in group_names"
       wait_for:
         port: 7512
@@ -77,7 +77,7 @@
         - myproxy
     
     # gridftp
-    - name: Check for connection on globus-gridftp-server port
+    - name: Check the globus-gridftp-server port
       when: "'data' in group_names"
       wait_for:
         port: 2811
@@ -87,7 +87,7 @@
         - gridftp
 
     # tomcat
-    - name: Check for connections on tomcat ports
+    - name: Check the tomcat ports
       wait_for:
         port: "{{ item }}"
         timeout: 45
