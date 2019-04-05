@@ -19,7 +19,8 @@ Logs
 ====
 
 While ``status.yml`` will report on various ports and URLs that services are listening on, it is not a replacement for a human inspecting log files.
-The following locations may be useful references for the services being ran on a node.
+The following locations may be useful references for the services being ran on a node. 
+This list is not comprehensive and potentially is subject to change.
 
 httpd
 *****
@@ -43,5 +44,5 @@ CoG
 
 SLCS
 ****
-``/etc/slcs-wsgi-8889/error_log``
+``/etc/slcs-wsgi-8888/error_log``
 
