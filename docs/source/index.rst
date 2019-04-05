@@ -15,6 +15,7 @@ Welcome to ESGF-Ansible's documentation!
    setup/setup.rst
    config/config.rst
    usage/usage.rst
+   verify/verify.rst
    whatsnew/whatsnew.rst
    faq/faq.rst
 
