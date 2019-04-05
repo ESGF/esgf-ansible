@@ -115,7 +115,7 @@
       uri:
         url: "{{ item }}"
       loop:
-        - https://{{ ansible_fqdn }}/solr/admin/ping
+        - https://{{ ansible_fqdn }}/solr/datasets/admin/ping
         - https://{{ ansible_fqdn }}/esg-search/search/?limit=0
         - https://{{ ansible_fqdn }}/
     
