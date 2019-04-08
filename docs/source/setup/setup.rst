@@ -19,4 +19,4 @@ These steps describe how to setup the control machine. SSH access to the managed
 
 
 .. warning::
-    ESGF-Ansible is completely seperate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.
+    ESGF-Ansible is completely separate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.
