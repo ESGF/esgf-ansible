@@ -1,0 +1,130 @@
+- hosts: all
+  connection: paramiko
+  ignore_errors: yes
+  become: yes
+  tasks:
+    # httpd
+    - name: Check the web ports
+      wait_for:
+        port: "{{ item }}"
+        timeout: 5
+      loop:
+        - 80
+        - 443
+
+    # postgres
+    - name: Check the postgres port
+      wait_for:
+        port: 5432
+        timeout: 5
+
+    # solr
+    - name: Load solr startup file
+      when: "'index' in group_names"
+      slurp:
+        src: "{{ esg.config.dir }}/shards_startup.yml"
+      register: shard_startup_file
+      tags:
+        - index
+        - solr
+    - name: Load existing shards
+      when: "'index' in group_names"
+      set_fact:
+        existing_shards: "{{ shard_startup_file['content'] | b64decode | from_yaml }}"
+      tags:
+        - index
+        - solr
+    - name: Check the solr ports
+      when: "'index' in group_names"
+      wait_for:
+        port: "{{ shard.port }}"
+        timeout: 5
+      loop: "{{ existing_shards }}"
+      loop_control:
+        loop_var: shard
+      tags:
+        - index
+        - solr
+
+    # cog
+    - name: Check the cog port
+      when: "'index' in group_names"
+      wait_for:
+        port: 8889
+        timeout: 5
+      tags:
+        - index
+        - cog
+
+    # slcs
+    - name: Check the slcs port
+      when: "'idp' in group_names"
+      wait_for:
+        port: 8888
+        timeout: 5
+      tags:
+        - idp
+        - slcs
+    
+    # myproxy
+    - name: Check the myproxy-server port
+      when: "'idp' in group_names"
+      wait_for:
+        port: 7512
+        timeout: 5
+      tags:
+        - idp
+        - myproxy
+    
+    # gridftp
+    - name: Check the globus-gridftp-server port
+      when: "'data' in group_names"
+      wait_for:
+        port: 2811
+        timeout: 5
+      tags:
+        - data
+        - gridftp
+
+    # tomcat
+    - name: Check the tomcat ports
+      wait_for:
+        port: "{{ item }}"
+        timeout: 45
+      loop:
+        - 8080
+        - 8443
+        - 8223
+      tags:
+        - data
+        - idp
+        - index
+        - tomcat
+    
+    # HTTP checks
+    - name: Check the ORP URL
+      when: "'index' in group_names or 'data' in group_names"
+      uri:
+        url: "https://{{ ansible_fqdn }}/esg-orp/home.htm"
+
+    - name: Check data URL
+      when: "'data' in group_names"
+      uri:
+        url: "https://{{ ansible_fqdn }}/thredds/catalog/catalog.html"
+
+    - name: Check index URLs
+      when: "'index' in group_names"
+      uri:
+        url: "{{ item }}"
+      loop:
+        - https://{{ ansible_fqdn }}/solr/datasets/admin/ping
+        - https://{{ ansible_fqdn }}/esg-search/search/?limit=0
+        - https://{{ ansible_fqdn }}/
+    
+    - name: Check idp URL
+      when: "'idp' in group_names"
+      uri:
+        url: "{{ item }}"
+      loop:
+        - https://{{ ansible_fqdn }}/esgf-idp/
+        - https://{{ ansible_fqdn }}/esgf-slcs/

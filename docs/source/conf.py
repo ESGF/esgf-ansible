@@ -20,11 +20,11 @@
 # -- Project information -----------------------------------------------------
 
 project = u'ESGF-Ansible'
-copyright = u'2019, Nathan Carlson, William Hill'
-author = u'Nathan Carlson, William Hill'
+copyright = u'2019, LLNL ESGF Installer Working Team'
+author = u'LLNL ESGF Installer Working Team'
 
 # The short X.Y version
-version = u'4.0.0-beta2'
+version = u'4.0.1'
 # The full version, including alpha/beta/rc tags
 release = u''
 
