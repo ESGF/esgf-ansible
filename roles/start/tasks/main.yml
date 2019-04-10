@@ -1,4 +1,11 @@
 
+- name: Bind mount all data directories specified in esg.ini
+  when: "'data' in group_names"
+  include_tasks: mount.yml
+  tags:
+    - data
+    - gridftp
+
 # Always start base services
 - name: start httpd
   service:
