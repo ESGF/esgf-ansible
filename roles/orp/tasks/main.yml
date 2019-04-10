@@ -17,14 +17,18 @@
     # - spring-web-4.2.3.RELEASE
     # - spring-webvmc-4.2.3.RELEASE
 
-- name: Copy policy files into place
+- name: Copy initial local data access policy file into place, if not present
   copy:
     remote_src: yes
-    src: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg/orp/orp/config/esgf_policies_{{ item }}.xml"
-    dest: "{{ esg.config.dir }}/esgf_policies_{{ item }}.xml"
-  loop:
-    - common
-    - local
+    src: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg/orp/orp/config/esgf_policies_local.xml"
+    dest: "{{ esg.config.dir }}/esgf_policies_local.xml"
+    force: no
+
+- name: Copy common data access policy file into place
+  copy:
+    remote_src: yes
+    src: "{{ tomcat.webapps }}/{{ orp_webapp.name }}/WEB-INF/classes/esg/orp/orp/config/esgf_policies_common.xml"
+    dest: "{{ esg.config.dir }}/esgf_policies_common.xml"
 
 - name: "Set Tomcat Ownership"
   file:

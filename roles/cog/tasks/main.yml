@@ -29,7 +29,6 @@
     pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
   args:
     chdir: "{{ cog.dest }}"
-    creates: "{{ conda.envs }}/cog/{{ conda.mods }}/mod_wsgi*"
 
 - name: Install CoG into conda env
   shell: >
@@ -37,7 +36,6 @@
     python setup.py --quiet install
   args:
     chdir: "{{ cog.dest }}"
-    creates: "{{ conda.envs }}/cog/{{ conda.mods }}/cog*"
 
 - name: Setup CoG
   shell: >
@@ -63,7 +61,6 @@
     --url-alias /static {{ cog.dest }}/static/
   args:
     chdir: "{{ cog.dest }}"
-    creates: "{{ cog.wsgi_dir }}"
 
 # - name : Install the cog proxy config
 #   template:
