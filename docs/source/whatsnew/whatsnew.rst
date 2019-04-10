@@ -11,10 +11,12 @@ All items described within a release are relative to the previous release.
 
 Critical
 --------
+- Previous releases of ESGF-Ansible created entries in ``/etc/fstab`` for the bind mounts required by GridFTP. These are now setup to be created when starting GridFTP and removed when stopping GridFTP. Their presence in ``/etc/fstab`` may or may not cause unexpected behavior and they should be safely removed.
 
 Info
 ----
-- New ``status.yml`` playbook, see the new `Verification Section <../verify/verify.html>`_. 
+- New ``status.yml`` playbook, see the new `Verification Section <../verify/verify.html>`_.
+- Default memory for Tomcat has been increased.
 
 
 4.0.0-beta2 (2019-03-27)
