@@ -15,12 +15,18 @@
     path: /tmp/esg.ini
     state: absent
 
+- name: Check what is mounted to avoid remounting
+  slurp:
+    src: /proc/mounts
+  register: mounts
+
+- name: Decode mount file
+  set_fact:
+    mounts: "{{ mounts['content'] | b64decode }}"
+
 - name: Mount the dataset root directories into the chroot GridFTP
-  mount:
-    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
-    src: "{{ item.split('|')[1].strip() }}"
-    opts: bind
-    fstype: none
-    state: mounted
-    fstab: /tmp/dummytab
+  when: " gridftp.chroot + '/' + item.split(\"|\")[0].strip() not in mounts"
+  command: "mount --bind {{ item.split('|')[1].strip() }} {{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+  args:
+    warn: no
   with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
