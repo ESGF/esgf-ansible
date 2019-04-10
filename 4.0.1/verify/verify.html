@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verification &mdash; ESGF-Ansible  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/esgf_globe.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Releases" href="../whatsnew/whatsnew.html" />
+    <link rel="prev" title="Usage" href="../usage/usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ESGF-Ansible
+          
+
+          
+            
+            <img src="../_static/esgf_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logs">Logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#httpd">httpd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tomcat">Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thredds">Thredds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#myproxy">MyProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cog">CoG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slcs">SLCS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ESGF-Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Verification</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/verify/verify.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="verification">
+<h1>Verification<a class="headerlink" href="#verification" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">ESGF-Ansible is completely separate from the legacy 2.x ESGF-Installer. The tools provided by ESGF-Installer are, in general, incompatible with ESGF-Ansible and should not be used in cooperation with ESGF-Ansible. The FAQ page describes how to upgrade a node from the legacy installer using ESGF-Ansible, after which point the legacy tools should no longer be used.</p>
+</div>
+<div class="section" id="status">
+<h2>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<p>The status of a node, or multiple nodes, can be checked with the <code class="docutils literal"><span class="pre">status.yml</span></code> playbook.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="n">status</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>This can be neatly combined with <code class="docutils literal"><span class="pre">start.yml</span></code> and <code class="docutils literal"><span class="pre">stop.yml</span></code>. The following will restart a node, then check its status.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="n">stop</span><span class="o">.</span><span class="n">yml</span> <span class="n">start</span><span class="o">.</span><span class="n">yml</span> <span class="n">status</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logs">
+<h2>Logs<a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h2>
+<p>While <code class="docutils literal"><span class="pre">status.yml</span></code> will report on various ports and URLs that services are listening on, it is not a replacement for a human inspecting log files.
+The following locations may be useful references for the services being ran on a node.
+This list is not comprehensive and potentially is subject to change.</p>
+<div class="section" id="httpd">
+<h3>httpd<a class="headerlink" href="#httpd" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/etc/httpd/logs/*</span></code></p>
+</div>
+<div class="section" id="tomcat">
+<h3>Tomcat<a class="headerlink" href="#tomcat" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/usr/local/tomcat/logs/*</span></code></p>
+</div>
+<div class="section" id="thredds">
+<h3>Thredds<a class="headerlink" href="#thredds" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/esg/content/thredds/logs/*</span></code>, specifically <code class="docutils literal"><span class="pre">threddsServlet.log</span></code></p>
+</div>
+<div class="section" id="myproxy">
+<h3>MyProxy<a class="headerlink" href="#myproxy" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/var/log/messages</span></code></p>
+</div>
+<div class="section" id="cog">
+<h3>CoG<a class="headerlink" href="#cog" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/etc/cog-wsgi-8889/error_log</span></code></p>
+</div>
+<div class="section" id="slcs">
+<h3>SLCS<a class="headerlink" href="#slcs" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">/etc/slcs-wsgi-8888/error_log</span></code></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../whatsnew/whatsnew.html" class="btn btn-neutral float-right" title="Releases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../usage/usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, LLNL ESGF Installer Working Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 4.0.1
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../4.0.0-beta1/index.html">4.0.0-beta1</a></dd>
+            <dd><a href="../../4.0.0-beta2/index.html">4.0.0-beta2</a></dd>
+            <dd><a href="verify.html">4.0.1</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
