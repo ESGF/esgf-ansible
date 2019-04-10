@@ -1,0 +1,26 @@
+- name: Retrieve info about what datasets to mount
+  fetch:
+    src: "{{ esg.config.dir }}/esgcet/esg.ini"
+    dest: /tmp/
+    flat: yes
+
+- name: Read datasets from esg.ini
+  set_fact:
+    raw_dataset_roots: "{{ lookup('ini', 'thredds_dataset_roots section=DEFAULT file=/tmp/esg.ini') }}"
+
+- name: Remove fetched esg.ini file
+  become: false
+  local_action:
+    module: file
+    path: /tmp/esg.ini
+    state: absent
+
+- name: Mount the dataset root directories into the chroot GridFTP
+  mount:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    src: "{{ item.split('|')[1].strip() }}"
+    opts: bind
+    fstype: none
+    state: mounted
+    fstab: /tmp/dummytab
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"

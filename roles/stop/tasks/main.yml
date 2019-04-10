@@ -91,3 +91,10 @@
   tags:
     - data
     - gridftp
+
+- name: Unmount all bind mounts of data directories specified in esg.ini
+  when: "'data' in group_names"
+  include_tasks: unmount.yml
+  tags:
+    - data
+    - gridftp
