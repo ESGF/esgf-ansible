@@ -24,6 +24,12 @@
   set_fact:
     mounts: "{{ mounts['content'] | b64decode }}"
 
+- name: Ensure mount locations exist
+  file:
+    path: "{{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
+    state: directory
+  with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"
+
 - name: Mount the dataset root directories into the chroot GridFTP
   when: " gridftp.chroot + '/' + item.split(\"|\")[0].strip() not in mounts"
   command: "mount --bind {{ item.split('|')[1].strip() }} {{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
