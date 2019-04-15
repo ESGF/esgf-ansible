@@ -6,6 +6,17 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.2 (2019-04-15)
+******************
+
+Critical
+--------
+
+Info
+----
+- Resolve missing GridFTP directory mount points at node startup
+
+
 4.0.1 (2019-04-10)
 ******************
 
