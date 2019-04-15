@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; ESGF-Ansible  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/esgf_globe.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Verification" href="../verify/verify.html" />
+    <link rel="prev" title="Configuration" href="../config/config.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ESGF-Ansible
+          
+
+          
+            
+            <img src="../_static/esgf_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-configuration">Quick Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-files">Inventory Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-variable-files">Host Variable Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-authentication">SSH Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-control">Deployment Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-and-stopping-services">Starting and Stopping Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-certificate-installation">Local Certificate Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#web-certificate-installation">Web Certificate Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solr-shard-replication">Solr Shard Replication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ESGF-Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="quick-configuration">
+<h2>Quick Configuration<a class="headerlink" href="#quick-configuration" title="Permalink to this headline">¶</a></h2>
+<p>There are two types of files a user is responsible for making, Inventory Files and Host Variable Files.</p>
+<p>More comprehensive information and advice can be found in the <a class="reference external" href="../config/config.html">Config</a> section.</p>
+<div class="section" id="inventory-files">
+<h3>Inventory Files<a class="headerlink" href="#inventory-files" title="Permalink to this headline">¶</a></h3>
+<p>This file specifies the managed machines.
+It is specified at the command line via <code class="docutils literal"><span class="pre">-i</span> <span class="pre">[inventory</span> <span class="pre">file</span> <span class="pre">name]</span></code>.</p>
+<p>See the sample inventory file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.2/sample.hosts">sample.hosts</a> for more information.</p>
+<p>Also, see <a class="reference external" href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">Ansible&#8217;s Inventory Info</a>.</p>
+</div>
+<div class="section" id="host-variable-files">
+<h3>Host Variable Files<a class="headerlink" href="#host-variable-files" title="Permalink to this headline">¶</a></h3>
+<p>These files specify options for each managed machine.
+It is automatically detected for each managed machine and must be named <code class="docutils literal"><span class="pre">host_vars/[hostname].yml</span></code> where <code class="docutils literal"><span class="pre">[hostname]</span></code> is the hostname of each managed machine.</p>
+<p>See the sample host variable file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.2/host_vars/myhost.my.org.yml">host_vars/myhost.my.org.yml</a> for more information.</p>
+<p>Also, see the other sample files in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.2/host_vars">host_vars</a>, and find the sample file
+that best describes the desired use case.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>This section assumes the configuration information is understood and the required files have been created.</p>
+<p>These examples are <strong>not</strong> presented in a &#8220;step by step&#8221; style. Within reason, the commands outlined below can be performed at any point in the lifetime of a node.
+That being said, the <em>information</em> presented in earlier examples is requisite for later examples.</p>
+<p>These examples are <strong>not</strong> comprehensive, they only show some common patterns and useful commands. Refer to the Ansible documentation and the <code class="docutils literal"><span class="pre">--help</span></code> flag for more information.
+The primary command line tool used is <code class="docutils literal"><span class="pre">ansible-playbook</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>Although not discussed in this guide, the <code class="docutils literal"><span class="pre">ansible</span></code> command line tool can be useful as well.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>It is recommended that users use the verbose flag <code class="docutils literal"><span class="pre">-v[v...]</span></code>, where each additional <code class="docutils literal"><span class="pre">v</span></code> adds more output.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <code class="docutils literal"><span class="pre">--check</span></code> and <code class="docutils literal"><span class="pre">--diff</span></code> flags do not work as intended with our complicated use case and will result in an error. For this reason they should not be used.</p>
+</div>
+<div class="section" id="ssh-authentication">
+<h3>SSH Authentication<a class="headerlink" href="#ssh-authentication" title="Permalink to this headline">¶</a></h3>
+<p>SSH authentication is not required for local deployments, where the control and managed machine are the same host.
+Ansible assumes the use of keys for SSH authentication. It provides <code class="docutils literal"><span class="pre">--ask-pass</span></code> and <code class="docutils literal"><span class="pre">-u</span> <span class="pre">[user]</span></code> to SSH via password authentication as an alternative user.
+For escalated privileges, if SSHing as a non-root user, <code class="docutils literal"><span class="pre">--ask-become-pass</span></code> is used to prompt for a sudo password.
+See <a class="reference external" href="https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html#your-first-commands">Ansible&#8217;s examples</a> as well.</p>
+<p>A test deployment to all managed test hosts, with SSH via non-root user, <em>joe</em>, and key authentication.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">u</span> <span class="n">joe</span> <span class="o">--</span><span class="n">ask</span><span class="o">-</span><span class="n">become</span><span class="o">-</span><span class="k">pass</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>A test deployment to all managed test hosts, with SSH via the root user and password authentication.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">ask</span><span class="o">-</span><span class="k">pass</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>A test deployment to all managed test hosts, with SSH via a non-root user, <em>joe</em>, that has sudo privileges on the managed machine(s).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">ask</span><span class="o">-</span><span class="k">pass</span> <span class="o">-</span><span class="n">u</span> <span class="n">joe</span> <span class="o">--</span><span class="n">ask</span><span class="o">-</span><span class="n">become</span><span class="o">-</span><span class="k">pass</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p><strong>The authentication method of choice will also be required in all the examples below.</strong></p>
+</div>
+<div class="section" id="deployment-control">
+<h3>Deployment Control<a class="headerlink" href="#deployment-control" title="Permalink to this headline">¶</a></h3>
+<p>These examples show various ways of controlling the deployment process.
+Deployments are done in the order of includes in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.2/install.yml">install.yml</a>.
+This order is base, idp, index then data.
+While repeating steps will not cause any problems, it simply slows things down.
+Additionally, for a more reliable deployment process it may be desired to do one phase at a time.
+Or if the deployment got interrupted after completing, for example, the <cite>base</cite> steps, these steps could be skipped when the deployment is started again.</p>
+<p>Controlling the deployment is done with tags. The tags available in the <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.2/install.yml">install.yml</a> play are <code class="docutils literal"><span class="pre">base</span></code>, <code class="docutils literal"><span class="pre">idp</span></code>, <code class="docutils literal"><span class="pre">index</span></code>, <code class="docutils literal"><span class="pre">data</span></code> and <code class="docutils literal"><span class="pre">publisher</span></code>.
+These can be used with <code class="docutils literal"><span class="pre">--tags</span></code> and <code class="docutils literal"><span class="pre">--skip-tags</span></code>,  as well as with <code class="docutils literal"><span class="pre">--limit</span> <span class="pre">[hostname]</span></code> to control exactly what is done and where.
+The <code class="docutils literal"><span class="pre">base</span></code> steps will be done everytime unless specified via <code class="docutils literal"><span class="pre">--skip-tags</span></code>.</p>
+<p>A production deployment to all managed production hosts</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>A useful command for a data-only deployment or a deployment only to your data node</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">tags</span> <span class="n">data</span> <span class="o">--</span><span class="n">limit</span> <span class="n">host</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">my</span><span class="o">.</span><span class="n">org</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>If you have already done the <cite>base</cite> steps, the steps that are needed on every node type, and don&#8217;t want to wait for them to be repeated</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">tags</span> <span class="n">base</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>or, to only do the <cite>base</cite> steps on your idp and index node</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">tags</span> <span class="n">base</span> <span class="o">--</span><span class="n">limit</span> <span class="n">host</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">idp</span><span class="o">.</span><span class="n">my</span><span class="o">.</span><span class="n">org</span> <span class="n">install</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>Multiple tags can be specified at once, for example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="o">--</span><span class="n">tags</span> <span class="s2">&quot;data, idp&quot;</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">tags</span> <span class="s2">&quot;base, index&quot;</span> <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="starting-and-stopping-services">
+<h3>Starting and Stopping Services<a class="headerlink" href="#starting-and-stopping-services" title="Permalink to this headline">¶</a></h3>
+<p>Node services can be started or stopped using the start.yml and stop.yml playbooks.
+In the examples below, start tags and stop tags are any combination of
+<code class="docutils literal"><span class="pre">[cog,</span> <span class="pre">slcs,</span> <span class="pre">myproxy,</span> <span class="pre">tomcat,</span> <span class="pre">solr,</span> <span class="pre">dashboard-ip,</span> <span class="pre">gridftp,</span> <span class="pre">httpd,</span> <span class="pre">postgres,</span> <span class="pre">monitoring,</span> <span class="pre">data,</span> <span class="pre">idp,</span> <span class="pre">index]</span></code>.
+These tags can also be used in any combination in <code class="docutils literal"><span class="pre">--skip-tags</span></code>.</p>
+<p>By default, if no start tags are specified, all services will be started.
+The services <code class="docutils literal"><span class="pre">httpd</span></code>, <code class="docutils literal"><span class="pre">postgres</span></code> and <code class="docutils literal"><span class="pre">monitoring</span></code> will always be started, unless specified via <code class="docutils literal"><span class="pre">--skip-tags</span></code>.
+If no stop tags are specified, all services, <strong>except</strong> <code class="docutils literal"><span class="pre">httpd</span></code>, <code class="docutils literal"><span class="pre">postgres</span></code> and <code class="docutils literal"><span class="pre">monitoring</span></code>, will be stopped.
+The services <code class="docutils literal"><span class="pre">httpd</span></code>, <code class="docutils literal"><span class="pre">postgres</span></code> and <code class="docutils literal"><span class="pre">monitoring</span></code> will only be stopped if their respective tag is specified via <code class="docutils literal"><span class="pre">--tags</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="n">start</span><span class="o">.</span><span class="n">yml</span> <span class="p">[</span> <span class="o">--</span><span class="n">tags</span> <span class="p">[</span><span class="n">start</span> <span class="n">tags</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="n">stop</span><span class="o">.</span><span class="n">yml</span> <span class="p">[</span> <span class="o">--</span><span class="n">tags</span> <span class="p">[</span><span class="n">stop</span> <span class="n">tags</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Multiple playbooks may be specified and are executed in the order specified. For example, to restart <code class="docutils literal"><span class="pre">cog</span></code>, <code class="docutils literal"><span class="pre">slcs</span></code> and <code class="docutils literal"><span class="pre">myproxy</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="n">stop</span><span class="o">.</span><span class="n">yml</span> <span class="n">start</span><span class="o">.</span><span class="n">yml</span> <span class="o">--</span><span class="n">tags</span> <span class="s2">&quot;cog, slcs, myproxy&quot;</span>
+</pre></div>
+</div>
+<p>To start or stop a data-only node use <code class="docutils literal"><span class="pre">--limit</span> <span class="pre">[data</span> <span class="pre">node</span> <span class="pre">hostname]</span></code>. Only the common tags and those associated with data nodes will have an effect.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">limit</span> <span class="n">host</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">my</span><span class="o">.</span><span class="n">org</span> <span class="n">start</span><span class="o">.</span><span class="n">yml</span> <span class="p">[</span> <span class="o">--</span><span class="n">tags</span> <span class="p">[</span><span class="n">start</span> <span class="n">tags</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">limit</span> <span class="n">host</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">my</span><span class="o">.</span><span class="n">org</span> <span class="n">stop</span><span class="o">.</span><span class="n">yml</span> <span class="p">[</span> <span class="o">--</span><span class="n">tags</span> <span class="p">[</span><span class="n">stop</span> <span class="n">tags</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-certificate-installation">
+<h3>Local Certificate Installation<a class="headerlink" href="#local-certificate-installation" title="Permalink to this headline">¶</a></h3>
+<p>Globus certificates, aka &#8216;local certs&#8217;, for Globus services are retrieved as part of the post-install process.
+These certifcates allow the site to register their GridFTP and/or MyProxy servers with Globus.
+They also establish trust for these services within ESGF.
+If not specified in the host&#8217;s variable file and <code class="docutils literal"><span class="pre">generate_globus</span></code> or <code class="docutils literal"><span class="pre">generate_myproxyca</span></code> are specfied,
+the deployment will place a private key and a certificate signing request (CSR) for that service in the home directory of the root user on the node.
+The certifcates are obtained by emailing the CSR (do not email the private key) to the addresses in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/master/esgf-globus-ca.yml">esgf-globus-ca.yml</a>.
+Once signed and retrieved from an ESGF certificate authority, these can be specified in the host&#8217;s variable file and installed using the local_certs.yml playbook.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="n">local_certs</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>or, for data-only:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="o">--</span><span class="n">limit</span> <span class="n">host</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">my</span><span class="o">.</span><span class="n">org</span> <span class="n">local_certs</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="web-certificate-installation">
+<h3>Web Certificate Installation<a class="headerlink" href="#web-certificate-installation" title="Permalink to this headline">¶</a></h3>
+<p>Certificates for web services may be installed independent from the primary installation process via the <code class="docutils literal"><span class="pre">web_certs.yml</span></code> playbook.
+See the sample host variable file to see how to specify what certifcate/key/cachain to install.
+This can be used to try to setup LetsEncrypt certificates as well.
+See the <code class="docutils literal"><span class="pre">try_letsencrypt</span></code> variable in the sample host variable file for more information.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="n">web_certs</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solr-shard-replication">
+<h3>Solr Shard Replication<a class="headerlink" href="#solr-shard-replication" title="Permalink to this headline">¶</a></h3>
+<p>A number of Solr shards are loaded as remote indices.
+For improved load times these can be replicated locally.
+shards.yml is provided to ease this process.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="nb">vars</span><span class="o">=</span><span class="s2">&quot;remote_hostname=[remote host to replicate locally] local_port=[start at 8985 and increment]&quot;</span> <span class="o">--</span><span class="n">tags</span> <span class="n">add</span> <span class="n">shards</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>If you would like to remove the replicated shard.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span><span class="o">.</span><span class="n">prod</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="nb">vars</span><span class="o">=</span><span class="s2">&quot;remote_hostname=[remote host replicated locally] local_port=[port used by replicated shard]&quot;</span> <span class="o">--</span><span class="n">tags</span> <span class="n">remove</span> <span class="n">shards</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../verify/verify.html" class="btn btn-neutral float-right" title="Verification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../config/config.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, LLNL ESGF Installer Working Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 4.0.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../4.0.0-beta1/usage/usage.html">4.0.0-beta1</a></dd>
+            <dd><a href="../../4.0.0-beta2/usage/usage.html">4.0.0-beta2</a></dd>
+            <dd><a href="../../4.0.1/usage/usage.html">4.0.1</a></dd>
+            <dd><a href="usage.html">4.0.2</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
