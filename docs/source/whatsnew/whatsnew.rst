@@ -14,6 +14,7 @@ Critical
 
 Info
 ----
+- A missing dependency for the Globus Transfer API was added to ensure Globus integration within CoG is operational.
 - Tomcat webapps are now always cleaned out and re-installed
 - Tomcat updated, ``8.5.34`` -> ``8.5.39``
 - Solr updated, ``6.6.5`` -> ``6.6.6``
