@@ -1,7 +1,7 @@
 
 # Always reinstall the tomcat webapp to ensure only 
 #  the correct libraries are present
-- name: "Create {{ webapp.name }} Webapp Directory"
+- name: "Remove {{ webapp.name }} Webapp Directory"
   file:
     path: "{{ tomcat.webapps }}/{{ webapp.name }}"
     state: absent
