@@ -10,8 +10,6 @@ thredds_webapp:
   url: "{{ assets.base }}/thredds.war"
   name: thredds
 
-stats_api_version: v1.0.9
-
 stats_webapp:
   url: "{{ assets.stats_api }}/esgf-stats-api.war"
   name: esgf-stats-api
@@ -21,11 +19,6 @@ node_manager:
     name: "esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
     url: "{{ assets.node_manager }}/esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"
     script: esgf_node_manager_initialize
-
-publisher:
-  pip:
-    version: "3.6.0-a2"
-    name: "git+https://github.com/ESGF/esg-publisher.git@v3.6.0-a2#egg=esgcet&subdirectory=src/python/esgcet"
 
 data_db:
   users:
