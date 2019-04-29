@@ -3,7 +3,8 @@ FAQ
 
 **Q: How can I use this to upgrade my legacy install?**
 
-**Answer:** Make sure you stop all services on your older node using the legacy tools for doing so. 
+**Answer:** Make sure you stop all services on your older node using the legacy tools for doing so.
+Also, ensure services are not configured to start at boot as this may lead to unexpected behavior. ``chkconfig --list`` may help provide this info.
 If there are valid certificates and keys in place on the machine that you would like to continue to use, 
 put those in a place on your managed machine and specify that path in your host variable file. 
 Once you have filled your variable file(s) and your inventory file, 
