@@ -36,7 +36,7 @@
     {{ conda.actv }} cog && \
     make && make install
   args:
-    chdir: "{{ cog.dest }}/transfer-api-client-python/mkproxy"
+    chdir: "{{ cog.base }}/transfer-api-client-python/mkproxy"
 
 - name: Install CoG into conda env
   shell: >
