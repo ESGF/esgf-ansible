@@ -6,6 +6,22 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.3 (2019-05-15)
+******************
+
+Critical
+--------
+
+Info
+----
+- A missing dependency for the Globus Transfer API was added to ensure Globus integration within CoG is operational.
+- Tomcat webapps are now always cleaned out and re-installed
+- Cog updated to ``v3.14.1``
+- Tomcat updated, ``8.5.34`` -> ``8.5.39``
+- Solr updated, ``6.6.5`` -> ``6.6.6``
+- Java 8 set to be updated to latest version of OpenJDK 8. This is also a switch to using ``yum`` to install Java.
+
+
 4.0.2 (2019-04-15)
 ******************
 
