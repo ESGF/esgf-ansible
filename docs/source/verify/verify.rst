@@ -15,6 +15,9 @@ This can be neatly combined with ``start.yml`` and ``stop.yml``. The following w
 
     ansible-playbook -v -i hosts.test stop.yml start.yml status.yml
 
+
+If you are looking to get started using your node or have questions that are not answered within these docs be sure to `checkout the user support docs <https://esgf.github.io/esgf-user-support/>`_.
+
 Logs
 ====
 

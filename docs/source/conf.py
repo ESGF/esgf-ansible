@@ -24,7 +24,7 @@ copyright = u'2019, LLNL ESGF Installer Working Team'
 author = u'LLNL ESGF Installer Working Team'
 
 # The short X.Y version
-version = u'4.0.2'
+version = u'4.0.3'
 # The full version, including alpha/beta/rc tags
 release = u''
 

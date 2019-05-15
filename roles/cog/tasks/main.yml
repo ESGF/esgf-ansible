@@ -12,11 +12,6 @@
     version: "{{ cog.version }}"
   register: cog_clone
 
-# - name: Clone Transfer API Client Repo
-#   git:
-#     repo: "https://github.com/globusonline/transfer-api-client-python.git"
-#     dest: "{{ cog.base }}/transfer-api-client-python"
-
 - name: Create CoG conda env
   command: "{{ conda.exe }} create -y -n cog 'python<3' pip"
   args:
@@ -29,6 +24,19 @@
     pip install 'mod_wsgi<4.6' 'git+https://github.com/EarthSystemCoG/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
   args:
     chdir: "{{ cog.dest }}"
+
+# Install mkproxy
+- name: Clone Transfer API Client Repo
+  git:
+    repo: "https://github.com/globusonline/transfer-api-client-python.git"
+    dest: "{{ cog.base }}/transfer-api-client-python"
+
+- name: Make and Install mkproxy
+  shell: >
+    {{ conda.actv }} cog && \
+    make && make install
+  args:
+    chdir: "{{ cog.base }}/transfer-api-client-python/mkproxy"
 
 - name: Install CoG into conda env
   shell: >
