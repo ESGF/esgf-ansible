@@ -3,7 +3,7 @@
   yum:
     disable_gpg_check: yes
     name:
-      - globus-connect-server-id
+      - globus-connect-server-id-4.0.51
       - mhash
       - pam-pgsql
 

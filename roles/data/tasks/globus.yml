@@ -3,7 +3,7 @@
   yum:
     disable_gpg_check: yes
     name:
-      - globus-connect-server-io
+      - globus-connect-server-io-4.0.51
       - globus-authz-esgsaml-callout
       - globus-gaa
       - globus-adq
