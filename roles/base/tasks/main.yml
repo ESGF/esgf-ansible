@@ -19,6 +19,7 @@
       - nss
       - curl
       - libcurl
+      - yum-plugin-priorities
     state: latest
 
 - name: Import base tasks
