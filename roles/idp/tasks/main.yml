@@ -1,9 +1,4 @@
 
-
-# MyProxy tasks
-- name: Import myproxy tasks
-  import_tasks: myproxy.yml
-
 # SLCS tasks
 - name: Import slcs tasks
   import_tasks: slcs.yml

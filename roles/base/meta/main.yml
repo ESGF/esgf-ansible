@@ -6,3 +6,5 @@ dependencies:
   - { role: java }
   - { role: tomcat }
   - { role: monitoring, when: prometheus_hosts is defined or prometheus_ips is defined }
+  - { role: globus_tools, when: skip_deps is not defined or not skip_deps }
+  - { role: globus_certs, when: skip_deps is not defined or not skip_deps }

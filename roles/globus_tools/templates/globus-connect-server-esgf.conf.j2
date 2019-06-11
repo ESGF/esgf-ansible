@@ -12,10 +12,12 @@ TrustedCertificateDirectory = {{ grid_security.cert_dir }}
 IdentityMethod = MyProxy
 AuthorizationMethod = Gridmap
 [GridFTP]
-Server = {{ ansible_fqdn }}
+Server = {{ '%(HOSTNAME)s' if 'data' in group_names else ''}}
 IncomingPortRange = 50000,51000
 OutgoingPortRange = 50000,51000
 RestrictPaths = R/,N/etc,N/tmp,N/dev
 Sharing = False
 SharingRestrictPaths = R/
 SharingStateDir = {{ esg.home }}/etc/grid-security/sharing/{{ globus_user }}
+[MyProxy]
+Server = {{ groups['idp'][0] }}
