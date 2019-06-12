@@ -52,15 +52,10 @@
     path: /etc/myproxy.d
     state: directory
 
-- name: Install the Globus Connect ESGF config to /etc/myproxy.d
+- name: Install the Globus Connect Server ESGF config to /etc/myproxy.d
   template:
     src: myproxy/globus-connect-esgf.j2
-    dest: /etc/myproxy.d/globus-connect-esgf
-
-- name: Install /etc/myproxy.d/myproxy-esgf
-  template:
-    src: myproxy/myproxy-esgf.j2
-    dest: /etc/myproxy.d/myproxy-esgf
+    dest: /etc/myproxy.d/globus-connect-server
 
 # Install PAM config files fo postgres auth
 - name: Install pam_pgsql.conf
