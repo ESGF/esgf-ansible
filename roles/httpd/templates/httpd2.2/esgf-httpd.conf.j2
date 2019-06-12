@@ -148,7 +148,7 @@ NameVirtualHost *:80
     SetHandler server-status
 	Order deny,allow
 	Deny from all
-    Allow from {{ ansible_fqdn }}
+    Allow from {{ hostname.self }}
 </Location>
 <Location / >
 	<LimitExcept POST GET>

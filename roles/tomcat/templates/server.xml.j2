@@ -92,7 +92,7 @@
                acceptCount="100" scheme="https" secure="true"
                clientAuth="want" sslEnabledProtocols="TLSv1.2"
                proxyPort="443"
-               proxyName="{{ ansible_fqdn }}"
+               proxyName="{{ hostname.self }}"
                server='X'
                ciphers="TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
                truststoreFile="{{ tomcat.ts.path }}" truststorePass="{{ tomcat.ts.pass }}"

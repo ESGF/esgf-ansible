@@ -6,5 +6,5 @@ password = {{ all_db.users.super.pass }}
 table = esgf_security.user
 user_column = username
 pwd_column = password
-auth_query=select password from esgf_security.user where username = %u and openid like '%%{{ groups['idp'][0] }}%%'
+auth_query=select password from esgf_security.user where username = %u and openid like '%%{{ hostname.idp }}%%'
 pw_type = crypt_md5

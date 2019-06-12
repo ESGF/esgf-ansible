@@ -30,7 +30,7 @@
 - name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup --rootid {{ ansible_fqdn.split('.', 1)[-1] }}
+    esgsetup --config --minimal-setup --rootid {{ hostname.self.split('.', 1)[-1] }}
   args:
     creates: "{{ esg.config.dir }}/esgcet/esg.ini"
   environment:
@@ -47,7 +47,7 @@
   replace:
     path: "{{ esg.config.dir }}/esgcet/esg.ini"
     regexp: 'host.sample.gov'
-    replace: '{{ ansible_fqdn }}'
+    replace: '{{ hostname.self }}'
 
 - name: Run esgsetup for the database
   no_log: true
@@ -82,7 +82,7 @@
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup \
-    --thredds --publish --gateway {{ groups['index'][0] }} \
+    --thredds --publish --gateway {{ hostname.index }} \
     --thredds-password "{{ admin_pass }}"
   environment:
     UVCDAT_ANONYMOUS_LOG: no

@@ -8,7 +8,7 @@ dependencies:
       key_dest: "{{ grid_security.host.key }}",
       csr_dest: "/tmp/globus.csr",
       cert_dest: "{{ grid_security.host.cert }}",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       ownca: true
     }
   # This is the to be signed CSR and Key generation
@@ -18,7 +18,7 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ ansible_env.HOME }}/globushostkey.pem",
       csr_dest: "{{ ansible_env.HOME }}/globushostcsr.csr",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       csr: true
     }
   - {
@@ -27,7 +27,7 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ globushostkey }}",
       csr_dest: "{{ ansible_env.HOME }}/globushostcsr.csr",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       csr: true
     }
   - {
