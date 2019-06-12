@@ -65,7 +65,7 @@
 
 - name: Run IdP tasks
   when: "'idp' in group_names"
-  include_tasks: id_ports.yml
+  include_tasks: myproxy.yml
 
 - name: Register Globus Connect Server
   when:
