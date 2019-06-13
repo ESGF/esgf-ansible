@@ -2,9 +2,9 @@
 
     <attribute
         type="wheel"
-        attributeService="https://{{ groups['idp'][0] }}/esgf-idp/saml/soap/secure/attributeService.htm"
+        attributeService="https://{{ hostname.idp }}/esgf-idp/saml/soap/secure/attributeService.htm"
         description="Administrator Group"
-        registrationService="https://{{ groups['idp'][0] }}/esgf-idp/secure/registrationService.htm"
+        registrationService="https://{{ hostname.idp }}/esgf-idp/secure/registrationService.htm"
     />
 
 </ats_whitelist>

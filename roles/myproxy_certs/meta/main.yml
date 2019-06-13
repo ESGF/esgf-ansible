@@ -15,7 +15,7 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ ansible_env.HOME }}/myproxycakey.pem",
       csr_dest: "{{ ansible_env.HOME }}/myproxycacsr.csr",
-      common_name: "{{ ansible_fqdn }}-CA",
+      common_name: "{{ hostname.self }}-CA",
       csr: true
     }
   # Generate a new CSR for an existing key
@@ -25,6 +25,6 @@ dependencies:
       dest_dir: "{{ ansible_env.HOME }}",
       key_dest: "{{ myproxycakey }}",
       csr_dest: "{{ ansible_env.HOME }}/myproxycacsr.csr",
-      common_name: "{{ ansible_fqdn }}-CA",
+      common_name: "{{ hostname.self }}-CA",
       csr: true
     }

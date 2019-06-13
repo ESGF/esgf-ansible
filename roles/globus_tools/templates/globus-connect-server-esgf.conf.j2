@@ -2,7 +2,7 @@
 User = {{ globus_user }}
 Password = "{{ globus_pass }}"
 [Endpoint]
-Name = {{ ansible_fqdn }}
+Name = {{ hostname.self }}
 Public = True
 [Security]
 FetchCredentialFromRelay = False
@@ -20,4 +20,4 @@ Sharing = False
 SharingRestrictPaths = R/
 SharingStateDir = {{ esg.home }}/etc/grid-security/sharing/{{ globus_user }}
 [MyProxy]
-Server = {{ groups['idp'][0] }}
+Server = {{ hostname.idp }}

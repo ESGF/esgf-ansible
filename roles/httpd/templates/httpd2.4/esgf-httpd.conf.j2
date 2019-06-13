@@ -146,7 +146,7 @@ TraceEnable Off
 NameVirtualHost *:80
 <Location "/server-status">
     SetHandler server-status
-    Require host {{ ansible_fqdn }}
+    Require host {{ hostname.self }}
 </Location>
 <Location / >
 	<LimitExcept POST GET>
