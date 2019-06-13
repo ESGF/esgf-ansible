@@ -78,7 +78,6 @@
 
 # Configure publisher with thredds
 - name: Run esgsetup for thredds
-  no_log: true
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --config --minimal-setup \
