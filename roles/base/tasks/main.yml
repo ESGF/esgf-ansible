@@ -29,3 +29,11 @@
     - config
   loop_control:
     loop_var: base_task
+
+- name: Include Globus Tools
+  include_role:
+    name: globus_tools
+
+- name: Include Globus Certs
+  include_role:
+    name: globus_certs

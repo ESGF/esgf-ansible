@@ -30,3 +30,7 @@ dependencies:
       common_name: "{{ ansible_fqdn }}",
       csr: true
     }
+  - {
+      role: 'myproxy_certs',
+      when: "'idp' is in group_names"
+    }

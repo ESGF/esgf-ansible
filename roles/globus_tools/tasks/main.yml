@@ -1,4 +1,12 @@
 
+- name: Open data ports
+  when: "'data' in group_names"
+  include_tasks: io_ports.yml
+
+- name: Open IdP ports
+  when: "'idp' in group_names"
+  include_tasks: id_ports.yml
+
 # Get globus tools and libraries
 - name: Import Globus GPG key
   rpm_key:
@@ -18,6 +26,31 @@
     src: esgf.repo.j2
     dest: /etc/yum.repos.d/esgf.repo
 
+- name: Install plugin-priorites
+  yum:
+    name: yum-plugin-priorities
+
+- name: Install Globus Connect Server
+  yum:
+    disable_gpg_check: yes
+    name:
+      - globus-connect-server
+      - globus-authz-esgsaml-callout
+      - globus-gaa
+      - globus-adq
+      - customgsiauthzinterface
+      - perl-DBD-Pg
+      - mhash
+      - pam-pgsql
+
+- name: Install Globus Connect Server Config
+  template:
+    src: globus-connect-server-esgf.conf.j2
+    dest: /etc/globus-connect-server.conf
+    mode: 0600
+    owner: "{{ 'myproxy' if 'idp' in group_names else 'root' }}"
+    group: "{{ 'myproxy' if 'idp' in group_names else 'root' }}"
+
 - name: Create needed Globus directories
   file:
     path: "{{ item }}"
@@ -25,3 +58,17 @@
   loop:
     - "{{ grid_security.dir }}"
     - "{{ grid_security.cert_dir }}"
+
+- name: Register Globus Connect Server
+  when:
+    - globus_user is defined
+    - globus_pass is defined
+  command: 'globus-connect-server-setup --force'
+
+- name: Run GridFTP tasks
+  when: "'data' in group_names"
+  include_tasks: gridftp.yml
+
+- name: Run IdP tasks
+  when: "'idp' in group_names"
+  include_tasks: myproxy.yml

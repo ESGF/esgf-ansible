@@ -1,6 +1,0 @@
-export MYPROXY_USER=root
-export X509_CERT_DIR="{{ grid_security.cert_dir }}"
-export X509_USER_CERT="{{ grid_security.host.cert }}"
-export X509_USER_KEY="{{ grid_security.host.key }}"
-export X509_USER_PROXY=""
-export MYPROXY_OPTIONS="-c {{ myproxy.scripts.dir }}/myproxy-server.config -s {{ myproxy.ca.dir }}/store"

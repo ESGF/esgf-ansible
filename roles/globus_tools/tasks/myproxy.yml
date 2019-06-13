@@ -1,5 +1,23 @@
 
 
+- name: myproxy Group
+  when: is_6
+  group:
+    name: myproxy
+
+- name: myproxy User
+  when: is_6
+  user:
+    name: myproxy
+    groups: myproxy
+
+- name: Ensure the myproxy user can read the appropriate password file
+  when: is_7
+  user:
+    name: myproxy
+    groups: tomcat
+    append: yes
+
 # Install myproxy scripts for validating credentials and the conda env in which they will run
 - name: Create myproxy conda env
   command: "{{ conda.exe }} create -y -n {{ myproxy.env }} 'python<3' 'pyopenssl' 'psycopg2<2.8'"
@@ -34,15 +52,10 @@
     path: /etc/myproxy.d
     state: directory
 
-- name: Install the Globus Connect ESGF config to /etc/myproxy.d
+- name: Install the Globus Connect Server ESGF config to /etc/myproxy.d
   template:
     src: myproxy/globus-connect-esgf.j2
-    dest: /etc/myproxy.d/globus-connect-esgf
-
-- name: Install /etc/myproxy.d/myproxy-esgf
-  template:
-    src: myproxy/myproxy-esgf.j2
-    dest: /etc/myproxy.d/myproxy-esgf
+    dest: /etc/myproxy.d/globus-connect-server
 
 # Install PAM config files fo postgres auth
 - name: Install pam_pgsql.conf
@@ -88,45 +101,10 @@
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
-# Set this as root is user on Cent OS 6
+# Set ownership as root user on Cent OS 6
 - name: Set CentOS 6 MyProxy permissions
   when: is_6
   file:
     path: "{{ myproxy.ca.dir }}/store"
     owner: root
     recurse: yes
-
-# Open the MyProxy port on CentOS 7
-- name: Configure firewalld for MyProxy
-  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
-  firewalld:
-    port: 7512/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- name: Configure iptables for MyProxy
-  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
-  iptables:
-    chain: INPUT
-    destination_port: 7512
-    jump: ACCEPT
-    protocol: tcp
-    match: tcp
-    action: insert
-    rule_num: 5
-  register: iptables_conf_myproxy
-
-- name: Save iptables change
-  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and iptables_conf_myproxy is changed
-  command: "service iptables save"
-  args:
-    warn: no
-
-- name: Register MyProxy
-  when:
-    - globus_user is defined
-    - globus_pass is defined
-    - register_myproxy is defined
-    - register_myproxy
-  include_tasks: register_myproxy.yml

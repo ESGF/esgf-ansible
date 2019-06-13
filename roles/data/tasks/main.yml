@@ -5,8 +5,5 @@
 - name: Import postgres tasks
   import_tasks: postgres.yml
 
-- name: Import globus tasks
-  import_tasks: globus.yml
-
 - name: Import thredds tasks
   import_tasks: thredds.yml
