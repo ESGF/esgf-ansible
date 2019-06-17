@@ -18,6 +18,8 @@ Info
 - Hostnames that are used in config files can be better controlled by using the ``hostname`` variables in ``group_vars/all.yml``
 - Solr ``6.6.6`` requires either a whitelist of shards or an explicit directive that no whitelist will be provided, the latter alternative was chosen
 - Cog updated to ``v3.14.3``
+- ESGF-ORP updated to ``v2.11.0``
+- ESGF-Security updated to ``v2.8.12``
 
 4.0.3 (2019-05-15)
 ******************
