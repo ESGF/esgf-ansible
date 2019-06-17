@@ -6,6 +6,19 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.4 (2019-06-19)
+******************
+
+Critical
+--------
+
+Info
+----
+- With the release of the latest versions of Globus tools it is now required to deploy all Globus services, even if all are not going to be used.
+- Hostnames that are used in config files can be better controlled by using the ``hostname`` variables in ``group_vars/all.yml``
+- Solr ``6.6.6`` requires either a whitelist of shards or an explicit directive that no whitelist will be provided, the latter alternative was chosen
+- Cog updated to ``v3.14.3``
+
 4.0.3 (2019-05-15)
 ******************
 
