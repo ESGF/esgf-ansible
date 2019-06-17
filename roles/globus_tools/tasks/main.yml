@@ -65,6 +65,10 @@
     - globus_pass is defined
   command: 'globus-connect-server-setup --force'
 
+- name: Include Globus Certs
+  include_role:
+    name: globus_certs
+
 - name: Run GridFTP tasks
   when: "'data' in group_names"
   include_tasks: gridftp.yml

@@ -33,7 +33,3 @@
 - name: Include Globus Tools
   include_role:
     name: globus_tools
-
-- name: Include Globus Certs
-  include_role:
-    name: globus_certs
