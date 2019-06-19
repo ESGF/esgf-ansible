@@ -30,7 +30,7 @@
 - name: Run esgsetup for config files
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup --rootid {{ hostname.self.split('.', 1)[-1] }}
+    esgsetup --config --minimal-setup --rootid {{ hostname.self.split('.', 1)[-1]|quote }}
   args:
     creates: "{{ esg.config.dir }}/esgcet/esg.ini"
   environment:
@@ -54,13 +54,13 @@
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --db --minimal-setup \
-    --db-name {{ all_db.db }} \
-    --db-admin {{ all_db.users.super.name }} \
-    --db-admin-password "{{ all_db.users.super.pass }}" \
-    --db-user {{ data_db.users.pub.name }} \
-    --db-user-password "{{ data_db.users.pub.pass }}" \
-    --db-host {{ all_db.host }} \
-    --db-port {{ all_db.port }}
+    --db-name {{ all_db.db|quote }} \
+    --db-admin {{ all_db.users.super.name|quote }} \
+    --db-admin-password {{ all_db.users.super.pass|quote }} \
+    --db-user {{ data_db.users.pub.name|quote }} \
+    --db-user-password {{ data_db.users.pub.pass|quote }} \
+    --db-host {{ all_db.host|quote }} \
+    --db-port {{ all_db.port|quote }}
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
@@ -82,7 +82,7 @@
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --minimal-setup \
-    --thredds --publish --gateway '{{ hostname.index }}' \
-    --thredds-password '{{ admin_pass }}''
+    --thredds --publish --gateway {{ hostname.index|quote }} \
+    --thredds-password {{ admin_pass|quote }}
   environment:
     UVCDAT_ANONYMOUS_LOG: no
