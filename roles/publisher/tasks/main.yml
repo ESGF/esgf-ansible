@@ -81,7 +81,7 @@
   no_log: false
   shell: >
     {{ conda.actv }} esgf-pub && \
-    esgsetup --config --minimal-setup \
+    esgsetup --minimal-setup \
     --thredds --publish --gateway {{ hostname.index }} \
     --thredds-password "{{ admin_pass }}"
   environment:
