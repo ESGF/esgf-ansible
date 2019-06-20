@@ -36,6 +36,13 @@
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
+- name: Run esgfetchini
+  shell: >
+    {{ conda.actv }} esgf-pub && \
+    esgfetchini -k
+  environment:
+    UVCDAT_ANONYMOUS_LOG: no
+
 - name: Insert publisher password into esg.ini
   no_log: true
   replace:
