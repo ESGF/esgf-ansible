@@ -61,13 +61,13 @@
   shell: >
     {{ conda.actv }} esgf-pub && \
     esgsetup --db --minimal-setup \
-    --db-name {{ all_db.db|quote }} \
-    --db-admin {{ all_db.users.super.name|quote }} \
-    --db-admin-password {{ all_db.users.super.pass|quote }} \
-    --db-user {{ data_db.users.pub.name|quote }} \
-    --db-user-password {{ data_db.users.pub.pass|quote }} \
-    --db-host {{ all_db.host|quote }} \
-    --db-port {{ all_db.port|quote }}
+    --db-name "{{ all_db.db|quote }}" \
+    --db-admin "{{ all_db.users.super.name|quote }}" \
+    --db-admin-password "{{ all_db.users.super.pass|quote }}" \
+    --db-user "{{ data_db.users.pub.name|quote }}" \
+    --db-user-password "{{ data_db.users.pub.pass|quote }}" \
+    --db-host "{{ all_db.host|quote }}" \
+    --db-port "{{ all_db.port|quote }}"
   environment:
     UVCDAT_ANONYMOUS_LOG: no
 
