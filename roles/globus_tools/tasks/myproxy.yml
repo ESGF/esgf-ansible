@@ -11,12 +11,6 @@
     name: myproxy
     groups: myproxy
 
-- name: Ensure the myproxy user can read the appropriate password file
-  when: is_7
-  user:
-    name: myproxy
-    groups: tomcat
-    append: yes
 
 # Install myproxy scripts for validating credentials and the conda env in which they will run
 - name: Create myproxy conda env
@@ -100,3 +94,9 @@
     - /var/lib/globus-connect-server
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
+
+- name: Ensure the myproxy user can read the appropriate password file
+  user:
+    name: myproxy
+    groups: tomcat
+    append: yes
