@@ -106,15 +106,18 @@
       when: "'index' in group_names or 'data' in group_names"
       uri:
         url: "https://{{ hostname.self }}/esg-orp/home.htm"
+        validate_certs: "{{ (0 if 'ssl' in ansible_skip_tags else 1)|bool }}"
 
     - name: Check data URL
       when: "'data' in group_names"
       uri:
+        validate_certs: "{{ (0 if 'ssl' in ansible_skip_tags else 1)|bool }}"
         url: "https://{{ hostname.self }}/thredds/catalog/catalog.html"
 
     - name: Check index URLs
       when: "'index' in group_names"
       uri:
+        validate_certs: "{{ (0 if 'ssl' in ansible_skip_tags else 1)|bool }}"
         url: "{{ item }}"
       loop:
         - https://{{ hostname.self }}/solr/datasets/admin/ping
@@ -124,6 +127,7 @@
     - name: Check idp URL
       when: "'idp' in group_names"
       uri:
+        validate_certs: "{{ (0 if 'ssl' in ansible_skip_tags else 1)|bool }}"
         url: "{{ item }}"
       loop:
         - https://{{ hostname.self }}/esgf-idp/
