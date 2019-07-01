@@ -11,12 +11,6 @@
     name: myproxy
     groups: myproxy
 
-- name: Ensure the myproxy user can read the appropriate password file
-  when: is_7
-  user:
-    name: myproxy
-    groups: tomcat
-    append: yes
 
 # Install myproxy scripts for validating credentials and the conda env in which they will run
 - name: Create myproxy conda env
@@ -101,10 +95,8 @@
     - "{{ myproxy.scripts.dir }}"
     - "{{ grid_security.dir }}/myproxy"
 
-# Set ownership as root user on Cent OS 6
-- name: Set CentOS 6 MyProxy permissions
-  when: is_6
-  file:
-    path: "{{ myproxy.ca.dir }}/store"
-    owner: root
-    recurse: yes
+- name: Ensure the myproxy user can read the appropriate password file
+  user:
+    name: myproxy
+    groups: tomcat
+    append: yes

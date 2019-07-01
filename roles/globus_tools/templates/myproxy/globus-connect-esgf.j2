@@ -1,4 +1,4 @@
-export MYPROXY_USER="{{ 'root' if is_6 else 'myproxy'}}"
+export MYPROXY_USER="myproxy"
 export X509_CERT_DIR="{{ grid_security.cert_dir }}"
 export X509_USER_CERT="{{ grid_security.dir }}/myproxy/hostcert.pem"
 export X509_USER_KEY="{{ grid_security.dir }}/myproxy/hostkey.pem"

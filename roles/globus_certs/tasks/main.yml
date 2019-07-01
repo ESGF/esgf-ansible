@@ -25,3 +25,13 @@
 - name: Install trusted certificates for Globus
   shell: >
     cp /tmp/esg_trusted_certificates/* {{ grid_security.cert_dir }}
+
+- name: Check if GridFTP is present
+  stat:
+    path: "{{ gridftp.chroot }}"
+  register: gridftp_chroot
+
+- name: Copy certificates over if it is
+  when: gridftp_chroot.stat.exists
+  shell: >
+    cp {{ grid_security.cert_dir }}/* {{ gridftp.chroot }}{{ grid_security.cert_dir }}/

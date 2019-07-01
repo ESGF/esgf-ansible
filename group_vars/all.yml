@@ -20,8 +20,8 @@ versions:
   dashboard_db: 0.0.4
   node_manager: v1.0.5
   node_manager_db: 0.1.7
-  orp: v2.10.10
-  security: v2.8.9
+  orp: v2.11.0
+  security: v2.8.11
   security_db: 0.1.7
   idp: v2.8.8
 

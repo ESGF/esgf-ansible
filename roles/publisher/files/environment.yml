@@ -83,7 +83,7 @@ dependencies:
     - cdms2==3.0.0
     - cf-python==2.3.3
     - cftime==1.0.3.4
-    - esgcet==3.6.3
+    - esgcet==3.7.0
     - esgconfigparser==0.1.17
     - esgf-pyclient==0.2.1
     - esgfpid==0.7.12
