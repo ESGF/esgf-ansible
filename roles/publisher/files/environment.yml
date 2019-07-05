@@ -72,7 +72,7 @@ dependencies:
   - sqlite=3.27.2
   - tk=8.6.8
   - traitlets=4.3.2
-  - udunits2=2.2.25
+  - udunits2=2.2.27
   - urllib3=1.24.1
   - wheel=0.33.1
   - xz=5.2.4
