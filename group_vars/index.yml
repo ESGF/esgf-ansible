@@ -4,8 +4,8 @@ search_webapp:
   name: esg-search
 
 solr:
-  src: http://archive.apache.org/dist/lucene/solr/6.6.5/solr-6.6.5.zip
-  root_dir: solr-6.6.5
+  src: http://archive.apache.org/dist/lucene/solr/6.6.6/solr-6.6.6.zip
+  root_dir: solr-6.6.6
   path: /usr/local/solr
   home: /usr/local/solr-home
   shards:

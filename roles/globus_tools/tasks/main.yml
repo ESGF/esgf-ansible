@@ -10,7 +10,7 @@
 # Get globus tools and libraries
 - name: Import Globus GPG key
   rpm_key:
-    key: http://www.globus.org/ftppub/globus-connect-server/RPM-GPG-KEY-Globus
+    key: https://downloads.globus.org/toolkit/gt6/stable/repo/rpm/RPM-GPG-KEY-Globus
 
 - name: Download globus-connect-server .rpm file
   get_url:
