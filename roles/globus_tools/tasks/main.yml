@@ -11,6 +11,8 @@
 - name: Import Globus GPG key
   rpm_key:
     key: https://downloads.globus.org/toolkit/gt6/stable/repo/rpm/RPM-GPG-KEY-Globus
+  vars:
+    ansible_python_interpreter: "{{ conda.prefix }}/bin/python"
 
 - name: Install globus-connect-server .rpm file
   yum:
