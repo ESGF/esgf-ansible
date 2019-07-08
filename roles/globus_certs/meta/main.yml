@@ -1,16 +1,5 @@
 
 dependencies:
-  # This is the temporary, ownca-signed, certificate
-  - {
-      role: 'certificate',
-      when: globushostcert is not defined and generate_globus is defined and generate_globus,
-      dest_dir: "{{ grid_security.dir }}",
-      key_dest: "{{ grid_security.host.key }}",
-      csr_dest: "/tmp/globus.csr",
-      cert_dest: "{{ grid_security.host.cert }}",
-      common_name: "{{ hostname.self }}",
-      ownca: true
-    }
   # This is the to be signed CSR and Key generation
   - {
       role: 'certificate',

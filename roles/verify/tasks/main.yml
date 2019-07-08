@@ -10,24 +10,3 @@
   when: not (webcerts_specified or (generate_httpd is defined and generate_httpd) or (try_letsencrypt is defined and try_letsencrypt))
   fail:
     msg: No web certificate installation method fully specified. See the sample variable file for more information.
-
-# Globus certs check
-- name: Check if globus cert paths are defined
-  set_fact:
-    globuscerts_specified: "{{ (globushostkey is defined and globushostcert is defined)|bool }}"
-
-- name: Check if globus certificate variables are valid
-  when: not (globuscerts_specified or (generate_globus is defined and generate_globus))
-  fail:
-    msg: No globus certificate installation method fully specified. See the sample variable file for more information.
-
-# MyProxy certs check
-- name: Check if myproxyca cert paths are defined
-  when: "'idp' in group_names"
-  set_fact:
-    myproxycacerts_specified: "{{ (myproxycakey is defined and myproxycacert is defined and myproxy_signing_policy is defined)|bool }}"
-
-- name: Check if myproxyca certificate variables are valid
-  when: "'idp' in group_names and not (myproxycacerts_specified or (generate_myproxyca is defined and generate_myproxyca))"
-  fail:
-    msg: No myproxyca certificate installation method fully specified. See the sample variable file for more information.
