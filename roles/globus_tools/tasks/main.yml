@@ -18,8 +18,6 @@
   get_url:
     url: https://downloads.globus.org/toolkit/globus-connect-server/globus-connect-server-repo-latest.noarch.rpm
     dest: /tmp/globus-connect-server-repo-latest.noarch.rpm
-  vars:
-    ansible_python_interpreter: "{{ conda.prefix }}/bin/python"
 
 - name: Install globus-connect-server .rpm file
   package:
