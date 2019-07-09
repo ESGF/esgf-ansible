@@ -75,7 +75,7 @@
             
             
               <div class="version">
-                4.0.3
+                4.0.4
               </div>
             
           
@@ -108,29 +108,34 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">4.0.3 (2019-05-15)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">4.0.4 (2019-07-10)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#critical">Critical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#info">Info</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">4.0.2 (2019-04-15)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">4.0.3 (2019-05-15)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Critical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Info</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">4.0.1 (2019-04-10)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id5">4.0.2 (2019-04-15)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Critical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">Info</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">4.0.1 (2019-04-10)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Critical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Info</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#beta2-2019-03-27">4.0.0-beta2 (2019-03-27)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Critical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Critical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Info</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#beta1-2019-02-25">4.0.0-beta1 (2019-02-25)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Critical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Critical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Info</a></li>
 </ul>
 </li>
 </ul>
@@ -207,12 +212,32 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.</p>
 <div class="section" id="id1">
-<h2>4.0.3 (2019-05-15)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>4.0.4 (2019-07-10)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="critical">
 <h3>Critical<a class="headerlink" href="#critical" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="info">
 <h3>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>With the release of the latest versions of Globus tools it is now required to deploy all Globus services, even if all are not going to be used.</li>
+<li>Hostnames that are used in config files can be better controlled by using the <code class="docutils literal"><span class="pre">hostname</span></code> variables in <code class="docutils literal"><span class="pre">group_vars/all.yml</span></code></li>
+<li>Solr <code class="docutils literal"><span class="pre">6.6.6</span></code> requires either a whitelist of shards or an explicit directive that no whitelist will be provided, the latter was chosen</li>
+<li>Cog updated to <code class="docutils literal"><span class="pre">v3.14.3</span></code></li>
+<li>ESGF-ORP updated to <code class="docutils literal"><span class="pre">v2.11.0</span></code></li>
+<li>ESGF-Security updated to <code class="docutils literal"><span class="pre">v2.8.11</span></code></li>
+<li>esgpublisher updated to <code class="docutils literal"><span class="pre">v3.7.0</span></code></li>
+<li>udunits2 updated to <code class="docutils literal"><span class="pre">2.2.27</span></code></li>
+<li>Small changes to the configuration of myproxy-server regarding the locations of certificates and keys</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>4.0.3 (2019-05-15)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Critical<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id4">
+<h3>Info<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>A missing dependency for the Globus Transfer API was added to ensure Globus integration within CoG is operational.</li>
 <li>Tomcat webapps are now always cleaned out and re-installed</li>
@@ -223,28 +248,28 @@ All items described within a release are relative to the previous release.</p>
 </ul>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>4.0.2 (2019-04-15)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Critical<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h2>4.0.2 (2019-04-15)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>Critical<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id4">
-<h3>Info<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Info<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Resolve missing GridFTP directory mount points at node startup</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>4.0.1 (2019-04-10)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Critical<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h2>4.0.1 (2019-04-10)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>Critical<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Previous releases of ESGF-Ansible created entries in <code class="docutils literal"><span class="pre">/etc/fstab</span></code> for the bind mounts required by GridFTP. These are now setup to be created when starting GridFTP and removed when stopping GridFTP. Their presence in <code class="docutils literal"><span class="pre">/etc/fstab</span></code> may or may not cause unexpected behavior and they should be safely removed.</li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>Info<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>Info<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>New <code class="docutils literal"><span class="pre">status.yml</span></code> playbook, see the new <a class="reference external" href="../verify/verify.html">Verification Section</a>.</li>
 <li>Default memory for Tomcat has been increased.</li>
@@ -253,8 +278,8 @@ All items described within a release are relative to the previous release.</p>
 </div>
 <div class="section" id="beta2-2019-03-27">
 <h2>4.0.0-beta2 (2019-03-27)<a class="headerlink" href="#beta2-2019-03-27" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>Critical<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>Critical<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">gftphost*</span></code> variables renamed to <code class="docutils literal"><span class="pre">globushost*</span></code></li>
 <li>Added variables <code class="docutils literal"><span class="pre">generate_*</span></code> which are required to be specified if the user would like esgf-ansible to generate required files (keys/certs) for the respective service</li>
@@ -263,8 +288,8 @@ All items described within a release are relative to the previous release.</p>
 <li>Added <code class="docutils literal"><span class="pre">admin_pass</span></code> variable and requirement for either the <code class="docutils literal"><span class="pre">/esg/config/.esgf_pass</span></code> file to be present on the Node or the <code class="docutils literal"><span class="pre">admin_pass</span></code> variable to be specified</li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h3>Info<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3>Info<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>New sample files within the <code class="docutils literal"><span class="pre">host_vars/</span></code> directory to help with all the new changes above</li>
 <li>A new tag, <code class="docutils literal"><span class="pre">publisher</span></code>, has been added to the <code class="docutils literal"><span class="pre">install.yml</span></code> playbook to easily repeat the esg-publisher setup steps in the event of failure</li>
@@ -277,11 +302,11 @@ All items described within a release are relative to the previous release.</p>
 </div>
 <div class="section" id="beta1-2019-02-25">
 <h2>4.0.0-beta1 (2019-02-25)<a class="headerlink" href="#beta1-2019-02-25" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>Critical<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>Critical<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id11">
-<h3>Info<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>Info<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -324,7 +349,7 @@ All items described within a release are relative to the previous release.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 4.0.3
+        v: 4.0.4
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -335,6 +360,7 @@ All items described within a release are relative to the previous release.</p>
             <dd><a href="../4.0.1/whatsnew/whatsnew.html">4.0.1</a></dd>
             <dd><a href="../4.0.2/whatsnew/whatsnew.html">4.0.2</a></dd>
             <dd><a href="../4.0.3/whatsnew/whatsnew.html">4.0.3</a></dd>
+            <dd><a href="../4.0.4/whatsnew/whatsnew.html">4.0.4</a></dd>
         </dl>
     </div>
 </div>
