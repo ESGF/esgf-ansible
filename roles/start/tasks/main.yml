@@ -82,7 +82,7 @@
   when: "'index' in group_names"
   become: yes
   become_user: solr
-  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }} -Ddisable.configEdit=true"
+  command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }} -a {{ shard.args }} -Ddisable.configEdit=true -Dsolr.disable.shardsWhitelist=true"
   loop: "{{ existing_shards }}"
   register: result
   changed_when: '"Port {{ shard.port }} is already being used" not in result.stdout'

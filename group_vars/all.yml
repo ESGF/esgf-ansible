@@ -1,4 +1,10 @@
 
+# Hostname Info
+hostname:
+  self: "{{ ansible_fqdn }}" # This will be the output of `hostname -f` and may not be the correct hostname to use
+  idp: "{{ groups['idp'][0] }}"
+  index: "{{ groups['index'][0] }}"
+
 # OS Info
 is_7: "{{ (ansible_distribution_major_version == '7') | bool }}"
 is_6: "{{ (ansible_distribution_major_version == '6') | bool }}"
@@ -14,8 +20,8 @@ versions:
   dashboard_db: 0.0.4
   node_manager: v1.0.5
   node_manager_db: 0.1.7
-  orp: v2.10.10
-  security: v2.8.9
+  orp: v2.11.0
+  security: v2.8.11
   security_db: 0.1.7
   idp: v2.8.8
 
@@ -141,7 +147,7 @@ prometheus:
       port: 9117
       dir: /usr/local/apache_exporter
       web_path: /apache-metrics
-      run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ ansible_fqdn }}/server-status/?auto'"
+      run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ hostname.self }}/server-status/?auto'"
 
     - name: postgres_exporter
       full_name: postgres_exporter_v0.4.7_linux-amd64

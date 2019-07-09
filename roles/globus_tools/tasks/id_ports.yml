@@ -1,0 +1,27 @@
+# Open the MyProxy port on CentOS 7
+- name: Configure firewalld for MyProxy
+  when: is_7 and (configure_centos7_firewalld is defined and configure_centos7_firewalld)
+  firewalld:
+    port: 7512/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+# Open the ports on CentOS 6
+- name: Configure iptables for MyProxy
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables)
+  iptables:
+    chain: INPUT
+    destination_port: 7512
+    jump: ACCEPT
+    protocol: tcp
+    match: tcp
+    action: insert
+    rule_num: 5
+  register: iptables_conf_myproxy
+
+- name: Save iptables change
+  when: is_6 and (configure_centos6_iptables is defined and configure_centos6_iptables) and iptables_conf_myproxy is changed
+  command: "service iptables save"
+  args:
+    warn: no

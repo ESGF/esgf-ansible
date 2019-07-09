@@ -1,7 +1,5 @@
 
 dependencies:
-  - { role: globus_tools, when: skip_deps is not defined or not skip_deps }
-  - { role: globus_certs, when: skip_deps is not defined or not skip_deps }
   - { role: orp, when: skip_deps is not defined or not skip_deps }
   - { role: schema_migrate, egg: "{{ security.egg }}", when: skip_deps is not defined or not skip_deps }
   - { role: schema_migrate, egg: "{{ node_manager.egg }}", when: skip_deps is not defined or not skip_deps }

@@ -10,7 +10,7 @@
     state: started
     enabled: yes
 
-- name: Get date and time on {{ ansible_fqdn }}, to the hour
+- name: Get date and time on {{ hostname.self }}, to the hour
   command: "date -u '+%Y-%m-%d %Hh'"
   register: remote_date
 

@@ -18,37 +18,4 @@
     # Install Certs
     - name: Install Globus Identity key/cert
       include_role:
-        name: globus_certs
-
-    - name: Install Globus MyProxy key/cert/signing-policy
-      when: "'idp' in group_names"
-      include_role:
-        name: myproxy_certs
-
-    # Install GCS config for GridFTP and register
-    - name: Install GCS config for GridFTP and register with Globus
-      when:
-        - "'data' in group_names"
-        - globus_user is defined
-        - globus_pass is defined
-        - register_gridftp is defined
-        - register_gridftp
-      include_role:
-        name: data
-        tasks_from: register_gridftp.yml
-      vars:
-        skip_deps: true
-
-    # Install GCS config for MyProxy and register
-    - name: Install GCS config for MyProxy and register with Globus
-      when:
-        - "'idp' in group_names"
-        - globus_user is defined
-        - globus_pass is defined
-        - register_myproxy is defined
-        - register_myproxy
-      include_role:
-        name: idp
-        tasks_from: register_myproxy.yml
-      vars:
-        skip_deps: true
+        name: globus_tools

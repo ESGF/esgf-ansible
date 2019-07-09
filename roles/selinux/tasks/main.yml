@@ -32,4 +32,4 @@
 - name: End execution if it is determined this machine requires a reboot
   when: should_reboot
   fail:
-    msg: It has been determined that a reboot of {{ ansible_fqdn }} is required to continue. Please reboot {{ ansible_fqdn }} then restart the deployment.
+    msg: It has been determined that a reboot of {{ hostname.self }} is required to continue. Please reboot {{ hostname.self }} then restart the deployment.
