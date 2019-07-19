@@ -3,7 +3,9 @@
   package:
     name:
       - "{{ pkgs.apache }}"
-      - "mod_ssl"
+      - mod_ssl
+      - mod_security
+      - mod_security_crs
 
 # Create config dirs
 - name: Create esgf-proxy configuration directories
