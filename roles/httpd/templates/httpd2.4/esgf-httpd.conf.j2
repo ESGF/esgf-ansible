@@ -164,6 +164,10 @@ NameVirtualHost *:80
 <Location /solr/*/update>
     Require all denied
 </Location>
+<Location /solr/*/debug>
+    Require all denied
+</Location>
+
 <VirtualHost *:80>
 
 	Alias /.well-known/acme-challenge/ /var/www/html/.well-known/acme-challenge/
@@ -185,6 +189,8 @@ NameVirtualHost *:80
     RewriteCond %{REQUEST_URI} !^/thredds(.*)$
 	RewriteCond %{REQUEST_URI} !^/server-status(.*)$
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+    Redirect /esgf-web-fe / 
 
 	#add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive) and uncomment following line. For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
 	#Include /etc/httpd/conf/esgf-httpd-local.conf
