@@ -10,7 +10,7 @@
 - name: Install mod_security.conf
   template:
     src: mod_security.conf
-    dest: /etc/http/conf.d/mod_security.conf
+    dest: /etc/httpd/conf.d/mod_security.conf
 
 # Create config dirs
 - name: Create esgf-proxy configuration directories
