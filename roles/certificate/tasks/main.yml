@@ -1,10 +1,7 @@
 
-# Create environment in which to generate certificates
-# Required for pyopenssl >= .15
-- name: Create cert-gen conda environment
-  command: "{{ conda.exe }} create -y -n cert-gen 'python<3' pyopenssl"
-  args:
-    creates: "{{ conda.envs }}/cert-gen"
+- name: Install needed libraries for certificate generation
+  yum:
+    name: python-crypto
 
 # Check for present certificate
 - name: Check if {{ cert_dest }} exists
@@ -26,6 +23,5 @@
     path: "{{ cert_dest }}"
     state: absent
 
-# Use this python interpreter to generate key/csr and optionally self-sign
 - name: "{{ common_name }} Certificate Tasks"
   import_tasks: cert.yml
