@@ -1,7 +1,7 @@
 
 - name: Install needed libraries for certificate generation
   yum:
-    name: python-crypto
+    name: python2-cryptography
 
 # Check for present certificate
 - name: Check if {{ cert_dest }} exists
