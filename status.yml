@@ -106,11 +106,15 @@
       when: "'index' in group_names or 'data' in group_names"
       uri:
         url: "https://{{ hostname.self }}/esg-orp/home.htm"
+      tags:
+        - data
 
     - name: Check data URL
       when: "'data' in group_names"
       uri:
         url: "https://{{ hostname.self }}/thredds/catalog/catalog.html"
+      tags:
+        - data
 
     - name: Check index URLs
       when: "'index' in group_names"
@@ -120,6 +124,8 @@
         - https://{{ hostname.self }}/solr/datasets/admin/ping
         - https://{{ hostname.self }}/esg-search/search/?limit=0
         - https://{{ hostname.self }}/
+      tags:
+        - index
     
     - name: Check idp URL
       when: "'idp' in group_names"
@@ -128,3 +134,5 @@
       loop:
         - https://{{ hostname.self }}/esgf-idp/
         - https://{{ hostname.self }}/esgf-slcs/
+      tags:
+        - idp
