@@ -136,3 +136,10 @@
         - https://{{ hostname.self }}/esgf-slcs/
       tags:
         - idp
+
+    - name: Check Solr Status
+      when: "'index' in group_names"
+      command: "{{ solr.path }}/bin/solr status"
+      tags:
+        - index
+        - solr
