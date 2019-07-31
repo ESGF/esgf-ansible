@@ -22,3 +22,7 @@ cog:
   dest: /usr/local/cog/cog_install
   base: /usr/local/cog
   wsgi_dir: /etc/cog-wsgi-8889
+
+node_status:
+  repo: https://github.com/ESGF/esgf-utils
+  dest: /usr/local/esgf-utils
