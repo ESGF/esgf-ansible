@@ -1,43 +1,46 @@
-## Comparison of ESGF v2 vs v4
+Comparison of ESGF v2 vs v4
+===========================
 
 In the following table, if no context given, items in the table in the v2 column are the command line flag to the `esg-node` script.  Items in the v4 column are a playbook .yml file
 
 +--------------------------+------------------------+------------------------------+
-|  Action, Location        | ESGF v2 (Bash scripts) | ESGV v4 (Ansible)            |
+|  Action or Location      | ESGF v2 (Bash scripts) | ESGV v4 (Ansible)            |
 +==========================+========================+==============================+
 |   CoG location           | NA (mod_wsgi in httpd) | /etc/cog-wsgi-8889           |
 +--------------------------+------------------------+------------------------------+
-|   SLCS                   | NA (mod_wsgi in httpd) | /etc/slcs-wsgi-8888
+|   SLCS                   | NA (mod_wsgi in httpd) | /etc/slcs-wsgi-8888          |
 +--------------------------+------------------------+------------------------------+
-| Tomcat control           | esg-node function      | catalina.sh
+| Tomcat control           | esg-node function      | catalina.sh                  |
 +--------------------------+------------------------+------------------------------+
-| Solr index location      | /esg/solr-index        | /usr/local/solr-home | 
+| Solr index location      | /esg/solr-index        | /usr/local/solr-home         | 
 +--------------------------+------------------------+------------------------------+
-| Bootstrap                | wget esg-bootstrap     |  No bootstrap
-|                          | ./esg-bootstrap        | git clone esgf-ansible 
+| Bootstrap                | wget esg-bootstrap +   | (No bootstrap)               |
+|                          +------------------------+------------------------------+
+|                          | ./esg-bootstrap        | git clone esgf-ansible       |
 +--------------------------+------------------------+------------------------------+
-| Configuration            | esg-autoinstall.conf   | inventory file
-| (autoinstallation)       |                        | host variables files
+| Configuration            | esg-autoinstall.conf   | inventory file               |
+| (auto-installation)      |                        | host variables files         |
 +--------------------------+------------------------+------------------------------+
-| Install latest           | --install (--upgrade)  | install.yml    
-| ESGF version             |                        |
+| Install latest           | --install (--upgrade)  | install.yml                  |   
+| ESGF version             |                        |                              |
 +--------------------------+------------------------+------------------------------+
-| CSR                      | --generate-esgf-csrs   |
+| CSR                      | --generate-esgf-csrs   | local_certs.yml              |
 +--------------------------+------------------------+------------------------------+
-| Certs / CA               | --update-temp-ca
+| Certs / CA               | --update-temp-ca       | local_certs.yml              |
 +--------------------------+------------------------+------------------------------+
-| Stop                     | --stop
+| Stop                     | --stop                 | stop.yml                     |
 +--------------------------+------------------------+------------------------------+
-| Start                    | --start
+| Start                    | --start                | start.yml                    |
 +--------------------------+------------------------+------------------------------+
-| Restart                  | --restart              
+| Restart                  | --restart              | stop.yml + start.yml         |
 +--------------------------+------------------------+------------------------------+
-| Status                   | --status
-+--------------------------+------------------------+-----
-| Certificate Installation | --install-local-certs  | local_certs.yml
-|                          | --install-keypair      |
-+--------------------------+------------------------+-----
+| Status                   | --status               | status.yml                   |     
++--------------------------+------------------------+------------------------------+
+| Certificate Installation | --install-local-certs  | local_certs.yml              |
+|                          +------------------------+                              |
+|                          | --install-keypair      |                              |
++--------------------------+------------------------+------------------------------+
 | LetsEncrypt request      | NA                     | install.yml (tryletsencript) |
 +--------------------------+------------------------+------------------------------+
-| Shard Replicas           | --add-replica-shard | 
+| Shard Replicas           | --add-replica-shard    | shards.yml                   |
 +--------------------------+------------------------+------------------------------+
