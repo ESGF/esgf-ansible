@@ -12,6 +12,11 @@
 #     src: mod_security.conf
 #     dest: /etc/httpd/conf.d/mod_security.conf
 
+- name: Install robots.txt
+  template:
+    src: robots.txt
+    dest: /var/www/html/robots.txt
+
 # Create config dirs
 - name: Create esgf-proxy configuration directories
   file:

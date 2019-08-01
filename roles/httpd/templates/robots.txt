@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /thredds/
+Disallow: /esg-orp/

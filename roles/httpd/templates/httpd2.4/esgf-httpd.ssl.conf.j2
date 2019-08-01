@@ -58,6 +58,8 @@ NameVirtualHost *:443
 
 	IncludeOptional {{ httpd.ssl_proxy_dir }}/*.conf
 
+	Alias /robots.txt /var/www/html/robots.txt
+
 	# CoG will go here
 	# With Location blocks later matches overwrite early matches.
 	# So if the cog location "/" is the last location block, it will match all paths and thus overwrite all other Location blocks.
