@@ -4,7 +4,7 @@ Comparison of ESGF v2 vs v4
 In the following table, if no context given, items in the table in the v2 column are the command line flag to the `esg-node` script.  Items in the v4 column are a playbook .yml file
 
 +--------------------------+------------------------+------------------------------+
-|  Action or Location      | ESGF v2 (Bash scripts) | ESGV v4 (Ansible)            |
+|  Action or Location      | ESGF v2 (Bash scripts) | ESGF v4 (Ansible)            |
 +==========================+========================+==============================+
 |   CoG location           | NA (mod_wsgi in httpd) | /etc/cog-wsgi-8889           |
 +--------------------------+------------------------+------------------------------+
