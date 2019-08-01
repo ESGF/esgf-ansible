@@ -14,9 +14,8 @@ In the following table, if no context given, items in the table in the v2 column
 +--------------------------+------------------------+------------------------------+
 | Solr index location      | /esg/solr-index        | /usr/local/solr-home         | 
 +--------------------------+------------------------+------------------------------+
-| Bootstrap                | wget esg-bootstrap +   | (No bootstrap)               |
-|                          +------------------------+------------------------------+
-|                          | ./esg-bootstrap        | git clone esgf-ansible       |
+| Bootstrap                | - wget esg-bootstrap   | - (No bootstrap)             |
+|                          | - ./esg-bootstrap      | - git clone esgf-ansible     |
 +--------------------------+------------------------+------------------------------+
 | Configuration            | esg-autoinstall.conf   | inventory file               |
 | (auto-installation)      |                        | host variables files         |
@@ -36,9 +35,8 @@ In the following table, if no context given, items in the table in the v2 column
 +--------------------------+------------------------+------------------------------+
 | Status                   | --status               | status.yml                   |     
 +--------------------------+------------------------+------------------------------+
-| Certificate Installation | --install-local-certs  | local_certs.yml              |
-|                          +------------------------+                              |
-|                          | --install-keypair      |                              |
+| Certificate Installation | - --install-local-certs| local_certs.yml              |
+|                          | - --install-keypair    |                              |
 +--------------------------+------------------------+------------------------------+
 | LetsEncrypt request      | NA                     | install.yml (tryletsencript) |
 +--------------------------+------------------------+------------------------------+
