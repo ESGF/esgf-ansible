@@ -1,5 +1,0 @@
-{{ 
-    (groups['idp'][0]==ansible_nodename)|int * type_bits.idp +  
-    (groups['data'][0]==ansible_nodename)|int * type_bits.data + 
-    (groups['index'][0]==ansible_nodename)|int * type_bits.index
-}}
