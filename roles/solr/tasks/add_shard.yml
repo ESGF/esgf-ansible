@@ -59,10 +59,15 @@
     owner: solr
     group: solr
 
+- name: Is this Solr instance running
+  shell: "netstat -ln | egrep -q ':{{ shard.port }}' && echo -n running || echo -n stopped"
+  register: is_running
+
 - name: Start this Solr instance
   become: yes
   become_user: solr
   command: "{{ solr.path }}/bin/solr start -s {{ solr.home }}/{{ shard.name }}-{{ shard.port }} -p {{ shard.port }}"
+  when: is_running.stdout == "stopped"
 
 - name: Create cores
   become: yes
