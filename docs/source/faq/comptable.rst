@@ -36,7 +36,8 @@ In the following table, if no context given, items in the table in the v2 column
 | Status                   | --status               | status.yml                   |     
 +--------------------------+------------------------+------------------------------+
 | Certificate Installation | - --install-local-certs| local_certs.yml              |
-|                          | - --install-keypair    |                              |
++--------------------------+------------------------+------------------------------+
+|    (Web)                 | - --install-keypair    | web_certs.yml                |
 +--------------------------+------------------------+------------------------------+
 | LetsEncrypt request      | NA                     | install.yml (tryletsencript) |
 +--------------------------+------------------------+------------------------------+
