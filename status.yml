@@ -105,26 +105,41 @@
     - name: Check the ORP URL
       when: "'index' in group_names or 'data' in group_names"
       uri:
-        url: "https://{{ ansible_fqdn }}/esg-orp/home.htm"
+        url: "https://{{ hostname.self }}/esg-orp/home.htm"
+      tags:
+        - data
 
     - name: Check data URL
       when: "'data' in group_names"
       uri:
-        url: "https://{{ ansible_fqdn }}/thredds/catalog/catalog.html"
+        url: "https://{{ hostname.self }}/thredds/catalog/catalog.html"
+      tags:
+        - data
 
     - name: Check index URLs
       when: "'index' in group_names"
       uri:
         url: "{{ item }}"
       loop:
-        - https://{{ ansible_fqdn }}/solr/datasets/admin/ping
-        - https://{{ ansible_fqdn }}/esg-search/search/?limit=0
-        - https://{{ ansible_fqdn }}/
+        - https://{{ hostname.self }}/solr/datasets/admin/ping
+        - https://{{ hostname.self }}/esg-search/search/?limit=0
+        - https://{{ hostname.self }}/
+      tags:
+        - index
     
     - name: Check idp URL
       when: "'idp' in group_names"
       uri:
         url: "{{ item }}"
       loop:
-        - https://{{ ansible_fqdn }}/esgf-idp/
-        - https://{{ ansible_fqdn }}/esgf-slcs/
+        - https://{{ hostname.self }}/esgf-idp/
+        - https://{{ hostname.self }}/esgf-slcs/
+      tags:
+        - idp
+
+    - name: Check Solr Status
+      when: "'index' in group_names"
+      command: "{{ solr.path }}/bin/solr status"
+      tags:
+        - index
+        - solr

@@ -1,4 +1,9 @@
 
+- name: Ensure Config repo is absent
+  file:
+    path: /tmp/esgf-config
+    state: absent
+
 - name: Clone ESGF config repository
   git:
     repo: "{{ esg.config.repo }}"

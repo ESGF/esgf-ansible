@@ -1,6 +1,8 @@
 - hosts: all
-  connection: paramiko
+  # strategy: free
   become: yes
+  connection: paramiko
+  any_errors_fatal: true
   tasks:
     # Get the admin password
     - name: Include the admin passwd role
@@ -9,13 +11,9 @@
             name: passwd
       tags: always
 
-    - name: Verify variables
+    - name: Node Status
       block:
         - include_role:
-            name: verify
-      tags: always
-
-    # Install Certs
-    - name: Install Globus Identity key/cert
-      include_role:
-        name: globus_tools
+            name: node_status
+      tags: index
+      when: "'index' in group_names"

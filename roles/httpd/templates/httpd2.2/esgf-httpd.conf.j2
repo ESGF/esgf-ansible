@@ -79,6 +79,11 @@ LoadModule ssl_module modules/mod_ssl.so
 User apache
 Group apache
 ServerAdmin root@localhost
+
+# Include modsecurity rules
+# Modify the below file to change rules from default
+#Include conf.d/mod_security.conf
+
 UseCanonicalName Off
 HostnameLookups Off
 ErrorLog logs/error_log
@@ -148,7 +153,7 @@ NameVirtualHost *:80
     SetHandler server-status
 	Order deny,allow
 	Deny from all
-    Allow from {{ ansible_fqdn }}
+    Allow from {{ hostname.self }}
 </Location>
 <Location / >
 	<LimitExcept POST GET>

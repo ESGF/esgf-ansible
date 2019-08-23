@@ -18,7 +18,7 @@
 - name: Unmount the dataset root directories from the chroot GridFTP
   command: "umount {{ gridftp.chroot }}/{{ item.split('|')[0].strip() }}"
   register: umount_result
-  failed_when: 'umount_result.rc != 0 and "not mounted" not in umount_result.stderr'
+  ignore_errors: true
   args:
     warn: no
   with_items: "{{ raw_dataset_roots.split('\n')[1:] }}"

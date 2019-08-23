@@ -28,6 +28,21 @@
     dest: "{{ myproxy.ca.key }}"
     mode: 0600
 
+- name: Set myproxy directory permissions
+  file:
+    path: "{{ myproxy.ca.dir }}"
+    mode: 0750
+
+- name: Set myproxy CA key directory permissions
+  file:
+    path: "{{ myproxy.ca.dir }}/private"
+    mode: 0750
+
+- name: Set myproxy CA key permissions
+  file:
+    path: "{{ myproxy.ca.key }}"
+    mode: 0640
+
 - name: Copy myproxy CA signing-policy
   when: myproxy_signing_policy is defined
   copy:

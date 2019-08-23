@@ -1,13 +1,3 @@
-# - name: Create fragments directory
-#   file:
-#     path: "{{ properties.fragments }}"
-#     state: directory
-
-# - name: Install base properties fragment
-#   template:
-#     src: base.properties.j2
-#     dest: "{{ properties.fragments }}/base.properties"
-
 - name: Create config directory
   file:
     path: "{{ esg.config.dir }}"
@@ -17,4 +7,5 @@
   template:
     src: base.properties.j2
     dest: "{{ esg.config.dir }}/esgf.properties"
+    force: no
 

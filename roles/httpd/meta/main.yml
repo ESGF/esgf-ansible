@@ -6,7 +6,7 @@ dependencies:
       dest_dir: "{{ httpd.cert_dir }}",
       key_dest: "{{ httpd.hostkey }}",
       csr_dest: "/tmp/httpdhost.csr",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       csr: true
     }
   - { # Generate account key to be used with LetsEncrypt
@@ -15,7 +15,7 @@ dependencies:
       dest_dir: "/tmp",
       key_dest: "/tmp/account_key.pem",
       csr_dest: "/tmp/account.csr",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       csr: true
     }
   - { # Self-sign a certificate for web services
@@ -25,6 +25,6 @@ dependencies:
       key_dest: "{{ httpd.hostkey }}",
       cert_dest: "{{ httpd.hostcert }}",
       csr_dest: "/tmp/httpdhost.csr",
-      common_name: "{{ ansible_fqdn }}",
+      common_name: "{{ hostname.self }}",
       self_signed: true
     }
