@@ -19,6 +19,7 @@ Welcome to ESGF-Ansible's documentation!
    whatsnew/whatsnew.rst
    faq/faq.rst
    faq/comptable.rst
+   developers/developers.rst
 
 Indices and tables
 ==================
