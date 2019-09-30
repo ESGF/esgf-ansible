@@ -10,7 +10,7 @@ This guide assumes you have set up a project using flask at the example location
 
 - Create and activate a conda environment to run your webapp. 
 
-::
+.. code:: console
 
     source /usr/local/conda/bin/activate
     conda create -n flaskdemo
@@ -19,19 +19,19 @@ This guide assumes you have set up a project using flask at the example location
 .. note:: 
     if your app was developed in Python 2.7 you'll need to create the environment with the following instead:
 
-::
+.. code:: console
 
-    conda create -n flaskdemo
+    conda create -n flaskdemo 'python<3.0'
 
-- Install modules needed to run your app.  Our demo uses flask, but you could use django (and expect additional required packages.)  Note that diffculty has been encountered with mod_wsgi version 4.6.7, so we recommend an earlier version:  ::
+- Install modules needed to run your app.  Our demo uses flask, but you could use django (and expect additional required packages.)  Note that diffculty has been encountered with mod_wsgi version 4.6.7, so we recommend an earlier version:
 
-::
+.. code:: console
 
-    pip install flask 'mod_wsgi<4.6'
+   pip install flask 'mod_wsgi<4.6'
 
 - Run the `mod_wsgi-express` command to create a httpd service instance for your webapp and start the instance. 
 
-::
+.. code:: console
 
     cd /opt/esgf/flaskdemo/demo
     mod_wsgi-express setup-server --server-root /etc/wsgi-demo --user apache --group apache --host localhost --port 8087 --mount-point /demo demo.wsgi
@@ -39,9 +39,9 @@ This guide assumes you have set up a project using flask at the example location
 
 - You should be able to access the demo now under ``http://localhost:8087/demo`` using ``curl`` or ``wget``. 
 
-- For external access on 443 for https, add the following directives to `/etc/httpd/conf/httpd.ssl.conf: 
+- For external access on 443 for https, add the following directives to `/etc/httpd/conf/httpd.ssl.conf`: 
 
-::
+.. code:: console
 
     ProxyPass /demo http://localhost:8087/demo
     ProxyPassReverse /demo http://localhost:8087/demo
