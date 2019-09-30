@@ -62,8 +62,8 @@ conda:
   mods: lib/python2.7/site-packages
 
 tomcat:
-  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz
-  root_dir: apache-tomcat-8.5.39
+  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.46/bin/apache-tomcat-8.5.46.tar.gz
+  root_dir: apache-tomcat-8.5.46
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ts:
