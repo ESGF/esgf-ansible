@@ -14,7 +14,7 @@ httpd_version: "{{ '2.4' if (is_7) else '2.2' }}"
 versions:
   installer: 4.0.0-alpha1
   java: jdk1.8.0_192
-  search: v4.17.9
+  search: v4.17.10
   stats_api: v1.0.9
   dashboard: v1.5.25
   dashboard_db: 0.0.4
