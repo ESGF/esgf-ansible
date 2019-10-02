@@ -13,7 +13,7 @@ dependencies:
   - certifi=2019.3.9
   - cffi=1.12.2
   - chardet=3.0.4
-  - cmor=3.4.0
+  - cmor=3.5.0
   - cryptography=2.6.1
   - curl=7.64.0
   - decorator=4.4.0
@@ -83,11 +83,11 @@ dependencies:
     - cdms2==3.0.0
     - cf-python==2.3.3
     - cftime==1.0.3.4
-    - esgcet==3.7.0
+    - esgcet==3.7.1
     - esgconfigparser==0.1.17
     - esgf-pyclient==0.2.1
     - esgfpid==0.7.12
-    - esgprep==2.9.5
+    - esgprep==2.9.7
     - fuzzywuzzy==0.16.0
     - hurry-filesize==0.9
     - idna==2.7
