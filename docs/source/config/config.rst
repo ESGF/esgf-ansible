@@ -32,7 +32,7 @@ Regardless of Node type (data-only, index/idp, all, etc.) all three groups, ``da
 In the case of data-only this means another site's index/idp host(s) must be assigned to their respective group.
 
 
-See the sample inventory file, `sample.hosts <https://github.com/ESGF/esgf-ansible/blob/4.0.4/sample.hosts>`_ for more information regarding inventory files.
+See the sample inventory file, `sample.hosts <https://github.com/ESGF/esgf-ansible/blob/4.0.5/sample.hosts>`_ for more information regarding inventory files.
 
 Host Variable Files
 -------------------
@@ -40,8 +40,8 @@ Host Variable Files
 The host variable file provides an interface that allows users to configure common options for their deployments.
 It is automatically detected for each managed machine and must be named ``host_vars/[hostname].yml`` where ``[hostname]`` is the hostname of each managed machine.
 Options regarding certificates and keys for various services require the most attention as certain requirements have been placed on these variables.
-See the host variables directory, `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.4/host_vars>`_, and find the sample file
+See the host variables directory, `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars>`_, and find the sample file
 that best describes the desired use case.
-Also see the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.4/host_vars/myhost.my.org.yml>`_ for a comprehensive overview.
+Also see the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars/myhost.my.org.yml>`_ for a comprehensive overview.
 Advanced users may want to make configuration choices beyond what is provided in the host variable file
 , see the `Contributing Guide <https://github.com/ESGF/esgf-ansible#advice-and-contributing>`_ for more information on this.

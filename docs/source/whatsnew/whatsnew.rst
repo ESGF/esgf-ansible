@@ -6,6 +6,22 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.5 (2019-10-02)
+******************
+
+Critical
+--------
+
+Info
+----
+- Added `developer documentation page  <../developers/developers.html>`_
+- Added `compatability infomation page  <../faq/comptable.html>`_
+- Tomcat updated to ``8.5.46``
+- ESG-Search updated to ``v4.17.10``
+- Added playbook for node status tool ``install_ns.yml``
+- Added ``roles/httpd/templates/robots.txt`` to direct web crawlers to not crawl ESGF data nodes
+
+
 4.0.4 (2019-07-10)
 ******************
 
