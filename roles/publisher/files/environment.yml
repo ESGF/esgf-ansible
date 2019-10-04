@@ -7,6 +7,7 @@ dependencies:
   - blas=1.0
   - bzip2=1.0.8
   - ca-certificates=2019.8.28
+  - cdtime
   - certifi=2019.9.11
   - cftime=1.0.3.4
   - cmor=3.5.0
