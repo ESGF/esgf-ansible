@@ -3,7 +3,7 @@ thredds:
   content: "{{ esg.content }}/thredds"
   tomcat_user:
     name: "dnode_user"
-    pass: "{{ admin_pass |password_hash('sha256') }}"
+    pass: "{{ admin_pass }}"
     roles: "tdrAdmin,tdsConfig"
 
 thredds_webapp:
