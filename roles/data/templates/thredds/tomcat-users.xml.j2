@@ -3,5 +3,5 @@
   <role rolename="tdsConfig"/>
   <role rolename="manager"/>
   <role rolename="tdrAdmin"/>
-  <user username="{{ thredds.tomcat_user.name }}" password="{{ thredds.tomcat_user.pass }}" roles="{{ thredds.tomcat_user.roles }}"/>
+  <user username="{{ thredds.tomcat_user.name }}" password="{{ thredds_pass_digest }}" roles="{{ thredds.tomcat_user.roles }}"/>
 </tomcat-users>

@@ -25,19 +25,6 @@
   args:
     chdir: "{{ cog.dest }}"
 
-# Install mkproxy
-- name: Clone Transfer API Client Repo
-  git:
-    repo: "https://github.com/globusonline/transfer-api-client-python.git"
-    dest: "{{ cog.base }}/transfer-api-client-python"
-
-- name: Make and Install mkproxy
-  shell: >
-    {{ conda.actv }} cog && \
-    make && make install
-  args:
-    chdir: "{{ cog.base }}/transfer-api-client-python/mkproxy"
-
 - name: Install CoG into conda env
   shell: >
     {{ conda.actv }} cog && \

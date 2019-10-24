@@ -31,5 +31,6 @@
     loop_var: base_task
 
 - name: Include Globus Tools
+  when: globus_user is defined and globus_pass is defined
   include_role:
     name: globus_tools
