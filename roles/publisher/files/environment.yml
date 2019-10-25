@@ -89,7 +89,7 @@ dependencies:
     - esgcet==3.7.3
     - esgconfigparser==0.1.17
     - esgf-pyclient==0.2.1
-    - esgfpid==0.7.14
+    - esgfpid==0.7.16
     - esgprep==2.9.7
     - fuzzywuzzy==0.16.0
     - hurry-filesize==0.9
