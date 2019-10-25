@@ -86,7 +86,7 @@ dependencies:
     - cf-python==3.0.1
     - cfdm==1.7.8
     - cfunits==3.2.2
-    - esgcet==3.7.2
+    - esgcet==3.7.3
     - esgconfigparser==0.1.17
     - esgf-pyclient==0.2.1
     - esgfpid==0.7.14
