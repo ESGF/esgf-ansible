@@ -75,7 +75,7 @@
             
             
               <div class="version">
-                4.0.4
+                4.0.5
               </div>
             
           
@@ -125,6 +125,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/comptable.html">Comparison of ESGF v2 vs v4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/developers.html">Developers Guide</a></li>
 </ul>
 
             
@@ -199,15 +201,15 @@
 <h3>Inventory Files<a class="headerlink" href="#inventory-files" title="Permalink to this headline">¶</a></h3>
 <p>This file specifies the managed machines.
 It is specified at the command line via <code class="docutils literal"><span class="pre">-i</span> <span class="pre">[inventory</span> <span class="pre">file</span> <span class="pre">name]</span></code>.</p>
-<p>See the sample inventory file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.4/sample.hosts">sample.hosts</a> for more information.</p>
+<p>See the sample inventory file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.5/sample.hosts">sample.hosts</a> for more information.</p>
 <p>Also, see <a class="reference external" href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">Ansible&#8217;s Inventory Info</a>.</p>
 </div>
 <div class="section" id="host-variable-files">
 <h3>Host Variable Files<a class="headerlink" href="#host-variable-files" title="Permalink to this headline">¶</a></h3>
 <p>These files specify options for each managed machine.
 It is automatically detected for each managed machine and must be named <code class="docutils literal"><span class="pre">host_vars/[hostname].yml</span></code> where <code class="docutils literal"><span class="pre">[hostname]</span></code> is the hostname of each managed machine.</p>
-<p>See the sample host variable file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.4/host_vars/myhost.my.org.yml">host_vars/myhost.my.org.yml</a> for more information.</p>
-<p>Also, see the other sample files in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.4/host_vars">host_vars</a>, and find the sample file
+<p>See the sample host variable file, <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars/myhost.my.org.yml">host_vars/myhost.my.org.yml</a> for more information.</p>
+<p>Also, see the other sample files in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars">host_vars</a>, and find the sample file
 that best describes the desired use case.</p>
 </div>
 </div>
@@ -253,12 +255,12 @@ See <a class="reference external" href="https://docs.ansible.com/ansible/latest/
 <div class="section" id="deployment-control">
 <h3>Deployment Control<a class="headerlink" href="#deployment-control" title="Permalink to this headline">¶</a></h3>
 <p>These examples show various ways of controlling the deployment process.
-Deployments are done in the order of includes in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.4/install.yml">install.yml</a>.
+Deployments are done in the order of includes in <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.5/install.yml">install.yml</a>.
 This order is base, idp, index then data.
 While repeating steps will not cause any problems, it simply slows things down.
 Additionally, for a more reliable deployment process it may be desired to do one phase at a time.
 Or if the deployment got interrupted after completing, for example, the <cite>base</cite> steps, these steps could be skipped when the deployment is started again.</p>
-<p>Controlling the deployment is done with tags. The tags available in the <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.4/install.yml">install.yml</a> play are <code class="docutils literal"><span class="pre">base</span></code>, <code class="docutils literal"><span class="pre">idp</span></code>, <code class="docutils literal"><span class="pre">index</span></code>, <code class="docutils literal"><span class="pre">data</span></code> and <code class="docutils literal"><span class="pre">publisher</span></code>.
+<p>Controlling the deployment is done with tags. The tags available in the <a class="reference external" href="https://github.com/ESGF/esgf-ansible/blob/4.0.5/install.yml">install.yml</a> play are <code class="docutils literal"><span class="pre">base</span></code>, <code class="docutils literal"><span class="pre">idp</span></code>, <code class="docutils literal"><span class="pre">index</span></code>, <code class="docutils literal"><span class="pre">data</span></code> and <code class="docutils literal"><span class="pre">publisher</span></code>.
 These can be used with <code class="docutils literal"><span class="pre">--tags</span></code> and <code class="docutils literal"><span class="pre">--skip-tags</span></code>,  as well as with <code class="docutils literal"><span class="pre">--limit</span> <span class="pre">[hostname]</span></code> to control exactly what is done and where.
 The <code class="docutils literal"><span class="pre">base</span></code> steps will be done everytime unless specified via <code class="docutils literal"><span class="pre">--skip-tags</span></code>.</p>
 <p>A production deployment to all managed production hosts</p>
@@ -387,7 +389,7 @@ shards.yml is provided to ease this process.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 4.0.4
+        v: 4.0.5
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -399,6 +401,7 @@ shards.yml is provided to ease this process.</p>
             <dd><a href="../4.0.2/usage/usage.html">4.0.2</a></dd>
             <dd><a href="../4.0.3/usage/usage.html">4.0.3</a></dd>
             <dd><a href="../4.0.4/usage/usage.html">4.0.4</a></dd>
+            <dd><a href="../4.0.5/usage/usage.html">4.0.5</a></dd>
         </dl>
     </div>
 </div>

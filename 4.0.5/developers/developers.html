@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developers Guide &mdash; ESGF-Ansible  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/esgf_globe.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Comparison of ESGF v2 vs v4" href="../faq/comptable.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ESGF-Ansible
+          
+
+          
+            
+            <img src="../_static/esgf_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/comptable.html">Comparison of ESGF v2 vs v4</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developers Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-wsgi-services-to-an-esgf-node">Adding WSGI services to an ESGF node</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ESGF-Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Developers Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developers/developers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developers-guide">
+<h1>Developers Guide<a class="headerlink" href="#developers-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-wsgi-services-to-an-esgf-node">
+<h2>Adding WSGI services to an ESGF node<a class="headerlink" href="#adding-wsgi-services-to-an-esgf-node" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s easy to add new services developed with Flask, Django, etc. and proxy using the esgf-httpd configuration and mod_wsgi express.</p>
+<p>This guide assumes you have set up a project using flask at the example location <code class="docutils literal"><span class="pre">/opt/esgf/flaskdemo/demo</span></code> and you have the application entry point accessible in the <code class="docutils literal"><span class="pre">/opt/esgf/flaskdemo/demo.wsgi</span></code>.  Your demo app must world-readable and recommended to be owned by the <code class="docutils literal"><span class="pre">apache</span></code> user and group.  These instructions assume to be run by a root user, as many server configs disallow a shell run under the apache user, but a regular user can be used to run the service for testing purposes.</p>
+<ul class="simple">
+<li>Create and activate a conda environment to run your webapp.</li>
+</ul>
+<div class="code console highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">conda</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">flaskdemo</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">flaskdemo</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">if your app was developed in Python 2.7 you&#8217;ll need to create the environment with the following instead:</p>
+</div>
+<div class="code console highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">flaskdemo</span> <span class="s1">&#39;python&lt;3.0&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Install modules needed to run your app.  Our demo uses flask, but you could use django (and expect additional required packages.)  Note that diffculty has been encountered with mod_wsgi version 4.6.7, so we recommend an earlier version:</li>
+</ul>
+<div class="code console highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">flask</span> <span class="s1">&#39;mod_wsgi&lt;4.6&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Run the <cite>mod_wsgi-express</cite> command to create a httpd service instance for your webapp and start the instance.</li>
+</ul>
+<div class="code console highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">esgf</span><span class="o">/</span><span class="n">flaskdemo</span><span class="o">/</span><span class="n">demo</span>
+<span class="n">mod_wsgi</span><span class="o">-</span><span class="n">express</span> <span class="n">setup</span><span class="o">-</span><span class="n">server</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">root</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wsgi</span><span class="o">-</span><span class="n">demo</span> <span class="o">--</span><span class="n">user</span> <span class="n">apache</span> <span class="o">--</span><span class="n">group</span> <span class="n">apache</span> <span class="o">--</span><span class="n">host</span> <span class="n">localhost</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8087</span> <span class="o">--</span><span class="n">mount</span><span class="o">-</span><span class="n">point</span> <span class="o">/</span><span class="n">demo</span> <span class="n">demo</span><span class="o">.</span><span class="n">wsgi</span>
+<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wsgi</span><span class="o">-</span><span class="n">demo</span><span class="o">/</span><span class="n">apachectl</span> <span class="n">start</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>You should be able to access the demo now under <code class="docutils literal"><span class="pre">http://localhost:8087/demo</span></code> using <code class="docutils literal"><span class="pre">curl</span></code> or <code class="docutils literal"><span class="pre">wget</span></code>.</li>
+<li>For external access on 443 for https, add the following directives to <cite>/etc/httpd/conf/httpd.ssl.conf</cite>:</li>
+</ul>
+<div class="code console highlight-default"><div class="highlight"><pre><span></span><span class="n">ProxyPass</span> <span class="o">/</span><span class="n">demo</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8087</span><span class="o">/</span><span class="n">demo</span>
+<span class="n">ProxyPassReverse</span> <span class="o">/</span><span class="n">demo</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8087</span><span class="o">/</span><span class="n">demo</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Restart httpd</li>
+<li>If you want the site available also on 80 for old insecure http, you can add the same directives to <code class="docutils literal"><span class="pre">/etc/httpd/conf/esgf-httpd.conf</span></code>.  In addition you need to add a rule to exempt <code class="docutils literal"><span class="pre">/demo</span></code> from the automatic redirection of http traffic to https as done for several of the ESGF Tomcat webapps that are proxied in that section.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../faq/comptable.html" class="btn btn-neutral float-left" title="Comparison of ESGF v2 vs v4" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, LLNL ESGF Installer Working Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 4.0.5
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../4.0.0-beta1/index.html">4.0.0-beta1</a></dd>
+            <dd><a href="../../4.0.0-beta2/index.html">4.0.0-beta2</a></dd>
+            <dd><a href="../../4.0.1/index.html">4.0.1</a></dd>
+            <dd><a href="../../4.0.2/index.html">4.0.2</a></dd>
+            <dd><a href="../../4.0.3/index.html">4.0.3</a></dd>
+            <dd><a href="../../4.0.4/index.html">4.0.4</a></dd>
+            <dd><a href="developers.html">4.0.5</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

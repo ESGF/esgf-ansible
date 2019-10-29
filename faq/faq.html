@@ -47,6 +47,7 @@
   <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparison of ESGF v2 vs v4" href="comptable.html" />
     <link rel="prev" title="Releases" href="../whatsnew/whatsnew.html" /> 
 </head>
 
@@ -74,7 +75,7 @@
             
             
               <div class="version">
-                4.0.4
+                4.0.5
               </div>
             
           
@@ -108,6 +109,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comptable.html">Comparison of ESGF v2 vs v4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/developers.html">Developers Guide</a></li>
 </ul>
 
             
@@ -193,8 +196,10 @@ Some tasks can take several minutes to complete. Make sure the verbose flag is s
 <p><strong>Answer:</strong> Try to determine if the failure was related to a bug in the steps taken by the installer or if it was some intermittent, or site-specific, issue.
 This second case could be things such as bad SSH authentication, a temporary network issue, an issue with the machine being deployed to,
 or a variable improperly specified in the host variables file.
-In this second case, attempt to determine and resolve the error, then start the deployment again.
-If it is confidently determined be the first case, please <a class="reference external" href="https://github.com/ESGF/esgf-ansible/issues/new/choose">submit an issue</a> to this repository.</p>
+In this second case, attempt to determine and resolve the error, then start the deployment again.</p>
+<p>If it is confidently determined be the first case, please <a class="reference external" href="https://github.com/ESGF/esgf-ansible/issues/new/choose">submit an issue</a> to this repository.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Q:  I&#8217;m familiar with funcitonality in ESGF v2 using the bash script <code class="docutils literal"><span class="pre">esg-node</span></code>, eg. starting, stopping the node, requesting certificates. How can I do that now with ESGF Ansible?</p>
+<p><strong>Answer:</strong>  Please consult the following table that outlines the equivalent functions from ESGF v2 and v4: <a class="reference external" href="comptable.html">Comparison of ESGF Versions</a></p>
 </div>
 
 
@@ -204,6 +209,8 @@ If it is confidently determined be the first case, please <a class="reference ex
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comptable.html" class="btn btn-neutral float-right" title="Comparison of ESGF v2 vs v4" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../whatsnew/whatsnew.html" class="btn btn-neutral float-left" title="Releases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -233,7 +240,7 @@ If it is confidently determined be the first case, please <a class="reference ex
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 4.0.4
+        v: 4.0.5
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -245,6 +252,7 @@ If it is confidently determined be the first case, please <a class="reference ex
             <dd><a href="../4.0.2/faq/faq.html">4.0.2</a></dd>
             <dd><a href="../4.0.3/faq/faq.html">4.0.3</a></dd>
             <dd><a href="../4.0.4/faq/faq.html">4.0.4</a></dd>
+            <dd><a href="../4.0.5/faq/faq.html">4.0.5</a></dd>
         </dl>
     </div>
 </div>

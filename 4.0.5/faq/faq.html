@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FAQ &mdash; ESGF-Ansible  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/esgf_globe.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparison of ESGF v2 vs v4" href="comptable.html" />
+    <link rel="prev" title="Releases" href="../whatsnew/whatsnew.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ESGF-Ansible
+          
+
+          
+            
+            <img src="../_static/esgf_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements/requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../verify/verify.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew/whatsnew.html">Releases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comptable.html">Comparison of ESGF v2 vs v4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/developers.html">Developers Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ESGF-Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>FAQ</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/faq/faq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="faq">
+<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<p><strong>Q: I have many questions and can&#8217;t find any answers here, what should I do?</strong></p>
+<p>If you are looking to get started using your node or have questions that are not answered within
+these docs be sure to <a class="reference external" href="https://esgf.github.io/esgf-user-support/">checkout the user support docs</a>.</p>
+<p><strong>Q: How can I use this to upgrade my legacy install?</strong></p>
+<p><strong>Answer:</strong> Make sure you stop all services on your older node using the legacy tools for doing so.
+Also, ensure services are not configured to start at boot as this may lead to unexpected behavior. <code class="docutils literal"><span class="pre">chkconfig</span> <span class="pre">--list</span></code> may help provide this info.
+If there are valid certificates and keys in place on the machine that you would like to continue to use,
+put those in a place on your managed machine and specify that path in your host variable file.
+Once you have filled your variable file(s) and your inventory file,
+the same example commands from the Usage section for doing clean installs can be used to perform the upgrade.
+While many considerations have been made for upgrades and the preservation of customizations,
+it is still recommended that users create backups of site-specific changes to their node.</p>
+<p><strong>Q: Ansible is stuck on a task for a long period of time and doesn&#8217;t seem to be doing anything.</strong></p>
+<p><strong>Answer:</strong> Ansible will not report the result of a task until the task is completed.
+Some tasks can take several minutes to complete. Make sure the verbose flag is specified, <code class="docutils literal"><span class="pre">-v</span></code>, to get more information upon the completion of tasks.</p>
+<p><strong>Q: My deployment failed, what should I do?</strong></p>
+<p><strong>Answer:</strong> Try to determine if the failure was related to a bug in the steps taken by the installer or if it was some intermittent, or site-specific, issue.
+This second case could be things such as bad SSH authentication, a temporary network issue, an issue with the machine being deployed to,
+or a variable improperly specified in the host variables file.
+In this second case, attempt to determine and resolve the error, then start the deployment again.</p>
+<p>If it is confidently determined be the first case, please <a class="reference external" href="https://github.com/ESGF/esgf-ansible/issues/new/choose">submit an issue</a> to this repository.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Q:  I&#8217;m familiar with funcitonality in ESGF v2 using the bash script <code class="docutils literal"><span class="pre">esg-node</span></code>, eg. starting, stopping the node, requesting certificates. How can I do that now with ESGF Ansible?</p>
+<p><strong>Answer:</strong>  Please consult the following table that outlines the equivalent functions from ESGF v2 and v4: <a class="reference external" href="comptable.html">Comparison of ESGF Versions</a></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comptable.html" class="btn btn-neutral float-right" title="Comparison of ESGF v2 vs v4" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../whatsnew/whatsnew.html" class="btn btn-neutral float-left" title="Releases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, LLNL ESGF Installer Working Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 4.0.5
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../4.0.0-beta1/faq/faq.html">4.0.0-beta1</a></dd>
+            <dd><a href="../../4.0.0-beta2/faq/faq.html">4.0.0-beta2</a></dd>
+            <dd><a href="../../4.0.1/faq/faq.html">4.0.1</a></dd>
+            <dd><a href="../../4.0.2/faq/faq.html">4.0.2</a></dd>
+            <dd><a href="../../4.0.3/faq/faq.html">4.0.3</a></dd>
+            <dd><a href="../../4.0.4/faq/faq.html">4.0.4</a></dd>
+            <dd><a href="faq.html">4.0.5</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
