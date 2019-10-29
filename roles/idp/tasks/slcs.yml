@@ -8,6 +8,17 @@
       - postgresql-devel
       - httpd-devel
 
+- name: Create slcs group
+  group:
+    name: slcs
+
+- name: Create slcs user
+  user:
+    name: slcs
+    groups: slcs,myproxy
+    create_home: no
+    system: yes
+
 # Clone the SLCS repo
 - name: Install SLCS Repo
   git:
@@ -107,18 +118,18 @@
     {{ conda.actv }} slcs && \
     mod_wsgi-express setup-server esgf_slcs_server/wsgi.py \
     --server-root {{ slcs.wsgi_dir }} \
-    --user apache --group apache \
+    --user slcs --group slcs \
     --host localhost --port 8888 \
     --mount-point /esgf-slcs \
     --url-alias /esgf-slcs/static {{ slcs.static }}
   args:
     chdir: "{{ slcs.dest }}"
 
-- name: Set apache ownership
+- name: Set slcs user ownership
   file:
     path: "{{ slcs.home }}"
-    owner: apache
-    group: apache
+    owner: slcs
+    group: slcs
     recurse: yes
 
 # - name : Install the slcs proxy config

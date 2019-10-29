@@ -28,4 +28,9 @@ Some tasks can take several minutes to complete. Make sure the verbose flag is s
 This second case could be things such as bad SSH authentication, a temporary network issue, an issue with the machine being deployed to, 
 or a variable improperly specified in the host variables file. 
 In this second case, attempt to determine and resolve the error, then start the deployment again. 
+
 If it is confidently determined be the first case, please `submit an issue <https://github.com/ESGF/esgf-ansible/issues/new/choose>`_ to this repository.
+
+**Q:  I'm familiar with funcitonality in ESGF v2 using the bash script ``esg-node``, eg. starting, stopping the node, requesting certificates. How can I do that now with ESGF Ansible?
+
+**Answer:**  Please consult the following table that outlines the equivalent functions from ESGF v2 and v4: `Comparison of ESGF Versions <comptable.html>`_ 

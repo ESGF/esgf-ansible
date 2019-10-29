@@ -3,7 +3,19 @@
   package:
     name:
       - "{{ pkgs.apache }}"
-      - "mod_ssl"
+      - mod_ssl
+      - mod_security
+      - mod_security_crs
+
+- name: Install mod_security.conf
+  template:
+    src: mod_security.conf
+    dest: /etc/httpd/conf.d/mod_security.conf
+
+- name: Install robots.txt
+  template:
+    src: robots.txt
+    dest: /var/www/html/robots.txt
 
 # Create config dirs
 - name: Create esgf-proxy configuration directories

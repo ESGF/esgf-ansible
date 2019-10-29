@@ -79,6 +79,11 @@ LoadModule ssl_module modules/mod_ssl.so
 User apache
 Group apache
 ServerAdmin root@localhost
+
+# Include modsecurity rules
+# Modify the below file to change rules from default
+#Include conf.d/mod_security.conf
+
 UseCanonicalName Off
 HostnameLookups Off
 ErrorLog logs/error_log

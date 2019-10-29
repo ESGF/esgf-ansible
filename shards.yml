@@ -7,6 +7,13 @@
       port: '{{ local_port }}'
       args: '-Denable.master=true -Denable.slave=true'
   tasks:
+    - name: Download ESGF Solr Cores template
+      tags: always
+      unarchive:
+        src: "{{ assets.base }}/solr-home.tar"
+        dest: /tmp
+        remote_src: yes
+        creates: /tmp/solr-home
     - name: Add shard {{ shard.name }}
       block:
         - include_role:

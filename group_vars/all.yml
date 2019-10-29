@@ -14,7 +14,7 @@ httpd_version: "{{ '2.4' if (is_7) else '2.2' }}"
 versions:
   installer: 4.0.0-alpha1
   java: jdk1.8.0_192
-  search: v4.17.9
+  search: v4.17.10
   stats_api: v1.0.9
   dashboard: v1.5.25
   dashboard_db: 0.0.4
@@ -62,8 +62,8 @@ conda:
   mods: lib/python2.7/site-packages
 
 tomcat:
-  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz
-  root_dir: apache-tomcat-8.5.39
+  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.46/bin/apache-tomcat-8.5.46.tar.gz
+  root_dir: apache-tomcat-8.5.46
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ts:
