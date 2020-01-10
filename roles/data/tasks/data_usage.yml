@@ -15,4 +15,21 @@
 - name: Install filebeat config
   template:
     src: filebeat/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
 
+- name: Install SSL certificate
+  file:
+    remote_src: yes
+    src: "{{ globushostcert }}"
+    dest: "{{ filebeat.ssl_cert_path }}"
+
+- name: Install SSL key
+  file:
+    remote_src: yes
+    src: "{{ globushostkey }}"
+    dest: "{{ filebeat.ssl_key_path }}"
+
+- name: Install SSL certificate authority
+    file:
+      src: "filebeat/esgf-cas.crt"
+      dest: "{{ filebeat.ssl_ca_path }}"
