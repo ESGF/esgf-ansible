@@ -113,7 +113,7 @@ Starting and Stopping Services
 ******************************
 Node services can be started or stopped using the start.yml and stop.yml playbooks. 
 In the examples below, start tags and stop tags are any combination of 
-``[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, data, idp, index]``. 
+``[cog, slcs, myproxy, tomcat, solr, gridftp, httpd, postgres, data, idp, index]``. 
 These tags can also be used in any combination in ``--skip-tags``.
 
 By default, if no start tags are specified, all services will be started. 

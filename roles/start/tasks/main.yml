@@ -97,12 +97,14 @@
     - slcs
 
 # Data services
-- name: start dashboard information provider
+- name: start filebeat
   when: "'data' in group_names"
-  shell: "nohup {{ dashboard.ip.ctrl_script }} start &>> {{ dashboard.ip.log }}"
+  service:
+    name: filebeat
+    state: started
   tags:
     - data
-    - dashboard-ip
+    - filebeat
 
 - name: start globus-gridftp-server
   when: "'data' in group_names"

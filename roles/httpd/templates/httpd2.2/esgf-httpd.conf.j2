@@ -75,6 +75,17 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 LoadModule cgi_module modules/mod_cgi.so
 LoadModule version_module modules/mod_version.so
 LoadModule ssl_module modules/mod_ssl.so
+{% if 'data' in group_names %}
+LoadModule geoip_module modules/mod_geoip.so
+
+<IfModule mod_geoip.c>
+  GeoIPEnable On
+  GeoIPDBFile /usr/share/GeoIP/GeoIP.dat
+  LogFormat "%{GEOIP_COUNTRY_CODE}e %{%s}t %r %>s %B %D \"%{User-Agent}i\"" country_downloads
+  SetEnvIf Request_URI "^/thredds/fileServer.*$" data_log
+  CustomLog logs/country_downloads_log country_downloads env=data_log
+</IfModule>
+{% endif %}
 
 User apache
 Group apache

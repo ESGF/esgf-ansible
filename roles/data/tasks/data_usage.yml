@@ -1,0 +1,18 @@
+
+- name: Install required libraries for mod_geoip
+  package:
+    name:
+      - mod_geoip
+      - geoip
+      - geoip-devel
+      - geoip-data
+      - zlib-devel
+
+- name: Install filebeat
+  package:
+    name: "{{ filebeat.rpm }}"
+
+- name: Install filebeat config
+  template:
+    src: filebeat/filebeat.yml
+
