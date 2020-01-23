@@ -18,12 +18,14 @@
     dest: /etc/filebeat/filebeat.yml
 
 - name: Install SSL certificate
+  when: globushostcert is defined
   file:
     remote_src: yes
     src: "{{ globushostcert }}"
     dest: "{{ filebeat.ssl_cert_path }}"
 
 - name: Install SSL key
+  when: globushostkey is defined
   file:
     remote_src: yes
     src: "{{ globushostkey }}"
