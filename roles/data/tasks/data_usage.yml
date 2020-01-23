@@ -30,6 +30,6 @@
     dest: "{{ filebeat.ssl_key_path }}"
 
 - name: Install SSL certificate authority
-    file:
-      src: "filebeat/esgf-cas.crt"
-      dest: "{{ filebeat.ssl_ca_path }}"
+  file:
+    src: "filebeat/esgf-cas.crt"
+    dest: "{{ filebeat.ssl_ca_path }}"
