@@ -136,6 +136,6 @@ filebeat:
   rpm: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-7.5.1-x86_64.rpm"
   data_log_path: "/var/log/httpd/country_downloads_log"
   ssl_ca_path: "/etc/filebeat/ca.pem"
-  ssl_key_path: "/etc/filebeat/cert.pem"
-  ssl_cert_path: "/etc/filebeat/key.pem"
+  ssl_key_path: "/etc/filebeat/key.pem"
+  ssl_cert_path: "/etc/filebeat/cert.pem"
   logstash_host: "ophidialab.cmcc.it:5044"
