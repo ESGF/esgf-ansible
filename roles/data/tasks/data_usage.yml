@@ -18,19 +18,19 @@
 
 - name: Install SSL certificate
   when: globushostcert is defined
-  file:
+  copy:
     remote_src: yes
     src: "{{ globushostcert }}"
     dest: "{{ filebeat.ssl_cert_path }}"
 
 - name: Install SSL key
   when: globushostkey is defined
-  file:
+  copy:
     remote_src: yes
     src: "{{ globushostkey }}"
     dest: "{{ filebeat.ssl_key_path }}"
 
 - name: Install SSL certificate authority
-  file:
+  copy:
     src: "filebeat/esgf-cas.crt"
     dest: "{{ filebeat.ssl_ca_path }}"
