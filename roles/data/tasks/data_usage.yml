@@ -5,7 +5,6 @@
       - mod_geoip
       - geoip
       - geoip-devel
-      - geoip-data
       - zlib-devel
 
 - name: Install filebeat
