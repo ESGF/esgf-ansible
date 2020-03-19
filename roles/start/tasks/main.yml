@@ -23,22 +23,6 @@
     - postgres
     - always
 
-- name: start monitoring
-  no_log: true
-  when: prometheus_hosts is defined or prometheus_ips is defined
-  command: "service {{ exporter.name }} start"
-  args:
-    warn: no
-  register: result
-  changed_when: '"already running" not in result.stderr'
-  failed_when: 'result.rc != 0 and "already running" not in result.stderr'
-  loop: "{{ prometheus.exporters }}"
-  loop_control:
-    loop_var: exporter
-  tags:
-    - monitoring
-    - always
-
 # Almost always start tomcat
 - name: start tomcat
   command: "nohup {{ tomcat_ctrl }} start"
@@ -113,12 +97,14 @@
     - slcs
 
 # Data services
-- name: start dashboard information provider
+- name: start filebeat
   when: "'data' in group_names"
-  shell: "nohup {{ dashboard.ip.ctrl_script }} start &>> {{ dashboard.ip.log }}"
+  service:
+    name: filebeat
+    state: started
   tags:
     - data
-    - dashboard-ip
+    - filebeat
 
 - name: start globus-gridftp-server
   when: "'data' in group_names"

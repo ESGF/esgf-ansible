@@ -132,23 +132,3 @@
 ## esg-dn2.nsc.liu.se
 ##
 #mirror_host: aims1.llnl.gov
-
-### Prometheus Hosts and/or IPs
-##
-### This deployment deploys Prometheus exporters if either of
-### the below variables are specified.
-##
-### These exporters report information and metrics about the node
-### to a Prometheus server. The Prometheus server(s) must be
-### specified so that it can be trusted to communicate with
-### the exporters. Place your own Prometheus server here if
-### applicable. This trust is at the webserver level.
-##
-### Information will not be collected until your host is added
-### to the Prometheus server's target list. Uncomment and populate
-### the following lines if you would like to participate in this.
-##
-#prometheus_hosts:
-#  - aims1.llnl.gov
-#prometheus_ips:
-#  - 10 # Trust your whole internal network

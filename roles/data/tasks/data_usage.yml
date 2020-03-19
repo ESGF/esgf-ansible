@@ -1,0 +1,36 @@
+
+- name: Install required libraries for mod_geoip
+  package:
+    name:
+      - mod_geoip
+      - geoip
+      - geoip-devel
+      - zlib-devel
+
+- name: Install filebeat
+  package:
+    name: "{{ filebeat.rpm }}"
+
+- name: Install filebeat config
+  template:
+    src: filebeat/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: Install SSL certificate
+  when: globushostcert is defined
+  copy:
+    remote_src: yes
+    src: "{{ globushostcert }}"
+    dest: "{{ filebeat.ssl_cert_path }}"
+
+- name: Install SSL key
+  when: globushostkey is defined
+  copy:
+    remote_src: yes
+    src: "{{ globushostkey }}"
+    dest: "{{ filebeat.ssl_key_path }}"
+
+- name: Install SSL certificate authority
+  copy:
+    src: "filebeat/esgf-cas.crt"
+    dest: "{{ filebeat.ssl_ca_path }}"

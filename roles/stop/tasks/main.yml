@@ -16,19 +16,6 @@
     - postgres
     - never
 
-- name: stop montioring
-  when: prometheus_hosts is defined or prometheus_ips is defined
-  no_log: true
-  command: "service {{ exporter.name }} stop"
-  args:
-    warn: no
-  loop: "{{ prometheus.exporters }}"
-  loop_control:
-    loop_var: exporter
-  tags:
-    - monitoring
-    - never
-
 # Tomcat
 - name: stop tomcat
   command: "{{ tomcat_ctrl }} stop"
@@ -76,12 +63,14 @@
     - slcs
 
 # Data services
-- name: stop dashboard information provider
+- name: stop filebeat
   when: "'data' in group_names"
-  shell: "{{ dashboard.ip.ctrl_script }} stop &>> {{ dashboard.ip.log }}"
+  service:
+    name: filebeat
+    state: stopped
   tags:
-    - data
-    - dashboard-ip
+    - never
+    - filebeat
 
 - name: stop globus-gridftp-server
   when: "'data' in group_names"
