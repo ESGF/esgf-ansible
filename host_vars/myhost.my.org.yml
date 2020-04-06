@@ -29,6 +29,15 @@
 #    if the corresponding generate_* variable is uncommented and set
 #    to true. See the below certificate sections.
 
+### Filebeat
+##
+### The paths to the certifcate and key files that will
+### authenticate the filebeat log transmitter to the logstash
+### collector. These may be the same as the globus key and cert below.
+#
+#filebeatcert:
+#filebeatkey:
+
 ### Keys and Certificates for Globus Services
 ##
 ### The paths on the *managed* machine to the respective
