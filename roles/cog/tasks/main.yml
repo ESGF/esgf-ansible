@@ -13,55 +13,55 @@
   register: cog_clone
 
 - name: Create CoG conda env
-  command: "{{ conda.exe }} create -y -n cog 'python=3.7' pip"
+  command: "{{ conda.exe }} create -y -n {{ cog.env }} 'python>=3.7' pip"
   args:
-    creates: "{{ conda.envs }}/cog"
+    creates: "{{ conda.envs }}/{{ cog.env }}"
   register: cog_env
 
 - name: Install CoG Requirments
   shell: >
-    {{ conda.actv }} cog && \
-    pip install 'mod_wsgi<4.6' 'git+https://github.com/mauzey1/django-openid-auth.git#egg=django-openid-auth' -r requirements.txt
+    {{ conda.actv }} {{ cog.env }} && \
+    pip install 'mod_wsgi' 'git+https://github.com/edx-unsupported/django-openid-auth' -r requirements.txt
   args:
     chdir: "{{ cog.dest }}"
 
 # Install mkproxy
-- name: Clone Transfer API Client Repo
-  git:
-    repo: "https://github.com/globusonline/transfer-api-client-python.git"
-    dest: "{{ cog.base }}/transfer-api-client-python"
+#- name: Clone Transfer API Client Repo
+#  git:
+#    repo: "https://github.com/globusonline/transfer-api-client-python.git"
+#    dest: "{{ cog.base }}/transfer-api-client-python"
 
-- name: Make and Install mkproxy
-  shell: >
-    {{ conda.actv }} cog && \
-    make && make install
-  args:
-    chdir: "{{ cog.base }}/transfer-api-client-python/mkproxy"
+#- name: Make and Install mkproxy
+#  shell: >
+#    {{ conda.actv }} cog && \
+#    make && make install
+#  args:
+#    chdir: "{{ cog.base }}/transfer-api-client-python/mkproxy"
 
-- name: Install CoG into conda env
-  shell: >
-    {{ conda.actv }} cog && \
-    python setup.py --quiet install
-  args:
-    chdir: "{{ cog.dest }}"
+#- name: Install CoG into conda env
+#  shell: >
+#    {{ conda.actv }} cog && \
+#    python setup.py --quiet install
+#  args:
+#    chdir: "{{ cog.dest }}"
 
 - name: Setup CoG
   shell: >
-    {{ conda.actv }} cog && \
+    {{ conda.actv }} {{ cog.env }} && \
     python setup.py setup_cog --esgf=true
   args:
     chdir: "{{ cog.dest }}"
 
 - name: CoG collectstatic
   shell: >
-    {{ conda.actv }} cog && \
+    {{ conda.actv }} {{ cog.env }} && \
     python manage.py collectstatic --no-input
   args:
     chdir: "{{ cog.dest }}"
 
 - name: Setup CoG mod_wsgi-express server
   shell: >
-    {{ conda.actv }} cog && \
+    {{ conda.actv }} {{ cog.env }} && \
     mod_wsgi-express setup-server apache/wsgi.py \
     --server-root {{ cog.wsgi_dir }} \
     --user apache --group apache \
