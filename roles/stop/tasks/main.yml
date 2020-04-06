@@ -20,7 +20,10 @@
 - name: stop tomcat
   command: "{{ tomcat_ctrl }} stop"
   register: result
-  failed_when: 'result.rc != 0 and "Is Tomcat running?" not in result.stdout'
+  failed_when: >
+    (result.rc != 0) and
+    ("Is Tomcat running?" not in result.stdout') and
+    ("PID file found but either no matching process was found" not in result.stdout)
   tags:
     - data
     - idp
