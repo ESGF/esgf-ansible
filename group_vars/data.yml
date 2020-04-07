@@ -10,10 +10,6 @@ thredds_webapp:
   url: "{{ assets.base }}/thredds.war"
   name: thredds
 
-stats_webapp:
-  url: "{{ assets.stats_api }}/esgf-stats-api.war"
-  name: esgf-stats-api
-
 node_manager:
   egg:
     name: "esgf_node_manager-{{ versions.node_manager_db }}-py2.7.egg"

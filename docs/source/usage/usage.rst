@@ -11,7 +11,7 @@ Inventory Files
 This file specifies the managed machines.
 It is specified at the command line via ``-i [inventory file name]``.
 
-See the sample inventory file, `sample.hosts <https://github.com/ESGF/esgf-ansible/blob/4.0.5/sample.hosts>`_ for more information.
+See the sample inventory file, `sample.hosts <https://github.com/ESGF/esgf-ansible/blob/4.0.6/sample.hosts>`_ for more information.
 
 Also, see `Ansible's Inventory Info <https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html>`_.
 
@@ -20,9 +20,9 @@ Host Variable Files
 These files specify options for each managed machine.
 It is automatically detected for each managed machine and must be named ``host_vars/[hostname].yml`` where ``[hostname]`` is the hostname of each managed machine.
 
-See the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars/myhost.my.org.yml>`_ for more information.
+See the sample host variable file, `host_vars/myhost.my.org.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.6/host_vars/myhost.my.org.yml>`_ for more information.
 
-Also, see the other sample files in `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.5/host_vars>`_, and find the sample file
+Also, see the other sample files in `host_vars <https://github.com/ESGF/esgf-ansible/blob/4.0.6/host_vars>`_, and find the sample file
 that best describes the desired use case.
 
 Examples
@@ -76,13 +76,13 @@ A test deployment to all managed test hosts, with SSH via a non-root user, *joe*
 Deployment Control
 ******************
 These examples show various ways of controlling the deployment process. 
-Deployments are done in the order of includes in `install.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.5/install.yml>`_.
+Deployments are done in the order of includes in `install.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.6/install.yml>`_.
 This order is base, idp, index then data. 
 While repeating steps will not cause any problems, it simply slows things down. 
 Additionally, for a more reliable deployment process it may be desired to do one phase at a time. 
 Or if the deployment got interrupted after completing, for example, the `base` steps, these steps could be skipped when the deployment is started again.
 
-Controlling the deployment is done with tags. The tags available in the `install.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.5/install.yml>`_ play are ``base``, ``idp``, ``index``, ``data`` and ``publisher``.
+Controlling the deployment is done with tags. The tags available in the `install.yml <https://github.com/ESGF/esgf-ansible/blob/4.0.6/install.yml>`_ play are ``base``, ``idp``, ``index``, ``data`` and ``publisher``.
 These can be used with ``--tags`` and ``--skip-tags``,  as well as with ``--limit [hostname]`` to control exactly what is done and where.
 The ``base`` steps will be done everytime unless specified via ``--skip-tags``.
 
@@ -113,13 +113,13 @@ Starting and Stopping Services
 ******************************
 Node services can be started or stopped using the start.yml and stop.yml playbooks. 
 In the examples below, start tags and stop tags are any combination of 
-``[cog, slcs, myproxy, tomcat, solr, dashboard-ip, gridftp, httpd, postgres, monitoring, data, idp, index]``. 
+``[cog, slcs, myproxy, tomcat, solr, filebeat, gridftp, httpd, postgres, data, idp, index]``. 
 These tags can also be used in any combination in ``--skip-tags``.
 
 By default, if no start tags are specified, all services will be started. 
-The services ``httpd``, ``postgres`` and ``monitoring`` will always be started, unless specified via ``--skip-tags``. 
-If no stop tags are specified, all services, **except** ``httpd``, ``postgres`` and ``monitoring``, will be stopped. 
-The services ``httpd``, ``postgres`` and ``monitoring`` will only be stopped if their respective tag is specified via ``--tags``. ::
+The services ``httpd`` and ``postgres`` will always be started, unless specified via ``--skip-tags``. 
+If no stop tags are specified, all services, **except** ``httpd`` and ``postgres``, will be stopped. 
+The services ``httpd`` and ``postgres`` will only be stopped if their respective tag is specified via ``--tags``. ::
 
     ansible-playbook -v -i hosts.test start.yml [ --tags [start tags] ]
     ansible-playbook -v -i hosts.test stop.yml [ --tags [stop tags] ]
