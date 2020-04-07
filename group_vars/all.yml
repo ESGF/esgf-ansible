@@ -116,11 +116,6 @@ security:
     url: "{{ assets.security }}/esgf_security-{{ versions.security_db }}-py2.7.egg"
     script: "esgf_security_initialize"
 
-type_bits:
-  data: 4
-  index: 8
-  idp: 16
-
 grid_security:
   dir: /etc/grid-security
   cert_dir: /etc/grid-security/certificates

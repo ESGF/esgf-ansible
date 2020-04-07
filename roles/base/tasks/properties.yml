@@ -9,8 +9,3 @@
     dest: "{{ esg.config.dir }}/esgf.properties"
     force: no
 
-- name: Install config_type
-  template:
-    src: config_type.j2
-    dest: "{{ esg.config.dir }}/config_type"
-    force: no
