@@ -17,8 +17,8 @@ solr:
       args: "-Denable.slave=true"
 
 cog:
-  repo: https://github.com/EarthSystemCoG/COG.git
-  version: v3.15.3
+  repo: https://github.com/ESGF/COG.git
+  version: devel
   dest: /usr/local/cog/cog_install
   base: /usr/local/cog
   wsgi_dir: /etc/cog-wsgi-8889
