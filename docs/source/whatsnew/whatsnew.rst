@@ -6,6 +6,17 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.6 (2020-04-07)
+******************
+
+Critical
+--------
+- Now installs the new filebeat log transmitter and the respective configuration
+
+Info
+- Does not remove old log collection software that is already installed
+- The filebeat installation requires a signed certificate from an ESGF CA, see ``esgf-globus-ca.yml``
+
 4.0.5 (2019-10-29)
 ******************
 
