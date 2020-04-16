@@ -178,14 +178,14 @@ NameVirtualHost *:80
 
 
 # add local configuration that is to be applied _outside_ of VirtualHost sections, if any,
-# to /etc/httpd/conf/esgf-httpd-local-toplevel.conf
+# to /etc/httpd/conf/esgf-httpd-local-common.conf
 # There are also optional Include files specific to the virtual hosts - see below
 
 # Note: IncludeOptional woks in apache >= 2.3.6.  However, in < 2.4.30, any fixed filename
 #       must still exist or it will fail -- it is only truly optional where a wildcard is used.
 #       So the [f] is a workaround which forces it to be treated as a wildcard.
 
-IncludeOptional /etc/httpd/conf/esgf-httpd-local-toplevel.con[f]
+IncludeOptional /etc/httpd/conf/esgf-httpd-local-common.con[f]
 
 
 <VirtualHost *:80>
@@ -212,7 +212,7 @@ IncludeOptional /etc/httpd/conf/esgf-httpd-local-toplevel.con[f]
 
 	# add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive).
 	# For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
-	# For outside of VirtualHost sections, there is esgf-httpd-local-toplevel.conf
+	# For outside of VirtualHost sections, there is esgf-httpd-local-common.conf
 	#
 	# (the "[f]" is explained in the above comment re IncludeOptional syntax)
 	IncludeOptional /etc/httpd/conf/esgf-httpd-local.con[f]
