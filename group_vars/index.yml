@@ -17,7 +17,7 @@ solr:
       args: "-Denable.slave=true"
 
 cog:
-  repo: repo: https://github.com/mauzey1/COG
+  repo: https://github.com/mauzey1/COG
   version: cedadev_devel_globus
   dest: /usr/local/cog/cog_install
   base: /usr/local/cog
