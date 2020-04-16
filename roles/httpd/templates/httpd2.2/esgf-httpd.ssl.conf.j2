@@ -28,8 +28,12 @@ NameVirtualHost *:443
 	Header always set Strict-Transport-Security "max-age=31557600; includeSubdomains;"
 	Header always set X-Content-Type-Options nosniff
 
-	#add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-locals.conf (without virtualhost directive) and uncomment following line. For http, the file is esgf-httpd-local.conf (locals for https, local for http)
-	#Include /etc/httpd/conf/esgf-httpd-locals.conf
+	# add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-locals.conf (without virtualhost directive).
+	# For http, the file is esgf-httpd-local.conf (locals for https, local for http)
+	# For outside of VirtualHost sections, there is esgf-httpd-local-toplevel.conf
+	#
+	# (the "[f]" is explained in a comment in esgf-httpd.conf re IncludeOptional syntax)
+	IncludeOptional /etc/httpd/conf/esgf-httpd-locals.con[f]
 
 	ProxyPassMatch  ^/solr(.*)$     http://localhost:8983/solr$1
 	ProxyPassReverse        /solr   http://localhost:8983/solr
