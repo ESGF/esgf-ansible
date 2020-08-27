@@ -78,6 +78,7 @@
     remote_src: yes
     src: "{{ myproxy.ca.cert }}"
     dest: "{{ grid_security.cert_dir }}/{{ myproxyca_hash.stdout.strip() }}.0"
+    mode: "0666"
 
 - name: Install myproxy CA signing policy into {{ grid_security.cert_dir }}
   copy:
