@@ -15,5 +15,5 @@
     creates: "{{ conda.prefix }}"
   register: conda_install
 
-- name: Get latest 4.6 Conda
-  command: "{{ conda.exe }} install -y -c defaults 'conda<4.7'"
+- name: Get latest 4.8 Conda
+  command: "{{ conda.exe }} install -y -c defaults 'conda<=4.8'"
