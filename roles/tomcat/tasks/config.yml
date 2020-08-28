@@ -17,14 +17,17 @@
   template:
     src: setenv.sh.j2
     dest: "{{ tomcat.path }}/bin/setenv.sh"
+    mode: 0644
 
 - name: Install tomcat-users.xml
   template:
     src: tomcat-users.xml.j2
     dest: "{{ esg.config.dir }}/tomcat/tomcat-users.xml"
     force: no
+    mode: 0644
 
 - name: Install context.xml
   copy:
     src: context.xml
     dest: "{{ tomcat.path }}/conf/context.xml"
+    mode: 0644

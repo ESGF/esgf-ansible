@@ -4,6 +4,7 @@
   get_url:
     url: "{{ tomcat.ts.url }}"
     dest: "{{ tomcat.ts.path }}"
+    mode: 0644
 
 - name: Get webcert hash
   command: openssl x509 -in {{ httpd.hostcert }} -hash -noout
