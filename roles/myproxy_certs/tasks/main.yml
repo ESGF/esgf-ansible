@@ -78,13 +78,14 @@
     remote_src: yes
     src: "{{ myproxy.ca.cert }}"
     dest: "{{ grid_security.cert_dir }}/{{ myproxyca_hash.stdout.strip() }}.0"
-    mode: "0666"
+    mode: 0644
 
 - name: Install myproxy CA signing policy into {{ grid_security.cert_dir }}
   copy:
     remote_src: yes
     src: "{{ myproxy.ca.signing_policy }}"
     dest: "{{ grid_security.cert_dir }}/{{ myproxyca_hash.stdout.strip() }}.signing_policy"
+    mode: 0644
 
 # CentOS7 myproxy-server requires these files be here
 - name: Ensure the myproxy hostcert and hostkey dir exists
