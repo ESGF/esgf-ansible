@@ -152,4 +152,4 @@
         timeout: 5
       tags:
         - index
-        - esgf_wget
+        - wget_api
