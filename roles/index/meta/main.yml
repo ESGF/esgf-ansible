@@ -5,3 +5,4 @@ dependencies:
   - { role: cog }
   - { role: tomcat_webapp, webapp: "{{ search_webapp }}" }
   - { role: solr }
+  - { role: esgf-wget }
