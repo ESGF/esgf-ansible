@@ -26,3 +26,10 @@ cog:
 node_status:
   repo: https://github.com/ESGF/esgf-utils
   dest: /usr/local/esgf-utils
+
+esgf_wget:
+  repo: https://github.com/ESGF/esgf-wget.git
+  version: devel
+  dest: /usr/local/esgf-wget/install
+  base: /usr/local/esgf-wget
+  wsgi_dir: /etc/esgf-wget-wsgi-8890
