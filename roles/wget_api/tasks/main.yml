@@ -25,14 +25,19 @@
     dest: "{{ esgf_wget.dest }}/esgf_wget/local_settings.py"
     mode: 0644
 
-- name: Create Django secret file
-  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.dest }}/esgf_wget/secret_key.txt
+- name: Create wget_api config directory
+  file:
+    path: "{{ esgf_wget.base }}/conf"
+    state: directory
+
+- name: Create Django secret file for wget_api
+  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.base }}/conf/secret_key.txt
   args:
-    creates: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
+    creates: "{{ esgf_wget.base }}/conf/secret_key.txt"
 
 - name: Set file permissions on secret file
   file:
-    path: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
+    path: "{{ esgf_wget.base }}/conf/secret_key.txt"
     mode: 0600
 
 - name: Setup Esgf-wget mod_wsgi-express server
