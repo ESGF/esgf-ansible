@@ -19,6 +19,11 @@
   args:
     chdir: "{{ esgf_wget.dest }}"
 
+- name: Install the settings.py file
+  template:
+    src: esgf_wget/settings.py.j2
+    dest: "{{ esgf_wget.dest }}/esgf_wget/local_settings.py"
+
 - name: Create Django secret file
   shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
   args:

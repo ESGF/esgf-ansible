@@ -16,3 +16,6 @@
 - name: Restart CoG
   command: /etc/cog-wsgi-8889/apachectl restart
 
+- name: Restart wget_api
+  command: /etc/esgf-wget-wsgi-8891/apachectl restart
+

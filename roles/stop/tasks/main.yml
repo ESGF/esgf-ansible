@@ -35,6 +35,13 @@
     - index
     - cog
 
+- name: stop wget_api
+  when: "'index' in group_names"
+  command: "{{ esgf_wget.wsgi_dir }}/apachectl stop"
+  tags:
+    - index
+    - wget_api
+
 - name: stop solr
   when: "'index' in group_names"
   become: yes

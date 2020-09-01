@@ -32,4 +32,4 @@ esgf_wget:
   version: devel
   dest: /usr/local/esgf-wget/install
   base: /usr/local/esgf-wget
-  wsgi_dir: /etc/esgf-wget-wsgi-8890
+  wsgi_dir: /etc/esgf-wget-wsgi-8891
