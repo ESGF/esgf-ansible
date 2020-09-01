@@ -23,12 +23,12 @@
   template:
     src: esgf_wget/settings.py.j2
     dest: "{{ esgf_wget.dest }}/esgf_wget/local_settings.py"
+    mode: 0644
 
 - name: Create Django secret file
   shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.dest }}/esgf_wget/secret_key.txt
   args:
     creates: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
-  no_log: true
 
 - name: Set file permissions on secret file
   file:
