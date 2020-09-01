@@ -34,6 +34,7 @@
   shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.base }}/conf/secret_key.txt
   args:
     creates: "{{ esgf_wget.base }}/conf/secret_key.txt"
+  no_log: true
 
 - name: Set file permissions on secret file
   file:
