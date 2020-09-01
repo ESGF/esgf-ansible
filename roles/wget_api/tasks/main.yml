@@ -25,7 +25,7 @@
     dest: "{{ esgf_wget.dest }}/esgf_wget/local_settings.py"
 
 - name: Create Django secret file
-  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
+  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.dest }}/esgf_wget/secret_key.txt
   args:
     creates: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
   no_log: true
