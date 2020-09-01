@@ -53,6 +53,9 @@ NameVirtualHost *:443
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
 
+	ProxyPass /esgf-wget	      http://localhost:8891/esgf-wget
+	ProxyPassReverse /esgf-wget   http://localhost:8891/esgf-wget
+
 	Include {{ httpd.ssl_proxy_dir }}/*.conf
 
 	Alias /robots.txt /var/www/html/robots.txt
