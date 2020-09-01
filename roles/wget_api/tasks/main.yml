@@ -19,6 +19,17 @@
   args:
     chdir: "{{ esgf_wget.dest }}"
 
+- name: Create Django secret file
+  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ slcs.home }}/conf/app/secret_key.txt
+  args:
+    creates: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
+  no_log: true
+
+- name: Set file permissions on secret file
+  file:
+    path: "{{ esgf_wget.dest }}/esgf_wget/secret_key.txt"
+    mode: 0600
+
 - name: Setup Esgf-wget mod_wsgi-express server
   shell: >
     {{ conda.actv }} wget_api && \
