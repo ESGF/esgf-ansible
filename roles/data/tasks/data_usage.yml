@@ -34,3 +34,4 @@
   copy:
     src: "filebeat/esgf-cas.crt"
     dest: "{{ filebeat.ssl_ca_path }}"
+    mode: 0644

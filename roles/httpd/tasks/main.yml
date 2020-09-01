@@ -16,6 +16,7 @@
   template:
     src: robots.txt
     dest: /var/www/html/robots.txt
+    mode: 0644
 
 # Create config dirs
 - name: Create esgf-proxy configuration directories
@@ -69,6 +70,7 @@
   get_url:
     url: "{{ httpd.trusted_ca.url }}"
     dest: "{{ httpd.cabundle }}"
+    mode: 0644
 
 - name: Copy {{ trusted_certs }} into place
   when: trusted_certs is defined
@@ -122,6 +124,7 @@
     remote_src: yes
     src: "{{ hostkey_src }}"
     dest: "{{ httpd.hostkey }}"
+    mode: 0644
 
 - name: Copy web hostcert into place
   when: hostcert_src is defined
@@ -129,6 +132,7 @@
     remote_src: yes
     src: "{{ hostcert_src }}"
     dest: "{{ httpd.hostcert }}"
+    mode: 0644
 
 - name: Copy web CA chain into place
   when: cachain_src is defined
@@ -142,3 +146,4 @@
   template:
     src: "httpd{{ httpd_version }}/esgf-httpd.ssl.conf.j2"
     dest: /etc/httpd/conf/httpd.ssl.conf
+    mode: 0644
