@@ -56,8 +56,8 @@ NameVirtualHost *:443
 	ProxyPass /esgf-slcs   http://localhost:8888/esgf-slcs
 	ProxyPassReverse /esgf-slcs   http://localhost:8888/esgf-slcs
 
-	ProxyPass 	/esgf-wget	https://localhost:8891/esgf-wget
-	ProxyPassReverse /esgf-wget	https://localhost:8891/esgf-wget
+	ProxyPass 	/esgf-wget	http://localhost:8891/esgf-wget
+	ProxyPassReverse /esgf-wget	http://localhost:8891/esgf-wget
 
 	IncludeOptional {{ httpd.ssl_proxy_dir }}/*.conf
 
