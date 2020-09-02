@@ -235,8 +235,8 @@ NameVirtualHost *:80
 	ProxyPass /las	ajp://localhost:8223/las
 	ProxyPassReverse /las	ajp://localhost:8223/las
 
-	ProxyPass /esgf-wget	http://localhost:8891/esgf-wget
-	ProxyPassReverse /esgf-wget	http://localhost:8891/esgf-wget
+	ProxyPass /wget	http://localhost:8891/wget
+	ProxyPassReverse /wget	http://localhost:8891/wget
 
 	Include {{ httpd.proxy_dir }}/*.conf
 
