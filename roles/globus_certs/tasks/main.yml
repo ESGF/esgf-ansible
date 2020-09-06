@@ -31,6 +31,12 @@
     path: "{{ gridftp.chroot }}"
   register: gridftp_chroot
 
+- name: Create cert directory in chroot-jail
+  when: gridftp_chroot.stat.exists
+  file:
+    path: "{{ gridftp.chroot }}{{ grid_security.cert_dir }}"
+    state: directory
+
 - name: Copy certificates over if it is
   when: gridftp_chroot.stat.exists
   shell: >
