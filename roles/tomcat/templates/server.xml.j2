@@ -69,7 +69,7 @@
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                proxyPort="8080"
-               proxyName="{proxyName}"
+               proxyName="{{ hostname.self }}"
                server='X'
                redirectPort="8443" />
 
@@ -101,7 +101,7 @@
 
     <!-- The tomcat webapps are proxied from port 8223 -->
     <Connector port="8223" protocol="AJP/1.3" redirectPort="8443"
-               maxConnections="256" keepAliveTimeout="30000"  />
+               maxConnections="256" keepAliveTimeout="30000" secretRequired="false" />
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
@@ -122,7 +122,7 @@
       -->
 
       <Realm className="org.apache.catalina.realm.MemoryRealm" pathname="/esg/config/tomcat/tomcat-users.xml">
-          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="MD5" />
+          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-256" />
       </Realm>
 
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords

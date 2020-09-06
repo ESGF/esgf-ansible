@@ -1,8 +1,0 @@
-
-<Location "{{ exporter.web_path }}">
-    Deny from all
-    Allow from localhost {% if prometheus_hosts is defined %} {{ prometheus_hosts | join(' ') }} {% endif %} {% if prometheus_ips is defined %} {{ prometheus_ips | join(' ') }} {% endif %}
-
-    ProxyPass http://localhost:{{ exporter.port }}/metrics
-    ProxyPassReverse http://localhost:{{ exporter.port }}/metrics
-</Location>

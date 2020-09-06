@@ -40,6 +40,16 @@
     src: thredds/log4j2.xml
     dest: "{{ tomcat.webapps }}/{{ thredds_webapp.name }}/WEB-INF/classes/log4j2.xml"
 
+- name: Digest thredds user credential
+  no_log: true
+  command: "{{ tomcat.path }}/bin/digest.sh -a 'sha-256' -s 20 -i 5 {{ thredds.tomcat_user.pass }}"
+  register: cred_digest
+
+- name: Set credential digest variable
+  no_log: true
+  set_fact:
+    thredds_pass_digest: "{{ cred_digest.stdout.split(':')[-1] }}"
+
 - name: Install {{ thredds.tomcat_user.name }} into tomcat-users.xml
   template:
     src: thredds/tomcat-users.xml.j2

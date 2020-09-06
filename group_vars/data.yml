@@ -3,16 +3,12 @@ thredds:
   content: "{{ esg.content }}/thredds"
   tomcat_user:
     name: "dnode_user"
-    pass: "{{ admin_pass |hash('md5') }}"
+    pass: "{{ admin_pass }}"
     roles: "tdrAdmin,tdsConfig"
 
 thredds_webapp:
   url: "{{ assets.base }}/thredds.war"
   name: thredds
-
-stats_webapp:
-  url: "{{ assets.stats_api }}/esgf-stats-api.war"
-  name: esgf-stats-api
 
 node_manager:
   egg:

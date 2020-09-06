@@ -17,5 +17,14 @@
 
     # Install Certs
     - name: Install Globus Identity key/cert
+      when: globus_user is defined and globus_pass is defined
       include_role:
         name: globus_tools
+    
+    - name: Install filebeat certificate and key
+      when: "'data' in group_names"
+      include_role:
+        name: data
+        tasks_from: data_usage.yml
+      vars:
+        skip_deps: true

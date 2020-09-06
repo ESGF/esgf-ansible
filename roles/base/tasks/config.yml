@@ -17,6 +17,7 @@
     src: /tmp/esgf-config/esgf-prod/{{ item }}.xml
     dest: "{{ esg.config.dir }}/{{ item }}.xml"
     force: no
+    mode: 0644
   loop:
     - esgf_ats_static
     - esgf_cogs
@@ -48,15 +49,18 @@
     src: esgf_idp.xml.j2
     dest: "{{ esg.config.dir }}/esgf_idp.xml"
     force: no
+    mode: 0644
 
 - name: Install esgf_ats.xml
   template:
     src: esgf_ats.xml.j2
     dest: "{{ esg.config.dir }}/esgf_ats.xml"
     force: no
+    mode: 0644
 
 - name: Install esgf_azs.xml
   template:
     src: esgf_azs.xml.j2
     dest: "{{ esg.config.dir }}/esgf_azs.xml"
     force: no
+    mode: 0644

@@ -14,10 +14,8 @@ httpd_version: "{{ '2.4' if (is_7) else '2.2' }}"
 versions:
   installer: 4.0.0-alpha1
   java: jdk1.8.0_192
-  search: v4.17.9
+  search: v4.18.1
   stats_api: v1.0.9
-  dashboard: v1.5.25
-  dashboard_db: 0.0.4
   node_manager: v1.0.5
   node_manager_db: 0.1.7
   orp: v2.11.0
@@ -29,7 +27,6 @@ assets:
   base: https://github.com/ESGF/esgf-ansible/releases/download/{{ versions.installer }}
   search: https://github.com/ESGF/esg-search/releases/download/{{ versions.search }}
   stats_api: https://github.com/ESGF/esgf-stats-api/releases/download/{{ versions.stats_api }}
-  dashboard: https://github.com/ESGF/esgf-dashboard/releases/download/{{ versions.dashboard }}
   node_manager: https://github.com/ESGF/esgf-node-manager/releases/download/{{ versions.node_manager }}
   orp: https://github.com/ESGF/esg-orp/releases/download/{{ versions.orp }}
   security: https://github.com/ESGF/esgf-security/releases/download/{{ versions.security }}
@@ -62,8 +59,8 @@ conda:
   mods: lib/python2.7/site-packages
 
 tomcat:
-  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz
-  root_dir: apache-tomcat-8.5.39
+  src: http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.57/bin/apache-tomcat-8.5.57.tar.gz
+  root_dir: apache-tomcat-8.5.57
   path: /usr/local/tomcat
   webapps: /usr/local/tomcat/webapps
   ts:
@@ -131,49 +128,14 @@ grid_security:
     key: /etc/grid-security/hostkey.pem
     cert: /etc/grid-security/hostcert.pem
 
-prometheus:
-  exporters:
-    - name: node_exporter
-      full_name: node_exporter-0.17.0.linux-amd64
-      src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
-      port: 9100
-      dir: /usr/local/node_exporter
-      web_path: /metrics
-      run: /usr/local/node_exporter/node_exporter
-
-    - name: apache_exporter
-      full_name: apache_exporter-0.5.0.linux-amd64
-      src: https://github.com/Lusitaniae/apache_exporter/releases/download/v0.5.0/apache_exporter-0.5.0.linux-amd64.tar.gz
-      port: 9117
-      dir: /usr/local/apache_exporter
-      web_path: /apache-metrics
-      run: "/usr/local/apache_exporter/apache_exporter -scrape_uri 'http://{{ hostname.self }}/server-status/?auto'"
-
-    - name: postgres_exporter
-      full_name: postgres_exporter_v0.4.7_linux-amd64
-      src: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.4.7/postgres_exporter_v0.4.7_linux-amd64.tar.gz
-      port: 9187
-      dir: /usr/local/postgres_exporter
-      web_path: /postgres-metrics
-      run: DATA_SOURCE_NAME='postgresql://{{ db_url }}?sslmode=disable'
-        /usr/local/postgres_exporter/postgres_exporter
-        --disable-default-metrics
-        --extend.query-path=/usr/local/postgres_exporter/queries.yml
-
-dashboard:
-  egg:
-    name: "esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
-    url: "{{ assets.dashboard }}/esgf_dashboard-{{ versions.dashboard_db }}-py2.7.egg"
-    script: esgf_dashboard_initialize
-  git:
-    repository: "https://github.com/ESGF/esgf-dashboard.git" # There is a problem naming this variable 'repo'
-    version: "{{ versions.dashboard }}"
-    dest: /usr/local/esgf-dashboard
-  ip:
-    home: /usr/local/esgf-dashboard-ip
-    ctrl_script: /usr/local/esgf-dashboard-ip/bin/ip.service
-    log: /usr/local/esgf-dashboard-ip/dashboard-ip.log
-
 gridftp:
   port: 2811
   chroot: "{{ esg.home }}/gridftp_root"
+
+filebeat:
+  rpm: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-7.5.1-x86_64.rpm"
+  data_log_path: "/var/log/httpd/country_downloads_log"
+  ssl_ca_path: "/etc/filebeat/ca.pem"
+  ssl_key_path: "/etc/filebeat/key.pem"
+  ssl_cert_path: "/etc/filebeat/cert.pem"
+  logstash_host: "ophidialab.cmcc.it:5044"

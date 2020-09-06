@@ -6,6 +6,37 @@ The Critical section outlines any items the are highly likely to require changes
 The Info section outlines informative items that may be helpful for users to know, but likely do not require action.
 All items described within a release are relative to the previous release.
 
+4.0.6 (2020-04-07)
+******************
+
+Critical
+--------
+- Now installs the new filebeat log transmitter and the respective configuration
+
+Info
+- Does not remove old log collection software that is already installed
+- The filebeat installation requires a signed certificate from an ESGF CA, see ``esgf-globus-ca.yml``
+
+4.0.5 (2019-10-29)
+******************
+
+Critical
+--------
+- All Globus tools setup steps will be skipped if the user does not provide Globus account credentials
+
+Info
+----
+- Added `developer documentation page  <../developers/developers.html>`_
+- Added `compatability infomation page  <../faq/comptable.html>`_
+- Tomcat updated to ``8.5.46``
+- ESG-Search updated to ``v4.17.10``
+- CoG update to ``v3.15.3``
+- A number of updates within the ESGF-Publisher Conda environment
+- Added playbook for node status tool ``install_ns.yml``
+- Updated ACME Challenge (for LetsEncrypt certifcates) to v2
+- Added ``roles/httpd/templates/robots.txt`` to direct web crawlers to not crawl ESGF data nodes
+
+
 4.0.4 (2019-07-10)
 ******************
 

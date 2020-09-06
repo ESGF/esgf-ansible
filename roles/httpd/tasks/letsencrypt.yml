@@ -3,7 +3,9 @@
 # Create an ACME Challenge
 - name: Create ACME Challenge
   acme_certificate:
-    acme_directory: https://acme-v01.api.letsencrypt.org/directory
+    acme_version: 2
+    terms_agreed: yes
+    acme_directory: https://acme-v02.api.letsencrypt.org/directory
     account_key_src: /tmp/account_key.pem
     csr: /tmp/httpdhost.csr
     dest: "{{ httpd.hostcert }}"
@@ -34,7 +36,9 @@
 - name: Run ACME Challenge
   when: acme_challenge is changed
   acme_certificate:
-    acme_directory: https://acme-v01.api.letsencrypt.org/directory
+    acme_directory: https://acme-v02.api.letsencrypt.org/directory
+    acme_version: 2
+    terms_agreed: yes
     account_key_src: /tmp/account_key.pem
     csr: /tmp/httpdhost.csr
     dest: "{{ httpd.hostcert }}"

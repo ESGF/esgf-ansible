@@ -1,6 +1,6 @@
 
-- name: Import dashboard tasks
-  import_tasks: dashboard.yml
+- name: Import data usage logging tasks
+  import_tasks: data_usage.yml
 
 - name: Import postgres tasks
   import_tasks: postgres.yml
