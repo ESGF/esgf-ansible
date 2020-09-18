@@ -101,7 +101,7 @@
 
     <!-- The tomcat webapps are proxied from port 8223 -->
     <Connector port="8223" protocol="AJP/1.3" redirectPort="8443"
-               maxConnections="256" keepAliveTimeout="30000"  />
+               maxConnections="256" keepAliveTimeout="30000" secretRequired="false" />
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
