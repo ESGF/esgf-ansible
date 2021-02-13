@@ -13,7 +13,7 @@
   register: cog_clone
 
 - name: Create CoG conda env
-  command: "{{ conda.exe }} create -y -n {{ cog.env }} 'python>=3.7' pip"
+  command: "{{ conda.exe }} create -y -n {{ cog.env }} 'python>=3.7,<3.9' pip"
   args:
     creates: "{{ conda.envs }}/{{ cog.env }}"
   register: cog_env
