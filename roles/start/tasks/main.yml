@@ -45,6 +45,15 @@
     - index
     - cog
 
+- name: start wget-api
+  when: "'index' in group_names"
+  command: "{{ esgf_wget.wsgi_dir }}/apachectl start"
+  register: result
+  changed_when: '"already running" not in result.stdout'
+  tags:
+    - index
+    - wget_api
+
 - name: Load solr startup file
   when: "'index' in group_names"
   slurp:

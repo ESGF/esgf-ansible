@@ -1,0 +1,60 @@
+
+- name: Clone Esgf-wget Repo
+  git:
+    repo: "{{ esgf_wget.repo }}"
+    dest: "{{ esgf_wget.dest }}"
+    version: "{{ esgf_wget.version }}"
+  register: esgf_wget_clone
+
+- name: Create wget_api conda env
+  command: "{{ conda.exe }} create -y -n wget_api 'python>=3' pip"
+  args:
+    creates: "{{ conda.envs }}/wget_api"
+  register: wget_api_env
+
+- name: Install Esgf-wget Requirements
+  shell: >
+    {{ conda.actv }} wget_api && \
+    pip install 'mod_wsgi' -r requirements.txt
+  args:
+    chdir: "{{ esgf_wget.dest }}"
+
+- name: Install the settings.py file
+  template:
+    src: esgf_wget/settings.py.j2
+    dest: "{{ esgf_wget.dest }}/esgf_wget/local_settings.py"
+    mode: 0644
+
+- name: Create wget_api config directory
+  file:
+    path: "{{ esgf_wget.base }}/conf"
+    state: directory
+
+- name: Create Django secret file for wget_api
+  shell: set +o pipefail && tr -dc '[:alnum:][:punct:]' < /dev/urandom | head -c 100 > {{ esgf_wget.base }}/conf/secret_key.txt
+  args:
+    creates: "{{ esgf_wget.base }}/conf/secret_key.txt"
+  no_log: true
+
+- name: Set file permissions on secret file
+  file:
+    path: "{{ esgf_wget.base }}/conf/secret_key.txt"
+    mode: 0600
+
+- name: Setup Esgf-wget mod_wsgi-express server
+  shell: >
+    {{ conda.actv }} wget_api && \
+    mod_wsgi-express setup-server {{ esgf_wget.dest }}/esgf_wget/wsgi.py \
+    --working-directory {{ esgf_wget.dest }}
+    --user apache --group apache \
+    --port 8891 \
+    --server-root={{ esgf_wget.wsgi_dir }}
+  args:
+    chdir: "{{ esgf_wget.dest }}"
+
+- name: Set Ownership
+  file:
+    path: "{{ esgf_wget.base }}"
+    owner: apache
+    group: apache
+    recurse: yes
