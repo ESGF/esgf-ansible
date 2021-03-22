@@ -188,6 +188,19 @@ NameVirtualHost *:80
         Order deny,allow
         Deny from All
 </Location>
+
+
+# add local configuration that is to be applied _outside_ of VirtualHost sections, if any,
+# to /etc/httpd/conf/esgf-httpd-local-common.conf
+# There are also optional Include files specific to the virtual hosts - see below
+
+# Note: IncludeOptional woks in apache >= 2.3.6.  However, in < 2.4.30, any fixed filename
+#       must still exist or it will fail -- it is only truly optional where a wildcard is used.
+#       So the [f] is a workaround which forces it to be treated as a wildcard.
+
+IncludeOptional /etc/httpd/conf/esgf-httpd-local-common.con[f]
+
+
 <VirtualHost *:80>
 
 	Alias /.well-known/acme-challenge/ /var/www/html/.well-known/acme-challenge/
@@ -210,8 +223,12 @@ NameVirtualHost *:80
 	RewriteCond %{REQUEST_URI} !^/server-status(.*)$
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 
-	#add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive) and uncomment following line. For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
-	#Include /etc/httpd/conf/esgf-httpd-local.conf
+	# add local configuration, if any,  to /etc/httpd/conf/esgf-httpd-local.conf (without virtualhost directive).
+	# For https, the file is esgf-httpd-locals.conf (locals for https, local for http)
+	# For outside of VirtualHost sections, there is esgf-httpd-local-common.conf
+	#
+	# (the "[f]" is explained in the above comment re IncludeOptional syntax)
+	IncludeOptional /etc/httpd/conf/esgf-httpd-local.con[f]
 
  	SSLProxyEngine On
 	ProxyPassMatch  ^/solr(.*)$     http://localhost:8983/solr$1
